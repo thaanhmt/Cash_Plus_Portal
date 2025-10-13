@@ -1,0 +1,135 @@
+﻿@model IOITWebApp31.Models.EF.Category
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table a{
+        color:#f1f1f1;
+    }
+</style>
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small ">
+                    <div class="col col-md-12 col-12">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Template</th>
+                                    <th scope="col">Link</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>home</td>
+                                    <td><a target="_blank" href="/">/</a></td>
+                                </tr>
+                                <tr>
+                                    <td>đăng nhập</td>
+                                    <td><a target="_blank" href="/dang-nhap">/dang-nhap</a></td>
+                                </tr>
+                                <tr>
+                                    <td>đăng ký</td>
+                                    <td><a target="_blank" href="/dang-ky">/dang-ky</a></td>
+                                </tr>
+                                <tr>
+                                    <td>thiết lập mật khẩu</td>
+                                    <td><a target="_blank" href="/thiet-lap-mat-khau">/thiet-lap-mat-khau</a></td>
+                                </tr>
+                                <tr>
+                                    <td>lấy lại mật khẩu</td>
+                                    <td><a target="_blank" href="/lay-lai-mat-khau">/lay-lai-mat-khau</a></td>
+                                </tr>
+                                <tr>
+                                    <td>trang cảm ơn</td>
+                                    <td><a target="_blank" href="/thankyou">/thankyou</a></td>
+                                </tr>
+                                <tr>
+                                    <td>hồ sơ</td>
+                                    <td><a target="_blank" href="/ho-so">/ho-so</a></td>
+                                </tr>
+                                <tr>
+                                    <td>thông tin chung</td>
+                                    <td><a target="_blank" href="/thong-tin-chung">/thong-tin-chung</a></td>
+                                </tr>
+                                <tr>
+                                    <td>thông tin tài khoản</td>
+                                    <td><a target="_blank" href="/thong-tin-tai-khoan">/thong-tin-tai-khoan</a></td>
+                                </tr>
+                                <tr>
+                                    <td>trang tổng quan dữ liệu</td>
+                                    <td><a target="_blank" href="/tong-quan-du-lieu">/tong-quan-du-lieu</a></td>
+                                </tr>
+                                <tr>
+                                    <td>trang toàn bộ dữ liệu</td>
+                                    <td><a target="_blank" href="/toan-bo-du-lieu">/toan-bo-du-lieu</a></td>
+                                </tr>
+                                <tr>
+                                    <td>chi tiết dữ liệu</td>
+                                    <td><a target="_blank" href="/chi-tiet-du-lieu">/chi-tiet-du-lieu</a></td>
+                                </tr>
+                                <tr>
+                                    <td>dữ liệu cá nhân</td>
+                                    <td><a target="_blank" href="/du-lieu-ca-nhan">/du-lieu-ca-nhan</a></td>
+                                </tr>
+                                <tr>
+                                    <td>thông tin cá nhân</td>
+                                    <td><a target="_blank" href="/thong-tin-ca-nhan">/thong-tin-ca-nhan</a></td>
+                                </tr>
+                                <tr>
+                                    <td>dữ liệu tác giả</td>
+                                    <td><a target="_blank" href="/du-lieu-tac-gia">/du-lieu-tac-gia</a></td>
+                                </tr>
+                                <tr>
+                                    <td>quản lý dữ liệu</td>
+                                    <td><a target="_blank" href="/quan-ly-du-lieu">/quan-ly-du-lieu</a></td>
+                                </tr>
+                                <tr>
+                                    <td>chi tiết dữ liệu v2</td>
+                                    <td><a target="_blank" href="/xem-chi-tiet-du-lieu">/xem-chi-tiet-du-lieu</a></td>
+                                </tr>
+                                <tr>
+                                    <td>tạo mới dữ liệu</td>
+                                    <td><a target="_blank" href="/tao-moi-du-lieu">/tao-moi-du-lieu</a></td>
+                                </tr>
+                                <tr>
+                                    <td>cập nhật dữ liệu</td>
+                                    <td><a target="_blank" href="/cap-nhat-du-lieu">/cap-nhat-du-lieu</a></td>
+                                </tr>
+                                <tr>
+                                    <td>quản lý thông báo</td>
+                                    <td><a target="_blank" href="/quan-ly-thong-bao">/quan-ly-thong-bao</a></td>
+                                </tr>
+                                <tr>
+                                    <td>cài đặt thông báo</td>
+                                    <td><a target="_blank" href="/cai-dat-thong-bao">/cai-dat-thong-bao</a></td>
+                                </tr>
+                                <tr>
+                                    <td>liên hệ faq</td>
+                                    <td><a target="_blank" href="/lien-he-faq">/lien-he-faq</a></td>
+                                </tr>
+                                <tr>
+                                    <td>chi tiết faq</td>
+                                    <td><a target="_blank" href="/chi-tiet-faq">/chi-tiet-faq</a></td>
+                                </tr>
+                                <tr>
+                                    <td>form liên hệ</td>
+                                    <td><a target="_blank" href="/form-lien-he">/form-lien-he</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Tin tức và FAQ</td>
+                                    <td><a target="_blank" href="/faq">/faq</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

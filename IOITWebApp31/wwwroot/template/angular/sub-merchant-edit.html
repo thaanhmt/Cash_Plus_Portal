@@ -1,0 +1,202 @@
+﻿<div class="modal-header ng-scope">
+    <h5 class="modal-title" ng-bind-html="title"></h5>
+    <button type="button" class="btn-close" aria-label="Close" ng-click="closeSubMerchantEdit()">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body" style="max-height: 600px;overflow-y: scroll;">
+    <form name="formSubMerchant" id="form-sub-merchant" ng-submit="saveSubMerchantEdit()" autocomplete="off" novalidate>
+        <div class="">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="info_representative" id="info_representative" checked
+                               value="1" ng-model="merchant.info_representative">
+                        <label class="form-check-label" for="info_representative">Sử dụng thông tin của người đại diện</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!--Tên cơ sở-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_name">
+                        <span class="text-danger">*<p>Tên cơ sở</p></span>
+                        <input type="text" ng-model="merchant.branch_name" class="form-control" name="branch_name" id="branch_name"
+                               placeholder="Nhập tên cơ sở" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.branch_name.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_name.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_name.$error.required">Tên cơ sở là bắt buộc.</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <!--Địa chỉ cơ sở-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_address">
+                        <span class="text-danger">*<p>Địa chỉ cơ sở</p></span>
+                        <input type="text" ng-model="merchant.branch_address" class="form-control" name="branch_address" id="branch_address"
+                               placeholder="Nhập địa chỉ cơ sở" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.branch_address.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_address.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_address.$error.required">Địa chỉ cơ sở là bắt buộc.</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!--Trạng thái-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p class="pr-3">Chọn tài khoản </p>
+                            <button type="button" class="btn btn-sm btn-primary mb-2 ml-2" ng-show="!disableBankAccount"
+                                    ng-click="openBankAccountEditModal(accountType, banks, checkAuthDocNumb, 'true')">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Thêm TK khác
+                            </button>
+                        </span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-subMerchant-account_id">
+                            <ui-select ng-model="merchant.account_id" name="account_id"
+                                       theme="select2" ng-disabled="disableBankAccount" required title="{{ $select.selected.value }}">
+                                <ui-select-match allow-clear="true" placeholder="Chọn tài khoản">
+                                    {{ $select.selected.value}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item.id as item in bankAccountInput | filter: $select.search"
+                                                   position="down">
+                                    <div ng-bind-html="item.value | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error" ng-show="formSubMerchant.$submitted && formSubMerchant.account_id.$invalid">
+                                <span class="text-danger" ng-show="formSubMerchant.account_id.$error.required">Tài khoản là bắt buộc.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Tên người đại diện cơ sở-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_rep_name">
+                        <span class="text-danger">*<p>Tên người đại diện cơ sở</p></span>
+                        <input type="text" ng-model="merchant.branch_rep_name" class="form-control" 
+                               name="branch_rep_name" id="branch_rep_name"
+                               placeholder="Nhập tên người đại diện cơ sở" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.branch_rep_name.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_rep_name.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_name.$error.required">Tên người đại diện là bắt buộc.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Ngày sinh-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_rep_yob">
+                        <span class="text-danger">*<p>Ngày sinh</p></span>
+                        <input type="date" ng-model="merchant.branch_rep_yob" class="form-control" 
+                               name="branch_rep_yob" id="branch_rep_yob" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.branch_rep_yob.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_rep_yob.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_yob.$error.required">Ngày sinh là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_yob.$error.date">Ngày sinh là bắt buộc.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Mã số thuế-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_rep_tax_no">
+                        <p>Mã số thuế của người đại diện</p>
+                        <input type="text" ng-model="merchant.branch_rep_tax_no" class="form-control" 
+                               name="branch_rep_tax_no" id="branch_rep_tax_no" maxlength="14" ng-minlength="10" ng-maxlength="14"
+                               placeholder="Nhập mã số thuế" style="width: 100%" ng-pattern="/^(?=.*\d)[\d-]{10,14}$/">
+                        <span class="error" ng-show="(formSubMerchant.branch_rep_tax_no.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_rep_tax_no.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_tax_no.$error.minlength || formSubMerchant.branch_rep_tax_no.$error.maxlength">Mã số từ 10-14 ký tự.</span>
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_tax_no.$error.pattern">Mã số thuế không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Số CCCD-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_rep_identity_no">
+                        <span class="text-danger">*<p>Số CCCD của người đại diện</p></span>
+                        <input type="text" ng-model="merchant.branch_rep_identity_no" class="form-control" 
+                               name="branch_rep_identity_no" id="branch_rep_identity_no" ng-pattern="/^\d+$/"
+                               placeholder="Nhập số CCCD" style="width: 100%" required maxlength="20">
+                        <span class="error" ng-show="(formSubMerchant.branch_rep_identity_no.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_rep_identity_no.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_identity_no.$error.required">Số CCCD là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_identity_no.$error.pattern">Số CCCD không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <!--Ngày cấp CCCD-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_rep_identity_issue_date">
+                        <span class="text-danger">*<p>Ngày cấp CCCD</p></span>
+                        <input type="date" ng-model="merchant.branch_rep_identity_issue_date" class="form-control" 
+                               name="branch_rep_identity_issue_date" id="branch_rep_identity_issue_date"
+                               style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.branch_rep_identity_issue_date.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_rep_identity_issue_date.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_identity_issue_date.$error.required">Ngày cấp CCCD là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_identity_issue_date.$error.date">Ngày cấp CCCD không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Nơi cấp CCCD-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_rep_identity_issue_place">
+                        <span class="text-danger">*<p>Nơi cấp CCCD</p></span>
+                        <input type="text" ng-model="merchant.branch_rep_identity_issue_place" class="form-control" 
+                               name="branch_rep_identity_issue_place" id="branch_rep_identity_issue_place"
+                               placeholder="Nhập nơi cấp" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.branch_rep_identity_issue_place.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_rep_identity_issue_place.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_identity_issue_place.$error.required">Nơi cấp CCCD là bắt buộc.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Hộ khẩu của người đại diện-->
+                    <div class="lstFrmInfoUser" id="input-subMerchant-branch_rep_permanent_residence">
+                        <span class="text-danger">*<p>Địa chỉ thường trú</p></span>
+                        <input type="text" ng-model="merchant.branch_rep_permanent_residence" class="form-control" 
+                               name="branch_rep_permanent_residence" id="branch_rep_permanent_residence"
+                               placeholder="Nhập địa chỉ" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.branch_rep_permanent_residence.$touched || formSubMerchant.$submitted) && formSubMerchant.branch_rep_permanent_residence.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.branch_rep_permanent_residence.$error.required">Địa chỉ thường trú là bắt buộc.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!--<div class="col-md-6">
+                    &lt;!&ndash;chiết khấu&ndash;&gt;
+                    <div class="lstFrmInfoUser" id="input-subMerchant-discount_rate">
+                        <span class="text-danger">*<p>% chiết khấu đề xuất</p></span>
+                        <input type="text" ng-model="merchant.discount_rate" class="form-control"
+                               name="discount_rate" id="discount_rate" ng-pattern="/^(?:[1-9]\d(?:\.\d+)?|10(?:\.\d+)?|99(?:\.\d+)?|[1-9]\d\.\d+)$/"
+                               placeholder="Nhập % chiết khấu" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.discount_rate.$touched || formSubMerchant.$submitted) && formSubMerchant.discount_rate.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.discount_rate.$error.required">% chiết khấu đề xuất là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formSubMerchant.discount_rate.$error.pattern">% chiết khấu từ 10 đến nhỏ hơn 100.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    &lt;!&ndash;Số điện thoại&ndash;&gt;
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p>Số hotline</p></span>
+                        <input type="text" ng-model="merchant.phone" class="form-control" name="phone" id="phone"
+                               ng-pattern="/[0][0-9\s.-]{9,13}/"
+                               placeholder="Nhập số hotline" style="width: 100%" required>
+                        <span class="error" ng-show="(formSubMerchant.phone.$touched || formSubMerchant.$submitted) && formSubMerchant.phone.$invalid">
+                            <span class="text-danger" ng-show="formSubMerchant.phone.$error.required">Số hotline là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formSubMerchant.phone.$error.pattern">Số hotline không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2"></div>
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-default" ng-click="closeSubMerchantEdit()">Hủy</button>
+                    <button type="submit" class="btn btn-primary" ng-bind-html="merchant.index !== undefined ? 'Sửa' : 'Thêm'"></button>
+                </div>
+                <div class="col col-lg-2"></div>
+            </div>
+        </div>
+    </form>
+</div>

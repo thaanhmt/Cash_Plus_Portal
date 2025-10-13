@@ -1,0 +1,24 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">{{Title}}</h5>
+    <button type="button" class="btn-close" aria-label="Close" ng-click="closeConfirmData()"><span aria-hidden="true">×</span></button>
+</div>
+<div class="modal-body content-info">
+    <div class="col col-md-12 col-12 section-detail-data main-manage-data form-group-info" style="padding: 0; box-shadow: unset;">
+        <div class="input-group">
+            <label for="contents">Phê duyệt:*</label>
+            <ui-select ng-model="dataSetStatus" ng-change="changeValue($select.selected, 3)" theme="select2" ng-disabled="disabledStatus" style="min-width: 390px;" title="{{ $select.selected.Name }}">
+                <ui-select-match allow-clear="true" placeholder="Lựa chọn">{{ $select.selected.Name }}</ui-select-match>
+                <ui-select-choices repeat="item in listConfirmStatus | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                    <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+        </div>
+        <div class="input-group field-full textarea-field" ng-show="confirmData.DataSetStatus==2">
+            <label for="contents">Lý do không duyệt:*</label>
+            <textarea name="contents" id="contents" rows="2" ng-model="confirmData.Confirms"></textarea>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-xanh" ng-click="SaveConfirm()">Lưu thông tin</button>
+</div>

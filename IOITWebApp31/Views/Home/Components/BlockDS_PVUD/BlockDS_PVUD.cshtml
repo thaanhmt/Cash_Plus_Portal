@@ -1,0 +1,21 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.CategoryAR>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <div class="item-app">
+            <a class="d-block" href="/pham-vi-ung-dung-@item.CategoryId">
+                <div class="ion-app">
+                    <img src="/uploads/@item.Image" alt="">
+                </div>
+                <div class="name-app">@item.Name</div>
+                <div class="count-record">Tổng: <span>@item.DataSetNumber</span> bộ dữ liệu</div>
+                <div class="count-views"><i class="fa-solid fa-eye"></i> @item.ViewNumber lượt xem</div>
+                <div class="count-dowload"><i class="fa-solid fa-cloud-arrow-down"></i> @item.DownNumber lượt tải</div>
+            </a>
+        </div>
+    }
+}

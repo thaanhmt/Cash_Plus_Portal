@@ -1,0 +1,29 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.TopUnitHome>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="card-company">
+            <div class="logo-company">
+                @if (item.Image == null || item.Image == "")
+                {
+                    <img src="/images/logo-company.png" alt="@item.Name">
+                }
+                else
+                {
+                    <img src="/uploads/@item.Image" alt="@item.Name">
+                }
+            </div>
+            <div class="info-compoany">
+                <div class="name-company textLine-2">
+                    <a href="/du-lieu-co-quan-to-chuc/@item.UnitId">@item.Name</a></div>
+                <div class="data-company">
+                    @*<i class="fa-sharp fa-regular fa-sigma"></i>*@
+                    Tổng: <span>@item.DataSetNumber</span> Bộ dữ liệu
+                </div>
+            </div>
+        </div>
+    }
+}

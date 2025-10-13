@@ -1,0 +1,237 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Danh sách thương hiệu</h1>
+      <button class="cms-addnew" type="button" (click)="OpenTradeMarkModal(undefined)"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row cms-filter">
+
+          <div class="col-sm-12 col-md-6" style="padding-left:0px; margin-left: -5px;    display: flex;">
+            <div class="row cms-filter action-table" style="padding-left: 20px !important;">
+              <div class="col-sm-6 col-md-12" style="padding-left:0;">
+                <ng-select class="mw150-select"
+                           [items]="ActionTable"
+                           bindLabel="Name"
+                           bindValue="Id"
+                           [clearable]="true"
+                           placeholder="Tác vụ"
+                           [(ngModel)]="ActionId"
+                           [ngModelOptions]="{standalone: true}">
+                </ng-select>
+                <button class="cms-addnew" type="button" [disabled]="!ActionId" (click)="ActionTableFunc()">&nbsp;Áp dụng</button>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6" style="display: flex; justify-content: flex-end;align-items: flex-end; padding-right:0;">
+            <label style="margin-right:10px;display: flex;align-items: center;">
+              <span class="search-box">Tìm kiếm</span>
+              <input type="text" class="form-control form-control-sm" placeholder="Nhập từ khóa cần tìm...." aria-controls="DataTables_Table_0" [(ngModel)]="q.txtSearch" (keyup.enter)="QueryChanged()">
+            </label>
+
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+              <label>
+                Xem&nbsp;
+                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.page_size" (change)="GetListTrademark()">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>&nbsp;bản ghi
+              </label>
+            </div>
+          </div>
+        </div>
+     
+
+        <div class="row">
+          <div class="col-sm-12">
+            <table class=" list-cat table table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <th class="btn-action-table" style="width: 5%;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="CheckAll" name="CheckAll" [value]="true" (change)="CheckActionTable(undefined)" [(ngModel)]="CheckAll">
+                      <label for="CheckAll"><span></span></label>
+                    </div>
+                  </th>
+                  <th [ngClass]="GetClassSortTable('Name')" (click)="SortTable('Name')" style="width: 30%">
+                    Tên thương hiệu
+                  </th>
+                  <th style="width: 10%;">Ảnh</th>
+
+                  <th [ngClass]="GetClassSortTable('Description')" (click)="SortTable('Description')" style="width: 20%">Mô tả</th>
+                  <th style="width: 5%;" class="text-center">Ẩn/Hiện</th>
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listTrademark; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                  <td class="btn-action-table" style="padding: 0.75rem!important;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="Check{{item.ManufacturerId}}" name="Check{{item.ManufacturerId}}" [value]="true" [(ngModel)]="item.Action" (change)="CheckActionTable(item.ManufacturerId)">
+                      <label for="Check{{item.ManufacturerId}}"><span></span></label>
+                    </div>
+                  </td>
+                  <td class="name-child column-name">
+                    {{ item.Name }}
+                    <ul class="cms-function">
+                      <li class="id-item">ID: {{item.Code}} | </li>
+                      <li (click)="OpenTradeMarkModal(item)">Chỉnh sửa | </li>
+                      <li (click)="ShowConfirmDelete(item.ManufacturerId)" class="detete-item">Xóa</li>
+                    </ul>
+                  </td>
+                  <td>
+                    <img src="../../../../assets/img/no-image1.png" width="70" height="70" *ngIf="item.Logo==undefined" />
+                    <img src="{{ domainImage }}{{item.Logo}}" width="auto" height="70" *ngIf="item.Logo!=undefined" />
+                  </td>
+
+
+                  <td>{{ item.Description }}</td>
+                  <td class="text-center">
+                    <label style="display: block; padding-top: 2px; margin: auto;" class="switch switch-label switch-pill switch-outline-primary-alt">
+                      <input (change)="ShowHide(item.ManufacturerId, i)" type="checkbox" class="switch-input" [(ngModel)]="item.IsShow" [ngModelOptions]="{standalone: false}" />
+                      <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                    </label>
+                  </td>
+                  <!--<td style="text-align: center;">
+              <a class="btn btn-info" href="javascript:void(0)" (click)="OpenTradeMarkModal(item)">
+                <i class="fa fa-edit"></i>
+              </a>
+              <a class="btn btn-danger" href="javascript:void(0)" (click)="ShowConfirmDelete(item.ManufacturerId)">
+                <i class="fa fa-trash"></i>
+              </a>
+            </td>-->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row cms-paging">
+          <div class="col-sm-12 col-md-5">
+            <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+              Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i class="fa fa-long-arrow-right"></i>  <span>{{ paging.item_count < paging.page * paging.page_size ? paging.item_count : paging.page * paging.page_size }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{ paging.item_count }}</span> bản ghi
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-7">
+            <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5" [itemsPerPage]="paging.page_size" class="pagination-sm"
+                        previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true" (pageChanged)="PageChanged($event)" class="pull-right"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #TradeMarkModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-big" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="Item.ManufacturerId==undefined">Thêm mới thương hiệu</h4>
+          <h4 class="modal-title" *ngIf="Item.ManufacturerId!=undefined">Sửa thông tin thương hiệu</h4>
+          <button type="button" class="close" (click)="TradeMarkModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="padding: 15px;">
+            <div class="card-body body-form-add-new">
+              <div class="row">
+                <div class="col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="Code">Mã thương hiệu<span *ngIf="Item.Code==undefined || Item.Code==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <input type="text" id="Code" name="Code" class="form-control" placeholder="" [(ngModel)]="Item.Code" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="Name">Tên thương hiệu<span *ngIf="Item.Name==undefined || Item.Name==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <input type="text" id="Name" name="Name" maxlength="100" class="form-control" placeholder="" [(ngModel)]="Item.Name" (ngModelChange)="ChangeTitle(1)" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="Url">Đường dẫn</label>
+                    <div class="col-md-8">
+                      <input type="text" id="Url" name="Url" class="form-control" placeholder="" [(ngModel)]="Item.Url" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="Location">Vị trí</label>
+                    <div class="col-md-8">
+                      <input type="number" id="Location" name="Location" class="form-control" placeholder="" [(ngModel)]="Item.Location" onkeypress="return event.charCode >= 48 && event.charCode <= 57" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+                <!--mở rộng-->
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="file-input">Ảnh thương hiệu</label>
+                    <div class="col-md-4">
+                      <input #file type="file" (change)="upload(file.files)" />
+                      <br />
+                      <span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+                        {{progress}}%
+                      </span>
+                      <div>
+                        <div class="image-thumb-koi" *ngIf="Item.Logo != undefined">
+                          <img src="{{ domainImage }}{{ Item.Logo }}" />
+                          <button class="btn btn-block btn-outline-danger active" type="button" aria-pressed="true" (click)="RemoveImage()">Xóa</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Description">Mô tả</label>
+                    <div class="col-md-10">
+                      <textarea id="Description" name="Description" maxlength="300" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Description" (ngModelChange)="ChangeTitle(2)" #newDescription></textarea>
+                      <i>{{newDescription.value.length}}/300</i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="MetaTitle">Meta Title</label>
+                    <div class="col-md-8">
+                      <textarea id="MetaTitle" name="MetaTitle" maxlength="200" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.MetaTitle" #newMetaTitle></textarea>
+                      <i>{{newMetaTitle.value.length}}/200</i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="MetaKeywords">Meta Keyword</label>
+                    <div class="col-md-8">
+                      <textarea id="MetaKeywords" name="MetaKeywords" maxlength="200" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.MetaKeywords" #newMetaKeyword></textarea>
+                      <i>{{newMetaKeyword.value.length}}/200</i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="MetaDescription">Meta Description</label>
+                    <div class="col-md-10">
+                      <textarea id="MetaDescription" name="MetaDescription" maxlength="300" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.MetaDescription" #newMetaDescription></textarea>
+                      <i>{{newMetaDescription.value.length}}/300</i>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveTradeMark()">Lưu thông tin</button>
+          <button type="button" class="btn btn-secondary" (click)="TradeMarkModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

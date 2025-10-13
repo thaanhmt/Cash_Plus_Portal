@@ -1,0 +1,176 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.DataSearch>
+@using IOITWebApp31.Models;
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .list-news {
+         display: flex; 
+        flex-wrap: wrap;
+    }
+    .item-news box box-vertical {
+        display:grid
+    }
+    }
+</style>
+<main id="main">
+    <div id="content" class="content-area">
+       
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container1">
+                <div class="row row-small main-info">
+                    @await Component.InvokeAsync("MenuSideBar", new { MenuId = 40, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                    <div class="col col-md-12 col-12 section-detail-data main-manage-data">
+                        @if (ViewBag.sType == 1 || ViewBag.typeS == 1)
+                        {
+                           
+                            <div class="list-news">
+                                @if (Model != null)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+
+                                <div class="item-news box box-vertical">
+                                    <div class="box-image">
+                                        @if (item.Image != null)
+                                        {
+                                            <a href="@("/" + item.Url)" class="d-block">
+                                                <img src="/uploads/@item.Image" alt="@item.Title">
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <!-- Nếu ảnh không tồn tại, sử dụng ảnh mặc định -->
+                                            <a href="@("/" + item.Url)" class="d-block">
+                                                <img src="~/images/homecashplus/CashPlus-feature.jpg" alt="Hình ảnh mặc định">
+                                            </a>
+                                        }
+                                    </div>
+                                    <div class="box-text">
+                                        <a href="@("/" + item.Url)" class="d-block">
+                                            <div class="head-news">
+                                                <h3 class="title-news textLine-2">@item.Title</h3>
+                                                <div class="date-active">@(item.DateStartActive.Value.ToString("dd/MM/yyyy"))</div>
+                                            </div>
+                                            <div class="desc-news textLine-4">
+                                                @(item.Description.Length > 300 ? item.Description.Substring(0, item.Description.Substring(0, 250).LastIndexOf(' ')) + "..." : item.Description)
+                                            </div>
+                                            <div class="bottom-read">
+                                                Xem chi tiết <i class="fa-solid fa-angles-right"></i>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                    }
+                                }
+                            </div>
+                            @if (Model != null)
+                            {
+                                <div class="paging-data">
+                                    <nav aria-label="...">
+                                        @if (int.Parse(ViewBag.total.ToString()) >= int.Parse(ViewBag.NumPage.ToString()))
+                                        {
+                                            <ul class="pagination">
+                                                @if ((int)ViewBag.Pre <= 0)
+                                                {
+                                                    <li class="page-item disabled"><a href='javascript:void(0);' class="prev page-number page-link"><i class="fas fa-angle-left"></i></a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="page-item"><a href='@("/" + ViewBag.CategoryUrl + "?p=" + @ViewBag.Pre)' class="prev page-number page-link"><i class="fas fa-angle-left"></i></a></li>
+                                                }
+
+                                                @for (int i = int.Parse(ViewBag.pageS.ToString()); i <= int.Parse(ViewBag.pageE.ToString()); i++)
+                                                {
+                                                    if (ViewBag.page == i)
+                                                    {
+                                                        <li class="page-item active"><a href='javascript:void(0);' class="page-number current page-link">@i <span class="sr-only">(current)</span></a></li>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li class="page-item"><a href='@("/" + ViewBag.CategoryUrl + "?p=" + i)' class="page-number page-link">@i</a></li>
+                                                    }
+                                                }
+
+                                                @if ((int)ViewBag.Next > (int.Parse(ViewBag.total.ToString()) / int.Parse(ViewBag.NumPage.ToString())) + 1)
+                                                {
+                                                    <li class="page-item disabled"><a href='javascript:void(0);' class="next page-number page-link"><i class="fas fa-angle-right"></i></a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="page-item"><a href='@("/" + ViewBag.CategoryUrl + "?p=" + @ViewBag.Next)' class="next page-number page-link"><i class="fas fa-angle-right"></i></a></li>
+                                                }
+                                            </ul>
+                                        }
+                                    </nav>
+                                </div>
+                            }
+                        }
+                        else if (ViewBag.sType == 2 || ViewBag.typeS == 2)
+                        {
+
+                            <input type="text" name="sNameF" id="sNameF" hidden="hidden" value="@ViewBag.sNameF">
+                            <div class="title-noitify">Câu hỏi</div>
+                            <div id="ListFaqs"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div class="loadding-animate">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff0;display:block;" width="115px" height="115px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <g transform="translate(20 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.4807692307692307s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(40 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.3205128205128205s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(60 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.16025641025641024s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(80 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+    </svg>
+</div>
+
+@section Scripts {
+        <script>
+            $(document).ready(function() {
+                if (@ViewBag.sType == 2 || @ViewBag.typeS == 2) {
+                    LoadFaQsPage(1, @Html.Raw(ViewBag.NameAr2));
+                }
+            });
+            function LoadFaQsPage(k) {
+                $('.overlay_menu').addClass('active');
+                $('.loadding-animate').show();
+                var textS = $("#sNameF").val();
+                if (textS == undefined) textS = "";
+                var obj = {
+                    p: k,
+                    textS: textS
+                };
+                function loadData() {
+                    $("#ListFaqs").load("/Home/ListFaqs", obj, function() {
+                        $('.overlay_menu').removeClass('active');
+                        $('.loadding-animate').hide();
+                        $('html, body').animate({ scrollTop: $('#header').offset().top }, 100);
+                    })
+                }
+                setTimeout(loadData, 1000);
+            }
+        </script>
+}

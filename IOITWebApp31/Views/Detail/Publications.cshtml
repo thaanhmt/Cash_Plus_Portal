@@ -1,0 +1,394 @@
+﻿@using IOITWebApp31.Models;
+@model IOITWebApp31.Models.Data.PublicationDT
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.LanguageId == "1008"){
+    <main id="main" class="publication-sigle publications-@Model.PublicationId">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="/" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                     src="@(ViewBag.LinkSite)/images/icon-home-breadcumb.svg" alt="icon home"> Home
+                                </a>
+                                <span class="d-block">
+                                    <img src="@(ViewBag.LinkSite)/images/arrow-breadcumbs.svg"
+                                     alt="icon arrow">
+                                </span>
+                                <a href="/an-pham" class="d-block">Publication management</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section wapper-search-ap">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small search-form">
+                        <div class="col col-12">
+                            <div class="col-inner">
+                                <div class="form-search-anpham">
+                                    <div class="top_form">
+                                        <div class="key_search">
+                                            <input type="text" value="" name="s-ap" placeholder="Từ khóa tìm kiếm…"
+                                               class="field-search-key" id="search-key">
+                                        </div>
+                                        <div class="select-group edition-year">
+                                            <select name="edition-year" id="edition-year" class="select-custom">
+                                                <option value="">Publishing year</option>
+                                                @await Component.InvokeAsync("OptionYearFilterPublicationDetail")
+                                            </select>
+                                        </div>
+                                        <div class="select-group author">
+                                            <select name="author" id="author" class="select-custom">
+                                                <option value="">Author</option>
+                                                @await Component.InvokeAsync("OptionAuthorFilterPublicationDetail")
+                                            </select>
+                                        </div>
+                                        <div class="select-group departments">
+                                            <select name="departments" id="departments" class="select-custom">
+                                                <option value="">Agencies and departments</option>
+                                                @await Component.InvokeAsync("OptionDepartmentsFilterPublicationDetail")
+                                            </select>
+                                        </div>
+                                        <div class="btn-submit">
+                                            <input type="button" id="submit-search-form" value="Search" onclick="LoadPublication(1)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section wapper-publications">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container" id="list-publication">
+                </div>
+            </section>
+            <section class="section head-publications-single">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-head-publications">
+                        <div class="col col-lg-5 col-md-5 col-12 col-head-publications-1">
+                            <div class="col-inner wapper-gallery">
+                                <div class="wapper-item-gallery">
+                                    <a class="item-gallery img-fluid" data-fancybox="gallery" href="/uploads/@Model.Image">
+                                        <img class="image-cover" src="@(ViewBag.LinkSite)/uploads/@Model.Image" alt="@Model.PublicationId">
+                                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16"><path fill="currentColor" d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z" class=""></path></svg>
+                                        <div class="overlay-gallery"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-lg-7 col-md-7 col-12 col-head-publications-2">
+                            <div class="col-inner">
+                                <div class="field-publications name-publications">
+                                    <div class="label">Publication name: </div>
+                                    @if(Model.IsLanguage == true){
+                                        <div class="content-field">@Model.TitleEn</div>
+                                    }else{
+                                        <div class="content-field">@Model.Title</div>
+                                    }
+                                </div>
+                                <div class="field-publications number-publications">
+                                    <div class="label">Number of topics: </div>
+                                    <div class="content-field">@Model.NumberOfTopic</div>
+                                </div>
+                                <div class="field-publications date-publications">
+                                    <div class="label">Publication date: </div>
+                                    <div class="content-field">@Model.DatePublic</div>
+                                </div>
+                                <div class="field-publications author-publications">
+                                    <div class="label">Author: </div>
+                                    <div class="content-field">@ViewBag.NameAuthor</div>
+                                </div>
+                                <div class="field-publications company-publications">
+                                    <div class="label">Agency issued: </div>
+                                    <div class="content-field">@ViewBag.NameDepartment</div>
+                                </div>
+                                <div class="field-publications description-publications">
+                                    <div class="label">Short description: </div>
+                                    @if (Model.IsLanguage == true)
+                                    {
+                                        <div class="content-field">@Model.DescriptionEn</div>
+                                    }
+                                    else
+                                    {
+                                        <div class="content-field">@Model.Description</div>
+                                    }
+                                </div>
+                                <div class="btn-cart-publications">
+                                    <a href="javascript:void(0);" class="btn-publications d-block"><span>Register to order</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-other-publication">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-ap-other">
+                        <div class="col col-12 ap-other">
+                            <div class="col-inner">
+                                <div class="post_releated_core anpham-other">
+                                    <h2 class="title-sub-news">Other Publications</h2>
+                                    <div class="wapper news-releated">
+                                        @await Component.InvokeAsync("BlockPublicationRelated", new { Number = 8, Id = ViewBag.Id, Language = "en" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="model-open-contact" id="publication-id-@Model.PublicationId">
+        <div class="heading-contact-publication">Subscribe to buy publications</div>
+        <div class="desc-contact-publication">
+            This form is used to subscribe to publications in the Democracy and Law Newsletter.
+            Please fill out the attached form completely and send it by letter or email
+            or fax to the following address:
+        </div>
+        <div class="commnents-post" style="margin-bottom:0;">
+            <div class="commnents-post" style="margin-bottom:0;">
+                <div class="comment">
+                    <div class="wapper-info-customer publication-form">
+                        <form class="form-commnent-single" style="border:none;">
+                            <div class="row row-small row-1-form">
+                                <div class="col">
+                                    <input type="text" id="fullname" class="form-control" placeholder="First and last name">
+                                </div>
+                                <div class="col">
+                                    <input type="email" id="email" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="row row-small row-2-form" style="margin-bottom:0;">
+                                <div class="col position-relative">
+                                    <input type="text" id="numberphone" class="form-control" placeholder="Phone number">
+                                </div>
+                            </div>
+                            <div class="row row-small row-2-form">
+                                <div class="col" style="display:none;">
+                                    <input type="text" id="name-publication" class="form-control" value="@(Model.Title)" disabled>
+                                </div>
+                                <div class="col">
+                                    <input type="text" id="name-publication-en" class="form-control" value="@(Model.TitleEn)" disabled>
+                                </div>
+                                <div class="col">
+                                    <textarea class="form-control" name="diachi-customer" id="diachi-customer" cols="15" rows="5" placeholder="Address"></textarea>
+                                </div>
+                                <div class="col">
+                                    <textarea class="form-control" name="coquan-customer" id="coquan-customer" cols="15" rows="5" placeholder="Organ"></textarea>
+                                </div>
+                                <div class="col" style="margin-bottom:0;">
+                                    <textarea class="form-control" name="comment-customer" id="comment-customer" cols="15" rows="5" placeholder="Note"></textarea>
+                                </div>
+                            </div>
+                            <div class="row row-small row-3-form" style="margin-bottom:0;">
+                                <div class="col">
+                                    <input id="btn-follow-publication" type="button" value="Register to buy" onclick="AddPublication(@Model.PublicationId)">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}else{
+    <main id="main" class="publication-sigle publications-@Model.PublicationId">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="#" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                     src="@(ViewBag.LinkSite)/images/icon-home-breadcumb.svg" alt="icon home"> Trang Chủ
+                                </a>
+                                <span class="d-block">
+                                    <img src="@(ViewBag.LinkSite)/images/arrow-breadcumbs.svg"
+                                     alt="icon arrow">
+                                </span>
+                                <a href="/an-pham" class="d-block">Quản lý ấn phẩm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section wapper-search-ap">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small search-form">
+                        <div class="col col-12">
+                            <div class="col-inner">
+                                <div class="form-search-anpham">
+                                    <div class="top_form">
+                                        <div class="key_search">
+                                            <input type="text" value="" name="s-ap" placeholder="Từ khóa tìm kiếm…"
+                                               class="field-search-key" id="search-key">
+                                        </div>
+                                        <div class="select-group edition-year">
+                                            <select name="edition-year" id="edition-year" class="select-custom">
+                                                <option value="">Năm xuất bản</option>
+                                                @await Component.InvokeAsync("OptionYearFilterPublicationDetail")
+                                            </select>
+                                        </div>
+                                        <div class="select-group author">
+                                            <select name="author" id="author" class="select-custom">
+                                                <option value="">Tác giả</option>
+                                                @await Component.InvokeAsync("OptionAuthorFilterPublicationDetail")
+                                            </select>
+                                        </div>
+                                        <div class="select-group departments">
+                                            <select name="departments" id="departments" class="select-custom">
+                                                <option value="">Cơ quan ban ngành</option>
+                                                @await Component.InvokeAsync("OptionDepartmentsFilterPublicationDetail")
+                                            </select>
+                                        </div>
+                                        <div class="btn-submit">
+                                            <input type="button" id="submit-search-form" value="Tìm kiếm" onclick="LoadPublication(1)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section wapper-publications">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container" id="list-publication">
+                </div>
+            </section>
+            <section class="section head-publications-single">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-head-publications">
+                        <div class="col col-lg-5 col-md-5 col-12 col-head-publications-1">
+                            <div class="col-inner wapper-gallery">
+                                <div class="wapper-item-gallery">
+                                    <a class="item-gallery img-fluid" data-fancybox="gallery" href="/uploads/@Model.Image">
+                                        <img class="image-cover" src="@(ViewBag.LinkSite)/uploads/@Model.Image" alt="@Model.PublicationId">
+                                        <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16"><path fill="currentColor" d="M508.5 481.6l-129-129c-2.3-2.3-5.3-3.5-8.5-3.5h-10.3C395 312 416 262.5 416 208 416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c54.5 0 104-21 141.1-55.2V371c0 3.2 1.3 6.2 3.5 8.5l129 129c4.7 4.7 12.3 4.7 17 0l9.9-9.9c4.7-4.7 4.7-12.3 0-17zM208 384c-97.3 0-176-78.7-176-176S110.7 32 208 32s176 78.7 176 176-78.7 176-176 176z" class=""></path></svg>
+                                        <div class="overlay-gallery"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-lg-7 col-md-7 col-12 col-head-publications-2">
+                            <div class="col-inner">
+                                <div class="field-publications name-publications">
+                                    <div class="label">Tên ấn phẩm: </div>
+                                    <div class="content-field">@Model.Title</div>
+                                </div>
+                                <div class="field-publications number-publications">
+                                    <div class="label">Số chuyên đề: </div>
+                                    <div class="content-field">@Model.NumberOfTopic</div>
+                                </div>
+                                <div class="field-publications date-publications">
+                                    <div class="label">Ngày xuất bản: </div>
+                                    <div class="content-field">@(ViewBag.YearPublic)</div>
+                                </div>
+                                <div class="field-publications author-publications">
+                                    <div class="label">Tác Giả: </div>
+                                    <div class="content-field">@ViewBag.NameAuthor</div>
+                                </div>
+                                <div class="field-publications company-publications">
+                                    <div class="label">Cơ quan ban hành: </div>
+                                    <div class="content-field">@ViewBag.NameDepartment</div>
+                                </div>
+                                <div class="field-publications description-publications">
+                                    <div class="label">Mô tả ngắn: </div>
+                                    <div class="content-field">@Model.Description</div>
+                                </div>
+                                <div class="btn-cart-publications">
+                                    <a href="javascript:void(0);" class="btn-publications d-block"><span>Đăng ký đặt mua</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-other-publication">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-ap-other">
+                        <div class="col col-12 ap-other">
+                            <div class="col-inner">
+                                <div class="post_releated_core anpham-other">
+                                    <h2 class="title-sub-news">Các ấn phẩm khác</h2>
+                                    <div class="wapper news-releated">
+                                        @await Component.InvokeAsync("BlockPublicationRelated", new { Number = 8, Id = ViewBag.Id, Language = "vi" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="model-open-contact" id="publication-id-@Model.PublicationId">
+        <div class="heading-contact-publication">Đăng ký mua ấn phẩm</div>
+        <div class="desc-contact-publication">
+            Mẫu này được sử dụng để đăng ký mua các ấn phẩm thuộc Tập tin tức của tạp chỉ dân chủ và pháp luật.
+            Đề nghị Quý khách hàng điền đầy đủ nội dung trong mẫu đính kèm và gửi thư, thư điện tử
+            hoặc fax đến địa chỉ sau:
+        </div>
+        <div class="commnents-post" style="margin-bottom:0;">
+            <div class="commnents-post" style="margin-bottom:0;">
+                <div class="comment">
+                    <div class="wapper-info-customer publication-form">
+                        <form class="form-commnent-single" style="border:none;">
+                            <div class="row row-small row-1-form">
+                                <div class="col">
+                                    <input type="text" id="fullname" class="form-control" placeholder="Họ và tên">
+                                </div>
+                                <div class="col">
+                                    <input type="email" id="email" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="row row-small row-2-form" style="margin-bottom:0;">
+                                <div class="col position-relative">
+                                    <input type="text" id="numberphone" class="form-control" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                            <div class="row row-small row-2-form">
+                                <div class="col">
+                                    <input type="text" id="name-publication" class="form-control" value="@(Model.Title)" disabled>
+                                </div>
+                                <div class="col">
+                                    <textarea class="form-control" name="diachi-customer" id="diachi-customer" cols="15" rows="5" placeholder="Địa chỉ"></textarea>
+                                </div>
+                                <div class="col">
+                                    <textarea class="form-control" name="coquan-customer" id="coquan-customer" cols="15" rows="5" placeholder="Cơ quan"></textarea>
+                                </div>
+                                <div class="col" style="margin-bottom:0;">
+                                    <textarea class="form-control" name="comment-customer" id="comment-customer" cols="15" rows="5" placeholder="Ghi chú"></textarea>
+                                </div>
+                            </div>
+                            <div class="row row-small row-3-form" style="margin-bottom:0;">
+                                <div class="col">
+                                    <input id="btn-follow-publication" type="button" value="Đăng ký mua" onclick="AddPublication(@Model.PublicationId)">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

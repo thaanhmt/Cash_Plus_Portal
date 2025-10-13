@@ -1,0 +1,109 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+<!-- Slide home -->
+<div class="slider">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        @*<ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            </ol>*@
+
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="/uploads/@ViewBag.Image" alt="" class="img-responsive">
+            </div>
+            @*<div class="item">
+                    <img src="/images/slideprd.jpg" alt="" class="img-responsive">
+                </div>*@
+        </div>
+    </div>
+</div>
+<!-- End Slide home -->
+
+
+<div class="maincontent-page prd-page">
+    <div class="full-page">
+        <div class="title-page"><h1> @ViewBag.SeoTitle</h1></div>
+        <div class="text-page">
+            <div class="container">
+                <div>
+                    @Html.Raw(ViewBag.SeoDescription)
+                </div>
+            </div>
+        </div>
+        @if (ViewBag.CatChild != null)
+        {
+            int i = 0;
+            foreach (var item in ViewBag.CatChild as IEnumerable<IOITWebApp31.Models.EF.Category>)
+            {
+                if (i % 2 == 0)
+                {
+                    <div class="box-intro @i">
+                        <div class="col-img col-xs-12 col-md-6">
+                            <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Name">
+                        </div>
+                        <div class="col-text col-xs-12 col-md-6">
+                            <div class="box-absolute">
+                                <div class="title-col-text"><a href='@("/" + item.Url)' title="@item.Name">@item.Name</a></div>
+                                <div class="text-col-text">
+                                    <p>@Html.Raw(item.Description)</p>
+                                </div>
+                                <div class="more-col-text"><a href='@("/" + item.Url)' title="@Startup._lang["XEMCHITIET"]">@Startup._lang["XEMCHITIET"]</a></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="box-intro">
+                        <div class="col-img mb col-xs-12 col-md-6">
+                            <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Name">
+                        </div>
+                        <div class="col-text col-xs-12 col-md-6">
+                            <div class="box-absolute">
+                                <div class="title-col-text"><a href='@("/" + item.Url)' title="@item.Name">@item.Name</a></div>
+                                <div class="text-col-text">
+                                    <p>@Html.Raw(item.Description)</p>
+                                </div>
+                                <div class="more-col-text"><a href='@("/" + item.Url)' title="@Startup._lang["XEMCHITIET"]">@Startup._lang["XEMCHITIET"]</a></div>
+                            </div>
+                        </div>
+                        <div class="col-img dk col-xs-12 col-md-6">
+                            <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Name">
+                        </div>
+                    </div>
+                }
+                i++;
+            }
+        }
+        @if (ViewBag.listpPro1 != null && ViewBag.CatChild.Count == 0)
+        {<div class="container">
+                <div class="row">
+                    <div class="list-prd" style="margin-top:0px">
+                        @foreach (var item in ViewBag.listpPro1 as IEnumerable<IOITWebApp31.Models.EF.Product>
+                      )
+                        {
+                            <div class="prd col-xs-6 col-md-3">
+                                <div class="box-prd">
+                                    <div class="img-prd">
+                                        <a href="@("/" + item.Url)" title="@item.Name">
+                                            <img src="/uploads/@item.Image" class="img-responsive" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="title-prd"><a href="@("/" + item.Url)" title="@item.Name">@item.Name</a></div>
+                                    <div class="text-prd">@Html.Raw(item.Description)</div>
+                                    <div class="detail-prd"><a href="@("/" + item.Url)" title="@item.Name">@Startup._lang["XEMCHITIET"] >></a></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+

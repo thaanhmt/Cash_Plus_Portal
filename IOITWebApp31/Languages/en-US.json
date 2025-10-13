@@ -1,0 +1,495 @@
+﻿[
+  {
+    "Key": "Project",
+    "Value": "Project"
+  },
+  {
+    "Key": "NumberYearAction",
+    "Value": "Number Year Action"
+  },
+  {
+    "Key": "Customer",
+    "Value": "Customer"
+  },
+  {
+    "Key": "Employee",
+    "Value": "Employee"
+  },
+  {
+    "Key": "LinhVucHoatDong",
+    "Value": "Field Of Operation"
+  },
+  {
+    "Key": "SanPham",
+    "Value": "Product"
+  },
+  {
+    "Key": "TitleNew",
+    "Value": "News"
+  },
+  {
+    "Key": "GPDV",
+    "Value": "Solutions and services"
+  },
+  {
+    "Key": "CHNN",
+    "Value": "CAREER OPPORTUNITIES"
+  },
+  {
+    "Key": "UngTuyen",
+    "Value": "Apply now"
+  },
+  {
+    "Key": "DesUngTuyen",
+    "Value": "We always welcome candidates who want to develop themselves, love working in a dynamic, youthful and challenging environment."
+  },
+  {
+    "Key": "KhachHang",
+    "Value": "Customer TECHPRO"
+  },
+  {
+    "Key": "LienKet",
+    "Value": "Link"
+  },
+  {
+    "Key": "Home",
+    "Value": "Home"
+  },
+  {
+    "Key": "Project",
+    "Value": "Project"
+  },
+  {
+    "Key": "Page",
+    "Value": "Page"
+  },
+  {
+    "Key": "About",
+    "Value": "About"
+  },
+  {
+    "Key": "CCTC",
+    "Value": "Organizational structure"
+  },
+  {
+    "Key": "GPLQ",
+    "Value": "Related solutions"
+  },
+  {
+    "Key": "CGP",
+    "Value": "Solutions"
+  },
+  {
+    "Key": "DKBT",
+    "Value": "SIGN UP FOR THE NEWSLETTER"
+  },
+  {
+    "Key": "BUTDK",
+    "Value": "REGISTER"
+  },
+  {
+    "Key": "MASP",
+    "Value": "Code"
+  },
+  {
+    "Key": "XUATXU",
+    "Value": "Made in"
+  },
+  {
+    "Key": "THUONGHIEU",
+    "Value": "Trademark"
+  },
+  {
+    "Key": "TINHTRANG",
+    "Value": "Condition"
+  },
+  {
+    "Key": "SOLUONG",
+    "Value": "Quantity"
+  },
+  {
+    "Key": "ADDTOCART",
+    "Value": "Add to cart"
+  },
+  {
+    "Key": "SHARE",
+    "Value": "Share"
+  },
+  {
+    "Key": "SPGIOITHIEU",
+    "Value": "Introduce"
+  },
+  {
+    "Key": "SPTINHNANG",
+    "Value": "Feature"
+  },
+  {
+    "Key": "SPCAUHINH",
+    "Value": "Configuration"
+  },
+  {
+    "Key": "SPTHONGSO",
+    "Value": "Technical data"
+  },
+  {
+    "Key": "SPCUNGNHOM",
+    "Value": "Products of the same group"
+  },
+  {
+    "Key": "SPBAOHANH",
+    "Value": "Guarantee"
+  },
+  {
+    "Key": "SODOHETHONG",
+    "Value": "System diagram"
+  },
+  {
+    "Key": "DUANDATRIENKHAI",
+    "Value": "Projects"
+  },
+  {
+    "Key": "DUANKHAC",
+    "Value": "Other projects"
+  },
+  {
+    "Key": "TINLIENQUAN",
+    "Value": "Related news"
+  },
+  {
+    "Key": "XEMCHITIET",
+    "Value": "See details"
+  },
+  {
+    "Key": "XEMTHEM",
+    "Value": "See more"
+  },
+  {
+    "Key": "DKTVV",
+    "Value": "You register with us for advice to support solutions, products that suit your needs."
+  },
+  {
+    "Key": "CONGTY",
+    "Value": "TECHPRO TECHNOLOGY DEVELOPMENT JOINT STOCK COMPANY"
+  },
+  {
+    "Key": "TEXTUNGTUYEN",
+    "Value": "We always welcome candidates who want to develop themselves, love working in a dynamic, youthful and challenging environment."
+  },
+  {
+    "Key": "HOTEN",
+    "Value": "Full name"
+  },
+  {
+    "Key": "DIENTHOAI",
+    "Value": "Telephone"
+  },
+  {
+    "Key": "DIACHI",
+    "Value": "Add"
+  },
+  {
+    "Key": "THEMDIACHI",
+    "Value": "Add the address"
+  },
+  {
+    "Key": "NOIDUNG",
+    "Value": "Message"
+  },
+  {
+    "Key": "HUY",
+    "Value": "Cancel"
+  },
+  {
+    "Key": "BTNUNGTUYEN",
+    "Value": "Apply"
+  },
+  {
+    "Key": "DKTV",
+    "Value": "Sign up for advice"
+  },
+  {
+    "Key": "GPKD",
+    "Value": "Business registration certificate number"
+  },
+  {
+    "Key": "SPGH",
+    "Value": "No products in the cart"
+  },
+  {
+    "Key": "LIENHE",
+    "Value": "Contact"
+  },
+  {
+    "Key": "XOA",
+    "Value": "Delete"
+  },
+  {
+    "Key": "TONGTIEN",
+    "Value": "Total amount"
+  },
+  {
+    "Key": "CHITIET_GIOHANG",
+    "Value": "Cart details"
+  },
+  {
+    "Key": "DONG",
+    "Value": "Close"
+  },
+  {
+    "Key": "TIEPTUC_MUAHANG",
+    "Value": "Continue shopping"
+  },
+  {
+    "Key": "TIENHANH_DATHANG",
+    "Value": "Proceed to ordering"
+  },
+  {
+    "Key": "SANPHAM",
+    "Value": "Products"
+  },
+  {
+    "Key": "GIOHANGCO",
+    "Value": "Your cart is available"
+  },
+  {
+    "Key": "DIACHIDATHANG",
+    "Value": "Shipping address"
+  },
+  {
+    "Key": "TINHTP",
+    "Value": "Select province / city"
+  },
+  {
+    "Key": "QUANHUYEN",
+    "Value": "Select district"
+  },
+  {
+    "Key": "THANHTOAN",
+    "Value": "Check out"
+  },
+  {
+    "Key": "HINHTHUC_THANHTOAN",
+    "Value": "Payment method"
+  },
+  {
+    "Key": "PAYMENT_DELIVERY",
+    "Value": "Payment on delivery"
+  },
+  {
+    "Key": "TEXT_DELIVERY",
+    "Value": "You will pay in cash upon delivery"
+  },
+  {
+    "Key": "NGAYDANG",
+    "Value": "Post date"
+  },
+  {
+    "Key": "THONGTIN_LIENHE",
+    "Value": "Contact information"
+  },
+  {
+    "Key": "ADD_CHINH",
+    "Value": "Headquarters: No. 51/39 Hao Nam, O Cho Dua Ward, Dong Da District, Hanoi City"
+  },
+  {
+    "Key": "ADD_HN",
+    "Value": "Sales office in Hanoi: 19th floor of VTC Online building, No. 18 Tam Trinh, Hai Ba Trung district, Hanoi city"
+  },
+  {
+    "Key": "ADD_HCM",
+    "Value": "Branch in Ho Chi Minh City: 5th Floor - 132 Cong Hoa Building, Ward 4, Tan Binh District, Ho Chi Minh City"
+  },
+  {
+    "Key": "TIEUDE",
+    "Value": "Title"
+  },
+  {
+    "Key": "NHAPLAI",
+    "Value": "Reset"
+  },
+  {
+    "Key": "GUIDI",
+    "Value": "Send"
+  },
+  {
+    "Key": "CONHANG",
+    "Value": "Stocking"
+  },
+  {
+    "Key": "HETHANG",
+    "Value": "Out of stock"
+  },
+  {
+    "Key": "GIAIPHAP",
+    "Value": "Solution & Services"
+  },
+  {
+    "Key": "TIMKIEM",
+    "Value": "Search"
+  },
+  {
+    "Key": "GP",
+    "Value": "Solution"
+  },
+  {
+    "Key": "TINTUC",
+    "Value": "News"
+  },
+  {
+    "Key": "MADONHANG",
+    "Value": "Code orders"
+  },
+  {
+    "Key": "THONGTIN_NHANHANG",
+    "Value": "Receiving information"
+  },
+  {
+    "Key": "DONHANG_CUABAN",
+    "Value": "Your order"
+  },
+  {
+    "Key": "GIA",
+    "Value": "Price"
+  },
+  {
+    "Key": "KETQUA_TIMKIEM",
+    "Value": "Search Results"
+  },
+  {
+    "Key": "NO_KQTK",
+    "Value": "There are no search results"
+  },
+  {
+    "Key": "KD_DA",
+    "Value": "Project, KA Sales"
+  },
+  {
+    "Key": "KT_KT",
+    "Value": "Commercial  Proposal"
+  },
+  {
+    "Key": "KS_TC",
+    "Value": "Survey, Installation, Commissioning"
+  },
+  {
+    "Key": "DT",
+    "Value": "Training"
+  },
+  {
+    "Key": "BT",
+    "Value": "Maintenance, RMA"
+  },
+  {
+    "Key": "BH",
+    "Value": "KA, CP sales"
+  },
+  {
+    "Key": "PTK",
+    "Value": ""
+  },
+  {
+    "Key": "KTSP",
+    "Value": "Products &"
+  },
+  {
+    "Key": "TVGP",
+    "Value": "Solution support"
+  },
+  {
+    "Key": "TTIKTS",
+    "Value": "Digital print"
+  },
+  {
+    "Key": "XLDL",
+    "Value": "Data process director"
+  },
+  {
+    "Key": "TT",
+    "Value": "Installation & Maintenance"
+  },
+  {
+    "Key": "DVKT",
+    "Value": "services director"
+  },
+  {
+    "Key": "TTGP",
+    "Value": "Security & building"
+  },
+  {
+    "Key": "SGP",
+    "Value": "solution"
+  },
+  {
+    "Key": "DLGP",
+    "Value": "director"
+  },
+  {
+    "Key": "TTAN",
+    "Value": "Security products distribution director"
+  },
+  {
+    "Key": "CU_KV",
+    "Value": "Supply & Logistics"
+  },
+  {
+    "Key": "HC_NS",
+    "Value": "HR & Administration"
+  },
+  {
+    "Key": "TIEPTHI_TRUYENTHONG",
+    "Value": "Marketing & Communication"
+  },
+  {
+    "Key": "TC_KT",
+    "Value": "Finance & Accounting"
+  },
+  {
+    "Key": "TGD",
+    "Value": "CEO"
+  },
+  {
+    "Key": "BKS",
+    "Value": "Audit"
+  },
+  {
+    "Key": "CT_HDQT",
+    "Value": "Chairman"
+  },
+  {
+    "Key": "GPK",
+    "Value": "Other solutions"
+  },
+  {
+    "Key": "INTRO1",
+    "Value": "About TECHPRO"
+  },
+  {
+    "Key": "INTRO2",
+    "Value": "After 20 years in operation, TECHPRO is always keeping our inspiration with Technology. Our dream is to build Simpler & Smarter Things which can help people enjoy their Work & Life. Thus Techpro set a Mission to help our customers to improve their business Effeciency and enjoy Sustainable growth with approriate applications of technology."
+  },
+  {
+    "Key": "INTRO3",
+    "Value": "1 - SECURITY & BUILDING MANAGEMENT SOLUTION."
+  },
+  {
+    "Key": "INTRO4",
+    "Value": "2- DIGITAL PRINT & DATA PROCESS SOLUTION SECTOR."
+  },
+  {
+    "Key": "INTRO5",
+    "Value": "3- CONSULTANCY ON DIGITIZING DEPLOYING PRODUCTION MANAGEMENT SYSTEM."
+  },
+  {
+    "Key": "INTRO6",
+    "Value": "TECHPRO ASIA – PACIFIC OUTSTANDING BRAND 2020"
+  },
+  {
+    "Key": "INTRO7",
+    "Value": "For more information, please contact:"
+  },
+  {
+    "Key": "INTRO8",
+    "Value": "Hotline: 1900 2035 or email: info@techpro.com.vn"
+  }
+
+]

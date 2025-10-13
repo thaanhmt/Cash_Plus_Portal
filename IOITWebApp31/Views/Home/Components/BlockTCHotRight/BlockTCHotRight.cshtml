@@ -1,0 +1,45 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        if (item.Image != null){
+            <div class="col col-lg-4 col-md-4 col-6 col-12-1-1-1">
+                <div class="col-inner">
+                    <div class="box item-news-12-1-1-1">
+                        <div class="box-image">
+                            <a href="@("/" + item.Url)" class="d-block">
+                                <img class="image-cover"
+                         src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="featured image">
+                            </a>
+                        </div>
+                        <div class="box-text">
+                            <h2 class="heading">
+                                <a href="@("/" + item.Url)" class="textLine-4">
+                                    @item.Title <img src="@(ViewBag.LinkSite)/images/star-12.svg" alt="star icon">
+                                </a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }else{
+            <div class="col col-lg-4 col-md-4 col-6 col-12-1-1-1">
+                <div class="col-inner">
+                    <div class="box item-news-12-1-1-1">
+                        <div class="box-text">
+                            <h2 class="heading">
+                                <a href="@("/" + item.Url)" class="textLine-4">
+                                    @item.Title <img src="@(ViewBag.LinkSite)/images/star-12.svg" alt="star icon">
+                                </a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

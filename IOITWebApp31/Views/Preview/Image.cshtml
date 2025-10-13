@@ -1,0 +1,196 @@
+﻿
+@{
+    ViewData["Title"] = "Image";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="/" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                         src="./images/icon-home-breadcumb.svg" alt="icon home"> Trang Chủ
+                                </a>
+                                @if (@ViewBag.CategoryNameP != null)
+                                {
+                                    <span class="d-block">
+                                        <img src="/images/arrow-breadcumbs.svg"
+                                             alt="icon arrow">
+                                    </span>
+                                    <a href="@ViewBag.CategoryUrlP" class="d-block">@ViewBag.CategoryNameP</a>
+                                }
+                                <span class="d-block">
+                                    <img src="/images/arrow-breadcumbs.svg"
+                                         alt="icon arrow">
+                                </span>
+                                <a href="@ViewBag.CategoryUrl" class="d-block">@ViewBag.CategoryName</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-main-category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-main-category">
+                        <div class="col col-lg-9 col-md-9 col-12 col-content-category">
+                            <div class="col-inner">
+                                <article class="content-area-news gallery-single-area">
+                                    <div class="article-inner">
+                                        <header class="entry-header">
+                                            <div class="entry-header-text entry-header-text-bottom text-left">
+                                                <h1 class="entry-title">@Model.Title</h1>
+                                            </div>
+                                        </header>
+                                        <div class="entry-content single-page">
+                                            <summary>@Model.Description</summary>
+                                            @*<div class="content-gallery-editor">
+                                                @Html.Raw(Model.Contents)
+                                            </div>*@
+                                            <div class="wapper-gallery">
+                                                @*@await Component.InvokeAsync("BlockGalleryDetail", new { NewsId = Model.NewsId })*@
+                                            </div>
+                                            <div class="inline-share">
+                                                <div class="fb-platform">
+                                                    <iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2F127.0.0.1%3A5500%2Fvideo-archive.html&amp;width=150&amp;layout=button_count&amp;action=like&amp;size=small&amp;share=true&amp;height=46&amp;appId=650644645328980" width="150" height="46" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="commnents-post">
+                                            <h2 class="title-sub-news">Ý kiến bạn đọc (<span class="total-comment">0</span>)</h2>
+                                            <div class="comment">
+                                                <div class="wapper-info-customer">
+                                                    <form action="/" class="form-commnent-single" method="post">
+                                                        <div class="row row-small row-1-form">
+                                                            <div class="col">
+                                                                <input type="text" class="form-control" placeholder="Họ và tên">
+                                                            </div>
+                                                            <div class="col">
+                                                                <input type="email" class="form-control" placeholder="Email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row row-small row-2-form">
+                                                            <div class="col">
+                                                                <textarea class="form-control" name="comment-customer" id="comment-customer" cols="15" rows="5" placeholder="Ý kiến của bạn"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row row-small row-3-form">
+                                                            <div class="col">
+                                                                <input type="submit" value="Gửi bình luận">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    <div class="list-comment-single">
+                                                        <div class="item-comment">
+                                                            <div class="avatar"><img src="./images/avatar-comment.svg" alt="avatar"></div>
+                                                            <div class="content-comment">
+                                                                <div class="name-customer">Mr Hà Ngọc Sơn</div>
+                                                                <div class="comment-custommer">Hội chợ Triển lãm Quốc tế VIETBUILD 2020 - là sự kiện lớn đầy ấn tượng của Ngành Xây dựng, Bất động sản, Vật liệu xây dựng & Trang trí nội ngoại thất tại Việt Nam.</div>
+                                                                <div class="other-comment">
+                                                                    <div class="count-line">
+                                                                        <img src="./images/like.svg" alt="like icon">
+                                                                        <span class="count">1</span>
+                                                                    </div>
+                                                                    <div class="reply-comment">Trả lời</div>
+                                                                    <div class="time-comment">19/12/2021 - 08:12</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-comment">
+                                                            <div class="avatar"><img src="./images/avatar-comment.svg" alt="avatar"></div>
+                                                            <div class="content-comment">
+                                                                <div class="name-customer">Mr Hà Ngọc Sơn</div>
+                                                                <div class="comment-custommer">Hội chợ Triển lãm Quốc tế VIETBUILD 2020 - là sự kiện lớn đầy ấn tượng của Ngành Xây dựng, Bất động sản, Vật liệu xây dựng & Trang trí nội ngoại thất tại Việt Nam.</div>
+                                                                <div class="other-comment">
+                                                                    <div class="count-line">
+                                                                        <img src="./images/like.svg" alt="like icon">
+                                                                        <span class="count">1</span>
+                                                                    </div>
+                                                                    <div class="reply-comment">Trả lời</div>
+                                                                    <div class="time-comment">19/12/2021 - 08:12</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="item-comment">
+                                                            <div class="avatar"><img src="./images/avatar-comment.svg" alt="avatar"></div>
+                                                            <div class="content-comment">
+                                                                <div class="name-customer">Mr Hà Ngọc Sơn</div>
+                                                                <div class="comment-custommer">Hội chợ Triển lãm Quốc tế VIETBUILD 2020 - là sự kiện lớn đầy ấn tượng của Ngành Xây dựng, Bất động sản, Vật liệu xây dựng & Trang trí nội ngoại thất tại Việt Nam.</div>
+                                                                <div class="other-comment">
+                                                                    <div class="count-line">
+                                                                        <img src="./images/like.svg" alt="like icon">
+                                                                        <span class="count">1</span>
+                                                                    </div>
+                                                                    <div class="reply-comment">Trả lời</div>
+                                                                    <div class="time-comment">19/12/2021 - 08:12</div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="post_releated_core related-gallery">
+                                            <h2 class="title-sub-news">Các tin khác</h2>
+                                            <div class="wapper news-releated">
+                                                @*@await Component.InvokeAsync("BlockNewsRelatedType", new { NewsId = Model.NewsId, Number = 5 })*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        <div class="col col-lg-3 col-md-3 col-12 col-sidebar-category">
+                            <div class="col-inner">
+                                <div class="widget-category widget-category-1">
+                                    <div class="heading-widget bg-blue">BẢN TIN HÌNH</div>
+                                    @*@await Component.InvokeAsync("BlockFirstVideoDetail", new { CategoryId = 4628 })*@
+                                </div>
+                                <div class="widget-category widget-category-2">
+                                    <div class="heading-widget">TIN ĐỌC NHIỀU</div>
+                                    <ul class="list-most-views-widget customize-scroll-bar">
+                                        @*@await Component.InvokeAsync("BlockNewsDetailMostView", new { Number = 20 })*@
+                                    </ul>
+                                </div>
+                                <div class="widget-category widget-category-3">
+                                    <div class="sidebar-4-1-3">
+                                        <div class="item-side-4-1-3">
+                                            <a href="#" class="d-block"><img src="./images/side-1.png" alt="featured image"></a>
+                                        </div>
+                                        <div class="item-side-4-1-3">
+                                            <a href="#" class="d-block"><img src="./images/side-2.png" alt="featured image"></a>
+                                        </div>
+                                        <div class="item-side-4-1-3">
+                                            <a href="#" class="d-block"><img src="./images/side-3.png" alt="featured image"></a>
+                                        </div>
+                                        <div class="item-side-4-1-3">
+                                            <a href="#" class="d-block"><img src="./images/side-4.png" alt="featured image"></a>
+                                        </div>
+                                        <div class="item-side-4-1-3">
+                                            <a href="#" class="d-block"><img src="./images/side-5.png" alt="featured image"></a>
+                                        </div>
+                                        <div class="item-side-4-1-3">
+                                            <a href="#" class="d-block"><img src="./images/side-6.png" alt="featured image"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-category widget-category-4">
+                                    <div class="block-9-2-3">
+                                        <div class="lable-9-2-3">Quản lý ấn phẩm</div>
+                                        <div class="list-anpham customize-scroll-bar">
+                                            @*@await Component.InvokeAsync("BlockTCAPWidgetDetails", new { Number = 20 })*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>

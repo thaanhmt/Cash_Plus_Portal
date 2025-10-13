@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main id="main" ng-controller="CustomerController" ng-init="init(undefined, undefined)">
+    <div id="content" class="content-area">
+        <section class="section section-login-1">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="say_hello">
+                    <div class="welcom">Chào mừng bạn đến với</div>
+                    <div class="subwelcome">CÔNG TY CP TẬP ĐOÀN CÔNG NGHỆ ATS</div>
+                </div>
+                <form class="main-register-page form-register" method="post">
+                    <div class="img-col-res col-item-res">
+                        <img src="/images/Frame.png" alt="">
+                    </div>
+                    <div class="field-col col-item-res">
+                        <div class="left-head">
+                            <div class="top-left-head">Đăng ký tài khoản</div>
+                            <div class="bottom-left-head">Đăng ký miễn phí tại đây</div>
+                        </div>
+                        <div class="inner-field-res">
+                            <div class="field-group">
+                                <div class="input-group">
+                                    <input type="text" id="EmailDk" class="form-control" placeholder="Email đăng ký" ng-model="register.Email">
+                                </div>
+                                <div class="input-group">
+                                    <input type="text" id="FullNameDk" class="form-control" placeholder="Họ và tên" ng-model="register.FullName">
+                                </div>
+
+                                <div class="input-group">
+                                    <input type="password" id="PasswordDk" class="form-control" placeholder="Mật khẩu" ng-model="register.Password">
+                                    <span class="input-group-text" id="basic-addon2"><i class="fa-sharp fa-regular fa-eye-slash"></i></span>
+                                </div>
+                                <div class="input-group">
+                                    <input type="password" id="ConfirmPasswordDk" class="form-control" placeholder="Xác nhận mật khẩu" ng-model="register.ConfirmPassword">
+                                    <span class="input-group-text" id="basic-addon2"><i class="fa-sharp fa-regular fa-eye-slash"></i></span>
+                                </div>
+                                <div class="button-form">
+                                    <button type="submit" class="btn btn-primary btn-register" ng-click="RegisterMember(1)" ng-disabled="disableBtn.btRegister == true">Đăng ký</button>
+                                </div>
+                            </div>
+                            <div class="field-group">
+                                <div class="input-group">
+                                    <input type="text" id="PhoneDk" class="form-control" placeholder="Số điện thoại" ng-model="register.Phone">
+                                </div>
+                                <div class="lable-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="isOrganization" ng-model="register.IsUnit">
+                                        <label class="form-check-label" for="isOrganization">
+                                            Tham gia vào tổ chức
+                                        </label>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 20px;" class="field-group select-customize-dk" ng-show="register.IsUnit">
+                                    <ui-select ng-model="dataUnits" ng-change="[changeValue($select.selected, 1), onQueryChange()]" theme="select2" ng-disabled="disabled"
+                                               style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn tổ chức/cơ quan">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listUnits | propsFilter: {Name: $select.search} |limitTo:1000" position='down'>
+                                            @*<div ng-bind-html="item.Name | highlight: $select.search"></div>*@
+                                            <div style="padding-left: {{20 * item.Level}}px" ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="capcha">
+                                    <div vc-recaptcha key="publicKey"></div>
+                                </div>
+                                <div class="login-text">Nếu bạn đã có tài khoản? <a href="/dang-nhap">Đăng nhập</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-item-res col-item-prevImg">
+                        <p>Ảnh đại diện</p>
+                        <div class="previews-avata">
+                            <img ng-src="{{ register.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + register.Avata) }}" alt="Ảnh đại diện">
+                        </div>
+                        <div class="custom-file-input">
+                            <input type="file" id="media" name="media" onchange="angular.element(this).scope().uploadAvatar(this)" accept="image/*" value="">
+                            <label for="media"><i class="fa-solid fa-cloud-arrow-up"></i> Tải ảnh đại diện</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+        @*<section class="section section-login-2">
+            <div class="bg-section"></div>
+            <div class="container"></div>
+        </section>*@
+    </div>
+</main>

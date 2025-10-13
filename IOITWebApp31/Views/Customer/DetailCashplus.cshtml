@@ -1,0 +1,1052 @@
+﻿﻿@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<script>
+    document.getElementById("doi-tac").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn btn_hover"><span>Đăng Ký Đối Tác</span></a>';
+    
+
+    // var dangKyElement = document.getElementById("dang-ky");
+    // dangKyElement.style.display = "none";
+
+    var isWhiteDivVisible = false;
+    var whiteDiv = document.getElementById("whiteDiv");
+    function closeWhiteDiv() {
+        if (whiteDiv.style.display = "block") {
+            isWhiteDivVisible = false;
+            whiteDiv.style.display = "none";
+        }
+        document.removeEventListener("click", handleDocumentClick);
+    }
+
+    function handleDocumentClick(event) {
+        if (!whiteDiv.contains(event.target)) {
+            closeWhiteDiv();
+        }
+    }
+
+</script>
+<main id="main" ng-controller="UserUnitController" ng-init="getListRegister()" onclick="closeWhiteDiv()">
+    <div id="content" class="content-area">
+        <section class="section section-1 section-1-fix">
+            <div class="bg-section"></div>
+            <div class="bg-rocket show-for-full"></div>
+
+            <div class="container">
+                <div class="row s1_r1 knmg">
+                    <div class="col col-md-8 col-12">
+                        <div class="col-inner">
+                            <div class="left-intro">HÀNH TRÌNH <span>KHỞI NGHIỆP</span></div>
+                            <div class="desc-intro ct-content">
+                                <p class="rep-text-p txtDes">Hưởng ứng Chương trình Quốc gia khởi nghiệp của Chính phủ, Công ty CP Tập đoàn Công nghệ ATS phối hợp cùng trường Cao đẳng Công thương Việt Nam và trường Cao đẳng Thương mại và Du lịch Hà Nội tổ chức chương trình <b>Chiến Binh Khởi Nghiệp</b>  cho các sinh viên đang học tại trường. Chương trình tạo ra nhằm thúc đẩy tư duy sáng tạo, đánh thức khát vọng khởi nghiệp thành công của sinh viên. Cuộc thi được triển khai trên môi trường thực tế kết hợp nhiều lĩnh vực khác nhau để từ đó các sinh viên có thêm tầm nhìn về cuộc sống và định hướng đúng nghề nghiệp trong tương lai. Thông qua chương trình các em sinh viên sẽ tích lũy được thêm kiến thức, sự  trải nghiệm và kỹ năng xã hội thực tế để hỗ trợ và trang bị những kỹ năng thiết yếu trong việc khởi nghiệp và đặc biệt là hỗ trợ tăng nguồn thu nhập khi tham gia chương trình.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="button-cntt buttonThamgia" style="z-index: 1">
+                    <a href="https://cashplus.vn/" class="btn-cntt style-btn-6"><span>Sản phẩm hỗ trợ tham gia</span></a>
+                </div>
+            </div>
+        </section>
+        <div class="col-inner active show">
+            @* <div class="step-other step-other-firt pos-xemthem hide-for-ipad"> <span class="for-xemthem for-q">Xem thêm <i class="fa-solid fa-angle-down"></i></span></div>*@
+            <div class="list-block-text block-show" style="width: 100%;">
+                <section class="section section-2 mgt-280">
+                    <div class="bg-section"></div>
+                    <div class="container mg-img-110">
+                        <div class="row s2_r1">
+                            <div class="col col-md-12 col-12 s2_r1_c1">
+                                <div class="col-inner ">
+                                    <h2 class="title-home title-homes content-index rep-text-p17">
+                                        CƠ HỘI CHO CÁC CHIẾN BINH KHI THAM GIA
+                                    </h2>
+                                </div>
+
+                                <div class="d-flex justify-between">
+                                    <div class="col-inner wchange">
+                                        <div class="steps-download">
+                                            <div class="step-download">
+                                                <div class="head-step">
+                                                    <div class="number">1</div>
+                                                    <div class="name-step rep-text-p">
+                                                        Được các chuyên gia đào tạo và tham gia làm việc trong môi trường thực tế
+                                                        của doanh nghiệp.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="step-download">
+                                                <div class="head-step">
+                                                    <div class="number">2</div>
+                                                    <div class="name-step rep-text-p">
+                                                        <p> Được đội ngũ chuyên gia hướng dẫn, kèm cặp trong quá trình triển khai.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="step-download ">
+                                                <div class="head-step">
+                                                    <div class="number">3</div>
+                                                    <div class="name-step rep-text-p">
+                                                        <p>
+                                                            Được hưởng doanh thu trực tiếp, gián tiếp (Affiliate) mỗi khi hoàn thành
+                                                            các KPIs. Quyền lợi này sẽ được hưởng lâu dài kể cả trường hợp sau khi kết thúc chương trình
+                                                            mà thành viên không còn tham gia nữa thì nguồn thu đó vẫn được duy trì ổn định.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="step-download">
+                                                <div class="head-step">
+                                                    <div class="number">4</div>
+                                                    <div class="name-step rep-text-p">
+                                                        <p>   Được nhận các phần thưởng bằng tiền mặt: Giải nhất, giải nhì, giải ba, …</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="step-download ">
+                                                <div class="head-step">
+                                                    <div class="number">5</div>
+                                                    <div class="name-step rep-text-p">
+                                                        <p>
+                                                            Được vinh danh và nhận các kỷ niệm chương, chứng nhận tham gia và hoàn
+                                                            thành chương trình.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="step-download">
+                                                <div class="head-step">
+                                                    <div class="number">6</div>
+                                                    <div class="name-step rep-text-p">
+                                                        <p>  Được ưu tiên nhận vào làm việc tại công ty sau khi tốt nghiệp tại trường.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-inner show-for-full">
+                                        <img src="../images/homecashplus/chien-thang1.png" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-md-12 col-12 s3_r1_c2 content-index">
+                            <div class="col-inner">
+                                <div class="text-vip">
+                                    <img src="../images/homecashplus/regis.png" class="regisimg" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row s4_r1">
+                            <div class="col col-md-12 col-12 s4_r1_c1 mg-t-44">
+                                <div class="col-inner d-flex">
+                                    <div class="title-s3 title-fix">Hướng dẫn triển khai</div>
+                                </div>
+                                <div class="step">Vòng 1: Tuyển đầu vào</div>
+                                <div class="step-item">
+                                    <div class="stepv1">
+                                        <div class="step1Wrapper">
+                                            <img src="../images/homecashplus/step1.png" class="imgStep" />
+                                            <div class="contentV1">
+                                                <p><b>Thời gian:</b> Từ ngày 31/08/2023 đến 09/09/2023</p>
+                                                <p><b>Địa điểm:</b> Đăng ký trên website:<a href="https://cashplus.vn/chien-binh-khoi-nghiep" target="_blank"> https://cashplus.vn/chien-binh-khoi-nghiep</a></p>
+                                                <p><b>Đối tượng tuyển chọn:<br /></b> Sinh viên đang học tại Trường Cao đẳng Công thương Việt Nam và Trường Cao đẳng Thương mại và du lịch Hà Nội.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="stepv1">
+                                        <div class="step1Wrapper">
+                                            <img src="../images/homecashplus/step2.png" />
+                                            <div class="contentV1">
+                                                <p><b>Thời gian:</b> Từ ngày 10/09/2023 đến 22/09/2023</p>
+                                                <p><b>Hướng dẫn bình chọn:<br /></b>Sinh viên của trường hoặc ngoài trường đăng nhập vào:<a href="https://cashplus.vn/" target="_blank"> https://cashplus.vn/</a> và thực hiện phiếu bình chọn cho 1 hay nhiều thí sinh</p>
+                                                <p>Tỷ trọng 70% kết quả do cộng đồng mạng bình chọn và 30% căn cứ vào đánh giá của phòng nhân sự.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="stepv1">
+                                        <div class="step1Wrapper">
+                                            <img src="../images/homecashplus/step3.png" />
+                                            <div class="contentV1">
+                                                <p><b>Thời gian:</b> 23/09/2023</p>
+                                                <p><b>Nơi công bố kết quả:<br /></b>Trên website của chương trình và qua email thí sinh đã đăng ký.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="stepv1">
+                                        <div class="step1Wrapper">
+                                            <img src="../images/homecashplus/step4.png" />
+                                            <div class="contentV1">
+                                                <p><b>Thời gian:</b> 20/10/2023</p>
+                                                <p><b>Địa điểm:</b> Trụ sở ATS Group (Đơn vị tổ chức).</p>
+                                                <p><b>Hướng dẫn triển khai:<br /></b>Thông báo danh sách đạt tiêu chuẩn phỏng vấn trên website và các hướng dẫn cụ thể khi có danh sách.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="stepv1">
+                                        <div class="step1Wrapper">
+                                            <img src="../images/homecashplus/step5.png" />
+                                            <div class="contentV1">
+                                                <p><b>Thời gian:</b> 21/10/2023</p>
+                                                <p><b>Nơi công bố kết quả:<br /></b>Trên website của chương trình và qua email thí sinh đăng ký.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="step">Vòng 2: Đào tạo</div>
+                                <p class="mota-step">Thí sinh sẽ được các chuyên gia hàng đầu Việt Nam trong các lĩnh vực chiến lược, digital marketing, sale,... đào tạo và định hướng triển khai nội dung trong Vòng 3</p>
+                                <div class=" step-itemhei stepv2dfl">
+                                    <div class="stepv2">
+                                        <img src="../images/homecashplus/stepv2.png" />
+                                        <div>
+                                            <h3 class="v2Title">Bước 1: Event công bố triển khai chương trình</h3>
+
+                                            <div class="txtv2Dt">
+                                                <p><b style="color: #555555">Thành phần tham gia:</b> Ban tổ chức, đơn vị bảo trợ, đơn vị tổ chức, các đơn vị đồng hành, các cơ quan truyền thông và báo chí, các thí sinh đã vượt qua vòng 1.</p>
+                                                <p><b style="color: #555555">Thời gian:</b> 22/10/2023</p>
+                                                <p><b style="color: #555555">Địa điểm:</b> Thông báo sau</p>
+                                                <p><b style="color: #555555">Nội dung chương trình:</b> Công bố chính thức triển khai chương trình; Công bố chính thức số lượng Sv tham gia; Công bố Kế hoạch và Nội dung chi tiết các hạng mục triển khai tiếp theo; Trao chứng nhận cho các Sv trả ra vào chương trình.</p>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="stepv2 stepv2mg1">
+                                        <img src="../images/homecashplus/stepv2-2.png" />
+                                        <div>
+                                            <h3 class="v2Title">Bước 2: Đào tạo</h3>
+
+                                            <div class="txtv2Dt">
+                                                <p style="color: #555555"><b style="color: #555555">Thời gian đào tạo:</b> 23/10/2023 - 29/10/2023</p>
+                                                <p style="color: #555555"><b style="color: #555555">Các chuyên gia đào tạo:</b> Các chuyên gia hàng đầu Việt Nam trong các lĩnh vực chiến lược, quản trị, digital marketing, sale, ... đào tạo và hướng dẫn.</p>
+                                                <p style="color: #555555"><b style="color: #555555">Nội dung đào tạo:</b> Đào tạo về một số Quy chế; Đào tạo về các quyền lợi và cách tính quyền lợi cho Sv; Đào tạo về sản phẩm hỗ trợ tham gia; Khái lược về thị trường; Đào tạo marketing; Đào tạo phát triển thị trường; Lập kế hoạch; Lập kế hoạch triển khai; Đào tạo về đội nhóm. </p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="stepv2 stepv2mg2">
+                                        <img src="../images/homecashplus/stepv2-3.png" />
+                                        <div>
+                                            <h3 class="v2title" style="margin: 15px 0;">Bước 3: Lập kế hoạch triển khai</h3>
+
+                                            <div class="txtv2Dt">
+                                                <p style="color: #555555"><b style="color: #555555">Địa điểm:</b> tập trung thông báo sau.</p>
+                                                <p style="color: #555555"><b style="color: #555555">Thời gian lập kế hoạch:</b> 30/10/2023 - 05/11/2023 đề bài lập kế hoạch sẽ được công bố khi kết thúc bước 2 của vòng 2.</p>
+                                                <p style="color: #555555"><b style="color: #555555">Thời gian chấm kế hoạch và công bố kết quả điểm:</b> 06/11/2023 <br /> điểm chấm kế hoạch sẽ được cộng vào và cộng theo tỷ trọng chấm điểm cuối kì.</p>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <section class="section section-17 mg-t-a-6">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row s7_r1">
+                    <div class="col col-md-12 col-12 s7_r1_c1">
+                        <div class="col-inner active">
+                            <div class="step-other mg-t-1">Vòng 3: Triển khai  </div>
+                            <div class="list-block-text-2 block-show d-flex justify-between dp-flex-cl" style="width: 100%; flex-direction: row">
+                                <div class="v3-item">
+                                    <div class="btnV3">
+                                        <span>Bước 1: Event</span>
+                                    </div>
+                                    <ul>
+                                        <li><b>Thời gian:</b> 07/11/2023</li>
+                                        <li><b>Địa điểm:</b> Thông báo sau</li>
+                                        <li><b>Thành phần tham gia:</b> Ban tổ chức, đơn vị bảo trợ, đơn vị tổ chức, các đơn vị đồng hành, các đơn vị truyền thông báo chí, các sinh viên đã vượt qua Vòng 2 của chương trình</li>
+                                        <li><b>Nội dung triền khai:</b> Trao chứng nhận cho những sinh viên đã vượt qua Vòng 2 của chương trình.</li>
+                                    </ul>
+                                </div>
+                                <div class="v3-item">
+                                    <div class="btnV3" style="width: auto !important">
+                                        <span>Bước 2: Triển khai các kế hoạch đã lập ra </span>
+                                    </div>
+                                    <ul>
+                                        <li><b>Thời gian:</b> 08/11/2023 - 23/12/2023</li>
+                                        <li><b>Địa điểm:</b> Thị trường quận Cầu Giấy, Hà Nội và Thị trường tỉnh Hải Dương</li>
+                                        <li><b>Quản lý thời gian:</b> Sinh viên tự quản lý, trừ khi có chương trình hỗ trợ tập trung của Ban tổ chức.</li>
+                                        <li><b>Các nội dung chi tiết khác:</b> Sẽ được công bố sau. Dưới sự hướng dẫn của các Mentor dày dạn kinh nghiệm, các bạn sinh viên sẽ triển khai từng phần việc trong kế hoạch đã lập ra và sẽ họp triển khai định kỳ hàng tuần để điều chỉnh, bổ sung sao cho phù hợp nhất và đạt hiệu quả cao nhất với điều kiện thực tế của từng nhóm.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-9">
+            @* <div class="bg-section"></div> *@
+            <div class="container">
+                <div class="row s9_r1">
+                    <div class="col col-md-12 col-12 s9_r1_c1">
+                        <div class="col-inner">
+                            <div class="step-other">Vòng 4: Vinh danh và trao các phần thưởng</div>
+                        </div>
+                        <div>
+                            <span>Event tổng kết chương trình:</span>
+                            <ul class="uldot">
+                                <li>Thời gian 26/12/2023</li>
+                                <li>Địa điểm: Công bố sau</li>
+                                <li>
+                                    Thành phần tham gia: Ban tổ chức, đơn vị bảo trợ, đơn vị tổ chức, các đơn vị đồng hành, cơ quan truyền thông và báo chí
+                                    , các thí sinh vượt qua vòng 3 và các khách mời của chương trình
+                                </li>
+                                <li>Nội dung chính: Công bố, vinh danh và trao thường và các quyền lợi khác cho cá nhân, đội nhóm xuất săc, Tổng kết chương trình</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <img src="../images/homecashplus/step4-2.png" class="w-100" />
+                        </div>
+
+                        <div class="step4-item">
+                            <img src="../images/homecashplus/step4-3.png" class="w-100" />
+                        </div>
+
+                        @* <div class="nguoi-1">
+                        <img src="../images/homecashplus/nguoi-1.png" class="show-for-full" />
+                        </div> *@
+
+                        <div class="nguoi-1">
+                            <img src="./images/homecashplus/congraturation.png" class="show-for-full" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section10 " style="background-size:100%;" id="fullstep">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row s11_r3">
+                    <div class="col col-md-12 col-12 s11_r1_c1">
+                        <div class="col-inner">
+                            @* Vòng 1 -- start *@
+                            <span class="txtv1">VÒNG 1: TUYỂN ĐẦU VÀO</span> @* Vòng 1 *@
+                            <div style=" text-align: center; margin-top: 40px;display:none;" id="img-vong1">
+                                <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                            </div>
+                            @* <span class="txtv1">VÒNG 3: TRIỂN KHAI</span> *@ @* Vòng 3 *@
+                            @* <span class="txtv1">VÒNG 4: VINH DANH VÀ TRAO THƯỞNG</span> *@ @* Vòng 4 *@
+                            @* Vòng 1 --end *@
+
+                        </div>
+                    </div>
+                    <div class="col col-md-12 col-12 s11_r1_c1">
+                        <div class="col-inner">
+                            <span class="txtv1" id="vong2" style="display:none">VÒNG 2: ĐÀO TẠO</span>  @* Vòng 2 *@
+                            <div style=" text-align: center;display:none;margin-top:40px;" id="img-vong2">
+                                <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                            </div>
+                            @* <span class="txtv1">VÒNG 4: VINH DANH VÀ TRAO THƯỞNG</span> *@ @* Vòng 4 *@
+                            @* Vòng 1 --end *@
+
+                        </div>
+                    </div>
+                    <div class="col col-md-12 col-12 s11_r1_c1">
+                        <div class="col-inner">
+                            @* Vòng 1 -- start *@
+                            <span class="txtv1" id="vong3" style="display:none">VÒNG 3: TRIỂN KHAI</span>
+                            <div style=" text-align: center;display:none;margin-top:40px;" id="img-vong3">
+                                <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                            </div>
+                            @* <span class="txtv1">VÒNG 4: VINH DANH VÀ TRAO THƯỞNG</span> *@ @* Vòng 4 *@
+                            @* Vòng 1 --end *@
+
+                        </div>
+                    </div>
+                    <div class="col col-md-12 col-12 s11_r1_c1" id="vong4" style="display:none">
+                        <div class="col-inner">
+                            @* Vòng 1 -- start *@
+                            <span class="txtv1" id="vong4" style="display:none">VÒNG 4: VINH DANH VÀ TRAO THƯỞNG</span>
+                            <div style=" text-align: center;display:none;margin-top:40px;" id="img-vong4">
+                                <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                            </div>
+                            @* Vòng 1 --end *@
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row s9_r1" style="margin-top: 15px">
+                    <div class="col col-md-12 col-12 s9_r1_c1">
+                        <div class="col-inner">
+                            @* Vòng 1 + 2 -- start *@
+                            <div class="text-vip" style="margin-bottom: 55px;">
+                                @* Thời gian b1 vòng 1 *@
+                                <div class="image-countdown" id="buoc-1">
+                                    <div class="btnStepReal">
+                                        <span>Bước 1: Đăng ký tham gia</span>
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232; display:none" id="time-buoc-1">
+                                    Thời gian: 31/08/2023 – 09/09/2023
+                                </div>
+                                <div class="image-countdown" id="buoc-1v2" style="display:none">
+                                    <div class="btnStepReal">
+                                        <span style="font-size:14px">Bước 1: Event công bố triển khai chương trình</span>
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232;display:none" id="time-buoc-1v2">
+                                    Thời gian: 12/10/2023
+                                </div>
+                                <div style=" text-align: center;" id="img-buoc-1v2">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+                                <div class="image-countdown" id="buoc-1v3">
+                                    <div class="btnStepReal">
+                                        <span>Bước 1: Event</span>
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232" id="time-buoc-1v3">
+                                    Thời gian: 24/10/2023
+                                </div>
+                                <div style=" text-align: center; " id="img-buoc-1v3">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+                                @* <div class="desc-s11" style="color:#323232">
+                                Thời gian: 02/10/2023
+                                </div> vòng 2*@
+                                <div style=" text-align: center; " id="img-buoc-1" class="mrNone">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+                                <div class="image-countdown" id="img-bophieu"><img src="/images/homecashplus/bophieu.png" class="img-bophieu" style="display:none" /></div>
+                                <div class="image-countdown" id="buoc-2">
+                                    <div class="btnStepReal">
+                                        <span>Bước 2: Thí sinh tham gia bình chọn</span>
+                                        @* <span>Bước 2: Đào tạo</span> Vòng 2 bước 2*@
+                                        @* <span>Bước 2: Triển khai các kế hoạch đã lập ra</span> Vòng 3 bước 2*@
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232; " id="time-buoc-2">
+                                    Thời gian: 10/09/2023 – 22/09/2023
+                                </div>
+                                <div style=" text-align: center;" id="img-buoc-2" class="mrNone">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+
+                                <div class="image-countdown" id="buoc-2v2">
+                                    <div class="btnStepReal">
+                                        <span>Bước 2: Đào tạo</span>
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232; " id="time-buoc-2v2">
+                                    Thời gian: 23/10/2023 - 29/10/2023
+                                </div>
+                                <div style=" text-align: center;" id="img-buoc-2v2">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+
+                                <div class="image-countdown" id="buoc-2v3">
+                                    <div class="btnStepReal">
+                                        <span>Bước 2: Triển khai các kế hoạch đã lập ra</span>
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232; display: none;" id="time-buoc-2v3">
+                                    Thời gian: 25/10/2023 - 01/01/2024
+                                </div>
+                                <div style=" text-align: center;" id="img-buoc-2v3">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+
+                                <div class="image-countdown" id="buoc-3">
+                                    <div class="btnStepReal">
+                                        <span>Bước 3: Duyệt hồ sơ - thông báo</span>
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232;" id="time-buoc-3">
+                                    Thời gian: 23/09/2023
+                                </div>
+                                <div style=" text-align: center; " id="img-buoc-3" class="mrNone">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+
+                                <div class="image-countdown" id="buoc-3v2">
+                                    <div class="btnStepReal">
+                                        <span>Bước 3: Lập kế hoạch triển khai</span>
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232;" id="time-buoc-3v2">
+                                    Thời gian: 20/10/2023 - 26/10/2023
+                                </div>
+                                <div style=" text-align: center;" id="img-buoc-3v2">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+
+                                <div class="image-countdown">
+                                    <div class="btnStepReal" id="buoc-4">
+                                        <span>Bước 4: Phỏng vấn trực tiếp</span> @* Bước 4 vòng 1 *@
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232; " id="time-buoc-4">
+                                    Thời gian: 20/10/2023
+                                </div>
+                                <div style=" text-align: center;" id="img-buoc-4" class="mrNone">
+                                    <img src="./images/homecashplus/complete3.png" alt="" class="img-completed" />
+                                </div>
+                                <div class="image-countdown" id="buoc-5">
+                                    <div class="btnStepReal">
+                                        <span>Bước 5: Công bố kết quả</span> @* Bước 5 vòng 1 *@
+                                    </div>
+                                </div>
+                                <div class="desc-s11" style="color:#323232; " id="time-buoc-5">
+                                    Thời gian: 21/10/2023
+                                </div>
+                                <div id="countdown" class="cdlist">
+                                    <ul>
+                                        <li><p style="color: #2B3990"><span id="days"></span>Ngày</p></li>
+                                        <li class="style-li"><p style="color: #2B3990"><span id="hours"></span>Giờ</p></li>
+                                        <li class="style-li"><p style="color: #2B3990"><span id="minutes"></span>Phút</p></li>
+                                        <li class="style-li"><p style="color: #2B3990"><span id="seconds"></span>Giây</p></li>
+                                    </ul>
+                                </div>
+                                <div class="warrior" id="text-dssv">
+                                    <h3>HÀNH TRÌNH {{registerCT.length+registerTM.length}} CHIẾN BINH KHỞI NGHIỆP</h3>
+                                </div>
+                                <div class="warrior" id="text-dssvb4">
+                                    <h3>HÀNH TRÌNH {{registerCTb4.length+registerTMb4.length}} CHIẾN BINH KHỞI NGHIỆP</h3>
+                                </div>
+                                <div class="warrior" id="text-dssvb5">
+                                    <h3>HÀNH TRÌNH {{registerCTb5.length+registerTMb5.length}} CHIẾN BINH KHỞI NGHIỆP</h3>
+                                </div>
+                                <div class="warrior" id="text-dsn">
+                                    <h3>DANH SÁCH NHÓM KHỞI NGHIỆP</h3>
+                                </div>
+                            </div> @* Vòng 1 --end *@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        @* Tổng kết -- start *@
+        <section class="section section10 " style="background-size:100%" id="bxh-canhan">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row s11_r3">
+                    <div class="col col-md-12 col-12 s11_r1_c1">
+                        <div class="col-inner">
+                            <div class="bxhvotecanhan">
+                                <div class="titlebxhcanhan">
+                                    <span>Bảng xếp hạng bình chọn cá nhân</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row s9_r1" style="margin-top: 15px">
+                    <div class="col col-md-12 col-12 s9_r1_c1">
+                        <div class="col-inner">
+                            @* Vòng 1 + 2 -- start *@
+                            <div class="text-vip" style="margin-bottom: 55px;">
+                                <div class="congra1">
+                                    <div class="congra1form">
+                                        <div class="imgcanhan">
+                                            <img ng-src="{{ topThree[0].Avata == undefined ? '//cashplus.vn/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + topThree[0].Avata) }}"
+                                                 alt="Ảnh đại diện" />
+                                        </div>
+                                        <div class="imglua">
+                                            <img src="./images/homecashplus/lua.png" />
+                                        </div>
+
+                                    </div>
+                                    <div class="dtVinhdanh">
+
+                                        <p class="dtSBD">MSV: {{topThree[0].StudentCode}}</p>
+                                        <p class="dtSBD">{{topThree[0].FullName}}</p>
+                                    </div>
+                                </div>
+
+
+                                <div class="congra2">
+                                    <div class="giai23">
+                                        <div class="imgcanhan1">
+
+                                            <div class="imgcanhan1-item">
+                                                <img ng-src="{{ topThree[1].Avata == undefined ? '//cashplus.vn/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + topThree[1].Avata) }}"
+                                                     alt="Ảnh đại diện" />
+                                            </div>
+                                            <div class="imgnumber2">
+                                                <img src="./images/homecashplus/number2.png" />
+                                            </div>
+                                        </div>
+                                        <div class="dtVinhdanh">
+
+                                            <p class="dtSBD">MSV: {{topThree[1].StudentCode}}</p>
+                                            <p class="dtSBD">{{topThree[1].FullName}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="giai23">
+                                        <div class="imgcanhan2">
+                                            <div class="imgcanhan1-item">
+                                                <img ng-src="{{ topThree[2].Avata == undefined ? '//cashplus.vn/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + topThree[2].Avata) }}"
+                                                     alt="Ảnh đại diện" />
+                                            </div>
+                                            <div class="imgnumber2">
+                                                <img src="./images/homecashplus/number3.png" />
+                                            </div>
+                                        </div>
+                                        <div class="dtVinhdanh">
+
+                                            <p class="dtSBD">MSV: {{topThree[2].StudentCode}}</p>
+                                            <p class="dtSBD">{{topThree[2].FullName}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div> @* Vòng 1 --end *@
+
+                    </div>
+                </div>
+            </div>
+    </div>
+    </section>
+    @* Tổng kết --end *@
+
+
+    <section class="section section-11" id="fulldsnhom">
+        <div class="bg-section"></div>
+        <div class="container">
+            <div class="row s11_r3">
+                <div class="col col-md-12 col-12 s11_r1_c1">
+                    <div class="col-inner">
+                    </div>
+                </div>
+            </div>
+            <div class="row s11_r1">
+                <div class="col col-md-12 col-12 s11_r1_c1">
+                    <div class="col-inner">
+                    </div>
+                </div>
+            </div>
+            <div class="row s12_r2">
+                <div class="col col-md-12 col-12 s12_r2_c1">
+                    <div class="col-inner">
+                        <div class="block-bo-phieu" id="ds-buoc-2">
+                            <div class="block-school">
+                                <div class="inner-block">
+                                    <div class="image"><img src="images/cashplus/image_894.png" alt=""></div>
+                                    <div class="block-thong-so">
+                                        <div class="name-school">Trường cao đẳng công thương VIỆT NAM</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Sinh viên tham gia:</div>
+                                            <div class="binlap"><span>{{registerCT.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="font-size:20px;font-weight:600" class="txtLstSV">DANH SÁCH THÍ SINH ĐƯỢC CHỌN</span>
+                                <div class="scroll_drop">
+                                    <div class="list-container" ng-repeat="item in registerCT">
+                                        <ul>
+                                            <li class="list-item">
+                                                <div class="w-50">
+                                                    @* <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                                    alt="Ảnh đại diện" class="imglstItem" />*@
+                                                    <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Avata) }}"
+                                                         alt="Ảnh đại diện" class="imglstItem" />
+                                                </div>
+                                                <div class="">
+                                                    <div>Sinh viên:<span class="lstDT"> {{item.FullName}}</span></div>
+                                                    <div class="infoItem">Mã sinh viên:<span class="lstDT"> {{item.StudentCode}}</span></div>
+                                                    <button class="dtBtn btn-regis"><a class="btn-regis" href=" /chi-tiet/?StudentCode ={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click>Thông tin chi tiết</a></button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-school right-mg block-school2">
+                                <div class="inner-block">
+                                    <div class="image"><img src="./images/cashplus/image_898.png" alt="" class="height-img"></div>
+                                    <div class="block-thong-so">
+                                        <div class="name-school">Trường cao đẳng du lịch và thương mại hà nội</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Sinh viên tham gia:</div>
+                                            <div class="binlap"><span>{{registerTM.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="font-size:20px;font-weight:600" class="txtLstSV">DANH SÁCH THÍ SINH ĐƯỢC CHỌN</span>
+                                <div class="scroll_drop">
+                                    <div class="list-container" ng-repeat="item in registerTM">
+                                        <ul>
+                                            <li class="list-item">
+                                                <div class="w-50">
+                                                    @* <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                                    alt="Ảnh đại diện" class="imglstItem" />*@
+                                                    <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Avata) }}"
+                                                         alt="Ảnh đại diện" class="imglstItem" />
+                                                </div>
+                                                <div class="">
+                                                    <div>Sinh viên:<span class="lstDT"> {{item.FullName}}</span></div>
+                                                    <div class="infoItem">Mã sinh viên:<span class="lstDT"> {{item.StudentCode}}</span></div>
+                                                    <button class="dtBtn btn-regis"><a class="btn-regis" href=" /chi-tiet/?StudentCode ={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click>Thông tin chi tiết</a></button>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-bo-phieu" id="ds-buoc-4">
+                            <div class="block-school">
+                                <div class="inner-block">
+                                    <div class="image"><img src="images/cashplus/image_894.png" alt=""></div>
+                                    <div class="block-thong-so">
+                                        <div class="name-school">Trường cao đẳng công thương VIỆT NAM</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Sinh viên tham gia:</div>
+                                            <div class="binlap"><span>{{registerCTb4.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="font-size:20px;font-weight:600" class="txtLstSV">DANH SÁCH THÍ SINH ĐƯỢC CHỌN</span>
+                                <div class="scroll_drop">
+                                    <div class="list-container" ng-repeat="item in registerCTb4">
+                                        <ul>
+                                            <li class="list-item">
+                                                <div class="w-50">
+                                                    @*<img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                                    alt="Ảnh đại diện" class="imglstItem" />*@
+                                                    <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Avata) }}"
+                                                         alt="Ảnh đại diện" class="imglstItem" />
+                                                </div>
+                                                <div class="">
+                                                    <div>Sinh viên:<span class="lstDT"> {{item.FullName}}</span></div>
+                                                    <div class="infoItem">Mã sinh viên:<span class="lstDT"> {{item.StudentCode}}</span></div>
+                                                    <button class="dtBtn btn-regis"><a class="btn-regis" href=" /chi-tiet/?StudentCode ={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click>Thông tin chi tiết</a></button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-school right-mg block-school2">
+                                <div class="inner-block">
+                                    <div class="image"><img src="./images/cashplus/image_898.png" alt="" class="height-img"></div>
+                                    <div class="block-thong-so">
+                                        <div class="name-school">Trường cao đẳng du lịch và thương mại hà nội</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Sinh viên tham gia:</div>
+                                            <div class="binlap"><span>{{registerTMb4.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="font-size:20px;font-weight:600" class="txtLstSV">DANH SÁCH THÍ SINH ĐƯỢC CHỌN</span>
+                                <div class="scroll_drop">
+                                    <div class="list-container" ng-repeat="item in registerTMb4">
+                                        <ul>
+                                            <li class="list-item">
+                                                <div class="w-50">
+                                                    @*   <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                                    alt="Ảnh đại diện" class="imglstItem" />*@
+                                                    <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Avata) }}"
+                                                         alt="Ảnh đại diện" class="imglstItem" />
+                                                </div>
+                                                <div class="w-50">
+                                                    <div>Sinh viên:<span class="lstDT"> {{item.FullName}}</span></div>
+                                                    <div class="infoItem">Mã sinh viên:<span class="lstDT"> {{item.StudentCode}}</span></div>
+                                                    <button class="dtBtn btn-regis"><a class="btn-regis" href=" /chi-tiet/?StudentCode ={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click>Thông tin chi tiết</a></button>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-bo-phieu" id="ds-buoc-5">
+                            <div class="block-school">
+                                <div class="inner-block">
+                                    <div class="image"><img src="images/cashplus/image_894.png" alt=""></div>
+                                    <div class="block-thong-so">
+                                        <div class="name-school">Trường cao đẳng công thương VIỆT NAM</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Sinh viên tham gia:</div>
+                                            <div class="binlap"><span>{{registerCTb5.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="font-size:20px;font-weight:600" class="txtLstSV">DANH SÁCH THÍ SINH ĐƯỢC CHỌN</span>
+                                <div class="scroll_drop">
+                                    <div class="list-container" ng-repeat="item in registerCTb5">
+                                        <ul>
+                                            <li class="list-item">
+                                                <div class="w-50">
+                                                    @*  <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                                    alt="Ảnh đại diện" class="imglstItem" />*@
+                                                    <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Avata) }}"
+                                                         alt="Ảnh đại diện" class="imglstItem" />
+                                                </div>
+                                                <div class="">
+                                                    <div>Sinh viên:<span class="lstDT"> {{item.FullName}}</span></div>
+                                                    <div class="infoItem">Mã sinh viên:<span class="lstDT"> {{item.StudentCode}}</span></div>
+                                                    <button class="dtBtn btn-regis"><a class="btn-regis" href=" /chi-tiet/?StudentCode ={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click>Thông tin chi tiết</a></button>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="block-school right-mg block-school2">
+                                <div class="inner-block">
+                                    <div class="image"><img src="./images/cashplus/image_898.png" alt="" class="height-img"></div>
+                                    <div class="block-thong-so">
+                                        <div class="name-school">Trường cao đẳng du lịch và thương mại hà nội</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Sinh viên tham gia:</div>
+                                            <div class="binlap"><span>{{registerTMb5.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <span style="font-size:20px;font-weight:600" class="txtLstSV">DANH SÁCH THÍ SINH ĐƯỢC CHỌN</span>
+                                <div class="scroll_drop">
+                                    <div class="list-container" ng-repeat="item in registerTMb5">
+                                        <ul>
+                                            <li class="list-item">
+                                                <div class="w-50">
+                                                    @*<img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                                    alt="Ảnh đại diện" class="imglstItem" />*@
+                                                    <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Avata) }}"
+                                                         alt="Ảnh đại diện" class="imglstItem" />
+                                                </div>
+                                                <div class="w-50">
+                                                    <div>Sinh viên:<span class="lstDT"> {{item.FullName}}</span></div>
+                                                    <div class="infoItem">Mã sinh viên:<span class="lstDT"> {{item.StudentCode}}</span></div>
+                                                    <button class="dtBtn btn-regis"><a class="btn-regis" href=" /chi-tiet/?StudentCode ={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click>Thông tin chi tiết</a></button>
+                                                </div>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @* Vòng 1 --end *@
+
+                        @* Vòng 2 --start *@
+                        <div class="totalGroup" id="header-nhom">
+                            <div class="frmGroup">
+                                <div class="groupSchool">
+                                    <div class="imageGroup"><img src="images/cashplus/image_894.png" alt=""></div>
+                                    <div class="gr-thong-so">
+                                        <div class="name-school">TRƯỜNG CAO ĐẲNG CÔNG THƯƠNG VIỆT NAM</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Tổng số nhóm:</div>
+                                            <div class="binlap"><span>{{GroupSVCT.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="groupSchool">
+                                    <div class="imageGroup"><img src="images/cashplus/image_898.png" alt=""></div>
+                                    <div class="gr-thong-so">
+                                        <div class="name-school1">TRƯỜNG CAO ĐẲNG THƯƠNG MẠI VÀ DU LỊCH</div>
+                                        <div class="bottom-school">
+                                            <div class="label">Tổng số nhóm:</div>
+                                            <div class="binlap"><span>{{GroupSVTM.length}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scrollgr_drop" id="ds-nhom">
+                            <div class="listgr-container" ng-repeat="item in GroupSV">
+                                <ul class="testgrrr">
+                                    <li class="list-item">
+                                        <div>
+                                            @* <img ng-src="{{ item.Image == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Image) }}" alt="Ảnh đại diện" class="imglstItem" />
+                                            *@ <img ng-src="{{ item.Image == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Image) }}" alt="Ảnh đại diện" class="imglstItem" />
+                                        </div>
+                                        <div>
+                                            <div class="namegrcolor">Tên nhóm:<span class="lstDT"> {{item.Name}}</span></div>
+                                            <div class="infoItem namegrcolor">
+                                                Trường:
+                                                <span class="lstDT" ng-if="item.Location == 1">Trường cao đẳng du lịch và thương mại Hà Nội</span>
+                                                <span class="lstDT" ng-if="item.Location == 2">Trường cao đẳng công thương Việt Nam</span>
+                                            </div>
+                                            <button ng-click="[goDetailGroupSV(item.TypeAttributeId)]" class="dtBtn btn-regis"><a class="btn-regis" href="/chi-tiet-nhom/?TypeAttributeID={{item.TypeAttributeId}}" click>Thông tin chi tiết</a></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        @* Vòng 2 --end *@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    @* bxh Tập thể -- start *@
+    <section class="section section-11test " style=" " id="bxh-tapthe">
+        <div class="bg-section"></div>
+        <div class="container">
+            <div class="row s11_r3">
+                <div class="col col-md-12 col-12 s11_r1_c1">
+                    <div class="col-inner">
+                        <div class="bxhvotetapthe">
+                            <div class="titlebxh">
+                                <span>Bảng xếp hạng bình chọn tập thể</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row s9_r1" style="margin-top: 15px">
+                <div class="col col-md-12 col-12 s9_r1_c1">
+                    <div class="col-inner">
+                        @* Vòng 1 + 2 -- start *@
+                        <div class="text-vip" style="margin-bottom: 55px;">
+                            <div class="congra1nhom">
+                                <div class="congra1form">
+                                    <div class="imgcanhan imggrcanhan">
+                                        <img ng-src="{{ topGroup[0].Image == undefined ? '//cashplus.vn/images/avata-preview.png' : ('/images/avatar/' + topGroup[0].Image) }}"
+                                             alt="Ảnh đại diện" />
+                                    </div>
+                                    <div class="imglua luacup">
+                                        <img src="./images/homecashplus/luacup.png" />
+                                    </div>
+
+
+                                </div>
+                                <div class="vinhdanhNhom">
+                                    <p class="diemso">Nhóm: {{topGroup[0].Name}}</p>
+                                    <p class="dtSchool" ng-if="topGroup[0].Location==1">Trường cao đẳng du lịch và thương mại Hà Nội</p>
+                                    <p class="dtSchool" ng-if="topGroup[0].Location==2">Trường cao đẳng công thương Việt Nam</p>
+                                </div>
+
+                                @*<div class="congra1form">
+                                <div class="imgcanhan imggrcanhan">
+                                <img src="https://i.pinimg.com/564x/40/40/84/404084da91afc9b9523e26426b38a644.jpg"
+                                alt="Ảnh đại diện" />
+                                </div>
+                                <div class="imglua luacup">
+                                <img src="./images/homecashplus/luacup.png" />
+                                </div>
+
+
+                                </div>
+                                <div class="vinhdanhNhom">
+                                <p class="diemso">Nhóm: {{topGroup[0].Name}}</p>
+                                <p class="dtSchool" ng-if="topGroup[0].Location==1">Trường cao đẳng du lịch và thương mại Hà Nội</p>
+                                <p class="dtSchool" ng-if="topGroup[0].Location==2">Trường cao đẳng công thương Việt Nam</p>
+                                </div>*@
+                            </div>
+                            <div class="congra2">
+                                <div class="giai23">
+                                    <div class="imgcanhan1">
+
+                                        <div class="imgcanhan1-item">
+                                            <img ng-src="{{ topGroup[1].Image == undefined ? '//cashplus.vn/images/avata-preview.png' : ('/images/avatar/' + topGroup[1].Image) }}"
+                                                 alt="Ảnh đại diện" class="imggrcanhan" />
+                                            @*<img src="https://i.pinimg.com/564x/40/40/84/404084da91afc9b9523e26426b38a644.jpg"
+                                            alt="Ảnh đại diện" class="imggrcanhan" />*@
+                                        </div>
+                                        <div class="imgnhomnumber2">
+                                            <img src="./images/homecashplus/nhomso2.png" />
+                                        </div>
+                                    </div>
+                                    <div class="vinhdanhNhom2">
+                                        <p class="diemso">Nhóm: {{topGroup[1].Name}} </p>
+                                        <p class="dtSchool" ng-if="topGroup[1].Location==1">Trường cao đẳng du lịch và thương mại Hà Nội</p>
+                                        <p class="dtSchool" ng-if="topGroup[1].Location==2">Trường cao đẳng công thương Việt Nam</p>
+                                    </div>
+                                </div>
+                                <div class="giai23">
+                                    <div class="imgcanhan2">
+
+                                        <div class="imgcanhan1-item">
+                                            <img ng-src="{{ topGroup[2].Image == undefined ? '//cashplus.vn/images/avata-preview.png' : ('/images/avatar/' + topGroup[2].Image) }}"
+                                                 alt="Ảnh đại diện" class="imggrcanhan" />
+                                            @*<img src="https://i.pinimg.com/564x/40/40/84/404084da91afc9b9523e26426b38a644.jpg"
+                                            alt="Ảnh đại diện" class="imggrcanhan" />*@
+                                        </div>
+                                        <div class="imgnhomnumber2">
+                                            <img src="./images/homecashplus/nhomso3.png" />
+                                        </div>
+                                    </div>
+                                    <div class="vinhdanhNhom2">
+                                        <p class="diemso">Nhóm: {{topGroup[2].Name}} </p>
+                                        <p class="dtSchool" ng-if="topGroup[2].Location==1">Trường cao đẳng du lịch và thương mại Hà Nội</p>
+                                        <p class="dtSchool" ng-if="topGroup[2].Location==2">Trường cao đẳng công thương Việt Nam</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @* bxh Tập thể --end *@
+
+    <section class="section section-13">
+        <div class="bg-section"></div>
+        <div class="container">
+            <div class="row s13_r1">
+                <div class="col col-md-12 col-12 s13_r1_c1">
+                    <div class="col-inner">
+                        <div class="title-s13">ĐƠN VỊ ĐỒNG HÀNH</div>
+                        <div class="desc-s13">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row s13_r2">
+                <div class="col col-md-12 col-12 s13_r2_c1">
+                    <div class="col-inner">
+                        <div class="main-partner">
+                            <div class="item-partner">
+                                <img src="./images/cashplus/1.png" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/2.png" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/3.png" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/4.png" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/5.png" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/DFC_logo_final-03.jpg" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/CNTT.jpg" style="min-height: 128px !important" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/logo-mbbank.jpg" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/vienCNTT.jpg" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/SHB.jpg" alt="">
+                            </div>
+                            <div class="item-partner">
+                                <img src="./images/cashplus/baokim.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div>
+</main>

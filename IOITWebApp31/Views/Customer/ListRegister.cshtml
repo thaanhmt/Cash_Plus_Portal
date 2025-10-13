@@ -1,0 +1,201 @@
+﻿﻿﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<script>
+    document.getElementById("dang-ky").innerHTML = '<a href="/chien-binh-khoi-nghiep"><span class="dang-ky-thamgia">CHIẾN BINH</span><span class="chien-binh-khoinghiep"> KHỞI NGHIỆP</span></a>';
+</script>
+<style>
+    /* Container bao quanh bảng với thanh cuộn ngang */
+    .table-container {
+        overflow-x: auto; /* Cho phép cuộn ngang khi bảng quá rộng */
+    }
+
+    /* Bảng */
+    .table {
+        background-color: #C0C0C0;
+        border-radius: 12px;
+        margin-top: 20px;
+        min-width: 100%; /* Bảng sẽ có độ rộng tối thiểu bằng kích thước của container */
+    }
+
+        /* Các cột */
+        .table th {
+            min-width: 40px;
+        }
+
+        /* Các dòng dữ liệu */
+        .table td {
+            min-width: 100px;
+        }
+
+    /* Cuộn ngang chỉ khi cần thiết */
+    .table-container::-webkit-scrollbar {
+        height: 12px; /* Độ cao của thanh cuộn ngang */
+    }
+
+    /* Màu nền của thanh cuộn ngang */
+    .table-container::-webkit-scrollbar-track {
+        background-color: #f1f1f1;
+    }
+
+    /* Màu của "nút trượt" thanh cuộn */
+    .table-container::-webkit-scrollbar-thumb {
+        background-color: #888;
+    }
+
+        /* Hover trên "nút trượt" */
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+</style>
+
+
+<main id="main" ng-controller="UserUnitController" ng-init="getListRegister()">
+    <div id="content" class="content-area">
+        <section class="section section-login-1">
+            <div class="container">
+                <div class="row s11_r3" style="display: none">
+                    <div class="col col-md-12 col-12 s11_r3_c1">
+                        <div class="col-inner">
+                            <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                            <div id="countdown">
+                                <ul>
+                                    <li><span id="days"></span>Ngày</li>
+                                    <li><span id="hours"></span>Giờ</li>
+                                    <li><span id="minutes"></span>Phút</li>
+                                    <li><span id="seconds"></span>Giây</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group input-w-100 w-filter" style="margin-top: 20px;">
+                    <ui-select ng-model="School" ng-change="changeValueSchool($select.selected)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.Name }}">
+                        <ui-select-match allow-clear="true" placeholder="Chọn trường">{{ $select.selected.Name }}</ui-select-match>
+                        <ui-select-choices repeat="item in listSchool | propsFilter: {Name: $select.search} | limitTo: 100" position="down">
+                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+               @* <div class="table-responsive" style=" background-color: #C0C0C0; border-radius: 12px; margin-top: 20px;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="min-width: 40px;">STT</th>
+                                <th scope="col" style="min-width: 100px;">Họ và tên</th>
+                                <th scope="col" style="min-width: 150px;">Mã sinh viên</th>
+                                <th scope="col" style="min-width: 100px;">Giới tính</th>
+                                <th scope="col" style="min-width: 100px;">Lớp</th>
+                                <th scope="col" style="min-width: 120px;">Xem chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in register track by $index">
+                                <th scope="row">{{$index + 1}}</th>
+                                <td><span ng-bind-html="item.FullName"></span></td>
+                                <td>{{item.StudentCode}}</td>
+                                <td>
+                                    <span ng-if="item.Sex == 1">Nam</span>
+                                    <span ng-if="item.Sex == 2">Nữ</span>
+                                    <span ng-if="item.Sex == 3">Khác</span>
+                                </td>
+                                <td>{{item.StudentClass}}</td>
+                                <td><a href="/chi-tiet/?StudentCode={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click><i class="fa fa-eye" style="margin-left:38px"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>*@
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" style="min-width: 40px;">STT</th>
+                                <th scope="col" style="min-width: 100px;">Họ và tên</th>
+                                <th scope="col" style="min-width: 64px;">Avatar</th>
+                                <th scope="col" style="min-width: 150px;">Mã sinh viên</th>
+                                <th scope="col" style="min-width: 100px;">Giới tính</th>
+                                <th scope="col" style="min-width: 100px;">Lớp</th>
+                                <th scope="col" style="min-width: 120px;">Xem chi tiết</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item in register track by $index">
+                                <td scope="row"> {{$index + 1}} </td>
+                                <td><a href="/chi-tiet/?StudentCode={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click><span ng-bind-html="item.FullName"></span></a></td>
+                                <td>
+                                    <img ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                         alt="Ảnh đại diện" style="width: 64px; height: 64px; object-fit: contain;" />
+                                </td>
+                                <td> {{item.StudentCode}} </td>
+                                <td>
+                                    <span ng-if="item.Sex == 1">Nam</span>
+                                    <span ng-if="item.Sex == 2">Nữ</span>
+                                    <span ng-if="item.Sex == 3">Khác</span>
+                                </td>
+                                <td> {{item.StudentClass}} </td>
+                                <td><a href="/chi-tiet/?StudentCode={{item.StudentCode}}" ng-click="[goDetail(item.StudentCode)]" click><i class="fa fa-eye" style="margin-left:38px"></i></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        <section class="section section-13">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row s13_r1">
+                    <div class="col col-md-12 col-12 s13_r1_c1">
+                        <div class="col-inner">
+                            <div class="title-s13">ĐƠN VỊ ĐỒNG HÀNH</div>
+                            <div class="desc-s13">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row s13_r2">
+                    <div class="col col-md-12 col-12 s13_r2_c1">
+                        <div class="col-inner">
+                            <div class="main-partner">
+                                <div class="item-partner">
+                                    <img src="images//cashplus/1.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/2.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/3.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/4.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/5.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/DFC_logo_final-03.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/CNTT.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/logo-mbbank.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/vienCNTT.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/SHB.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/baokim.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Category>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    <div class="col-12 titleBarHome @ViewBag.Class">
+        <div class="labelTitleBar">@ViewBag.TitleParent</div>
+        <ul class="listCategoriesBarItem @ViewBag.Carouse">
+            @foreach (var item in Model)
+            {
+                <li class="item"><a href="/@item.Url">@item.Name</a></li>
+            }
+        </ul>
+    </div>
+}

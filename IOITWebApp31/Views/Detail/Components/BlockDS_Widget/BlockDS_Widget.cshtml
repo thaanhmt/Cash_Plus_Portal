@@ -1,0 +1,12 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Block>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="col col-md-3 col-12 side-bar-info">
+            @Html.Raw(item.Code)
+        </div>
+    }
+}

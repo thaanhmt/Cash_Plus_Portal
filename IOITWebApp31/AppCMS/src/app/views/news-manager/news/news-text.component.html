@@ -1,0 +1,1175 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Danh sách tin tức</h1>
+      <button class="cms-addnew" type="button" (click)="OpenNewsModal(undefined, 0)" *ngIf="CheckRole.Create"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+    </div>
+    <!--<div class="description-page">
+      <blockquote class="{{isNoitify ? 'hidden' : ''}}">
+        <p>Khu vực hiển thị danh sách các bài tin tức. Khu vực này chỉ cho Admin mới có quyền cập nhật và hiệu chỉnh tin tức! </p>
+        <a class="close" href="javascript:void(0)" (click)="closeNoityfy()"><span>×</span></a>
+      </blockquote>
+    </div>-->
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row" style="padding-left:0;">
+          <div class="col-sm-12 col-md-12">
+            <div class="row cms-filter action-table">
+              <div class="col-sm-12 col-md-6" style="display:flex;align-items:center;">
+                <!--<ng-select class="mw150-select"
+                           [items]="ActionTable"
+                           bindLabel="Name"
+                           bindValue="Id"
+                           [clearable]="true"
+                           placeholder="Tác vụ"
+                           [(ngModel)]="ActionId"
+                           [ngModelOptions]="{standalone: true}">
+                </ng-select>
+                <button class="cms-addnew button-action" type="button" [disabled]="!ActionId" (click)="DeleteMuntiAddress()"><i class="fa-solid fa-badge-check"></i> Áp dụng</button>-->
+              </div>
+              <div class="col-sm-12 col-md-6" style="display: flex; justify-content: flex-end;align-items: flex-end;">
+                <label style="margin-right:10px;display: flex;align-items: center;">
+                  <span class="search-box">Tìm kiếm</span>
+                  <input type="text" class="form-control form-control-sm" placeholder="Nhập theo tiêu đề..." aria-controls="DataTables_Table_0" [(ngModel)]="q.txtSearch" (keyup.enter)="QueryChanged()">
+                </label>
+                <div class="dataTables_length" id="DataTables_Table_0_length">
+                  <label>
+                    Xem&nbsp;
+                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.page_size" (change)="GetListNews()">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>&nbsp;bản ghi
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row cms-filter action-table">
+          <div class="col-sm-12 col-md-12" style="justify-content: space-between;">
+            <!--<ng-select [items]="listAuthor"
+             class="mw150-select"
+             bindLabel="Name"
+             bindValue="AuthorId"
+             [multiple]="false"
+             placeholder="Tác giả"
+             (change)="QueryChanged()"
+             [(ngModel)]="q.AuthorId"
+             [ngModelOptions]="{standalone: true}"
+             style="text-align:left;">
+  </ng-select>-->
+            <ng-select [items]="listHotNews"
+                       class="select col-sm-6 col-md-6"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [multiple]="false"
+                       placeholder="Trạng thái"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.Status"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <!--<ng-select [items]="listUsers"
+             class="mw150-select"
+             bindLabel="FullName"
+             bindValue="UserId"
+             [multiple]="false"
+             placeholder="Người đăng"
+             (change)="QueryChanged()"
+             [(ngModel)]="q.UserId"
+             [ngModelOptions]="{standalone: true}"
+             style="text-align:left;">
+  </ng-select>-->
+            <!--<ng-select [items]="listLanguage"
+             class="mw150-select"
+             bindLabel="Name"
+             bindValue="LanguageId"
+             [multiple]="false"
+             placeholder="Ngôn ngữ"
+             (change)="QueryChanged()"
+             [(ngModel)]="q.LanguageId"
+             [ngModelOptions]="{standalone: true}"
+             style="text-align:left;">
+  </ng-select>-->
+            <!--<ng-select [items]="listTypeNews"
+             class="mw150-select"
+             bindLabel="Name"
+             bindValue="Id"
+             [multiple]="false"
+             placeholder="Chọn loại tin"
+             (change)="QueryChanged()"
+             [(ngModel)]="q.Type"
+             [ngModelOptions]="{standalone: true}"
+             style="text-align:left;">
+  </ng-select>-->
+
+            <!--<input placeholder="Ngày tạo từ"
+                   class="mw150-select date-pick"
+                   onkeydown="return false"
+                   [(ngModel)]="q.DateStart"
+                   #dateStart
+                   (change)="QueryChanged()"
+                   [ngModelOptions]="{standalone: true}"
+                   [owlDateTimeTrigger]="dtSS" [owlDateTime]="dtSS"
+                   style=" margin-top: 10px;">
+            <owl-date-time [pickerType]="'calendar'" #dtSS></owl-date-time>
+            <input placeholder="Ngày tạo đến"
+                   class="mw150-select date-pick no-grap"
+                   onkeydown="return false"
+                   [(ngModel)]="q.DateEnd"
+                   #dateEnd
+                   (change)="QueryChanged()"
+                   [ngModelOptions]="{standalone: true}"
+                   [owlDateTimeTrigger]="dtEE" [owlDateTime]="dtEE">
+            <owl-date-time [pickerType]="'calendar'" #dtEE></owl-date-time>-->
+            <button *ngIf="CheckRole.View" class="cms-addnew button-action col-md-2 col-sm-2" type="button" (click)="QueryChanged()">&nbsp;Tìm kiếm</button>
+          </div>
+        </div>
+        <div class="row content-table-data">
+          <div class="col-sm-12">
+            <table class="table table-striped table-bordered datatable dataTable no-footer list-cat " id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+              <thead>
+                <tr role="row">
+                  <th class="btn-action-table" style="width:15px;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="CheckAll" name="CheckAll" [value]="true" (change)="CheckActionTable(undefined)" [(ngModel)]="CheckAll">
+                      <label for="CheckAll"><span></span></label>
+                    </div>
+                  </th>
+                  <th class="text-center" style="width:30px;">
+                    STT
+                  </th>
+                  <th class="column-name-key text-left">
+                    <span class="sortBy" [ngClass]="GetClassSortTable('Title')" (click)="SortTable('Title')">Tiêu đề</span>
+                  </th>
+                  <th class="column-thumb text-center"><i class="fa fa-image"></i></th>
+                  <!--<th class="text-center" style="width:45px;">
+    <span class="sotyBy" [ngClass]="GetClassSortTable('ViewNumber')" (click)="SortTable('ViewNumber')">Views</span>
+  </th>-->
+                  <!--<th class="text-center" style="width:40px;">
+    <span class="sotyBy">Hot</span>
+  </th>-->
+                  <th class="text-center" *ngIf="listLanguage.length > 1">Ngôn ngữ</th>
+                  <th class="text-center">
+                    Lượt xem
+                  </th>
+                  <th class="text-center">
+                    Người đăng
+                  </th>
+                  <th class="text-center">
+                    Ngày đăng
+                  </th>
+                  <!--<th class="text-center" style="width:65px;">
+                    <span>Người duyệt</span>
+                  </th>-->
+                  <!--<th class="text-center" style="width:65px;">
+                    <span class="sortBy" [ngClass]="GetClassSortTablePublic('PublishedAt')" (click)="SortTable('PublishedAt')">Người xuất bản</span>
+                  </th>-->
+                  <th class="text-center">Ẩn/Hiện</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listNews; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                  <td class="btn-action-table" style="padding: 0.75rem!important;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="Check{{item.NewsId}}" name="Check{{item.NewsId}}" [value]="true" [(ngModel)]="item.Action" (change)="CheckActionTable(item.NewsId)">
+                      <label for="Check{{item.NewsId}}"><span></span></label>
+                    </div>
+                  </td>
+                  <td class="text-center" style="width:30px;">
+                    {{i+1}}
+                  </td>
+                  <td class="column-name name-child">
+                    {{item.Title}}
+                    <ul class="cms-function">
+                      <li class="id-item">ID: {{item.NewsId}} | </li>
+                      <li *ngIf="CheckRole.Update" (click)="OpenNewsModal(item, 1)">Chỉnh sửa | </li>
+                      <li *ngIf="CheckRole.View">
+                        <a href="{{staticDomain}}{{item.Url}}" target="_blank">Xem |</a>
+                      </li>
+                      <li *ngIf="CheckRole.Delete" (click)="ShowConfirmDelete(item.NewsId)" class="detete-item">Xóa |</li>
+                      <!--<li class="detete-item" *ngIf="item.TypeNewsId != 3 && item.TypeNewsId != 4 && item.TypeNewsId != 7">Số từ: {{ item.NumberWord }} |</li>-->
+                      <!--<li class="detete-item">Lượt xem: {{ item.ViewNumber }}</li>-->
+                    </ul>
+                  </td>
+                  <td class="column-thumb">
+                    <img *ngIf="item.TypeNewsId == 4 && item.LinkVideo != undefined" src="../../../../assets/Youtube-Icon.png" style="width:25px;height:auto;" alt="Alternate Text" />
+                    <img src="../../../../assets/img/no-image1.png" *ngIf="item.Image==undefined && item.TypeNewsId != 4" />
+                    <img src="{{ staticDomainMedia }}{{item.Image}}" *ngIf="item.Image!=undefined && item.TypeNewsId != 4" />
+                  </td>
+                  <td class="text-center column-hs">
+                    {{ item.ViewNumber }}
+                  </td>
+                  <!--<td class="text-center column-hs">
+                    <span class="title-news-public" *ngIf="item.IsHot == true"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="fire" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="hot svg-inline--fa fa-fire fa-w-12"><path fill="currentColor" d="M216 23.86c0-23.8-30.65-32.77-44.15-13.04C48 191.85 224 200 224 288c0 35.63-29.11 64.46-64.85 63.99-35.17-.45-63.15-29.77-63.15-64.94v-85.51c0-21.7-26.47-32.23-41.43-16.5C27.8 213.16 0 261.33 0 320c0 105.87 86.13 192 192 192s192-86.13 192-192c0-170.29-168-193-168-296.14z" class=""></path></svg></span>
+                    <span class="title-news-public" *ngIf="item.IsHot == false"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="fire" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="svg-inline--fa fa-fire fa-w-12"><path fill="currentColor" d="M216 23.86c0-23.8-30.65-32.77-44.15-13.04C48 191.85 224 200 224 288c0 35.63-29.11 64.46-64.85 63.99-35.17-.45-63.15-29.77-63.15-64.94v-85.51c0-21.7-26.47-32.23-41.43-16.5C27.8 213.16 0 261.33 0 320c0 105.87 86.13 192 192 192s192-86.13 192-192c0-170.29-168-193-168-296.14z" class=""></path></svg></span>
+                  </td>-->
+                  <!--<td class="text-center column-hs">-->
+                    <!--<img src="{{staticDomainMedia}}{{ item.language?.Flag }}" style="height:15px; width:25px;" />-->
+                    <!--<span (click)="OpenNewsModal(item, 2)" *ngIf="(item.listLanguage.length < listLanguage.length - 1) && item.LanguageId == languageId" title="Thêm bài viết cho ngôn ngữ khác">
+                      <i class="fa fa-plus"></i>
+                    </span>-->
+                  <!--</td>-->
+                  <td *ngIf="item.AuthorName != undefined" class="text-center column-hs">
+                    {{ item.AuthorName }}
+                  </td>
+                  <td *ngIf="item.AuthorName == undefined" class="text-center column-hs">
+                    Quản trị viên
+                  </td>
+                  <!--<td class="text-center column-hs">
+                    {{ item.TotalPrice | number}}
+                  </td>-->
+                  <!--<td class="text-center column-hs">
+                    <span>{{item.ApproveName}}</span>
+                    <br />
+                    <span>{{item.ApprovedAt | date: 'dd/MM/yyyy'}}</span>
+                  </td>-->
+                  <td class="text-center column-hs">
+                    <!--<span>{{item.PublicName}}</span>
+                    <br />-->
+                    <span>{{item.CreatedAt | date: 'dd/MM/yyyy'}}</span>
+                  </td>
+                  <!--<th class="text-center" *ngIf="listLanguage.length > 1">
+                    <span *ngFor="let lang of item.listLanguage" style="padding-right:5px;" (click)="OpenNewsModal(lang.news, 3)">
+                      <img src="{{staticDomainMedia}}{{ lang.Flag }}" style="height:15px; width:25px;" />
+                    </span>
+                    <span *ngIf="item.listLanguage != undefined">
+                      <span (click)="OpenNewsModal(item, 2)" *ngIf="item.listLanguage.length < listLanguage.length - 1" title="Thêm bài viết cho ngôn ngữ khác">
+                        <i class="fa fa-plus"></i>
+                      </span>
+                    </span>
+
+                  </th>-->
+                  <td class="text-center column-hs">
+                    <label style="display: block; padding-top: 2px; margin: auto;" class="switch switch-label switch-pill switch-outline-primary-alt">
+                      <input (change)="ConfirmShowHide(item, i)" type="checkbox" class="switch-input" [(ngModel)]="item.IsShow" [ngModelOptions]="{standalone: true}" [disabled]="CheckRole.Update!= true" />
+                      <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row cms-paging">
+          <div class="col-sm-12 col-md-5">
+            <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+              Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i class="fa fa-long-arrow-right"></i>  <span>{{ paging.item_count < paging.page * paging.page_size ? paging.item_count : paging.page * paging.page_size }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{ paging.item_count }}</span> bản ghi
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-7">
+            <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5" [itemsPerPage]="paging.page_size" class="pagination-sm pull-right"
+                        previousText='<i class="fa-solid fa-chevron-left"></i>' nextText='<i class="fa-solid fa-chevron-right"></i>' [boundaryLinks]="true" (pageChanged)="PageChanged($event)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #NewsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-big" role="document" style="max-width:1300px">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="Item.NewsId==undefined && Item.LanguageRootCode == undefined">Thêm mới tin tức</h4>
+          <h4 class="modal-title" *ngIf="Item.NewsId!=undefined">Sửa thông tin tin tức</h4>
+          <h4 class="modal-title" *ngIf="Item.NewsId==undefined && Item.LanguageRootCode != undefined">Thêm mới tin tức cho ngôn ngữ</h4>
+          <button type="button" class="close" (click)="NewsModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="">
+            <div class="card-body body-form-add-new">
+              <div class="row">
+                <div class="col-sm-12 col-md-9">
+                  <div class="col-sm-12 col-md-12">
+
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="Title">Tiêu đề<span *ngIf="Item.Title==undefined || Item.Title==''" style="color: red;">&ngsp;(*)</span></label>
+                      <div class="col-md-12">
+                        <input type="text" id="Title" name="Title" maxlength="1000" class="form-control" placeholder="" [(ngModel)]="Item.Title" (ngModelChange)="ChangeTitle(1)" autocomplete="off" [readonly]="!CheckRole.Update">
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="Url">Đường dẫn<span *ngIf="Item.Url==undefined || Item.Url==''" style="color: red;">&ngsp;(*)</span></label>
+                      <div class="col-md-12">
+                        <input type="text" id="Url" name="Url" class="form-control" placeholder="" [(ngModel)]="Item.Url" autocomplete="off" [readonly]="!CheckRole.Update">
+                      </div>
+                    </div>
+                    <!--<div class="form-group row" style="margin-top:20px;">
+  <label class="col-md-2 col-form-label" for="file-input">File đính kèm </label>
+  <div class="col-md-7">
+    <input #file type="file" (change)="upload2(file.files)" />
+    <span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+      {{progress}}%
+    </span>
+    <p style="font-weight:bold;color:green;">
+      <a target="_blank" href="{{staticDomainMedia}}{{ Item.LinkVideo }}" class="file-upload" *ngIf="Item.LinkVideo != undefined">
+        <img style="margin-top:20px;width:60px" src="{{staticDomainMedia}}/file-image.png" alt="File" />
+      </a>
+    </p>
+    <i style="top:60px;left:100px;width:max-content;" class="fa fa-trash icon-remove-image" (click)="RemoveUpFile()" *ngIf="Item.LinkVideo != undefined"></i>-->
+                    <!--<i style="top:90px;left:98px;position:absolute;color:#000;font-size:16px;cursor:pointer;" class="fa fa-clipboard icon-copy" (click)="CopyUrl()" *ngIf="Item.LinkVideo != undefined"></i>-->
+                    <!--</div>
+  </div>-->
+                    <!--<div class="form-group row" *ngIf="Item.TypeNewsId == 7">
+    <label class="col-md-12 col-form-label" for="Description">
+      Nội dung ngắn
+      (<i>{{newDescription.value.length}}/1000</i>
+    </label>
+    <div class="col-md-12">
+      <textarea id="Note" name="Note" maxlength="1000" cols="1000" rows="5" class="form-control" placeholder="" [(ngModel)]="Item.Note"></textarea>
+    </div>
+  </div>-->
+                    <div class="form-group row custom-ckeditor" *ngIf="Item.TypeNewsId!=6 && Item.TypeNewsId!=7">
+                      <label class="col-form-label col-md-12">Nội dung<span *ngIf="Item.Contents==''" style="color: red;">&ngsp;(*)</span></label>
+                      <div class="col-md-12">
+                        <ckeditor name="Contents"
+                                  [(ngModel)]="Item.Contents"
+                                  [config]=""
+                                  [readonly]="!CheckRole.Update"
+                                  debounce="500">
+                        </ckeditor>
+                      </div>
+                    </div>
+                    <!--<div class="form-group row" *ngIf="(Item.TypeNewsId!=3 && Item.TypeNewsId!=4)" style="margin-top:15px;">
+                      <label class="col-md-2 col-form-label" for="file-input">Tệp đính kèm</label>
+                      <div class="col-md-10" style=" padding: 7px 20px;">
+                        <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal(2)" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400;">Tải lên từ thư viện</a>
+                        <input type="text" name="file" value="" [(ngModel)]="Item.LinkVideo" hidden />
+                        <div *ngIf="Item.LinkVideo" style="margin-top:10px;">
+                          <a href="{{staticDomainMedia}}/{{ Item.LinkVideo }}" target="_blank" style=" color: #760000;">{{Item.LinkVideo}}</a>
+                        </div>
+                        <i class="fa fa-trash icon-remove-image" style="" (click)="RemoveVideo()" *ngIf="Item.LinkVideo != undefined && Item.LinkVideo != '/files/'"></i>
+                      </div>
+                    </div>-->
+                    <!--tin giai phap-->
+                    <!--<div class="form-group row custom-ckeditor" *ngIf="Item.TypeNewsId==6">
+                      <label class="col-form-label col-md-12">Giới thiệu<span *ngIf="Item.Introduce==''" style="color: red;">&ngsp;(*)</span></label>
+                      <div class="col-md-12">
+                        <ckeditor name="Introduce"
+                                  [(ngModel)]="Item.Introduce"
+                                  [config]=""
+                                  [readonly]="!CheckRole.Update"
+                                  debounce="500">
+                        </ckeditor>
+                      </div>
+                    </div>-->
+                    <!--<div class="form-group row custom-ckeditor" *ngIf="Item.TypeNewsId==6">
+                      <label class="col-form-label col-md-12">Sơ đồ hệ thống<span *ngIf="Item.SystemDiagram==''" style="color: red;">&ngsp;(*)</span></label>
+                      <div class="col-md-12">
+                        <ckeditor name="SystemDiagram"
+                                  [(ngModel)]="Item.SystemDiagram"
+                                  [config]=""
+                                  [readonly]="!CheckRole.Update"
+                                  debounce="500">
+                        </ckeditor>
+                      </div>
+                    </div>-->
+                    <!--<div class="form-group row custom-ckeditor" *ngIf="Item.TypeNewsId==6">
+                      <label class="col-form-label col-md-12">Video<span *ngIf="Item.LinkVideo==''" style="color: red;">&ngsp;(*)</span></label>
+                      <div class="col-md-12">
+                        <input type="text" id="video" name="LinkVideor" class="form-control" placeholder="" [(ngModel)]="Item.LinkVideo" autocomplete="off" [readonly]="!CheckRole.Update">
+                      </div>
+                    </div>-->
+                    <!--<div class="form-group row custom-ckeditor" *ngIf="Item.TypeNewsId==6">
+                      <label class="col-form-label col-md-12">Sản phẩm liên quan</label>
+                      <div class="col-md-12">-->
+                        <!--<div class="col-md-12">-->
+                        <!--<div>
+
+                          <table class="table sanphamgoiy fixed_header">
+                            <thead>
+                              <tr>
+                                <th style="width:10%">Hình ảnh</th>
+                                <th style="width:60%">Tên bài viết</th>
+                                <th style="width:30%" class="text-center">Chọn</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+
+                              <tr *ngFor="let item of listSuggestProduct; let i = index" ng-class-odd='odd' ng-class-even='even'>
+                                <td style="width:10%">
+                                  <img src="../../../../assets/img/no-image1.png" style="width:40px; display: inline-block; max-height: 40px;" *ngIf="item.Image==undefined" />
+                                  <img style="width:40px; display: inline-block; max-height: 40px;" *ngIf="item.Image != undefined" src="{{ staticDomainMedia }}{{item.Image}}" />
+                                </td>
+
+                                <td style="width:60%">{{ item.Name }}</td>
+                                <td style="width:30%" class="text-center">
+                                  <div class=" squaredcheck" style="display: inline-block; vertical-align: top;">
+                                    <input type="checkbox" class="checkbox2" id="Check{{item.ProductId}}" name="Check{{item.ProductId}}" [(ngModel)]="item.Check">
+                                    <label style="top: 0px; left:20px" for="Check{{item.ProductId}}"></label>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+
+                          </table>
+
+                        </div>-->
+                        <!--</div>-->
+                      <!--</div>
+                    </div>-->
+                    <!--<div class="form-group row custom-ckeditor" *ngIf="Item.TypeNewsId==6">
+                      <label class="col-form-label col-md-12">Dự án liên quan</label>
+                      <div class="col-md-12">
+                        <div>
+
+                          <table class="table sanphamgoiy fixed_header">
+                            <thead>
+                              <tr>
+                                <th style="width:10%">Hình ảnh</th>
+                                <th style="width:60%">Tên bài viết</th>
+                                <th style="width:30%" class="text-center">Chọn</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of listSuggestNews; let i = index" style="line-height: 1px;">
+                                <td style="width:10%">
+                                  <img src="../../../../assets/img/no-image1.png" style="width:40px; display: inline-block; max-height: 40px;" *ngIf="item.Image==undefined" />
+                                  <img style="width:40px; display: inline-block; max-height: 40px;" *ngIf="item.Image != undefined" src="{{ staticDomainMedia }}{{item.Image}}" />
+                                </td>
+                                <td style="width:60%">{{ item.Title }}</td>
+                                <td style="width:30%" class="text-center">
+                                  <div class="squaredcheck" style="display: inline-block; vertical-align: top;">
+                                    <input type="checkbox" class="checkbox2" id="Check1_{{item.NewsId}}" name="Check1_{{item.NewsId}}" [(ngModel)]="item.Check">
+                                    <label style="top: 0px; left:20px" for="Check1_{{item.NewsId}}"></label>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+
+                        </div>
+                      </div>
+                    </div>-->
+                    <!--Kethuc tin giai phap-->
+                    <!--<div class="form-group row group-dinhkem" *ngIf="Item.TypeNewsId==7">
+                      <label class="col-md-12 col-form-label title-group-dinhkem" for="SuggestProduct">Tin gắn với sự kiện</label>
+                      <div style="margin-left:15px;margin-bottom:15px;">
+                        <input type="text" class="form-control form-control-sm" id="FieldsText" name="FieldsText" placeholder="Nhập từ khóa cần tìm...." aria-controls="DataTables_Table_0" [(ngModel)]="Title" style="min-width:600px;">
+                      </div>
+                      <div class="col-md-12">
+                        <div>
+                          <table class="table sanphamgoiy fixed_header">
+                            <thead>
+                              <tr>
+                                <th style="width:10%">Hình ảnh</th>
+                                <th style="width:60%">Tên bài viết</th>
+                                <th style="width:30%" class="text-center">Chọn</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of listSuggestNews; let i = index" style="line-height: 1px;">
+                                <td style="width:10%" scope="row">
+                                  <img src="../../../../assets/img/no-image1.png" style="width:40px; display: inline-block; max-height: 40px;" *ngIf="item.Image==undefined" />
+                                  <img style="width:40px; display: inline-block; max-height: 40px;" *ngIf="item.Image != undefined" src="{{ staticDomainMedia }}{{item.Image}}" />
+                                </td>
+                                <td style="width:60%" scope="row">{{ item.Title }}</td>
+                                <td style="width:30%" class="text-center" scope="row">
+                                  <div class="squaredcheck" style="display: inline-block; vertical-align: top;">
+                                    <input type="checkbox" class="checkbox2" id="Checknew{{item.NewsId}}" name="Checknew{{item.NewsId}}" [(ngModel)]="item.Check">
+                                    <label style="top: 0px; left:20px" for="Checknew{{item.NewsId}}"></label>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>-->
+
+                    <!--<div class="form-group row" *ngIf="Item.TypeNewsId==7">
+                      <label class="col-md-12 col-form-label" for="Title">
+                        Thời gian diễn ra sự kiện
+                        <span *ngIf="Item.DateStartOn==undefined || Item.DateStartOn==null" style="color: red;">&ngsp;(*)</span>
+                      </label>
+                      <div class="col-md-6">
+                        <input placeholder="Mốc sự kiện"
+                               class="form-control"
+                               onkeydown="return false"
+                               [(ngModel)]="Item.DateStartOn"
+                               [ngModelOptions]="{standalone: true}"
+                               [owlDateTimeTrigger]="dtS" [owlDateTime]="dtS">
+                        <owl-date-time [pickerType]="'calendar'" #dtS></owl-date-time>
+                      </div>
+                      <div class="col-md-6">
+                        <input placeholder="Đến ngày"
+                               class="form-control"
+                               onkeydown="return false"
+                               [(ngModel)]="Item.DateEndOn"
+                               [ngModelOptions]="{standalone: true}"
+                               [owlDateTimeTrigger]="dtE" [owlDateTime]="dtE">
+                        <owl-date-time [pickerType]="'calendar'" #dtE></owl-date-time>
+                      </div>
+                    </div>-->
+                    <!--<div class="form-group row" *ngIf="Item.TypeNewsId==7">
+    <label class="col-md-12 col-form-label" for="file-attachment">Danh sách ảnh</label>
+    <div class="col-md-12" style="padding:20px">
+      <input #attachment type="file" multiple accept="image/*" (change)="upload(attachment.files, 2)" />
+      <span style="font-weight:bold;color:green;" *ngIf="progressAttachment > 0 && progressAttachment < 100">
+        {{progressAttachment}}%
+      </span>
+      <div>
+        <div *ngFor="let image of Item.listAttachment; let i = index" class="image-thumb-koi" style="width: 15%; overflow: hidden;">
+          <img src="{{ staticDomainMedia }}{{ image.Url }}" />
+          <input type="text" name="anh_{{i}}" [(ngModel)]="image.Note" placeholder="Chú thích ảnh" />
+          <button class="btn btn-block btn-outline-danger active" type="button" aria-pressed="true" (click)="RemoveAttachment(i)">Xóa</button>
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="Description">
+                        Mô tả ngắn
+                        (<i [hidden]="Item.TypeNewsId==3">{{newDescription.value.length}}/1000</i>
+                        <i [hidden]="Item.TypeNewsId!=3">{{newDescriptionImage.value.length}}/500</i>)
+                      </label>
+                      <div class="col-md-12">
+                        <textarea [hidden]="Item.TypeNewsId==3" id="Description" name="Description"
+                                  maxlength="1000" cols="1000" rows="6" class="form-control"
+                                  placeholder="" [(ngModel)]="Item.Description" (ngModelChange)="ChangeTitle(2)"
+                                  [readonly]="!CheckRole.Update" #newDescription></textarea>
+
+                        <textarea [hidden]="Item.TypeNewsId!=3" id="Description" name="Description"
+                                  maxlength="500" cols="1000" rows="6" class="form-control" placeholder=""
+                                  [(ngModel)]="Item.Description" (ngModelChange)="ChangeTitle(2)"
+                                  [readonly]="!CheckRole.Update" #newDescriptionImage></textarea>
+                        <i [hidden]="Item.TypeNewsId!=3">{{newDescriptionImage.value.length}}/500</i>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId==3">
+                      <div class="form-group row">
+                        <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal(3)" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400; margin: 15px 0;">Chọn ảnh từ thư viện</a>
+                        <div class="col-md-12 area-album" style="padding:20px;">
+                          <div class="wapper-album-news">
+                            <div *ngFor="let image of Item.listAttachment; let i = index" class="image-thumb-koi" [hidden]="image.Status!=1">
+                              <img src="{{ staticDomainMedia }}{{ image.Url }}" />
+                              <div class="description-gallery">
+                                <textarea maxlength="1000" cols="500" rows="3" class="form-control note-image" placeholder="Chú thích ảnh" name="anh_{{i}}" [(ngModel)]="image.Note"></textarea>
+                              </div>
+                              <div class="handle-album">
+                                <button class="btn btn-block btn-outline-primary" [ngClass]="image.IsImageMain == true ? 'active' : ''" type="button" aria-pressed="true" (click)="SetIsMain(i)">Ảnh chính</button>
+                                <button class="btn btn-block btn-outline-danger active" type="button" aria-pressed="true" (click)="RemoveAttachment(i)">Xóa</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--<div class="form-group row" *ngIf="Item.TypeNewsId==1">
+    <label class="col-md-12 col-form-label" for="Author">Tác giả</label>
+    <div class="col-md-12">
+      <input type="text" id="Author" name="Author" class="form-control" placeholder="{{NameAuthor}}" [(ngModel)]="Item.Author" autocomplete="off" spellcheck="false">
+    </div>
+  </div>-->
+                    <div class="form-group image-upload video-upload {{Item.LinkVideo ? 'no-background' : 'has-background'}}" *ngIf="Item.TypeNewsId == 4">
+                      <div class="form-group row">
+                        <label class="col-md-12 col-form-label" for="file-input">Tải video (MP4)</label>
+                        <div class="col-md-12" style="padding:15px;padding-top:0;">
+                          <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal(2)" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400;">Đặt video</a>
+                          <input type="text" name="video" value="" [(ngModel)]="Item.LinkVideo" hidden />
+                          <div class="preview-video-type">
+                            <video controls="controls" *ngIf="Item.LinkVideo != undefined" [src]="staticDomainMedia + '/' + Item.LinkVideo "></video>
+                            <div *ngIf="Item.LinkVideo != undefined" class="remove-video">
+                              <i class="fa fa-trash icon-remove-video" style="" (click)="RemoveVideo()"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--<div class="form-group row" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+    <label class="col-md-12 col-form-label" for="DateStartActive">Ngày hoạt động</label>
+    <div class="col-md-12">
+      <input placeholder="Ngày hoạt động"
+             class="form-control"
+             onkeydown="return false"
+             [(ngModel)]="Item.DateStartActive"
+             [ngModelOptions]="{standalone: true}"
+             [owlDateTimeTrigger]="dt" [owlDateTime]="dt"
+             readonly>
+      <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+    </div>
+  </div>-->
+                    <div class="form-group row" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+                      <label class="col-md-12 col-form-label" for="MetaTitle">Meta Title (<i>{{newMetaTitle.value.length}}/200</i>)</label>
+                      <div class="col-md-12">
+                        <textarea readonly id="MetaTitle" name="MetaTitle" maxlength="200" rows="3" class="form-control" placeholder=""
+                                  [(ngModel)]="Item.MetaTitle" [readonly]="!CheckRole.Update" #newMetaTitle></textarea>
+
+                      </div>
+                    </div>
+                    <!--<div class="form-group row custom-ckeditor" *ngIf="Item.TypeNewsId == 4">
+    <label class="col-form-label col-md-12" style="margin-top:20px; font-size:18px;">Hướng dẫn lấy Id Video Youtube</label>
+    <div class="col-md-12">
+      <video style="margin-top:20px;" width="100%" height="500" controls>
+        <source src="../../../../assets/video/GetIdVideoYoutube.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>-->
+                    <div class="form-group row" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+                      <label class="col-md-12 col-form-label" for="MetaKeyword">Meta Keyword   (<i>{{newMetaKeyword.value.length}}/200</i>)</label>
+                      <div class="col-md-12">
+                        <textarea readonly id="MetaKeyword" name="MetaKeyword" maxlength="200" rows="3"
+                                  class="form-control" placeholder="" [(ngModel)]="Item.MetaKeyword" [readonly]="!CheckRole.Update" #newMetaKeyword></textarea>
+
+                      </div>
+                    </div>
+                    <div class="form-group row" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+                      <label class="col-md-12 col-form-label" for="MetaDescription">Meta Description   (<i>{{newMetaDescription.value.length}}/300</i>)</label>
+                      <div class="col col-md-12">
+                        <textarea readonly id="MetaDescription" name="MetaDescription" maxlength="300" cols="50" rows="3"
+                                  class="form-control" placeholder="" [(ngModel)]="Item.MetaDescription" [readonly]="!CheckRole.Update" #newMetaDescription></textarea>
+
+                      </div>
+                    </div>
+                    <!--<div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="MetaDescription"> Đóng góp ý kiến</label>
+                      <div class="col col-md-12">
+                        <textarea id="Note" name="Note" maxlength="300" cols="50" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Note"></textarea>
+                      </div>
+                      <div class="saveDraft">
+                        <button type="button" class="btn btn-success" appNoDblClickMat (click)="SaveNoteNews()">Góp ý </button>
+                      </div>
+                    </div>-->
+                    <!--<div class="form-group row group-dinhkem">
+                      <div class="col-md-12">
+                        <label for="IsNote" class="col-form-label title-group-dinhkem">
+                          <span style="color:#333 !important; font-weight:500;position:relative;top:-3px;display:block;user-select:none">Danh sách ý kiến đóng góp</span>
+                        </label>
+                      </div>
+                      <div class="dinh-kem-table">
+                        <div class="col-md-12">
+                          <div>
+                            <table class="table sanphamgoiy fixed_header">
+                              <thead>
+                                <tr>
+                                  <th style="width:20%">Người góp ý</th>
+                                  <th style="width:80%">Nội dung</th>-->
+                                  <!--<th style="width:10%" class="text-center">Hành động</th>-->
+                                <!--</tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let item of listNewsNote; let i = index" style="line-height: 1px;">
+                                  <td style="width:20%">{{ item.FullName }}</td>
+                                  <td style="width:80%">{{ item.Note }}</td>-->
+                                  <!--<td style="width:10%" class="text-center" scope="row">
+                  <input type="button" class="btn btn-danger" (click)="ShowConfirmDeleteNote(item)">
+                </td>-->
+                                <!--</tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>-->
+                    <!--<div class="form-group row" *ngIf="listLanguage.length > 1 && Item.NewsId == undefined">
+      <label class="col-md-12 col-form-label" for="Lang">{{ Item.LangName }}</label>
+      <div class="col-md-12">
+        <input type="text" id="Lang" name="Lang" class="form-control" placeholder="" [(ngModel)]="Item.LangTitle" autocomplete="off" disabled value="{{ Item.LangTitle }}">
+      </div>
+  </div>-->
+                    <div class="form-group row" *ngIf="listLanguage.length > 1">
+                      <div class="map-lang" *ngFor="let language of Item.listLanguage; let i = index">
+                        <div class="col-md-12">
+                          <label class=" col-form-label" for="LangTitle">{{ language.lang?.Name }}</label>
+                          <input type="text" id="LangTitle_{{i}}" name="LangTitle_{{i}}" class="form-control" placeholder="" [(ngModel)]="language.news.Title" autocomplete="off" disabled value="{{ language.news?.Title }}">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-3 siderbar-product" style="margin-top:20px">
+                  <!--<div class="col-sm-12 col-md-12">-->
+                    <!--<div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="">Đăng bài viết</label>
+                      <div class="wapper-btn-saveAction">
+                        <button type="button" class="btn btn-success" (click)="SaveNews(Item.NewsId, 19)" *ngIf="CheckRole.Update">Lưu thông tin</button>
+                        <button type="button" class="btn btn-danger" (click)="NewsModal.hide()">Đóng</button>
+                      </div>
+                      <div class="saveDraft">-->
+                        <!--<button type="button" class="btn btn-success" appNoDblClickMat (click)="ShowConfirmStatus(Item.NewsId, 1)"
+                *ngIf="CheckRole.Update">
+          Đăng bài viết <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="share-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-share-square fa-w-18"><path fill="currentColor" d="M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z" class=""></path></svg>
+        </button>-->
+                        <!--<button type="button" class="btn btn-success" appNoDblClickMat (click)="SaveNews(Item.Status)"
+                *ngIf="&& CheckRole.Update" style="margin-top: 10px;">
+          Lưu thông tin <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="share-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-share-square fa-w-18"><path fill="currentColor" d="M568.482 177.448L424.479 313.433C409.3 327.768 384 317.14 384 295.985v-71.963c-144.575.97-205.566 35.113-164.775 171.353 4.483 14.973-12.846 26.567-25.006 17.33C155.252 383.105 120 326.488 120 269.339c0-143.937 117.599-172.5 264-173.312V24.012c0-21.174 25.317-31.768 40.479-17.448l144.003 135.988c10.02 9.463 10.028 25.425 0 34.896zM384 379.128V448H64V128h50.916a11.99 11.99 0 0 0 8.648-3.693c14.953-15.568 32.237-27.89 51.014-37.676C185.708 80.83 181.584 64 169.033 64H48C21.49 64 0 85.49 0 112v352c0 26.51 21.49 48 48 48h352c26.51 0 48-21.49 48-48v-88.806c0-8.288-8.197-14.066-16.011-11.302a71.83 71.83 0 0 1-34.189 3.377c-7.27-1.046-13.8 4.514-13.8 11.859z" class=""></path></svg>
+        </button>-->
+                      <!--</div>
+                    </div>
+                  </div>-->
+                  <!--<div class="col-sm-12 col-md-12">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="">Tin Nóng</label>
+      <div class="col-md-12 squaredcheck">
+        <input type="checkbox" value="None" class="checkbox4" id="IsHot" name="IsHot" value="" [value]="true" [(ngModel)]="Item.IsHot" [disabled]="!CheckRole.Update">
+        <label for="IsHot"><span style="color:#333 !important; font-weight:500;position:relative;top:-3px;display:block;user-select:none">Chọn Tin</span></label>
+      </div>
+    </div>
+  </div>-->
+                  <!--<div class="col-sm-12 col-md-12">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="">Bình Luận</label>
+      <div class="col-md-12 squaredcheck">
+        <input type="checkbox" value="true" class="checkbox4" id="IsComment" name="IsComment" [value]="true" [(ngModel)]="Item.IsComment" [disabled]="!CheckRole.Update">
+        <label for="IsComment"><span style="color:#333 !important; font-weight:500;position:relative;top:-3px;display:block;user-select:none">Cho phép</span></label>
+      </div>
+    </div>
+  </div>-->
+                  <!--<div class="col-sm-12 col-md-12">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="">Bài Đầu</label>
+      <div class="col-md-12 squaredcheck">
+        <input type="checkbox" value="true" class="checkbox4" id="IsFirst" name="IsFirst" [value]="false" [(ngModel)]="Item.IsFirst" [disabled]="!CheckRole.Update">
+        <label for="IsFirst"><span style="color:#333 !important; font-weight:500;position:relative;top:-3px;display:block;user-select:none">Cho phép</span></label>
+      </div>
+    </div>
+  </div>-->
+                  <!--<div class="col-sm-12 col-md-12">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="">Lượt xem</label>
+      <div class="col-md-12 squaredcheck">
+        <input type="checkbox" value="true" class="checkbox4" id="IsShowView" name="IsShowView" [value]="false" [(ngModel)]="Item.IsShowView" [disabled]="!CheckRole.Update">
+        <label for="IsShowView"><span style="color:#333 !important; font-weight:500;position:relative;top:-3px;display:block;user-select:none">Hiển thị</span></label>
+      </div>
+    </div>
+  </div>-->
+                  <!--<div class="col-sm-12 col-md-12">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="">Loại tin<span *ngIf="Item.TypeNewsId==undefined" style="color: red;">&ngsp;(*)</span></label>
+      <div class="col-md-12" style="padding: 20px;">
+        <ng-select [items]="listTypeNews"
+                   bindLabel="Name"
+                   bindValue="Id"
+                   [multiple]="false"
+                   placeholder="Chọn loại tin"
+                   (change)="SelectTypeNews()"
+                   [(ngModel)]="Item.TypeNewsId"
+                   [disabled]="Item.NewsId != undefined"
+                   [ngModelOptions]="{standalone: true}">
+        </ng-select>
+      </div>
+    </div>
+  </div>-->
+                  <div class="col-sm-12 col-md-12" *ngIf="listLanguage.length > 1">
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="">Ngôn ngữ <span *ngIf="Item.LanguageId==undefined" style="color: red;">&ngsp;(*)</span></label>
+                      <div class="col-md-12" style="padding: 20px;">
+                        <ng-select [items]="listLanguageTemp"
+                                   bindLabel="Name"
+                                   bindValue="LanguageId"
+                                   [multiple]="false"
+                                   placeholder="Chọn ngôn ngữ"
+                                   [(ngModel)]="Item.LanguageId"
+                                   (change)="SelectLanguage()"
+                                   [disabled]="Item.NewsId != undefined"
+                                   [ngModelOptions]="{standalone: true}">
+                        </ng-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId!=7">
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="">Danh mục tin</label>
+                      <div class="col-md-12" style="margin-top:15px; margin-bottom:15px;">
+                        <div style="padding-top:10px; padding-bottom:10px;">
+                          <div class="in-cat-product">
+                            <div *ngFor="let item of listCateNews;let i = index" [ngStyle]="{'margin-left.px': item.Level * 20}" class="col-md-12 squaredcheck">
+                              <input type="checkbox" class="checkbox4" id="Cate{{item.CategoryId}}" name="Cate{{item.CategoryId}}" [(ngModel)]="item.Check" (click)="CheckCategory(item.CategoryId, item)" [disabled]="!CheckRole.Update">
+                              <label for="Cate{{item.CategoryId}}"><span class="check-cat-sidebar">{{ item.Name }}</span></label>
+                            </div>
+                            <!--<div *ngFor="let item of listCateNews;let i = index" class="col-md-12 squaredcheck" style="display: inline-block;margin: 2px 10px">
+              <input type="checkbox" (change)="ToggleCateToList(item.CategoryId)" class="checkbox4" id="Cate{{item.CategoryId}}" name="Cate{{item.CategoryId}}" [(ngModel)]="item.Check">
+              <label for="Cate{{item.CategoryId}}"><span style="width: max-content;">{{ item.Name }}</span></label>
+            </div>-->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="file-input">Ảnh bài viết</label>
+                      <div class="col-md-12" style="padding:20px">
+                        <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal(1)" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400;">Đặt ảnh đại diện</a>
+                        <input type="text" name="image" value="" [(ngModel)]="Item.Image" hidden />
+                        <div style="font-weight:bold;color:green;display:flex;align-items:end;">
+                          <img class="image-upload" *ngIf="Item.Image != undefined" src="{{staticDomainMedia}}/{{ Item.Image }}" />
+                          <div style="color: red; font-size: 15px; cursor: pointer;margin-left:12px;" (click)="RemoveImage()" *ngIf="Item.Image != undefined">
+                            <i class="fa-duotone fa-trash"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId==4">
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="file-input">Ảnh Poster</label>
+                      <div class="col-md-12" style="padding:20px">
+                        <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal(1)" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400;">Đặt ảnh đại diện</a>
+                        <input type="text" name="image" value="" [(ngModel)]="Item.Image" hidden />
+                        <div style="font-weight:bold;color:green;display:flex;align-items:end;">
+                          <img class="image-upload" *ngIf="Item.Image != undefined" src="{{staticDomainMedia}}/{{ Item.Image }}" />
+                          <div style="color: red; font-size: 15px; cursor: pointer;margin-left:12px;" (click)="RemoveImage()" *ngIf="Item.Image != undefined">
+                            <i class="fa-duotone fa-trash"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                  <!--<div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="Location">Thứ tự</label>
+      <div class="col-md-12" style="padding: 20px;">
+        <input type="number" min="1" id="Location" name="Location" class="form-control" placeholder="" [(ngModel)]="Item.Location" value="1" onkeypress="return event.charCode >= 48" autocomplete="off">
+      </div>
+    </div>
+  </div>-->
+                  <!--<div class="col-sm-12 col-md-12">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label">Trạng thái hiển thị</label>
+      <div class="col-md-12 squaredcheck">
+        <input type="checkbox" class="checkbox3" id="Status" name="Status" [disabled]="CheckConfirmNews!= true" [value]="true" [(ngModel)]="CheckBoxStatus">
+        <label for="Status"><span>Hiển thị</span></label>
+      </div>
+    </div>
+  </div>-->
+                  <!--<div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="">Hiển thị trên trang chủ</label>
+      <div class="col-md-12 squaredcheck">
+        <input type="checkbox" value="None" class="checkbox1" id="IsHome" name="IsHome" value="" [value]="true" [(ngModel)]="Item.IsHome">
+        <label for="IsHome"><span>Hiển thị trang chủ</span></label>
+      </div>
+    </div>
+  </div>-->
+                  <!--<div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="ViewNumber">Lượt xem</label>
+      <div class="col-md-12" style="padding: 20px;">
+        <input type="number" min="1" id="ViewNumber" name="ViewNumber" class="form-control" placeholder="" [(ngModel)]="Item.ViewNumber" value="1" onkeypress="return event.charCode >= 48" min="1" autocomplete="off">
+      </div>
+    </div>
+  </div>-->
+                  <div class="col-sm-12 col-md-12">
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="Tag">Ngày hoạt động</label>
+                      <div class="col-md-12" style="padding: 20px;">
+                        <input placeholder="Ngày hoạt động"
+                               class="form-control"
+                               onkeydown="return false"
+                               [(ngModel)]="Item.DateStartActive"
+                               [ngModelOptions]="{standalone: true}"
+                               [owlDateTimeTrigger]="dt" [owlDateTime]="dt"
+                               [disabled]="!CheckRole.Update">
+                        <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-12 col-md-12">
+                    <div class="form-group row">
+                      <label class="col-md-12 col-form-label" for="StatusView">Hiển thị</label>
+                      <div class="col-md-12 squaredcheck">
+                        <input type="checkbox" value="true" class="checkbox4" id="StatusView" name="StatusView" [value]="false" [(ngModel)]="Item.StatusView">
+                        <label for="StatusView"><span style="color:#333 !important; font-weight:500;position:relative;top:-3px;display:block;user-select:none">Hiển thị</span></label>
+                      </div>
+                    </div>
+                  </div>
+                  <!--<div class="col-sm-12 col-md-12">
+    <div class="form-group row">
+      <label class="col-md-12 col-form-label" for="Tag">Tác giả</label>
+      <div class="col-md-12" style="padding: 20px;">
+        <ng-select [items]="listAuthor"
+                   bindLabel="Name"
+                   bindValue="AuthorId"
+                   [multiple]="false"
+                   placeholder="Chọn tác giả"
+                   [(ngModel)]="Item.AuthorId"
+                   [disabled]="Item.NewsId != undefined"
+                   [ngModelOptions]="{standalone: true}">
+        </ng-select>
+      </div>
+    </div>
+  </div>-->
+                  <div class="col-sm-12 col-md-12" *ngIf="Item.TypeNewsId!=3 && Item.TypeNewsId!=4 && Item.TypeNewsId!=7">
+                    <div class="form-group row">
+                      <!--<label class="col-md-12 col-form-label" for="Tag">Thẻ</label>
+      <div class="col-md-12" style="padding: 20px;">
+        <ng-select [items]="tags"
+                   bindLabel="Name"
+                   [hideSelected]="true"
+                   [closeOnSelect]="false"
+                   [multiple]="true"
+                   placeholder="Chọn thẻ"
+                   [(ngModel)]="Item.listTag"
+                   [disabled]="Item.NewsId != undefined"
+                   [ngModelOptions]="{standalone: true}">
+        </ng-select>
+      </div>-->
+                      <!-- <div class="col-md-9" style="padding: 20px;">
+        <input type="text" id="Tag" name="Tag" class="form-control" [(ngModel)]="Tag" autocomplete="off">
+      </div>
+      <div class="col-md-3" style="padding: 20px 0px;">
+        <button type="button" class="btn btn-light" style="line-height: 1.45;" (click)="AddTag()">Thêm</button>
+      </div>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>Các thẻ phân các nhau bằng dấu (,).</i></p> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" appNoDblClickMat (click)="SaveNews()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="NewsModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div bsModal #HighlightNewsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Chọn tin nổi bật ngoài trang chủ</h4>
+          <button type="button" class="close" (click)="HighlightNewsModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="border: none; padding-bottom: 1.5rem; margin-bottom: unset;">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <ngx-sortable [items]="listOrderByProduct" [name]="'Danh sách tin nổi bật ngoài trang chủ'" [listStyle]="{width: '100%', height: '300px'}">
+                      <ng-template let-item>
+                        <div style="height: 30px; padding-left: 20px; padding-top: 3px; position: relative;" class="sortable-list-item" *ngIf="item.Status!=99">
+                          {{item.TargetName}}
+                          <i class="fa fa-times" style="position: absolute; top: 35%; right: 5px; font-size: 12px; color: #ccc; cursor: pointer;" aria-hidden="true" (click)="DeleteOrderBy(item)"></i>
+                        </div>
+                      </ng-template>
+                    </ngx-sortable>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" appNoDblClickMat (click)="SaveHighlightNews()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="HighlightNewsModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #TagModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form" style="box-shadow: 0px 0px 10px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="Tag.TagId == undefined">Thêm mới tag tin tức</h4>
+          <h4 class="modal-title" *ngIf="Tag.TagId != undefined">Sửa thông tin tag tin tức</h4>
+          <button type="button" class="close" (click)="TagModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="border: none; padding-bottom: 1.5rem; margin-bottom: unset;">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Name">Tên hiển thị<span *ngIf="Tag.Name==undefined || Tag.Name==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <input type="text" id="Name" name="Name" class="form-control" placeholder="" [(ngModel)]="Tag.Name" (ngModelChange)="ChangeTitleTag()" autocomplete="off">
+                  </div>
+                </div>
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="UrlTag">Đường dẫn<span *ngIf="Tag.Url==undefined || Tag.Url==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <input type="text" id="UrlTag" name="UrlTag" class="form-control" placeholder="" [(ngModel)]="Tag.Url" autocomplete="off">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" appNoDblClickMat (click)="SaveTag()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="TagModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #ConfigDateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form" style="box-shadow: 0px 0px 10px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hẹn ngày xuất bản</h4>
+          <button type="button" class="close" (click)="ConfigDateModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="border: none; padding-bottom: 1.5rem; margin-bottom: unset;">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Name">Thời gian xuất bản<span *ngIf="Tag.Name==undefined || Tag.Name==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-4">
+                    <input placeholder="Ngày xuất bản"
+                           class="form-control"
+                           onkeydown="return false"
+                           [(ngModel)]="Item.DateStartActive"
+                           [ngModelOptions]="{standalone: true}"
+                           [owlDateTimeTrigger]="dtS" [owlDateTime]="dtS">
+                    <owl-date-time [pickerType]="'calendar'" #dtS></owl-date-time>
+                  </div>
+                  <div class="col-md-4">
+                    <input placeholder="Thời gian xuất bản"
+                           class="form-control"
+                           onkeydown="return false"
+                           [(ngModel)]="Item.TimeStartActive"
+                           [ngModelOptions]="{standalone: true}"
+                           [owlDateTimeTrigger]="dtE" [owlDateTime]="dtE">
+                    <owl-date-time [pickerType]="'timer'" #dtE></owl-date-time>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveNews()">Hẹn xuất bản</button>
+          <button type="button" class="btn btn-danger" (click)="ConfigDateModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--Modal Views Media File-->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #OpenMediaFile="bs-modal" class="modal fade modal-views-media" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="attachments-wrapper">
+    <div class="edit-media-header">
+      <div class="media-frame-title"><h1>Thư viện Media</h1></div>
+      <button type="button" class="media-modal-close" (click)="CloseMediaModal()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <div class="media-frame-router">
+      <ul class="head-tab">
+        <li class="item {{isActiveMedia ? 'active' : ''}}" (click)="tabHandleMedia()">Thư viện</li>
+        <li class="item {{isActiveUpload ? 'active' : ''}}" (click)="tabHandleMediaUpload()">Tải lên</li>
+      </ul>
+    </div>
+    <div class="upload-file {{isActiveUpload ? 'active' : 'hiden'}}">
+      <div class="wapper-modal-upload">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="card" style="border: none; padding: 1.5rem; margin-bottom: unset;">
+              <div class="card-body body-form-add-new">
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <div class="drag-drop-area">
+                      <div class="drag-drop-inside">
+                        <p class="drag-drop-info">Tải lên từ máy tính</p>
+                        <div class="progress" style=" height: 14px; margin-top: 10px; font-style: italic; font-weight: 500;" *ngIf="progress!=undefined">
+                          <div class="progress-bar progress-bar-striped bg-success"
+                               role="progressbar"
+                               aria-valuemin="0"
+                               aria-valuemax="100"
+                               [style.width.%]="progress"
+                               [attr.aria-valuenow]="progress">
+                            {{progress}}%
+                          </div>
+                        </div>
+                        <p class="text-center" style=" font-size: 14px; margin: 10px 0; color: #005b0c;">(Có thể tải cùng lúc nhiều file)</p>
+                        <p class="drag-drop-buttons">
+                          <label for="upload-photo" class="label-upload">Tải lên <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cloud-upload-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-cloud-upload-alt fa-w-20"><path fill="currentColor" d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z" class=""></path></svg></label>
+                          <input #file type="file" (change)="upload3(file.files, 1)" multiple id="upload-photo" />
+                        </p>
+                      </div>
+                      <div class="post-upload-ui" id="post-upload-info">
+                        <p class="max-upload-size">
+                          Kích thước tập tin tải lên tối đa: 512 MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-media {{isActiveMedia ? 'active' : 'hiden'}}">
+      <div class="attachments-ui" #scrollMe>
+        <div class="attachment save-ready" *ngFor="let item of listItemMedia; let i = index">
+          <div class="thumb" (click)="SeclectMedia(item)">
+            <img src="{{staticDomainMedia}}{{ item.url }}/{{ item.name }}" alt="{{item.name}}" *ngIf="item.type == 1" />
+            <img src="{{staticDomain}}images/document.png" alt="media upload" *ngIf="item.type == 4" />
+            <img src="{{staticDomain}}images/audio.png" alt="media upload" *ngIf="item.type == 2" />
+            <img src="{{staticDomain}}images/video.png" alt="media upload" *ngIf="item.type == 3" />
+          </div>
+        </div>
+      </div>
+      <div class="load-more-wrapper">
+        <span class="spinner"></span>
+        <p class="load-more-count">Đang hiển thị {{countMedia}} của {{countAllMedia}} file media</p>
+        <button type="button" class="button load-more button-primary {{isDelay ? 'hiden' : ''}}" (click)="loadMore()">Tải thêm</button>
+        <!--<button type="button" class="button chonse-media button-primary {{isDelay ? 'hiden' : ''}}" (click)="ChonseImage()">Chọn ảnh</button>-->
+        <div class="{{isDelay ? 'active' : 'hiden'}}">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="60px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <g>
+              <circle cx="73.801" cy="68.263" fill="#e15b64" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="0s"></animateTransform>
+              </circle>
+              <circle cx="68.263" cy="73.801" fill="#f47e60" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.062s"></animateTransform>
+              </circle>
+              <circle cx="61.481" cy="77.716" fill="#f8b26a" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.125s"></animateTransform>
+              </circle>
+              <circle cx="53.916" cy="79.743" fill="#abbd81" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.187s"></animateTransform>
+              </circle>
+              <circle cx="46.084" cy="79.743" fill="#849b87" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.25s"></animateTransform>
+              </circle>
+              <circle cx="38.519" cy="77.716" fill="#6492ac" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.312s"></animateTransform>
+              </circle>
+              <circle cx="31.737" cy="73.801" fill="#637cb5" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.375s"></animateTransform>
+              </circle>
+              <circle cx="26.199" cy="68.263" fill="#6a63b6" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.437s"></animateTransform>
+              </circle>
+              <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;0 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s"></animateTransform>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

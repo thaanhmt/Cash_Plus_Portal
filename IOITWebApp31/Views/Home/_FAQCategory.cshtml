@@ -1,0 +1,32 @@
+@model dynamic
+@{
+    var questions = Model.Questions as IEnumerable<dynamic>;
+    var categoryId = Model.CategoryId as string;
+    var title = Model.Title as string;
+}
+<div class="faq-category" id="faq-category-@categoryId">
+    <div class="faq-category-header">
+        <h2 class="faq-category-title">@title</h2>
+    </div>
+    <ul class="faq-list">
+        @foreach (var q in questions)
+        {
+            <li class="faq-item">
+                <div class="faq-question" data-faq-id="@q.Id">
+                    <div class="faq-question-content">
+                        <span class="faq-number">@q.Id</span>
+                        <span class="faq-question-text">@q.Question</span>
+                    </div>
+                    <span class="faq-icon">
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        @Html.Raw(q.Answer)
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div> 

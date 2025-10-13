@@ -1,0 +1,290 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Danh sách bình luận</h1>
+      <button class="cms-addnew" type="button" (click)="OpenCommentModal(undefined)"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row cms-filter">
+
+          <div class="col-sm-12 col-md-6" style="padding-left:0px; margin-left: -5px;    display: flex;">
+            <ul class="cms-subsubsub">
+              <li class="all" (click)="ChangeStatust(0)"><a class="current" aria-current="page">Tất cả <span class="count">({{ total}})</span></a> | </li>
+              <li class="publish" (click)="ChangeStatust(1)"><a>Chờ duyệt <span class="count">({{ ChoDuyet }})</span></a> | </li>
+              <li class="publish" (click)="ChangeStatust(2)"><a>Đã duyệt <span class="count">({{ DaDuyet }})</span></a> | </li>
+              <li class="publish" (click)="ChangeStatust(3)"><a>Không duyệt <span class="count">({{ KhongDuyet  }})</span></a> | </li>
+              <li class="trash" (click)="ChangeStatust(4)"><a>Spam <span class="count">({{ Spam }})</span></a></li>
+            </ul>
+          </div>
+          <div class="col-sm-12 col-md-6" style="display: flex; justify-content: flex-end;align-items: flex-end; padding-right:0;">
+            <!--<label style="margin-right:10px;display: flex;align-items: center;">
+              <span class="search-box">Tìm kiếm</span>
+              <input type="text" class="form-control form-control-sm" placeholder="Nhập từ khóa cần tìm...." aria-controls="DataTables_Table_0" [(ngModel)]="q.txtSearch" (keyup.enter)="QueryChanged()">
+            </label>-->
+
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+              <label>
+                Xem&nbsp;
+                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.page_size" (change)="GetListCommentPost()">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>&nbsp;bản ghi
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row cms-filter action-table">
+          <div class="col-sm-6 col-md-3" style="padding-left: 0px;">
+            <ng-select class="mw150-select"
+                       [items]="ActionTable"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [clearable]="true"
+                       placeholder="Tác vụ"
+                       [(ngModel)]="ActionId"
+                       [ngModelOptions]="{standalone: true}">
+            </ng-select>
+            <button class="cms-addnew" type="button" [disabled]="!ActionId" (click)="DeleteMuntiAddress()">&nbsp;Áp dụng</button>
+          </div>
+          <div class="col-sm-12 col-md-9">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <table class=" list-cat table table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <th class="btn-action-table" style="width: 5%;">
+
+                    <input type="checkbox" [(ngModel)]="CheckitemAll" (click)="CheckAllAddress()" name="checkall" />
+
+                  </th>
+                  <th style="width: 35%;">
+                    Người bình luận
+                  </th>
+                  <th style="width: 25%;">
+                    Nội dung
+                  </th>
+                  <th style="width: 20%;">
+                    Sản phẩm
+                  </th>
+                  <th style="width: 15%;">
+                    Thời gian BL
+                  </th>
+                  <!--<th class="column-hs text-center" style="width: 10%;">Ẩn/Hiện</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listCommentPost; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                  <td class="btn-action-table" style="padding: 0.75rem!important;">
+
+                    <input type="checkbox" class="checkbox1" name="listcomment" [(ngModel)]="item.IsCheck" (change)="CheckDeleteAddress(item)">
+
+                  </td>
+                  <td class="name-child column-name">
+                    {{ item.CustomerName }}
+                    <ul class="cms-function">
+                      <li class="id-item">ID: {{item.CommentId}} | </li>
+                      <li (click)="OpenCommentModal(item)">Chỉnh sửa | </li>
+                      <li (click)="DuyetComment(item,2)" *ngIf="item.Status == 1 || item.Status == 3 ||  item.Status == 4">Duyệt | </li>
+                      <li (click)="DuyetComment(item,3)" *ngIf="item.Status == 2 ">Không Duyệt | </li>
+                      <li (click)="DuyetComment(item,4)" *ngIf="item.Status == 1 || item.Status == 2 ||  item.Status == 3">Spam | </li>
+                      <li (click)="OpenRepComment(item)" *ngIf="item.Status == 1 || item.Status == 2 ||  item.Status == 3">Trả lời | </li>
+                      <li (click)="DuyetComment(item)" class="detete-item">Xóa</li>
+                    </ul>
+                  </td>
+
+                  <td>{{ item.Contents }}</td>
+                  <td>
+                    <p style="margin-bottom:5px;">{{item.TargetName}}</p>
+                    <a target="_blank" href="{{domain}}/{{ item.Link }}">Xem sản phẩm</a>
+                  </td>
+                  <td>{{ item.CreatedAt | date:'dd/MM/yyyy'}}</td>
+                  <!--<td class="text-center">
+                    <label style="display: block; padding-top: 2px; margin: auto;" class="switch switch-label switch-pill switch-outline-primary-alt">
+                      <input (change)="ShowHide(item.TagId, i)" type="checkbox" class="switch-input" [(ngModel)]="item.IsShow" [ngModelOptions]="{standalone: false}" />
+                      <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                    </label>
+                  </td>-->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row cms-paging">
+          <div class="col-sm-12 col-md-5">
+            <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+              Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i class="fa fa-long-arrow-right"></i>  <span>{{ paging.item_count < paging.page * paging.page_size ? paging.item_count : paging.page * paging.page_size }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{ paging.item_count }}</span> bản ghi
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-7">
+            <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5" [itemsPerPage]="paging.page_size" class="pagination-sm"
+                        previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true" (pageChanged)="PageChanged($event)" class="pull-right"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #CommentModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="Item.CommentId == undefined">Thêm mới bình luận</h4>
+          <h4 class="modal-title" *ngIf="Item.CommentId != undefined">Sửa thông tin bình luận</h4>
+          <button type="button" class="close" (click)="CommentModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body coment-post prd-comment">
+          <div class="card" style="border: none; padding-bottom: 1.5rem; margin-bottom: unset;">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Name">Sản phẩm<span *ngIf="Item.TargetId==undefined || Item.TargetId==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <ng-select [items]="listNews"
+                               class="mw200-select"
+                               bindLabel="Name"
+                               bindValue="ProductId"
+                               [multiple]="false"
+                               placeholder="Sản phẩm"
+                               [(ngModel)]="Item.TargetId"
+                               [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Url">Khách hàng<span *ngIf="Item.CustomerId==undefined || Item.CustomerId==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <ng-select [items]="listCustomer"
+                               class="mw200-select"
+                               bindLabel="FullName"
+                               bindValue="CustomerId"
+                               [multiple]="false"
+                               placeholder="Khách hàng"
+                               [(ngModel)]="Item.CustomerId"
+                               [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Title">Nội dung<span *ngIf="Item.Contents==undefined || Item.Contents==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <input type="text" id="Contents" name="Contents" maxlength="1000" class="form-control" placeholder="" [(ngModel)]="Item.Contents" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Url">Bình luận cha<span *ngIf="Item.CommentParentId==undefined || Item.CommentParentId==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <ng-select [items]="listCommentPost"
+                               class="mw200-select"
+                               bindLabel="CustomerName"
+                               bindValue="CommentId"
+                               [multiple]="false"
+                               placeholder="Bình luận cha"
+                               [(ngModel)]="Item.CommentParentId"
+                               [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveCommnent()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="CommentModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #RepComment="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Trả lời bình luận</h4>
+          <button type="button" class="close" (click)="RepComment.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body coment-post">
+          <div class="card" style="border: none; padding-bottom: 1.5rem; margin-bottom: unset;">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12">
+                <!--<div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Name">Bài viết<span *ngIf="Item.TargetId==undefined || Item.TargetId==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <ng-select [items]="listNews"
+                               class="mw200-select"
+                               bindLabel="Title"
+                               bindValue="NewsId"
+                               [multiple]="false"
+                               placeholder="Bài viết"
+                               [(ngModel)]="Item.TargetId"
+                               [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+                  </div>
+                </div>-->
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Url">Khách hàng<span *ngIf="Item.CustomerId==undefined || Item.CustomerId==null" style="color: red;">&ngsp;(*)</span></label>
+                  <!--<div class="col-md-8">
+                    <ng-select [items]="listCustomer"
+                               class="mw200-select"
+                               bindLabel="FullName"
+                               bindValue="CustomerId"
+                               [multiple]="false"
+                               placeholder="Khách hàng"
+                               [(ngModel)]="Item.CustomerId"
+                               (change)="ChangeCustomer(Item.CustomerId)"
+                               [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+                  </div>-->
+                </div>
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Title">Nội dung<span *ngIf="Item.Contents==undefined || Item.Contents==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <input type="text" id="Contents" name="Contents" maxlength="1000" class="form-control" placeholder="" [(ngModel)]="Item.Contents" autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="form-group row" style="margin: 15px 0px;">
+                  <label class="col-md-4 col-form-label" for="Url">Bình luận cha<span *ngIf="Item.CommentParentId==undefined || Item.CommentParentId==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <ng-select [items]="listCommentPost"
+                               class="mw200-select"
+                               bindLabel="CustomerName"
+                               bindValue="CommentId"
+                               [multiple]="false"
+                               placeholder="Bình luận cha"
+                               [(ngModel)]="Item.CommentParentId"
+                               [disabled] = true
+                               [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveCommnentChild()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="RepComment.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

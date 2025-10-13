@@ -1,0 +1,51 @@
+﻿<div class="modal-header ng-scope">
+    <h5 class="modal-title" ng-bind-html="title"></h5>
+    <button type="button" class="btn-close" aria-label="Close" ng-click="closeListTimeEdit()">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form name="formListTime" ng-submit="saveListTimeEdit()" autocomplete="off" novalidate>
+        <div class="">
+            <div class="row">
+                <div class="col-md-6">
+                    <!--Giờ mở cửa-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p>Giờ mở cửa</p></span>
+                        <input type="time" class="form-control" ng-model="workingTime.start_hour"
+                               name="start_hour" id="start_hour" placeholder="Giờ mở cửa" required>
+                        <span class="error" ng-show="(formListTime.start_hour.$touched || formListTime.$submitted) && formListTime.start_hour.$invalid">
+                            <span class="text-danger" ng-show="formListTime.start_hour.$error.required">Giờ mở cửa là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formListTime.start_hour.$error.pattern">Giờ mở cửa không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <!--Giờ đóng cửa-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p>Giờ đóng cửa</p></span>
+                        <input type="time" class="form-control" ng-model="workingTime.end_hour"
+                               model name="end_hour" id="end_hour" required>
+                        <span class="error" ng-show="(formListTime.end_hour.$touched || formListTime.$submitted) && formListTime.end_hour.$invalid">
+                            <span class="text-danger" ng-show="formListTime.end_hour.$error.required">Giờ đóng cửa là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formListTime.end_hour.$error.pattern">Giờ mở cửa không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2"></div>
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-default" ng-click="closeListTimeEdit()">Hủy</button>
+                    <button type="submit" class="btn btn-primary" ng-bind-html="time.id ? 'Sửa' : 'Thêm'"></button>
+                </div>
+                <div class="col col-lg-2"></div>
+            </div>
+        </div>
+    </form>
+</div>

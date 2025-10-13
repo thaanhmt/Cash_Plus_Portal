@@ -1,0 +1,239 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<style>
+    /* News Section */
+    .news-section {
+        background: #F8FAFF;
+        padding: 60px 0;
+    }
+
+    .news-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+        background: linear-gradient(135deg, #393089 0%, #6454F0 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .news-card {
+        background: #FFFFFF;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+        margin-bottom: 20px;
+    }
+
+    .news-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+        border: 1px solid #f15725;
+    }
+
+    .news-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .news-content {
+        padding: 24px;
+    }
+
+    .news-content h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+    }
+
+    .news-nav-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        margin: 30px 0;
+    }
+
+    .news-nav-button {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: white;
+        color: #393089;
+        border: 1px solid #393089;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 18px;
+    }
+
+    .news-nav-button:hover {
+        background: #393089;
+        color: white;
+        transform: translateY(-3px);
+    }
+
+    .view-more-button {
+        display: inline-block;
+        background: transparent;
+        color: #393089;
+        border: 1px solid #393089;
+        border-radius: 30px;
+        padding: 12px 36px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+    }
+
+    .view-more-button:hover {
+        background: #393089;
+        color: white;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(57, 48, 137, 0.2);
+    }
+
+    #news-slider-container {
+        overflow: hidden;
+        position: relative;
+    }
+
+    #news-slider-wrapper {
+        display: flex;
+        transition: transform 0.5s ease;
+    }
+
+    .news-item {
+        flex: 0 0 33.333%;
+        padding: 0 15px;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+
+    @@media (max-width: 992px) {
+        .news-item {
+            flex: 0 0 50%;
+        }
+    }
+
+    @@media (max-width: 576px) {
+        .news-item {
+            flex: 0 0 100%;
+        }
+    }
+</style>
+
+<!-- News Section -->
+<section class="section news-section">
+    <div class="container">
+        <h2 class="news-title">Có gì mới trên CashPlus</h2>
+        
+        <div id="news-slider-container">
+            <div class="row" id="news-slider-wrapper">
+                <div class="news-item col-md-4" ng-repeat="item in dataTinTuc | limitTo:6">
+                    <div class="news-card">
+                        <a ng-href="/{{item.Url}}">
+                            <img ng-src="{{ item.Image === undefined ? 'https://s3-hcmc02.higiocloud.vn/loyatly/prod/uploadfile/1PNG_562811090420251.png' : ('/uploads' + item.Image) }}"
+                                 alt="{{item.Title}}" class="news-image" 
+                                 onerror="this.src='https://s3-hcmc02.higiocloud.vn/loyatly/prod/uploadfile/1PNG_562811090420251.png'" />
+                        </a>
+                        <div class="news-content text-center">
+                            <a ng-href="/{{item.Url}}" style="text-decoration: none; color: #333;">
+                                <h3>{{item.Title}}</h3>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>        
+        
+        <div class="text-center">
+            <a href="/home/news" class="view-more-button">Xem thêm các tin tức khác</a>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Variables
+    var currentIndex = 0;
+    var totalItems = 0;
+    var visibleItems = 3;
+    var slideWidth = 0;
+    
+    // Initialize after page load
+    $(document).ready(function() {
+        initNewsSlider();
+    });
+    
+    // Initialize news slider
+    function initNewsSlider() {
+        // Wait for Angular to load data
+        var checkInterval = setInterval(function() {
+            if ($('#news-slider-wrapper .news-item').length > 0) {
+                clearInterval(checkInterval);
+                
+                // Calculate total items
+                totalItems = $('#news-slider-wrapper .news-item').length;
+                
+                // Set initial visible items based on screen size
+                updateVisibleItems();
+                
+                // Show initial items
+                showVisibleItems();
+                
+                // Add resize listener for responsive behavior
+                $(window).resize(function() {
+                    updateVisibleItems();
+                    showVisibleItems();
+                });
+            }
+        }, 300);
+    }
+    
+    // Update number of visible items based on screen width
+    function updateVisibleItems() {
+        if ($(window).width() < 576) {
+            visibleItems = 1;
+        } else if ($(window).width() < 992) {
+            visibleItems = 2;
+        } else {
+            visibleItems = 3;
+        }
+    }
+    
+    // Show current visible items
+    function showVisibleItems() {
+        // Hide all items first
+        $('#news-slider-wrapper .news-item').css('opacity', '0').css('display', 'none');
+        
+        // Show only the needed items
+        for (var i = 0; i < visibleItems; i++) {
+            var index = (currentIndex + i) % totalItems;
+            $('#news-slider-wrapper .news-item').eq(index).css('display', 'block').animate({opacity: 1}, 500);
+        }
+    }
+    
+    // Go to previous news
+    function prevNews() {
+        if (totalItems <= visibleItems) return;
+        
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        showVisibleItems();
+    }
+    
+    // Go to next news
+    function nextNews() {
+        if (totalItems <= visibleItems) return;
+        
+        currentIndex = (currentIndex + 1) % totalItems;
+        showVisibleItems();
+    }
+</script>

@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="vi" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#" ng-app="IOITWeb" ng-cloak>
+<head>
+    <title>
+        @ViewBag.SeoTitle
+    </title>
+    <meta name="keywords" content="@ViewBag.SeoKeywords" />
+    <meta name="description" content="@ViewBag.SeoDescription" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta property="og:site_name" content="@ViewBag.SeoTitle" />
+    <meta property="og:type" content="Website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="fb:app_id" content="1684158208483105" />
+    <meta property="fb:pages" content="295169763983232" />
+    <meta property="og:title" itemprop="name" content="@ViewBag.SeoTitle" />
+    <meta property="og:url" itemprop="url" content="@ViewBag.Url" />
+    <meta property="og:description" content="@ViewBag.SeoDescription" />
+    @if (ViewBag.PageHome == 88)
+    {
+<meta property="og:image" content="https://cashplus.vn/images/homecashplus/Tai-app-CashPlus.jpg" /> }
+            else
+            {
+<meta property="og:image" content="https://cashplus.vn/images/homecashplus/CashPlus-feature.jpg" />}
+    <meta name="language" content="vietnamese" />
+    <meta name="copyright" content="Copyright © 2023 - @DateTime.Now.Year by ATS GROUP" />
+    <meta name="abstract" content="@ViewBag.SeoName" />
+    <meta name="distribution" content="Global" />
+    <meta name="author" content="CÔNG TY CỔ PHẦN TẬP ĐOÀN CÔNG NGHỆ ATS" />
+    <meta http-equiv="refresh" content="1200" />
+    <meta name="REVISIT-AFTER" content="1 DAYS" />
+    <meta name="RATING" content="GENERAL" />
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    <style type="text/css">
+        @await Component.InvokeAsync("CustomizeCss")
+    </style>
+    @await Component.InvokeAsync("HeaderScript")
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/fonts.css">
+    <link rel="stylesheet" href="~/assets/css/all-font-awesome-6.css">
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/css/slick.css">
+    <link rel="stylesheet" href="~/assets/css/slick-theme.css">
+    <link rel="stylesheet" href="~/assets/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="~/assets/css/select2.min.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+    <link rel="stylesheet" href="~/css/header.css">
+    <link rel="stylesheet" href="~/css/footer.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/style.custom.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <link rel="stylesheet" href="~/css/toastr.min.css">
+
+    <link rel="stylesheet" href="~/css/angular/angular-material.css">
+    <link rel="stylesheet" href="~/css/angular/loading-bar.min.css">
+    <link rel="stylesheet" href="~/css/angular/select.css">
+    <link rel="stylesheet" href="~/css/angular/select2.css">
+    <link rel="stylesheet" href="~/css/angular/selectize.default.css">
+    <link rel="stylesheet" href="~/css/angular/daterangepicker.min.css">
+    <link rel="stylesheet" href="/css/cashplus-header.css">
+    <link rel="stylesheet" href="/css/cashplus-footer.css">
+</head>
+<body class="page page-login @ViewBag.Class languageId-@ViewBag.LanguageId">
+    @await Component.InvokeAsync("BodyScript")
+    <div id="wapper">
+         @await Component.InvokeAsync("Header")
+        @RenderBody()
+        @await Component.InvokeAsync("Footer")
+        @if (ViewBag.LanguageId == "1008")
+        {
+            @await Component.InvokeAsync("HeaderMenuMobile", new { MenuId = 39, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+        }
+        else
+        {
+            @await Component.InvokeAsync("HeaderMenuMobile", new { MenuId = 38, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+        }
+    </div>
+    <div class="overlay_menu"></div>
+    @await Component.InvokeAsync("FooterScript")
+    <script type="text/javascript" src="~/assets/js/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/all-font-awesome-6.js"></script>
+    <script type="text/javascript" src="~/assets/js/popper.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/slick.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/chart.js"></script>
+    <script type="text/javascript" src="~/assets/js/jquery.fancybox.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/select2.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/date-time-picker.min.js"></script>
+    <script type="text/javascript" src="~/js/slick-custom.js"></script>
+    <script type="text/javascript" src="~/js/below-slect2.js"></script>
+    <script type="text/javascript" src="~/js/validate-input.js"></script>
+    <script type="text/javascript" src="~/js/my-js.js"></script>
+    <script type="text/javascript" src="~/js/toastr.min.js"></script>
+    <script type="text/javascript" src="~/js/ioit-team.js"></script>
+    @RenderSection("Scripts", required: false)
+
+    @*angularjs*@
+ <script type="text/javascript" src="~/js/angular/angular.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-animate.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-aria.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-cookies.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-material.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-md5.js"></script>
+ <script type="text/javascript" src="~/js/angular/loading-bar.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-recaptcha.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/ui-bootstrap.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/ui-bootstrap-tpls.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-sanitize.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/select.js"></script>
+ <script type="text/javascript" src="~/js/angular/ngDialog.min.js"></script>
+@* <script type="text/javascript" src="~/js/angular/moment.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/daterangepicker.min.js"></script>
+ <script type="text/javascript" src="~/js/angular/angular-daterangepicker.js"></script>*/
+
+ @*angularjs app*@
+<script type="text/javascript" src="~/js/app/app.js"></script>
+<script type="text/javascript" src="~/js/app/init.js"></script>
+<script type="text/javascript" src="~/js/app/customer.js"></script>
+    <script src="/js/cashplus-header.js"></script>
+</body>
+</html>

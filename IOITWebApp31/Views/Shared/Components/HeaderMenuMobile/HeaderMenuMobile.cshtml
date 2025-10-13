@@ -1,0 +1,275 @@
+﻿@model List<IOITWebApp31.Models.Data.MenuItems>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var list_menu = Model.Where(m => m.MenuParentId == ViewBag.MenuParentId).OrderBy(m => m.Location).ToList();
+    string css_class = "";
+    int i = 0;
+    <nav class="navbar navbar-expand-md navbar-light fixed-top custom-menu-mobile">
+        <div class="mobile_menu">
+            <div class="navbar-collapse bg-light px-3" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="html custom html_nav_position_text">
+                        <div class="block-top-mobile-menu">
+                            <a href="/"><i class="icon_menu_home_mobile"></i></a>
+                        </div>
+                    </li>
+                    @foreach (var item in list_menu)
+                    {
+
+                        var listChild = Model.Where(m => m.MenuParentId == item.MenuItemId).ToList();
+
+                        if (listChild.Count > 0)
+                        {
+                            css_class = "has-child";
+                        }
+                        else
+                        {
+                            css_class = "";
+                        }
+
+                <li class="menu-item nav-item @css_class">
+
+                    @if (listChild.Count > 0)
+                    {
+
+                        @*<input type="checkbox" id="mn-@i">*@
+                        @if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE
+|| item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT
+|| item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                        {
+                            <a class="nav-link" href='@("/"+Const.CATEGORY_NEWS+"/"+item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                               title="@item.CategoryName">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                                
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                        {
+                            <a class="nav-link" href='@("/"+Const.PAGE_NOMAL+"/"+item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + ".html")'
+                               title="@item.CategoryName">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                        {
+                            <a class="nav-link" href='@(item.Url)' title="@item.CategoryName" rel="external">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                        {
+                            if (item.Url != null && item.Url != "")
+                            {
+                                <a class="nav-link" href='@("/"+item.Url)' title="@item.CategoryName" rel="next">
+                                    @item.CategoryName
+
+                                </a>
+                                @if (listChild.Count > 0)
+                                {
+                                            <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                                }
+
+                            }
+                            else
+                            {
+                                <a class="nav-link" href='javascript: void(0)' title="@item.CategoryName" rel="next">
+                                    @item.CategoryName
+
+                                </a>
+                                @if (listChild.Count > 0)
+                                {
+                                            <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                                }
+
+                            }
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                        {
+                            <a class="nav-link" href='@(item.Url)' title="@item.CategoryName" rel="nofollow">
+                                @item.CategoryName
+                            </a>
+                                    @if (listChild.Count > 0)
+                                    {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                                    }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                        {
+                            <a class="nav-link" href='@(item.Url)' title="@item.CategoryName" rel="nofollow">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                        {
+                            <a class="nav-link" href='@("/"+Const.CATEGORY_PRODUCT+"/"+item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                               title="@item.CategoryName">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        <ul class="nav-mobile-sub">
+                            @await Component.InvokeAsync("HeaderMenu", new { MenuId = 28, MenuParentId = item.MenuItemId, menuItems = Model })
+                        </ul>
+
+                    }
+                    else
+                    {
+                        @if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE
+|| item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT
+|| item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                        {
+                            <a class="nav-link" href='@("/" + item.Url)'
+                               title="@item.CategoryName">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                        {
+                            <a class="nav-link" href='@("/" + item.Url)'
+                               title="@item.CategoryName">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                        {
+                            <a class="nav-link" href='@(item.Url)' title="@item.CategoryName" rel="external">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                        {
+                            if (item.Url != null && item.Url != "")
+                            {
+                                <a class="nav-link" href='@("/"+item.Url)' title="@item.CategoryName" rel="next">
+                                    @item.CategoryName
+
+                                </a>
+                                @if (listChild.Count > 0)
+                                {
+                                            <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                                }
+
+                            }
+                            else
+                            {
+                                <a href='javascript: void(0)' title="@item.CategoryName" rel="next">
+                                    @item.CategoryName
+
+                                </a>
+                                @if (listChild.Count > 0)
+                                {
+                                            <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                                }
+
+                            }
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                        {
+                            <a class="nav-link" href='@(item.Url)' title="@item.CategoryName" rel="nofollow">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                        {
+                            <a class="nav-link" href='@(item.Url)' title="@item.CategoryName" rel="nofollow">
+                                @item.CategoryName
+                            </a>
+                                    @if (listChild.Count > 0)
+                                    {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                                    }
+
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                        {
+                                    <a class="nav-link first_level_nav" href='@("/" + item.Url)'
+                               title="@item.CategoryName">
+                                @item.CategoryName
+                            </a>
+                        }
+                        else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_LEGAL_DOC)
+                        {
+                            <a class="nav-link" href='@("/"+item.Url)' title="@item.CategoryName" rel="nofollow">
+                                @item.CategoryName
+
+                            </a>
+                            @if (listChild.Count > 0)
+                            {
+                                        <div class="angle-down"><i class="fas fa-angle-down"></i></div>
+                            }
+
+                        }
+                    }
+
+                </li>
+                        i++;
+                    }
+                    
+            </ul>
+                <div class="info-bottom-menu">
+                    @await Component.InvokeAsync("BlockLoginMobile")
+                </div>
+                    <button class="navbar-toggler">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+            </div>
+        </div>
+    </nav>
+}
+

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.CommentDT>
+@if (Model.Count() > 0)
+{
+    var listComment = Model.Where(m => m.CommentParentId == ViewBag.CommentParentId).OrderByDescending(m => m.CreatedAt).ToList();
+    if (listComment.Count() > 0)
+    {
+        foreach (var item in listComment)
+        {
+            <div class="lvl2">
+                <div class="avatar">
+                    <img src="@(ViewBag.LinkSite)/images/avatar-comment.svg" alt="avatar">
+                </div>
+                <div class="content-comment">
+                    <div class="name-customer">@item.CustomerName</div>
+                    <div class="comment-custommer">@item.Contents</div>
+                    <div class="other-comment">
+                        @*<div class="count-line">
+                            <img src="./images/like.svg" alt="like icon">
+                            <span class="count">@item.SumLike</span>
+                        </div>*@
+                        <div class="reply-comment" id="btshow-@item.CommentId" onclick="ReplyComment(@item.CommentId, true)">Trả lời</div>
+                        <div class="reply-comment d-none" id="bthide-@item.CommentId" onclick="ReplyComment(@item.CommentId, false)">Trả lời</div>
+                        <div class="time-comment">@item.CreatedAt.Value.ToString("dd/MM/yyyy - HH:mm")</div>
+                    </div>
+                    <div id="view-@item.CommentId" class="d-none">
+                        <form class="form-commnent-single">
+                            <div class="row row-small row-1-form">
+                                <div class="col">
+                                    <input type="text" id="fullname-@item.CommentId" class="form-control" placeholder="Họ và tên">
+                                </div>
+                                <div class="col">
+                                    <input type="email" id="email-@item.CommentId" class="form-control" placeholder="Email">
+                                </div>
+                            </div>
+                            <div class="row row-small row-2-form">
+                                <div class="col">
+                                    <textarea class="form-control" name="comment-customer" id="comment-customer-@item.CommentId" cols="15" rows="5" placeholder="Ý kiến của bạn"></textarea>
+                                </div>
+                            </div>
+                            <div class="row row-small row-3-form">
+                                <div class="col">
+                                    <input type="button" value="Gửi bình luận" onclick="AddReplyComment(@ViewBag.NewsId,@item.CommentId)">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        @await Component.InvokeAsync("ListComment", new {CommentParentId = item.CommentId, listData = Model })
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

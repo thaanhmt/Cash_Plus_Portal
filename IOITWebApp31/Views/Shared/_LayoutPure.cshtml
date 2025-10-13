@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns#">
+<head>
+    <title>@ViewBag.SeoTitle</title>
+    <meta name="keywords" content="@ViewBag.SeoKeywords" />
+    <meta name="description" content="@ViewBag.SeoDescription" />
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:site_name" content="@ViewBag.SeoTitle" />
+    <meta property="og:type" content="Website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="fb:app_id" content="1684158208483105" />
+    <meta property="fb:pages" content="295169763983232" />
+    <meta property="og:title" itemprop="name" content="@ViewBag.SeoTitle" />
+    <meta property="og:url" itemprop="url" content="@ViewBag.Url" />
+    <meta property="og:description" content="@ViewBag.SeoDescription" />
+    <meta property="og:image" content="https://cashplus.vn/images/homecashplus/CashPlus-feature.jpg" />    
+    
+    <!-- SEO Meta Tags -->
+    <meta name="language" content="vietnamese" />
+    <meta name="copyright" content="Copyright © 2023 - @DateTime.Now.Year by ATS GROUP" />
+    <meta name="abstract" content="@ViewBag.SeoName" />
+    <meta name="distribution" content="Global" />
+    <meta name="author" content="CÔNG TY CỔ PHẦN TẬP ĐOÀN CÔNG NGHỆ ATS" />
+    <meta http-equiv="refresh" content="1200" />
+    <meta name="REVISIT-AFTER" content="1 DAYS" />
+    <meta name="RATING" content="GENERAL" />
+    <meta http-equiv="x-dns-prefetch-control" content="on" />
+    
+     
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- CashPlus Custom CSS -->
+    <link rel="stylesheet" href="~/css/home.index.css">
+    <link rel="stylesheet" href="/css/cashplus-header.css">
+    <link rel="stylesheet" href="/css/cashplus-footer.css">    
+    <link rel="stylesheet" href="~/css/smart-banner.css">
+    
+    <!-- iOS Smart App Banner -->
+    <meta name="apple-itunes-app" content="app-id=6459993279, app-argument=cashplus://home">
+</head>
+
+<body class="page @ViewBag.Class languageId-@ViewBag.LanguageId">
+    <!--@await Component.InvokeAsync("BodyScript") Bỏ qua-->
+    
+    <div id="wapper">
+        @await Component.InvokeAsync("Header")
+        @RenderBody()
+        @await Component.InvokeAsync("Footer")
+    </div>    
+    <!--<div class="overlay_menu"></div>     -->
+    
+    <!-- CashPlus Header Script -->
+    <script src="/js/cashplus-header.js"></script>
+    
+    <!-- Android Smart Banner -->
+    <div id="android-smart-banner" class="smart-banner">
+        <button id="smart-banner-close" class="smart-banner-close">&times;</button>
+        <div class="smart-banner-icon">
+            <img src="/images/cashplus-icon.svg" alt="CashPlus Logo">
+        </div>
+        <div class="smart-banner-info">
+            <div class="smart-banner-title">CashPlus Hoàn Tiền</div>
+            <div class="smart-banner-desc">Hoàn tiền tiêu dùng mọi thứ</div>
+        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.cashbackplus&hl=vi-VN" class="smart-banner-button">
+            Tải App
+        </a>
+    </div>
+    
+    @RenderSection("Scripts", required: false)
+</body>
+</html> 

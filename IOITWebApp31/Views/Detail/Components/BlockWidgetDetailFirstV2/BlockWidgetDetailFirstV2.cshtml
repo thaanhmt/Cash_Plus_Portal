@@ -1,0 +1,17 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+   @foreach (var item in Model)
+    {
+        <div class="box box-vertical first-box lengen-docs-box">
+            <div class="box-image">
+                <img src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="@item.Title">
+            </div>
+            <div class="box-text">
+                <a href="@("/" + item.Url)" class="textLine-3 title-video-first">@item.Title</a>
+            </div>
+        </div>
+    }
+}

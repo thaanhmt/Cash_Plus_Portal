@@ -1,0 +1,674 @@
+﻿@{
+    ViewData["Title"] = "CashPlus – Nền Tảng Hoàn Tiền Thông Minh, Tăng Trưởng Bền Vững";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/hero-smooth-transition.css" />
+
+<style>
+    :root {
+        --primary-blue: #393089;
+        --primary-orange: #f15725;
+        --white: #FFFFFF;
+        --gradient-1: linear-gradient(135deg, #393089 0%, #6454F0 100%);
+        --gradient-2: linear-gradient(135deg, #f15725 0%, #FF8F6B 100%);
+        --shadow-blue: rgba(57, 48, 137, 0.15);
+        --shadow-orange: rgba(241, 87, 37, 0.15);
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #F8FAFF;
+        color: #333;
+        line-height: 1.6;
+    }
+
+    .section {
+        padding: 80px 0;
+    }
+
+    .section-light {
+        background: var(--white);
+    }
+
+    .section-gray {
+        background: #F8FAFF;
+    }
+
+    .section-gradient {
+        background: var(--gradient-1);
+        color: var(--white);
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+        background: var(--gradient-1);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Hero Section */
+    .hero {
+        background: var(--gradient-1);
+        color: var(--white);
+        padding: 80px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .hero-image {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-image img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 600px;
+        object-fit: contain;
+        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+    }
+
+    .btn {
+        padding: 12px 32px;
+        border-radius: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background: var(--white);
+        color: var(--primary-blue);
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background: var(--white);
+        color: var(--primary-orange);
+        transform: translateY(-2px);
+    }
+
+    .btn-outline-light {
+        border: 2px solid var(--white);
+    }
+
+    .btn-outline-light:hover {
+        background: var(--white);
+        color: var(--primary-blue);
+        transform: translateY(-2px);
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        background: var(--white);
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 32px var(--shadow-blue);
+        transition: transform 0.3s ease;
+        text-align: center;
+        height: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        border: 1px solid var(--primary-orange);
+    }
+
+    .feature-icon {
+        width: 72px;
+        height: 72px;
+        background: var(--gradient-1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: var(--white);
+        font-size: 1.5rem;
+    }
+
+    /* Category Cards */
+    .category-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        height: 100%;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px var(--shadow-blue);
+        border-color: var(--primary-blue);
+    }
+
+    .category-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* Process Cards */
+    .process-card {
+        background: var(--white);
+        border-radius: 16px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        height: 100%;
+        border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .process-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px var(--shadow-blue);
+        border-color: var(--primary-blue);
+    }
+
+    .process-card ol {
+        padding-left: 1.2rem;
+    }
+
+    .process-card li {
+        margin-bottom: 1rem;
+    }
+
+    /* News Section */
+    .news-section {
+        background: #F8FAFF;
+        padding: 80px 0;
+    }
+
+    .news-card {
+        background: var(--white);
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .news-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.12);
+        border: 1px solid var(--primary-orange);
+    }
+
+    .news-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .news-content {
+        padding: 24px;
+    }
+
+    .news-content h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 12px;
+    }
+
+    .news-content p {
+        color: #666;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .news-link {
+        color: var(--primary-blue);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    .news-link:hover {
+        text-decoration: underline;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        background: var(--gradient-1);
+        padding: 60px 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 1;
+        color: var(--white);
+    }
+
+    .cta-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 1.5rem;
+        color: var(--white);
+    }
+
+    .cta-description {
+        font-size: 1.25rem;
+        margin-bottom: 0;
+        opacity: 0.9;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+        .hero {
+            padding: 60px 0;
+        }
+        .hero-image img {
+            max-height: 500px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .hero-image img {
+            max-height: 400px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding: 40px 0;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+        }
+        .hero-image {
+            margin-top: 2rem;
+        }
+        .hero-image img {
+            max-height: 350px;
+        }
+        .hero-buttons {
+            flex-direction: column;
+        }
+        .btn {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero-image img {
+            max-height: 300px;
+        }
+    }
+</style>
+<main id="main" ng-controller="UserUnitController" ng-init="getTinTucMoi()" onclick="closeWhiteDiv()">
+<!-- Hero Section -->
+<section class="hero-slider">
+    <button class="hero-slider-arrow left" aria-label="Slide trước">&#60;</button>
+    <button class="hero-slider-arrow right" aria-label="Slide sau">&#62;</button>
+    
+    <div class="hero-slide hero-slide-1 active" style="background-image: url('/images/CashPlus-hoan-tien-ngay.jpg')">
+        <div class="hero-slide-content">
+            <h1 class="hero-slide-title">CASHPLUS</h1>
+            <p class="hero-slide-subtitle">Mua Sắm Thông Minh - Hoàn Tiền Ngay</p>
+            <div class="hero-slide-buttons">
+                <a href="/tai-cashplus-ngay" class="btn btn-primary">Tải App Ngay</a>
+                <a href="/dang-ky-doi-tac" class="btn btn-outline-light">Đăng Ký Đối Tác</a>
+                </div>
+                    </div>
+                    </div>
+    
+    <div class="hero-slide hero-slide-2" style="background-image: url('/images/Mua-Sam-hoan-tien-ngay-cung-CashPlus.jpg')">
+        <div class="hero-slide-content">
+            <h1 class="hero-slide-title">HOÀN TIỀN NGAY</h1>
+            <p class="hero-slide-subtitle">Trực tiếp về tài khoản ngân hàng</p>
+            <div class="hero-slide-buttons">
+                <a href="/tai-cashplus-ngay" class="btn btn-primary">Tải App Ngay</a>
+                <a href="/dang-ky-doi-tac" class="btn btn-outline-light">Đăng Ký Đối Tác</a>
+                    </div>
+                </div>
+            </div>
+    
+    <div class="hero-slide hero-slide-3" style="background-image: url('/images/Affiliate-tang-doanh-thu-cung-CashPlus.jpg')">
+        <div class="hero-slide-content">
+            <h1 class="hero-slide-title">BÁN HÀNG HIỆU QUẢ</h1>
+            <p class="hero-slide-subtitle">Chỉ trả phí khi có khách thực</p>
+            <div class="hero-slide-buttons">
+                <a href="/tai-cashplus-ngay" class="btn btn-primary">Tải App Ngay</a>
+                <a href="/dang-ky-doi-tac" class="btn btn-outline-light">Đăng Ký Đối Tác</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-slide-dots">
+        <span class="hero-slide-dot active"></span>
+        <span class="hero-slide-dot"></span>
+        <span class="hero-slide-dot"></span>
+    </div>
+</section>
+
+<!-- Why CashPlus Section -->
+<section class="why-cashplus py-5 bg-white">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">🌟 Tại sao nên tham gia CashPlus NGAY BÂY GIỜ?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">Người tiêu dùng</h3>
+                    <p>Hoàn tiền thật – dùng càng nhiều, lời càng lớn</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">Người giới thiệu</h3>
+                    <p>Không cần bán – giới thiệu là có thu nhập</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3 class="h5 fw-bold mb-2">Người bán</h3>
+                    <p>Không mất tiền chạy quảng cáo – chỉ trả khi có khách</p>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <p class="lead fw-semibold">
+                    🎯 Một nền tảng – các bên cùng hưởng lợi<br>
+                    🔥 Không rào cản – không rủi ro – không giới hạn thu nhập
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- User Benefits Section -->
+<section class="user-benefits py-5 section-gray">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">👤 Người tiêu dùng – Mua sắm, nhận tiền hoàn ngay</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <ul class="list-unstyled fs-5 mb-4">
+                    <li>💸 Không tích điểm – Không chờ đợi – Không điều kiện</li>
+                    <li>🔹 Mua sắm tại cửa hàng có biển "Hoàn tiền ngay"</li>
+                    <li>🔹 Thanh toán bằng tài khoản ngân hàng đã đăng ký</li>
+                    <li>🔹 Tiền hoàn được chuyển thẳng vào tài khoản của bạn ngay lập tức</li>
+                </ul>
+                <p class="fw-semibold">Chọn nơi tiêu dùng có CashPlus – nhận giá trị thật từng đồng.<br>👉 <b>Tải App CashPlus – tiêu dùng thông minh, hoàn tiền liền tay</b></p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="~/images/user-benefit.png" alt="Lợi ích người tiêu dùng" class="img-fluid" style="max-height: 300px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Affiliate Benefits Section -->
+<section class="affiliate-benefits py-5 bg-white">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">🔗 Người giới thiệu (Affiliate) – Thu nhập trọn đời, không cần bán hàng</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <ul class="list-unstyled fs-5 mb-4">
+                    <li>📢 Bạn chỉ cần giới thiệu người khác dùng app. Họ tiêu dùng, bạn có tiền.</li>
+                    <li>💰 Giới thiệu 1 lần – Nhận hoa hồng suốt đời</li>
+                    <li>📈 Người được bạn giới thiệu tiêu dùng bao nhiêu → bạn nhận bấy nhiêu</li>
+                    <li>🧠 Bạn vừa giúp người ta tiêu dùng có lợi, vừa tạo thu nhập cho chính mình</li>
+                </ul>
+                <p class="fw-semibold">👉 <b>Bắt đầu kiếm tiền ngay hôm nay – không ràng buộc, không áp lực</b></p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="~/images/affiliate-benefit.png" alt="Lợi ích affiliate" class="img-fluid" style="max-height: 300px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Merchant Benefits Section -->
+<section class="merchant-benefits py-5 section-gray">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">🏪 Người bán – Có khách thật, chỉ trả phí khi có doanh thu</h2>
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <ul class="list-unstyled fs-5 mb-4">
+                    <li>📌 Không quảng cáo mù mờ – Không chi phí rủi ro</li>
+                    <li>✔️ Bạn chỉ trả khi có khách thực sự đến mua</li>
+                    <li>✔️ Không tốn chi phí giữ chân khách – hệ thống hoàn tiền sẽ làm thay bạn</li>
+                    <li>✔️ Hệ thống giới thiệu tự nhiên – khách mới đến từ mạng lưới người dùng</li>
+                </ul>
+                <p class="fw-semibold">Marketing an toàn – hiệu quả – dễ kiểm soát chi phí<br>👉 <b>Trở thành đối tác bán hàng – chỉ mất tiền khi có khách</b></p>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="~/images/merchant-benefit.png" alt="Lợi ích người bán" class="img-fluid" style="max-height: 300px;">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories py-5 bg-white">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">🛍️ Ngành hàng - sản phẩm - dịch vụ trên CashPlus</h2>
+        <div class="row g-3 justify-content-center">
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">🍜</span>
+                    <div class="mt-2">F&B – Ăn uống</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">👗</span>
+                    <div class="mt-2">Thời trang – Phụ kiện</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">💆</span>
+                    <div class="mt-2">Làm đẹp – Spa, Salon</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">🏥</span>
+                    <div class="mt-2">Sức khỏe – Nhà thuốc, phòng khám</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">🍎</span>
+                    <div class="mt-2">Thực phẩm – Tạp hóa, siêu thị</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">🎮</span>
+                    <div class="mt-2">Giải trí – Dịch vụ, vé</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">✈️</span>
+                    <div class="mt-2">Du lịch – Tour, vé máy bay</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="category-card">
+                    <span class="category-icon">🏨</span>
+                    <div class="mt-2">Khách sạn – Lưu trú</div>
+                </div>
+            </div>
+            <div class="col-12 text-center mt-3">
+                <span>… và tất cả lĩnh vực hợp pháp khác</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Join Process Section -->
+<section class="join-process py-5 section-gray">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">🔄 Tham gia cực đơn giản – Ai cũng bắt đầu được</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="process-card">
+                    <h3 class="h5 fw-bold mb-3">Người tiêu dùng</h3>
+                    <ol class="fs-5">
+                        <li>Tải app và đăng ký tài khoản</li>
+                        <li>Gắn tài khoản ngân hàng để nhận hoàn tiền</li>
+                        <li>Mua sắm tại điểm có biển "Hoàn tiền ngay" → Nhận tiền tức thì</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="process-card">
+                    <h3 class="h5 fw-bold mb-3">Người giới thiệu (Affiliate)</h3>
+                    <ol class="fs-5">
+                        <li>Đăng ký tài khoản</li>
+                        <li>Lấy mã giới thiệu và chia sẻ</li>
+                        <li>Người được giới thiệu tiêu dùng → bạn nhận hoa hồng trọn đời</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="process-card">
+                    <h3 class="h5 fw-bold mb-3">Người bán</h3>
+                    <ol class="fs-5">
+                        <li>Đăng ký trở thành đối tác</li>
+                        <li>Gắn biển hiệu "Hoàn tiền ngay"</li>
+                        <li>Tăng khách – tăng doanh thu – chỉ trả phí khi có giao dịch</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News Section -->
+@Html.Partial("~/Views/Home/informations.cshtml")
+
+<!-- Final CTA Section -->
+<section class="cta-section">
+    <div class="container text-center">
+        <h2 class="cta-title">Sẵn sàng nhận hoàn tiền và tăng trưởng cùng CashPlus?</h2>
+        <div class="mt-4">
+            <a href="https://cashplus.vn/tai-cashplus-ngay" class="btn btn-primary btn-lg me-2 mb-2"><i class="fas fa-download me-2"></i>Tải App Ngay</a>
+            <a href="https://cashplus.vn/dang-ky-doi-tac" class="btn btn-outline-light btn-lg mb-2"><i class="fas fa-store me-2"></i>Đăng Ký Đối Tác</a>
+        </div>
+    </div>
+</section>
+
+</main>
+
+<script>
+    function showDiv(showDiv, hideDiv1, hideDiv2) {
+        document.getElementById(showDiv).classList.remove('hide');
+        document.getElementById(showDiv).classList.add('show');
+
+        document.getElementById(hideDiv1).classList.remove('show');
+        document.getElementById(hideDiv1).classList.add('hide');
+
+        document.getElementById(hideDiv2).classList.remove('show');
+        document.getElementById(hideDiv2).classList.add('hide');
+    }
+    function showDivMobile(showDiv, hideDiv1, hideDiv2) {
+        document.getElementById(showDiv).classList.remove('hide');
+        document.getElementById(showDiv).classList.add('show');
+
+        document.getElementById(hideDiv1).classList.remove('show');
+        document.getElementById(hideDiv1).classList.add('hide');
+
+        document.getElementById(hideDiv2).classList.remove('show');
+        document.getElementById(hideDiv2).classList.add('hide');
+    }
+    function changeActiveLi(element) {
+        var lis = document.querySelectorAll('.box-title span');
+        lis.forEach(function (span) {
+            span.classList.remove('title1-active');
+        });
+        element.classList.add('title1-active');
+    }
+
+    /*
+    Carousel Images
+    */
+    $('#carousel-example-1').on('slide.bs.carousel', function (e) {
+        /*
+            CC 2.0 License Iatek LLC 2018 - Attribution required
+        */
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 5;
+        var totalItems = $('#carousel-example-1 .carousel-item').length;
+
+        if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+                // append slides to end
+                if (e.direction == "left") {
+                    $('#carousel-example-1 .carousel-item').eq(i).appendTo('#carousel-example-1 .carousel-inner');
+                }
+                else {
+                    $('#carousel-example-1 .carousel-item').eq(0).appendTo('#carousel-example-1 .carousel-inner');
+                }
+            }
+        }
+    });
+
+    /*
+        Carousel Cards
+    */
+    $('#carousel-example-2').on('slide.bs.carousel', function (e) {
+        /*
+            CC 2.0 License Iatek LLC 2018 - Attribution required
+        */
+        var $e = $(e.relatedTarget);
+        var idx = $e.index();
+        var itemsPerSlide = 4;
+        var totalItems = $('#carousel-example-2 .carousel-item').length;
+
+        if (idx >= totalItems - (itemsPerSlide - 1)) {
+            var it = itemsPerSlide - (totalItems - idx);
+            for (var i = 0; i < it; i++) {
+                // append slides to end
+                if (e.direction == "left") {
+                    $('#carousel-example-2 .carousel-item').eq(i).appendTo('#carousel-example-2 .carousel-inner');
+                }
+                else {
+                    $('#carousel-example-2 .carousel-item').eq(0).appendTo('#carousel-example-2 .carousel-inner');
+                }
+            }
+        }
+    });
+</script>
+
+<script src="~/js/hero-smooth.js"></script>

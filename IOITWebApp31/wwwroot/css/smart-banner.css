@@ -1,0 +1,75 @@
+/* Smart App Banner - Custom for Android */
+.smart-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f8faff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 9998;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.3s ease;
+    transform: translateY(-100%);
+}
+.smart-banner.show {
+    transform: translateY(0);
+}
+.smart-banner-close {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: #e5e7eb;
+    color: #6b7280;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+.smart-banner-icon {
+    width: 52px;
+    height: 52px;
+    margin-left: 28px;
+    margin-right: 12px;
+}
+.smart-banner-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.smart-banner-info {
+    flex-grow: 1;
+    color: #111827;
+}
+.smart-banner-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+.smart-banner-desc {
+    font-size: 13px;
+    color: #4b5563;
+}
+.smart-banner-button {
+    display: block;
+    padding: 8px 18px;
+    margin-right: 10px;
+    background-color: #393089;
+    color: #fff;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+.smart-banner-button:hover {
+    background-color: #6454F0;
+} 

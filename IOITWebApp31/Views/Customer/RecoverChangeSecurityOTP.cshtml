@@ -1,0 +1,93 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+<script>
+    document.getElementById("dang-ky").innerHTML = '<span class="dang-ky-thamgia">Ứng dụng CashPlus</span>';
+</script>
+<main id="main" ng-controller="UserUnitController" ng-init="onRegister()">
+    <div id="content" class="content-area">
+        <section class="section section-info-user section-q">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-lg-12 col-md-12 content-info col-12 d-flex-contact">
+                        <div class="w-50 col-contact">
+                            <div id="col-1216837114" class="col medium-6 small-12 large-6">
+                                <div class="col-inner">
+                                    <p class="col-img">
+                                        <img width="634" height="556" src="https://cashplus.vn/images/homecashplus/Mask-group-1-1.png" class="attachment-original size-original" alt="Tải app CashPlus" decoding="async"
+                                            fetchpriority="high" srcset="https://cashplus.vn/images/homecashplus/Mask-group-1-1.png 634w, https://cashplus.vn/images/homecashplus/Mask-group-1-1-300x263.png 300w" sizes="(max-width: 634px) 100vw, 634px">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row s11_r3" style="display: none">
+                                <div class="col col-md-12 col-12 s11_r3_c1">
+                                    <div class="col-inner">
+                                        <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                                        <div id="countdown">
+                                            <ul>
+                                                <li><span id="days"></span>Ngày</li>
+                                                <li><span id="hours"></span>Giờ</li>
+                                                <li><span id="minutes"></span>Phút</li>
+                                                <li><span id="seconds"></span>Giây</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-50 col-contact">
+                            <div class="form-group-info form-2-info" >
+                                <p class="title-lien-he">Thay Đổi Mã Bảo Mật</p>
+                                <span>"<span class="text-danger"> * </span>" Các mục bắt buộc cần điền </span>
+                                <div class="main-fields" style="margin-top: 10px;">
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="tel" class="form-control" ng-model="RegisterCodeTest.phone_number" placeholder="Nhập số điện thoại *" pattern="[0-9]{10}" maxlength="10" required>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="password" id="PasswordDk" class="form-control" placeholder="Mã bảo mật cũ *" ng-model="RegisterCodeTest.security_code">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fa-sharp fa-regular fa-eye-slash"></i></span>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="password" id="PasswordDk" class="form-control" placeholder="Mã bảo mật mới *" ng-model="RegisterCodeTest.security_code_new">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fa-sharp fa-regular fa-eye-slash"></i></span>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="password" id="PasswordDk" class="form-control" placeholder="Nhập lại mã bảo mật mới *" ng-model="RegisterCodeTest.security_code_new_rep">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fa-sharp fa-regular fa-eye-slash"></i></span>
+                                    </div>
+                                    <div class="btn-save btn-otp">
+                                        <div class="btn-otpphone">
+                                            <div class="btn-save" style="margin-top: 0px;" id="disableButton">
+                                                <button class="btn btn-primary btn-xanh btn-submit" 
+                                                        style="pointer-events: all;" type="submit" ng-click="SubmitOTPTest()">
+                                                    Gửi OTP
+                                                </button>
+                                            </div>
+                                            <div style="padding: 5px;">
+                                                <span id="idspan" class="text-danger text-time" ng-if="disableButton" ng-bind-html="countdown"></span>
+                                            </div>
+                                        </div>
+                                        <span class="text-danger" ng-if="isOTP == true"> Vui lòng nhập số điện thoại </span>
+                                        <span class="text-access" ng-if="isOTP == false"> Đã gửi mã OTP. Bạn hãy kiểm tra OTP ở điện thoại và nhập mã vào ô bên dưới </span>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="number" class="form-control" ng-model="RegisterCodeTest.otp_code" placeholder="Nhập mã OTP *" required>
+                                    </div>
+                                </div>
+                                <div class="btn-save btn-click">
+                                    <button class="btn btn-primary btn-cam btn-submit" type="submit" ng-click="SubmitRecoverChangeSecurityOTP()" ng-disabled="disableBtn.btSubmit == true" style="min-width: 200px;">
+                                        Xác nhận
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

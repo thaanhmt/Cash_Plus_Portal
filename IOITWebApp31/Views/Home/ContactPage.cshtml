@@ -1,0 +1,76 @@
+﻿@model IOITWebApp31.Models.EF.Website
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-md-3 col-12 side-bar-info menu-faq">
+                        <ul class="nav-tab-vertical">
+                            @await Component.InvokeAsync("MenuSideBar", new { MenuId = 40, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                        </ul>
+                    </div>
+                    <div class="col col-md-9 col-12 section-detail-data main-manage-data">
+                        <div class="block-form-contact">
+                            <div class="info-company">
+                                <div class="title-noitify">CÔNG TY CP TẬP ĐOÀN CÔNG NGHỆ ATS</div>
+                                <div class="item address">
+                                    <i class="fa-solid fa-location-dot"></i> @Model.Address
+                                </div>
+                                <div class="item phone">
+                                    <i class="fa-solid fa-phone"></i>
+                                    @Model.Hotline
+                                </div>
+                                <div class="item gmail">
+                                    <i class="fa-solid fa-envelope"></i>
+                                    @Model.Hotmail
+                                </div>
+                            </div>
+                            <div class="form-contact">
+                                <div class="title-noitify">Gửi thông tin phản hồi</div>
+                                <div class="form">
+                                    <div class="input-group">
+                                        <input type="text" id="fullname" class="form-control" placeholder="Họ và tên*">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" id="email" class="form-control" placeholder="Địa chỉ email*">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" id="numberphone" class="form-control" placeholder="Số điện thoại*">
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" id="title" class="form-control" placeholder="Tiêu đề*">
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <textarea name="note" id="note" rows="6" placeholder="Nội dung*"></textarea>
+                                    </div>
+                                    <div class="capcha">
+                                        <div id="google_recaptcha"></div>
+                                        @*<div class="input-group">
+                                            <input type="text" id="capcha-register" class="form-control" placeholder="Mã capcha">
+                                        </div>
+                                        <img src="/images/capcha.png" alt="">
+                                        <div class="swap"><img src="/images/swap.svg" alt=""></div>*@
+                                    </div>
+                                    <div class="button-form-thank">
+                                        <input type="submit" class="btn btn-primary btn-xanh" value="Gửi thông tin" onclick="AddGopY()">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ajax-loading">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

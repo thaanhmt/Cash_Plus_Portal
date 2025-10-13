@@ -1,0 +1,43 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.LegalDoc>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        @if(ViewBag.Template == "Template_1"){
+            <div class="item-faq">
+                <div class="head-faq">
+                    <div class="question">
+                        <i class="fa-light fa-circle-question"></i>
+                        <span class="textLine-2">@item.Name</span>
+                    </div>
+                    <div class="view-question">
+                        <i class="fa-regular fa-plus"></i>
+                    </div>
+                </div>
+                <div class="main-faq">
+                    @Html.Raw(item.Contents)
+                </div>
+            </div>
+        }
+        else if (ViewBag.Template == "Template_2")
+        {
+            <div class="item-faq">
+                <div class="head-faq">
+                    <div class="question">
+                        <i class="fa-light fa-circle-question"></i>
+                        <span class="textLine-2">@item.Name</span>
+                    </div>
+                    <div class="view-question">
+                        <i class="fa-regular fa-plus"></i>
+                    </div>
+                </div>
+                <div class="main-faq">
+                    @Html.Raw(item.Contents)
+                </div>
+            </div>
+        }
+    }
+}

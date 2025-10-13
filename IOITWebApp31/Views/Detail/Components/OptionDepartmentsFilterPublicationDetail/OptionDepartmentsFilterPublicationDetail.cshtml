@@ -1,0 +1,11 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.TypeAttributeItem>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <option value="@item.TypeAttributeItemId">@item.Name</option>
+    }
+}

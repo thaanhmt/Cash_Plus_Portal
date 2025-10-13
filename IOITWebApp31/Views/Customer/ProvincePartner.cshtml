@@ -1,0 +1,94 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+
+
+<script>
+    document.getElementById("dang-ky").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn"><span>Đăng Ký Đối Tác</span></a>';
+</script>
+<main id="main" ng-controller="UserUnitController" ng-init="initContact()">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container bglienhe">
+                <div class="row row-small main-info">
+                    <div class="col col-lg-12 col-md-12 content-info col-12 d-flex-contact">
+                        <div class="w-50 col-contact">
+                            <div id="col-1216837114" class="col medium-6 small-12 large-6">
+                                <div class="col-inner">
+                                    <p>
+                                        <iframe class="if-cont" src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d119178.3066634241!2d105.88099649951586!3d21.01979488165008!3m2!1i1024!2i768!4f13.1!5e0!3m2!1svi!2s!4v1701925959970!5m2!1svi!2s"
+                                                aria-hidden="true" width="100%" height="450" style="border-radius: 8px;"></iframe><br>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row s11_r3" style="display: none">
+                                <div class="col col-md-12 col-12 s11_r3_c1">
+                                    <div class="col-inner">
+                                        <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                                        <div id="countdown">
+                                            <ul>
+                                                <li><span id="days"></span>Ngày</li>
+                                                <li><span id="hours"></span>Giờ</li>
+                                                <li><span id="minutes"></span>Phút</li>
+                                                <li><span id="seconds"></span>Giây</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-50 col-contact">
+                            <div class="form-group-info form-2-info">
+                                <p class="title-lien-he">ĐĂNG KÝ ĐẠI DIỆN TỈNH/THÀNH PHỐ CỦA CASHPLUS</p>
+                                <div class="main-fields">
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="text" id="name" class="form-control" placeholder="Nhập họ và tên"
+                                               ng-model="contact.FullName" required>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="email" class="form-control" ng-model="contact.Email" placeholder="Nhập Email" required>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="tel" class="form-control" ng-model="contact.Phone" placeholder="Nhập số điện thoại"
+                                               pattern="[0-9]{10}" maxlength="10" required>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="text" class="form-control" ng-model="contact.Address" placeholder="Nhập địa chỉ" required>
+                                    </div>
+                                    <div class="input-group field-full textarea-field province_a">
+                                        <ui-select ng-model="contact.NewsId" ng-change="changeValueProvince($select.selected)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.Name }}">
+                                            <ui-select-match allow-clear="true" placeholder="Tỉnh/Thành phố">{{ $select.selected.Name }}</ui-select-match>
+                                            <ui-select-choices repeat="item.ProvinceId as item in listProvince | filter: $select.search" position="down">
+                                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="text" class="form-control" ng-model="contact.Title" placeholder="Lĩnh vực kinh doanh" required>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="text" class="form-control" ng-model="contact.Note" placeholder="Kinh nghiệm quản lý lĩnh vực nào?" required>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <textarea name="So-thich" id="So-thich" rows="2" ng-model="contact.Contents" placeholder="Ghi chú" maxlength="4000"></textarea>
+                                    </div>
+                                </div>
+                                <div class="btn-save btn-click">
+                                    <button class="btn btn-primary btn-cam btn-submit" type="submit" ng-click="SubmitContact()" ng-disabled="disableBtn.btSubmit == true">
+                                        HOÀN TẤT
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+

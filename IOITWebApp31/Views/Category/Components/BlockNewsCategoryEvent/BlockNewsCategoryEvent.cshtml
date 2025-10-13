@@ -1,0 +1,13 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <a href="@("/" + item.Url)" class="linkEventPost" title="@item.Title">
+            @item.Title
+        </a>
+    }
+}

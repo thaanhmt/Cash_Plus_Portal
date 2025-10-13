@@ -1,0 +1,230 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+<script>
+    document.getElementById("dang-ky").innerHTML = '<span  class="btn-cntt style-btn-kn">Đăng Ký CashPlus</span>';
+</script>
+
+<main id="main" ng-controller="UserUnitController" ng-init="onRegister()">
+    <div id="content" class="content-area">
+        <section class="section section-info-user section-q">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-lg-12 col-md-12 content-info col-12 d-flex-contact">
+                        <div class="w-50 col-contact">
+                            <div id="col-1216837114" class="col medium-6 small-12 large-6">
+                                <div class="col-inner">
+                                    <p class="col-img">
+                                        <img width="634" height="556" src="~/images/App-CashPlus-Download.png" class="attachment-original size-original" alt="Tải app CashPlus" decoding="async"
+                                             fetchpriority="high" srcset="~/images/App-CashPlus-Download.png 634w, https://cashplus.vn/images/homecashplus/Mask-group-1-1-300x263.png 300w" sizes="(max-width: 634px) 100vw, 634px">
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="w-50 col-contact">
+                            <div class="bg-section"></div>
+                            <div class="container">
+                                <div class="row row-small main-info">
+                                    <div class="col col-lg-12 col-md-12 content-info col-12">
+                                        <div class="register-container">
+                                            <div class="register-header">
+                                                <div class="register-title">
+                                                    <h1>Đăng ký tài khoản </h1>
+                                                </div>
+                                                <div></div>
+                                            </div>
+
+                                            <div class="register-form" name="registerForm" novalidate>
+                                                <div class="form-group">
+                                                    <label for="phone">Nhập số điện thoại <span class="required">*</span></label>
+                                                    <input type="tel" id="phone" name="phone" class="form-control"
+                                                           ng-model="RegisterCode.phone_number"
+                                                           placeholder="Nhập số điện thoại"
+                                                           pattern="[0-9]{10}" maxlength="10"
+                                                           ng-change="validatePhoneNumber()"
+                                                           required>
+                                                    <span class="error-message"
+                                                          ng-show="registerForm.phone.$dirty && registerForm.phone.$error.required">
+                                                        Vui lòng nhập số điện thoại
+                                                    </span>
+                                                    <span class="error-message" ng-show="!isPhoneNumberValid && RegisterCode.phone_number !== ''">
+                                                        Số điện thoại không hợp lệ
+                                                    </span>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <select id="bank"
+                                                            name="bank"
+                                                            class="form-control select2"
+                                                            ng-model="RegisterCode.bank_code"
+                                                            ng-options="bank.code as (bank.name + ' - ' + bank.description) for bank in LstBank">
+                                                        <option value="">Chọn ngân hàng</option>
+                                                    </select>
+                                                </div>
+
+
+
+
+                                                <div class="form-group">
+                                                    <label for="account" ng-if="!RegisterCode.bank_account">
+                                                        Nhập số tài khoản <span class="required">*</span>
+                                                    </label>
+                                                    <label for="account" ng-if="RegisterCode.bank_account">
+                                                        <i>Số tài khoản đăng ký phải là số tài khoản ngân hàng chính thức, không dùng số điện thoại hoặc tài khoản nickname </i><span class="required">*</span>
+                                                    </label>
+                                                    <input type="text" id="account" name="account" class="form-control"
+                                                           ng-model="RegisterCode.bank_account"
+                                                           ng-blur="onBankAccountChange()"
+                                                           placeholder="Nhập số tài khoản ngân hàng *"
+                                                           required>
+                                                    <span class="error-message"
+                                                          ng-show="registerForm.account.$dirty && registerForm.account.$error.required">
+                                                        Vui lòng nhập số tài khoản
+                                                    </span>
+                                                </div>
+
+                                                <div class="form-group" ng-show="RegisterCode.full_name !== ''">
+                                                    <label for="accountName">Tên chủ tài khoản<span class="required">*</span></label>
+                                                    <input type="text" id="accountName" name="accountName" class="form-control"
+                                                           ng-model="RegisterCode.full_name"
+                                                           ng-disabled="RegisterCode.full_name !== 'Không tìm thấy'">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                <label for="referral">Nhập mã hoặc số điện thoại giới thiệu</label>
+                                                <input type="text" id="referral" class="form-control"
+                                                       ng-model="RegisterCode.share_code"
+                                                       ng-disabled="QRCode"
+                                                       placeholder="Nhập mã hoặc số điện thoại giới thiệu">
+                                                <p class="referral-note">Mã giới thiệu không bắt buộc</p>
+                                            </div>
+
+                                            <div class="form-group checkbox-group">
+                                                <div class="custom-checkbox">
+                                                    <input type="checkbox" id="terms" ng-model="checkBox">
+                                                    <label for="terms">
+                                                        <span class="checkbox-text">
+                                                            Tôi đồng ý với các
+                                                            <a href="/dieu-khoan-su-dung-nguoi-dung">chính sách bảo mật và điều khoản sử dụng</a>
+                                                            của Cash Plus
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button class="btn-register" type="submit"
+                                                        ng-click="SubmitRegister()"
+                                                        ng-disabled="registerForm.$invalid || disableBtn.btSubmit == true || !checkBox">
+                                                    ĐĂNG KÝ
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</main>
+
+<script>
+    $(document).ready(function () {
+        $('#bank').select2({
+            placeholder: 'Chọn ngân hàng',
+            allowClear: true,
+            width: '100%',
+            minimumResultsForSearch: 0,
+            dropdownParent: $('#bank').parent()
+        });
+
+        // Bắt sự kiện mở dropdown trên mobile
+        $('#bank').on('select2:open', function () {
+            setTimeout(() => {
+                document.querySelector('.select2-search__field')?.focus();
+            }, 100);
+        });
+    });
+</script>
+
+<style>
+    /* Giống form-control cũ */
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #d1d1d1;
+        border-radius: 6px;
+        height: 40px;
+        padding: 6px 12px;
+        font-size: 14px;
+        font-family: inherit;
+        transition: border-color 0.2s ease;
+    }
+
+        .select2-container--default .select2-selection--single:focus {
+            border-color: #66afe9;
+            outline: none;
+            box-shadow: 0 0 3px rgba(102, 175, 233, 0.6);
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 26px;
+            color: #333;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%;
+            top: 0;
+            right: 6px;
+            width: 20px;
+        }
+
+            .select2-container--default .select2-selection--single .select2-selection__arrow b {
+                border-color: #666 transparent transparent transparent;
+                border-width: 5px 4px 0 4px;
+            }
+
+    /* Dropdown menu */
+    .select2-dropdown {
+        border-radius: 6px;
+        border: 1px solid #d1d1d1;
+    }
+
+    /* Search box trong dropdown */
+    .select2-search__field {
+        padding: 6px 10px;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+
+    /* Các option bình thường trong dropdown */
+    .select2-container--default .select2-results__option {
+        background-color: #fff;
+        color: #000;
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+    /* Khi hover hoặc được chọn */
+    .select2-container--default .select2-results__option--highlighted[aria-selected] {
+        background-color: #0061cc !important; /* màu xanh tương tự giao diện cũ */
+        color: #fff !important;
+    }
+    .select2-container--default .select2-results > .select2-results__options {
+        padding: 0;
+        background: #fff
+    }
+
+</style>
+

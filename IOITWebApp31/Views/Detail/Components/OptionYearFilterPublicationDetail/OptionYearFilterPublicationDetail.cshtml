@@ -1,0 +1,11 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Publication>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <option value="@item.PublishingYear">@item.PublishingYear</option>
+    }
+}

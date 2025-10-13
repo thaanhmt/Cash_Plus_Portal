@@ -1,0 +1,13 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <div class="titleMostViews">
+            <li class="item position-relative"><a href="@("/" + item.Url)" class="d-block textLine-4">@item.Title</a></li>
+        </div>
+    }
+}

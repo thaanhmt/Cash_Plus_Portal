@@ -1,0 +1,66 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = "Service";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="url-page">
+    <div class="container">
+        <div class="title-url"><h1>@ViewBag.SeoTitle</h1></div>
+        <ul>
+            <li><a href="javascript:void(0)" title="">Trang chủ</a></li>
+            <li><span>@ViewBag.SeoTitle</span></li>
+        </ul>
+    </div>
+</div>
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <div class="home4 dk">
+            <div class="container">
+                <div class="row">
+                    @*<div class="title-home"><span>Dịch vụ</span></div>*@
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-dv col-xs-12 col-md-4">
+                            <div class="box-dv">
+                                <div class="img-dv">
+                                    <a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title"><img src="/uploads/@item.Image" class="img-responsive" alt="@item.Title"></a>
+                                </div>
+                                <div class="title-dv"><a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title"><h2>@item.Title</h2></a></div>
+                                <div class="text-dv">@item.Description</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="home4 mb">
+            <div class="container">
+                <div class="row">
+                    @*<div class="title-home"><span>Dịch vụ</span></div>*@
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-dv">
+                            <div class="box-dv">
+                                <div class="img-dv">
+                                    <a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title"><img src="/uploads/@item.Image" class="img-responsive" alt="@item.Title"></a>
+                                </div>
+                                <div class="detail-dv">
+                                    <div class="title-dv" style="line-height: 17px;"><a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title">@item.Title</a></div>
+                                    <div class="text-dv" style="line-height: 17px; font-family: sans-serif; height: 68px;">@item.Description</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+

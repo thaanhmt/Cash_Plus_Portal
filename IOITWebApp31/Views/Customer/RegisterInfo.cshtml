@@ -1,0 +1,217 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+<script> 
+    document.getElementById("dang-ky").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn"><span>Đăng Ký Đối Tác</span></a>';
+</script>
+<main id="main" ng-controller="UserUnitController">
+    <div id="content" class="content-area">          
+        <section class="section section-info-user section-q">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-lg-12 col-md-12 content-info col-12 col-00">
+                        <div class="form-group-info form-2-info" style="background: #020073;">
+                            <div class="main-fields" style="margin-right: 0px; color: #ffff;">
+                                <h3 style="font-weight: 600; text-align: center;">FORM ĐĂNG KÝ</h3>
+                            </div>
+                            <div class="main-fields">
+                                <div class="input-group">
+                                    <label class="font-text" for="name">Họ và tên *</label>
+                                    <input type="text" id="name" class="form-control" placeholder="Họ và tên"
+                                           ng-model="customer.FullName">
+                                </div>
+                                <div class="input-group input-gr">
+                                    <label class="font-text" for="birthday">Mã sinh viên *</label>
+                                    <input type="text" id="name" class="form-control" placeholder="Mã sinh viên"
+                                           ng-model="customer.StudentCode">
+                                </div>
+                                <div class="input-group input-gr">
+                                    <label class="font-text" for="sex">Giới tính *</label>
+                                    <ui-select ng-model="$scope.dataSex" ng-change="changeValue($select.selected, 2)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn giới tính">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listSexs | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="input-group">
+                                    <label class="font-text" for="birthday">Ngày sinh *</label>
+                                    <input type="date" class="form-control" ng-model="customer.Birthday" placeholder="Ngày sinh"></input>
+                                </div>
+                                <div class="input-group">
+                                    <label class="font-text" for="Phone">Số điện thoại *</label>
+                                    <input type="number" class="form-control" ng-model="customer.Phone" placeholder="Số điện thoại"></input>
+                                </div>
+                                <div class="input-group">
+                                    <label class="font-text" for="birthday">Email *</label>
+                                    <input type="text" class="form-control" ng-model="customer.Email" placeholder="Email"></input>
+                                </div>
+                                <div class="input-group input-w-100">
+                                    <label class="font-text" for="country">Trường *</label>
+                                    <ui-select ng-model="$scope.listSchool" ng-change="changeValue($select.selected, 3)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn trường">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listSchool | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div ng-if="items == 3" class="input-group field-full textarea-field">
+                                    <label class="font-text" class="font-text" for="Thanh-tich-noi-bat">
+                                        Tên trường khác:
+                                    </label>
+                                    <input type="text" id="numbervia" class="form-control" placeholder="Nhập tên trường khác."
+                                           ng-model="customer.Note">
+                                </div>
+                                <div class="input-group">
+                                    <label class="font-text" for="numbervia">Khóa *</label>
+                                    <input type="text" id="numbervia" class="form-control" placeholder="Khóa"
+                                           ng-model="customer.StudentYear">
+                                </div>
+                                <div class="input-group">
+                                    <label class="font-text" for="dateactive">Lớp *</label>
+                                    <input type="text" id="numbervia" class="form-control" placeholder="Lớp"
+                                           ng-model="customer.StudentClass">
+                                </div>
+                                <div class="input-group field-full textarea-field">
+                                    <label class="font-text" class="font-text" for="Thanh-tich-noi-bat">
+                                        Thành tích nổi bật:
+                                    </label>
+                                    <textarea name="Thanh-tich-noi-bat" id="Thanh-tich-noi-bat" rows="2" ng-model="customer.AchievementNote" placeholder="Thành tích nổi bật"></textarea>
+                                </div>
+                                <div class="input-group field-full textarea-field">
+                                    <label class="font-text" for="So-thich">
+                                        Sở thích:
+                                    </label>
+                                    <textarea name="So-thich" id="So-thich" rows="2" ng-model="customer.HobbyNote" placeholder="Sở thích"></textarea>
+                                </div>
+                                <div class="input-group field-full textarea-field">
+
+                                    <div class="check-page">
+                                        <div class="display-flex">
+                                            <label class="font-text" style="width: 65px; margin-top: 5px;">Facebook</label>
+                                            <input type="checkbox" ng-model="disableFB=true" style="margin-left: 30px;" disabled="true">
+                                        </div>
+                                        <input type="text" id="numbervia" class="form-control" placeholder="Chọn để nhập đường dẫn Facebook" ng-model="linkFB" ng-disabled="!disableFB">
+                                    </div>
+                                    <div class="check-page ml-2">
+                                        <div class="display-flex">
+                                            <label class="font-text" style="width: 65px; margin-top: 5px;">Instagram</label>
+                                            <input type="checkbox" ng-model="disableIns" style="margin-left: 40px;">
+                                        </div>
+                                        <input type="text" id="numbervia" class="form-control" placeholder="Chọn để nhập đường dẫn Instagram" ng-model="linkIns" ng-disabled="!disableIns">
+                                    </div>
+                                    <div class="check-page ml-2">
+                                        <div class="display-flex">
+                                            <label class="font-text" style="width: 65px; margin-top: 5px;">TikTok</label>
+                                            <input type="checkbox" ng-model="disableTiktok" style="margin-left: 10px;">
+                                        </div>
+                                        <input type="text" id="numbervia" class="form-control" placeholder="Chọn để nhập đường dẫn Tiktok" ng-model="linkTiktok" ng-disabled="!disableTiktok">
+                                    </div>
+                                </div>
+                                <div class="input-group field-full textarea-field">
+                                    <label class="font-text" for="gioi-thieu">
+                                        Giới thiệu tóm tắt bản thân:
+                                    </label>
+                                    <textarea name="gioi-thieu" id="gioi-thieu" placeholder="Nội dung" rows="5" ng-model="customer.PersonSummary"></textarea>
+                                </div>
+                                <div class="avatar">
+                                    <div class="label-av font-text">Ảnh đại diện</div>
+                                    <div class="preview-avata">
+                                        <img ng-src="{{ customer.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + customer.Avata) }}"
+                                             alt="Ảnh đại diện" style="height: 125px;width: 125px;">
+                                        <div class="clear" id="reset-image-input" ng-if="customer.Avata != undefined" ng-click="clearFile()"><i class="fa-duotone fa-trash"></i></div>
+                                    </div>
+                                    <div class="custom-file-input bg-color">
+                                        <input  type="file" id="media" name="media" onchange="angular.element(this).scope().uploadAvatar(this)" accept="image/*" value="">
+                                        <label for="media"><i class="fa-solid fa-cloud-arrow-up"></i> Tải lên ảnh đại diện</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="capcha">
+                                <div vc-recaptcha key="publicKey"></div>
+                            </div>
+                            <div class="btn-save btn-click">
+                                <button class="btn btn-primary btn-cam btn-submit"  type="submit" ng-click="onSubmit(1)" ng-disabled="disableBtn.btSubmit == true">
+                                    Đăng ký
+                                </button>
+                                <div class="btn btn-primary btn-xam"><a href="/">Huỷ</a></div>
+                            </div>
+                        </div>
+                        <div class="row s11_r3" style="display: none" >
+                            <div class="col col-md-12 col-12 s11_r3_c1">
+                                <div class="col-inner">
+                                    <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                                    <div id="countdown">
+                                        <ul>
+                                            <li><span id="days"></span>Ngày</li>
+                                            <li><span id="hours"></span>Giờ</li>
+                                            <li><span id="minutes"></span>Phút</li>
+                                            <li><span id="seconds"></span>Giây</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-13">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row s13_r1">
+                    <div class="col col-md-12 col-12 s13_r1_c1">
+                        <div class="col-inner">
+                            <div class="title-s13">ĐƠN VỊ ĐỒNG HÀNH</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row s13_r2" style="margin-top: 20px">
+                    <div class="col col-md-12 col-12 s13_r2_c1">
+                        <div class="col-inner">
+                            <div class="main-partner">
+                                <div class="item-partner">
+                                    <img src="images//cashplus/1.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/2.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/3.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/4.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/5.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/DFC_logo_final-03.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/CNTT.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/logo-mbbank.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/vienCNTT.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/SHB.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="images//cashplus/baokim.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

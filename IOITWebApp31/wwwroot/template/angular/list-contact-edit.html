@@ -1,0 +1,89 @@
+﻿<div class="modal-header ng-scope">
+    <h5 class="modal-title" ng-bind-html="title"></h5>
+    <button type="button" class="btn-close" aria-label="Close" ng-click="closeListContactEdit()">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form name="formListContact" ng-submit="saveListContactEdit()" autocomplete="off" novalidate>
+        <div class="">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="info_representative" id="info_representative" checked
+                               value="1" ng-model="contact.info_representative">
+                        <label class="form-check-label" for="info_representative">Sử dụng thông tin của người đại diện</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <!--Họ và tên-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p>Họ và tên</p></span>
+                        <input type="text" ng-model="contact.name" class="form-control" name="name" id="name"
+                               placeholder="Nhập họ và tên" style="width: 100%" required>
+                        <span class="error" ng-show="(formListContact.name.$touched || formListContact.$submitted) && formListContact.name.$invalid">
+                            <span class="text-danger" ng-show="formListContact.name.$error.required">Họ và tên là bắt buộc.</span>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <!--Loại đầu mối liên hệ-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p class="">Loại đầu mối liên hệ</p></span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-contact-type">
+                            <ui-select multiple ng-model="contact.type" name="type" id="type" theme="select2" ng-disabled="disabled" required title="{{ $item.name }}">
+                                <ui-select-match allow-clear="true" placeholder="Chọn loại liên hệ">
+                                    {{$item.name}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item.id as item in types | filter: $select.search" position="down" ui-disable-choice="item.disabled">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error" ng-show="formListContact.$submitted && formListContact.type.$invalid">
+                                <span class="text-danger" ng-show="formListContact.type.$error.required">Loại liên hệ là bắt buộc.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Số điện thoại-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p>Số điện thoại</p></span>
+                        <input type="text" ng-model="contact.phone" class="form-control" name="phone" id="phone"
+                               ng-pattern="/^0\d{9}$/"
+                               placeholder="Nhập số điện thoại" style="width: 100%" required>
+                        <span class="error" ng-show="(formListContact.phone.$touched || formListContact.$submitted) && formListContact.phone.$invalid">
+                            <span class="text-danger" ng-show="formListContact.phone.$error.required">Số điện thoại là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formListContact.phone.$error.pattern">Số điện thoại không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <!--Địa chỉ email-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p>Địa chỉ email</p></span>
+                        <input type="email" ng-model="contact.email" class="form-control" name="email" id="email"
+                               placeholder="Nhập email" style="width: 100%" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/" required>
+                        <span class="error" ng-show="(formListContact.email.$touched || formListContact.$submitted)  && formListContact.email.$invalid">
+                            <span class="text-danger" ng-show="formListContact.email.$error.required">Địa chỉ email là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formListContact.email.$error.pattern">Địa chỉ email không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2"></div>
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-default" ng-click="closeListContactEdit()">Hủy</button>
+                    <button type="submit" class="btn btn-primary" ng-bind-html="contact.id ? 'Sửa' : 'Thêm'"></button>
+                </div>
+                <div class="col col-lg-2"></div>
+            </div>
+        </div>
+    </form>
+</div>

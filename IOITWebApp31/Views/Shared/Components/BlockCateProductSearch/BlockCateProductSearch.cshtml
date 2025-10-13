@@ -1,0 +1,25 @@
+﻿@model List<IOITWebApp31.Models.EF.Category>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var cates = Model.Where(c => c.CategoryParentId == ViewBag.CategoryParentId).OrderBy(c => c.Location).ToList();
+
+    foreach (var item in cates)
+    {
+        var childs = Model.Where(m => m.CategoryParentId == item.CategoryId).ToList();
+
+        <option value="@item.CategoryId">
+            @for(int i = 0; i < ViewBag.Level; i++)
+            {
+                <text>&nbsp;&nbsp;&nbsp;</text>
+            }
+            @item.Name
+        </option>
+
+        if (childs.Count() > 0)
+        {
+            @await Component.InvokeAsync("BlockCateProductSearch", new { TypeCategoryId = ViewBag.TypeCategoryId, CategoryParentId = item.CategoryId, cates = Model, Level = (ViewBag.Level + 1) })
+        }
+    }
+}

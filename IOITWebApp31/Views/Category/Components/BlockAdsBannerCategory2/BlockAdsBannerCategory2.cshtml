@@ -1,0 +1,12 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Slide>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="item-side-4-1-3">
+            <a href="@(item.Url)" class="d-block"><img src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="featured image"></a>
+        </div>
+    }
+}

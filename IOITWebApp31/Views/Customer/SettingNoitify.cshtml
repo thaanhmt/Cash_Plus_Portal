@@ -1,0 +1,76 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main id="main" ng-controller="NotificationController" ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+    <div id="content" class="content-area">
+        <section class="section section-info-user page-tb">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-lg-2 col-md-4 col-12 side-bar-info">
+                        <ul class="nav-tab-vertical">
+                            @*@await Component.InvokeAsync("MenuSideBar", new { MenuId = 41, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })*@
+                            @await Component.InvokeAsync("LeftColumn")
+                        </ul>
+                    </div>
+                    <div class="col col-lg-10 col-md-8 col-12 section-detail-data main-manage-data">
+                        @*<div class="widget-setting-tb">
+                            <div class="title-noitify">Cài đặt thông báo</div>
+                            <div class="check-list-setting">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="tbbvcn">
+                                    <label class="form-check-label" for="tbbvcn">
+                                        Nhận thông báo bài viết cá nhân
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="tbbvtc">
+                                    <label class="form-check-label" for="tbbvtc">
+                                        Nhận thông báo bài viết mới của tổ chức
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="tbbvk">
+                                    <label class="form-check-label" for="tbbvk">
+                                        Nhận thông báo bài viết mới của các cá nhân khác
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="tbtttk">
+                                    <label class="form-check-label" for="tbtttk">
+                                        Nhận thông báo thông tin tài khoản
+                                    </label>
+                                </div>
+                            </div>
+                        </div>*@
+                        <div class="widget-setting-tb">
+                            <div class="title-noitify">Hình thức thông báo</div>
+                            <div class="check-list-setting">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="nemdk" ng-model="notification.IsNotificationMail" ng-change="ChangeSetting()">
+                                    <label class="form-check-label" for="nemdk">
+                                        Nhận thông báo qua email đăng ký
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="ntbtht" ng-model="notification.IsNotificationWeb" ng-change="ChangeSetting()">
+                                    <label class="form-check-label" for="ntbtht">
+                                        Nhận thông báo trên hệ thống
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="input-group field-full">
+                                    <input type="submit" class="btn btn-xanh" value="Lưu thông tin" ng-click="SaveData()" ng-disabled="disableBtn.btSubmit == true" />
+                                </div>*@
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

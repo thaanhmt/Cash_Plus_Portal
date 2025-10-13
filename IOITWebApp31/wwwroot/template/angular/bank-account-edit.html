@@ -1,0 +1,147 @@
+﻿<script>
+    function selectImage(inputId, event) {
+        event.preventDefault();
+        var fileInput = document.getElementById('fileInput' + inputId);
+        fileInput.click();
+    }
+</script>
+<div class="modal-header ng-scope">
+    <h5 class="modal-title" ng-bind-html="title"></h5>
+    <button type="button" class="btn-close" aria-label="Close" ng-click="closeBankAccountEdit()">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form name="formBankAccount" ng-submit="saveBankAccountEdit(isSub)" autocomplete="off" novalidate>
+        <div class="">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="is_default" id="is_default" checked
+                               value="1" ng-model="bankAccount.is_default">
+                        <label class="form-check-label" for="is_default">Chọn làm tài khoản mặc định</label>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="lstFrmInfoUser">
+                        <span class="">Số tài khoản<span class="text-danger">*</span></span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-bankAccount-acc_numb">
+                            <input type="text" class="form-control" ng-model="bankAccount.acc_numb" required
+                                   ng-pattern="/^\d+$/" ng-change="onChangeAccountName2()" ng-model-options="{ debounce: 1500 }"
+                                   name="acc_numb" id="acc_numb" ng-bind-html="bankAccount.acc_numb" maxlength="20">
+                            <span class="error" ng-show="(formBankAccount.$submitted) && formBankAccount.acc_numb.$invalid">
+                                <span class="text-danger" ng-show="formBankAccount.acc_numb.$error.required">Số tài khoản là bắt buộc.</span>
+                                <span class="text-danger" ng-show="formBankAccount.acc_numb.$error.pattern">Số tài khoản không hợp lệ.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="lstFrmInfoUser">
+                        <span class="">Ngân hàng<span class="text-danger">*</span></span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-bankAccount-bank_code">
+                            <ui-select ng-model="bankAccount.bank_code"
+                                       name="bank_code" id="bank_code" required
+                                       theme="select2" ng-disabled="disabled" ng-change="onChangeBankAcc2()"
+                                       title="{{ $select.selected.description }}">
+                                <ui-select-match allow-clear="true" placeholder="Chọn ngân hàng">
+                                    {{ $select.selected.description }}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item.bank_code as item in banks | filter: $select.search"
+                                                   position="down">
+                                    <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error" ng-show="formBankAccount.$submitted && formBankAccount.bank_code.$invalid">
+                                <span class="text-danger" ng-show="formBankAccount.bank_code.$error.required">Ngân hàng là bắt buộc.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="lstFrmInfoUser">
+                        <span class="">Tên chủ tài khoản<span class="text-danger">*</span></span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-bankAccount-acc_holder">
+                            <input type="text" class="form-control" ng-model="bankAccount.acc_holder" required
+                                   name="acc_holder" id="acc_holder" ng-bind-html="bankAccount.acc_holder" ng-disabled="true">
+                            <span class="error" ng-show="(formBankAccount.acc_holder.$touched || formBankAccount.$submitted) && formBankAccount.acc_holder.$invalid">
+                                <span class="text-danger" ng-show="formBankAccount.acc_holder.$error.required">Tên chủ tài khoản là bắt buộc.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="lstFrmInfoUser">
+                        <span class="">Phân loại tài khoản<span class="text-danger">*</span></span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-bankAccount-type">
+                            <ui-select ng-model="bankAccount.type" required
+                                       name="type" id="type" theme="select2" ng-disabled="disabled"
+                                       title="{{ $select.selected.name }}">
+                                <ui-select-match allow-clear="true" placeholder="Chọn phân loại">
+                                    {{ $select.selected.name }}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item.value as item in accountType | filter: $select.search" position="down">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error" ng-show="formBankAccount.$submitted && formBankAccount.type.$invalid">
+                                <span class="text-danger" ng-show="formBankAccount.type.$error.required">Phân loại tài khoản là bắt buộc.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6" ng-show="checkAuthDocNumb">
+                    <div class="lstFrmInfoUser">
+                        <span class="">Số giấy ủy quyền<span ng-show="checkAuthDocNumb" class="text-danger">*</span></span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-bankAccount-auth_doc_numb">
+                            <input type="text" class="form-control" ng-model="bankAccount.auth_doc_numb"
+                                   ng-required="checkAuthDocNumb"
+                                   name="auth_doc_numb" id="auth_doc_numb" ng-bind-html="bankAccount.auth_doc_numb"
+                                   maxlength="100">
+                            <span class="error" ng-show="(formBankAccount.auth_doc_numb.$touched || formBankAccount.$submitted) && formBankAccount.auth_doc_numb.$invalid">
+                                <span class="text-danger" ng-show="formBankAccount.auth_doc_numb.$error.required">Số giấy ủy quyền là bắt buộc.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" ng-show="checkAuthDocNumb">
+                    <div class="lstFrmInfoUser">
+                        <span class="">Link giấy ủy quyền<span ng-show="checkAuthDocNumb" class="text-danger">*</span></span>
+                        <div class="w-100 col-sm-3 col-md-3 input-group" id="input-bankAccount-auth_doc_link">
+                            <input type="text" class="form-control" ng-model="bankAccount.auth_doc_link"
+                                   ng-required="checkAuthDocNumb"
+                                   ng-pattern="/^(?:(?:https?|ftp)://)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:\/[^\s]*)?$/"
+                                   name="auth_doc_link" id="auth_doc_link" ng-bind-html="bankAccount.auth_doc_link">
+                            <span class="input-group-text p-0" id="addon-wrapping">
+                                <span>
+                                    <button onclick="selectImage(8, event)" style="cursor: pointer; border-radius: 0 !important;" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải file</button>
+                                    <input type="file" id="fileInput8" style="display: none;" onchange="angular.element(this).scope().uploadAuthDocLink(this, false)">
+                                </span>
+                            </span>
+                        </div>
+                        <span class="error" ng-show="(formBankAccount.auth_doc_link.$touched || formBankAccount.$submitted) && checkAuthDocNumb && formBankAccount.auth_doc_link.$invalid">
+                            <span class="text-danger" ng-show="formBankAccount.auth_doc_link.$error.required">Link giấy ủy quyền là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formBankAccount.auth_doc_link.$error.pattern">Đường link không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2"></div>
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-default" ng-click="closeBankAccountEdit()">Hủy</button>
+                    <button type="submit" class="btn btn-primary"
+                            ng-bind-html="bankAccount.id ? 'Sửa' : 'Thêm'"></button>
+                </div>
+                <div class="col col-lg-2"></div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,18 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+<div class="block-side-cate bg-gray">
+    <div class="titleBarHome">
+        <div class="labelTitleBar">@ViewBag.FirstNameCateWidget</div>
+    </div>
+    @await Component.InvokeAsync("BlockWidgetDetailFirstV2", new { CategoryId = @ViewBag.CategoryId })
+    <ul class="list-news-lengen">
+        @foreach (var item in Model)
+        {
+            <li class="item"><a href="@("/" + item.Url)" class="textLine-2">@item.Title</a></li>
+        }
+    </ul>
+</div>
+}

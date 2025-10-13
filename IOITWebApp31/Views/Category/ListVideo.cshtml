@@ -1,0 +1,48 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+
+@{
+    ViewData["Title"] = "ListGallery";
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="/images/banner-chitiet-hoatdong.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb container">
+            <p>@ViewBag.CategoryName</p>
+            <ul>
+                <li><a href="/" title="Trang chủ">Trang chủ</a></li>
+                <li><span>@ViewBag.CategoryName</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="maincontent-page">
+        <div class="container">
+            <div class="row">
+                <div class="content-page">
+                    @if (Model != null)
+                    {
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="duan-item col-xs-6 col-sm-4" >
+                                <div class="box-shadow">
+                                    <div class="img-itemda">
+                                        <iframe width="100%" height="250" src="https://www.youtube.com/embed/@item.LinkVideo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                    <div class="title-itemda">@item.Title</div>
+                           
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

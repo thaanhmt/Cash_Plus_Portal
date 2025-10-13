@@ -1,0 +1,399 @@
+﻿@model IOITWebApp31.Models.EF.Unit
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main" class="dataForUser">
+    <div id="content" class="content-area">
+        <section class="section section-user-data-1">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="main-content-section">
+                    <div class="avatar">
+                        @if (Model.Image == null || Model.Image == "")
+                        {
+                            <img src="/images/logo-company.png" alt="@Model.Name">
+                        }
+                        else
+                        {
+                             <img src="/uploads/@Model.Image" alt="@Model.Name">
+                        }
+                    </div>
+                    <div class="info">
+                        <div class="name">@Model.Name</div>
+                        <div class="chuc-danh">@Model.Code</div>
+                        <div class="date-active">Ngày tham gia: @Model.CreatedAt.Value.ToString("dd/MM/yyyy")</div>
+                        <div class="count-data">Số lượng bài viết: @ViewBag.DataNumber bài</div>
+                    </div>
+                    <div class="status">
+                        @if (Model.Status == 1)
+                        {
+                            <div class="btn">Đang hoạt động</div>
+                        }
+                        else if (Model.Status == 10)
+                        {
+                            <div class="btn">Chưa kích hoạt</div>
+                        }
+                        else if (Model.Status == 98 || Model.Status == 99)
+                        {
+                            <div class="btn">Ngừng hoạt động</div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-user-data-2">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="main-content-section">
+                    <div class="title-user-data">Xem thông tin chi tiết</div>
+                    <div class="table-detail">
+                        <div class="left-table">
+                            <div class="item-table">
+                                <label>Tên cơ quan/tổ chức:</label>
+                                <span class="list-lv">@Model.Name</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Mã định danh:</label>
+                                <span class="list-lv">@Model.Code</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Tên viết tắt:</label>
+                                <span class="list-lv">@Model.ShortName</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Tên tiếng anh:</label>
+                                <span class="list-lv">@Model.NameEn</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Số ĐKKD/ Giấy phép thành lập:</label>
+                                 <span class="list-lv">@Model.IdNumber</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Ngày cấp:</label>
+                                 <span class="list-lv">@(Model.DateNumber.HasValue ? Model.DateNumber.Value.ToString("dd/MM/yyyy") : "" )</span>
+                            </div>
+                        </div>
+                        <div class="right-table">
+                            <div class="item-table">
+                                <label>Số điện thoại:</label>
+                                <span class="list-lv">@Model.Phone</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Địa chỉ email:</label>
+                                <span class="list-lv">@Model.Email</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Số Fax:</label>
+                                <span class="list-lv">@Model.Fax</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Website:</label>
+                                <span class="list-lv">@Model.Website</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Địa chỉ:</label>
+                                <span class="list-lv">@Model.Address </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </section>
+        <section class="section section-all-data">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="wapper-all-data row row-small">
+                    <div class="col col-md-3 col-12 col-left-all-data">
+                        <div class="widget-data">
+                            <div class="heading-widget">Phạm vi ứng dụng</div>
+                            <ul class="list-pv">
+                                @foreach(var item in (List<IOITWebApp31.Models.EF.Category>)ViewBag.listAr){
+                                    <li class="item" id="item-pvud-@item.CategoryId" onclick="LoadDataUserPage(@item.CategoryId, 1, -1, -1)">
+                                        <a class="d-block">
+                                            <img src="/uploads/@item.Image" alt="@item.Name">
+                                            <span>@item.Name</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="widget-data">
+                            <div class="heading-widget">Định dạng</div>
+                            <div class="item-select-widget">
+                                <div class="fake-input">
+                                    <div class="chonnse-text" id="all-extension">Tất cả</div>
+                                    <img src="/images/arr-menu-right.png" data-bs-toggle="modal" data-bs-target="#ModalDinhDang" />
+                                </div>
+                            </div>
+                            @*<div class="heading-widget">Định dạng</div>
+                            <ul class="item-select-widget">
+                                <li class="item">
+                                    <a class="d-block" onclick="LoadDataUserPage(-2, 1, -1, -2)">Tất cả</a>
+                                    <ul class="has-child child-item-widget">
+                                        @foreach(var item in (List<IOITWebApp31.Models.Data.AttactmentDTO>)ViewBag.listExtensions){
+                                            <li class="item" onclick="LoadDataUserPage(-2, 1, @item.Extension, -2)">
+                                                <a>@item.ExtensionName</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>*@
+                        </div>
+                        <div class="widget-data">
+                           <div class="heading-widget">Lĩnh vực nghiên cứu</div>
+                            <div class="item-select-widget">
+                                <div class="fake-input">
+                                    <div class="chonnse-text" id="all-ra">Tất cả</div>
+                                    <img src="/images/arr-menu-right.png" data-bs-toggle="modal" data-bs-target="#ModalLinhVuc" />
+                                </div>
+                            </div>
+                            @*<div class="heading-widget">Lĩnh vực nghiên cứu</div>
+                            <ul class="item-select-widget">
+                                <li class="item">
+                                    <a class="d-block" onclick="LoadDataUserPage(-2, 1, -2, -1)">Tất cả</a>
+                                    <ul class="has-child child-item-widget">
+                                        @foreach(var item in (List<IOITWebApp31.Models.EF.Category>)ViewBag.listRa){
+                                            <li class="item" onclick="LoadDataUserPage(-2, 1, -2, @item.CategoryId)">
+                                                <a>@item.Name</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            </ul>*@
+                        </div>
+                    </div>
+                    <div class="col col-md-9 col-12 col-right-all-data section-data">
+                        <div class="search-all-data">
+                            <div class="search-wapper">
+                                @*<div class="wapper-search">
+                                    <input type="text" name="txtS" placeholder="Tìm kiếm trong dữ liệu cá nhân...">
+                                    <button class="btn-search" type="submit"><img src="/images/search-ct.png" alt=""></button>
+                                </div>*@
+                                <div class="wapper-search">
+                                    <input type="search" name="sNameAr" id="sNameAr" placeholder="Tìm kiếm trong trong dữ liệu cơ quan tổ chức..." 
+                                    value="@ViewBag.NameAr">
+                                    <button class="btn-search" onclick ="LoadDataUnitPageSearch()">
+                                        <img src="/images/search-ct_new.png" alt="">
+                                        </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-data-all">
+                            <div id="ListDataUnit"></div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<div class="loadding-animate">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff0;display:block;" width="115px" height="115px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <g transform="translate(20 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.4807692307692307s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(40 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.3205128205128205s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(60 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.16025641025641024s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(80 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+    </svg>
+</div>
+
+<div class="modal fade" id="ModalDinhDang" tabindex="-1" aria-labelledby="ModalDinhDanglLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" uib-modal-transclude="">
+            <div class="modal-header ng-scope">
+                <h5 class="modal-title">Định dạng tài liệu</h5>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-live">
+                    <input id="filter-extensions" type="text" placeholder="Tìm kiếm định dạng...">
+                </div>
+                <ul class="list_option" id="list_extensions">
+                    <li class="item" style="padding-left: 20px" data-extensions="Tất cả" onclick="LoadDataByExtensions(@Newtonsoft.Json.JsonConvert.SerializeObject(null))">
+                        <input type="radio" id="extensions" name="extensions" />
+                        <span>Tất cả</span>
+                    </li>
+                    @foreach (var item in (List<IOITWebApp31.Models.Data.AttactmentDTO>)ViewBag.listExtensions)
+                    {
+                        <li class="item" style="padding-left: 20px" data-extensions="@item.ExtensionName" onclick="LoadDataByExtensions(@Newtonsoft.Json.JsonConvert.SerializeObject(item))">
+                            <input type="radio" id="extensions" name="extensions" />
+                            <span>@item.ExtensionName</span>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalLinhVuc" tabindex="-1" aria-labelledby="ModalLinhVucLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" uib-modal-transclude="">
+            <div class="modal-header ng-scope">
+                <h5 class="modal-title">Lĩnh vực nghiên cứu</h5>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-live">
+                    <input id="filter-ra" type="text" placeholder="Tìm kiếm lĩnh vực nghiên cứu...">
+                </div>
+                <ul class="list_option" id="list_ra">
+                    <li class="item" style="padding-left: 20px" data-ra="Tất cả" onclick="LoadDataByRa(@Newtonsoft.Json.JsonConvert.SerializeObject(null))">
+                        <input type="radio" id="cate-ra" name="cate-ra" />
+                        <span>Tất cả</span>
+                    </li>
+                    @foreach (var item in (List<IOITWebApp31.Models.EF.Category>)ViewBag.listRa)
+                    {
+                        <li class="item" style="padding-left: 20px" data-ra="@item.Name" onclick="LoadDataByRa(@Newtonsoft.Json.JsonConvert.SerializeObject(item))">
+                            <input type="radio" id="cate-ra" name="cate-ra" />
+                            <span>@item.Name</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            LoadDataUnitPage(-1, 1, -1, -1);
+        });
+        function LoadDataUnitPage(id, k, ex, aid) {
+            $('.overlay_menu').addClass('active');
+            $('.loadding-animate').show();
+            if (id != -2) {
+                $('.active').removeClass('active');
+                $("#item-pvud-" + id).addClass("active");
+            }
+            var textS = $("#sNameAr").val();
+            if (textS == undefined) textS = "";
+
+            var obj = {
+                textS: textS,
+                id: id,
+                ex: ex,
+                idu: @ViewBag.Id,
+                aid: aid,
+                p: k,
+            };
+            //$("#ListDataUser").load("/Home/ListDataUser", obj);
+            function loadData() {
+                $("#ListDataUnit").load("/Home/ListDataUnit", obj, function() {
+                    $('.overlay_menu').removeClass('active');
+                    $('.loadding-animate').hide();
+                    //$('html, body').animate({ scrollTop: $('#header').offset().top }, 300);
+                })
+            }
+            setTimeout(loadData, 1000);
+        }
+
+        function LoadDataUnitPageSearch() {
+            $('.overlay_menu').addClass('active');
+            $('.loadding-animate').show();
+            var textS = $("#sNameAr").val();
+            if (textS == undefined) textS = "";
+
+            var obj = {
+                textS: textS,
+                id: -2,
+                ex: -2,
+                idu: @ViewBag.Id,
+                aid: -2,
+                p: 1,
+            };
+            //$("#ListDataUser").load("/Home/ListDataUser", obj);
+            function loadData() {
+                $("#ListDataUnit").load("/Home/ListDataUnit", obj, function() {
+                    $('.overlay_menu').removeClass('active');
+                    $('.loadding-animate').hide();
+                    //$('html, body').animate({ scrollTop: $('#header').offset().top }, 100);
+                })
+            }
+            setTimeout(loadData, 1000);
+        }
+
+        function LoadDataByExtensions(item) {
+            if (item != undefined) {
+                $('#all-extension').text(item.ExtensionName);
+                LoadDataUnitPage(-2, 1, item.Extension, -2);
+            }
+            else {
+                $('#all-extension').text("Tất cả");
+                LoadDataUnitPage(-2, 1, -1, -2);
+            }
+            $('#ModalDinhDang').modal('hide');
+        }
+
+        function LoadDataByRa(item) {
+            if (item != undefined) {
+                $('#all-ra').text(item.Name);
+                LoadDataUnitPage(-2, 1, -2, item.CategoryId);
+            }
+            else {
+                $('#all-ra').text("Tất cả");
+                LoadDataUnitPage(-2, 1, -2, -1);
+            }
+            $('#ModalLinhVuc').modal('hide');
+        }
+
+        var input = document.getElementById("sNameAr");
+        input.addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) {
+                LoadDataUnitPageSearch();
+            }
+        });
+
+        var inputE = document.getElementById("filter-extensions");
+        inputE.addEventListener("input", function(event) {
+            var filterValue = $(this).val().toLowerCase();
+            console.log(filterValue);
+            $('#list_extensions .item').each(function() {
+                var itemValue = $(this).data('extensions').toLowerCase();
+                if (itemValue.includes(filterValue)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        var inputR = document.getElementById("filter-ra");
+        inputR.addEventListener("input", function(event) {
+            var filterR = $(this).val().toLowerCase();
+            console.log(filterR);
+            $('#list_ra .item').each(function() {
+                var itemR = $(this).data('ra').toLowerCase();
+                if (itemR.includes(filterR)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+    </script>
+}
+
+

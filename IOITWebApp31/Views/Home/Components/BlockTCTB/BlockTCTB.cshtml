@@ -1,0 +1,11 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <li class="item position-relative"><a href="/@(item.Url)" class="textLine-1">@item.Title</a></li>
+    }
+}

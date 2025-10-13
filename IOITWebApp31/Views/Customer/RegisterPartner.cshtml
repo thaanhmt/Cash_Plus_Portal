@@ -1,0 +1,173 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<script>
+    document.getElementById("dang-ky").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn"><span>Đăng Ký Đối Tác</span></a>';
+
+    var isWhiteDivVisible = false;
+    var whiteDiv = document.getElementById("whiteDiv");
+    function closeWhiteDiv() {
+        if (whiteDiv.style.display = "block") {
+            isWhiteDivVisible = false;
+            whiteDiv.style.display = "none";
+        }
+        document.removeEventListener("click", handleDocumentClick);
+    }
+
+    function handleDocumentClick(event) {
+        if (!whiteDiv.contains(event.target)) {
+            closeWhiteDiv();
+        }
+    }
+    function adjustLayout() {
+        var moblie1 = document.getElementById('input-container-display-mobile1');
+        var moblie2 = document.getElementById('input-container-display-mobile2');
+        var pc = document.getElementById('input-container-display-pc');
+
+        if (window.innerWidth <= 767) {
+            moblie1.style.display = 'flex';
+            moblie2.style.display = 'flex';
+            pc.style.display = 'none';
+        } else {
+            moblie1.style.display = 'none';
+            moblie2.style.display = 'none';
+            pc.style.display = 'flex';
+        }
+    }
+
+    // Ensure the function is called after the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initial check
+        adjustLayout();
+        // Adjust layout on window resize
+        window.addEventListener('resize', adjustLayout);
+    });
+
+</script>
+<main id="main" ng-controller="UserUnitController" ng-init="getAddress()" onclick="closeWhiteDiv()">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="w-100 col-contact">
+                        <div class="header-text-regis-partner mg-l-51pt">
+                            <p class="hd-text-partner">
+                                Trở thành Đối tác cùng CashPlus
+                            </p>
+                            <p class="content-partner mg-t-2">
+                                Để bắt đầu, mời bạn điền vào thông tin theo mẫu sau:
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col col-lg-12 col-md-12 content-info col-12 d-flex-contact">
+                        <div class="w-50 col-contact">
+                            <div id="col-1216837114" class="col medium-6 small-12 large-6">
+                                <div class="col-inner"> 
+                                    <p class="col-img">
+                                        <img width="634" height="556" src="/images/homecashplus/Mask-group-1-1.png" class="attachment-original size-original" alt="" decoding="async"
+                                             fetchpriority="high" srcset="/images/homecashplus/Mask-group-1-1.png 634w, /images/homecashplus/Mask-group-1-1-300x263.png 300w" sizes="(max-width: 634px) 100vw, 634px">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="row s11_r3" style="display: none">
+                                <div class="col col-md-12 col-12 s11_r3_c1">
+                                    <div class="col-inner">
+                                        <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                                        <div id="countdown">
+                                            <ul>
+                                                <li><span id="days"></span>Ngày</li>
+                                                <li><span id="hours"></span>Giờ</li>
+                                                <li><span id="minutes"></span>Phút</li>
+                                                <li><span id="seconds"></span>Giây</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="w-50 col-contact">
+                            <div class="form-group-info form-2-info">
+                                <span>(*) Vui lòng nhập đầy đủ thông tin.</span>
+                                <div class="main-fields" style="margin-top: 10px;">
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="text" class="form-control" ng-model="RegisterPartner.name" placeholder="Nhập tên cửa hàng/đối tác *" required>
+                                    </div>
+
+                                    <div id="input-container-display-pc" class="input-group field-full textarea-field">
+                                        <input type="text" class="form-control col-sm-3 col-md-3 mg-r-2" ng-model="RegisterPartner.store_owner" placeholder="Nhập tên người đại diện *" required>
+                                        <input type="tel" class="form-control col-sm-3 col-md-3 mg-l-2" ng-model="RegisterPartner.phone" placeholder="Nhập số điện thoại *" pattern="0[0-9\s.-]{9,13}" maxlength="13" required>
+                                    </div>
+
+                                    <div id="input-container-display-mobile1" class="input-group field-full textarea-field" style="display:none">
+                                        <input id="input-text-reg" type="text" class="form-control col-sm-3 col-md-3 mg-r-2" ng-model="RegisterPartner.store_owner" placeholder="Nhập tên người đại diện *" required>
+                                    </div>
+                                    <div id="input-container-display-mobile2" class="input-group field-full textarea-field" style="display:none">
+                                        <input id="input-phone-reg" type="tel" class="form-control col-sm-3 col-md-3 mg-l-2" ng-model="RegisterPartner.phone" placeholder="Nhập số điện thoại *" pattern="0[0-9\s.-]{9,13}" maxlength="13" required>
+                                    </div>
+
+
+
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="email" class="form-control" placeholder="Email trao đổi kinh doanh *" ng-model="RegisterPartner.email">
+                                    </div>
+                                    <div class="input-group col-sm-3 col-md-3">
+                                        <ui-select ng-model="RegisterPartner.store_type_id" ng-change="changeValueTypeStore($select.selected)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                            <ui-select-match allow-clear="true" placeholder="Mô hình kinh doanh*">{{ $select.selected.name }}</ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in Storetype | filter: $select.search" position="down">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="input-group col-sm-3 col-md-3">
+                                        <ui-select ng-model="RegisterPartner.province_id" ng-change="changeValueProvince($select.selected)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                            <ui-select-match allow-clear="true" placeholder="Tỉnh/Thành phố">{{ $select.selected.name }}</ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in Province | filter: $select.search" position="down">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="input-group col-sm-3 col-md-3">
+                                        <ui-select ng-model="RegisterPartner.district_id" ng-change="changeValueDistrict($select.selected)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                            <ui-select-match allow-clear="true" placeholder="Quận/Huyện">{{ $select.selected.name }}</ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in District | filter: $select.search" position="down">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="input-group col-sm-3 col-md-3">
+                                        <ui-select ng-model="RegisterPartner.ward_id" ng-change="changeValueWard($select.selected)" theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                            <ui-select-match allow-clear="true" placeholder="Phường/Xã">{{ $select.selected.name }}</ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in Ward | filter: $select.search" position="down">
+                                                <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                    </div>
+                                    <div class="input-group field-full textarea-field">
+                                        <input type="text" class="form-control" ng-model="RegisterPartner.address" placeholder="Địa chỉ kinh doanh cụ thể (Chỉ nhập số nhà, tên đường) *" required>
+                                    </div>
+                                </div>
+                                <!--Tạm thời ẩn capcha: <div class="capcha">
+                                    <div vc-recaptcha key="publicKey"></div>
+                                </div>-->
+                                <div class="btn-save btn-click">
+                                    <button class="btn btn-primary btn-cam btn-submit w-100" type="submit" ng-click="SubmitRegisterPartner()" ng-disabled="disableBtn.btSubmit == true" style="min-width: 200px;">
+                                        Submit
+                                    </button>
+                                </div>
+                                <div class="mt-3">
+                                    <p class="txt-partner"><br/>Bằng cách gửi biểu mẫu này, tôi đồng ý với các <a href="/dieu-khoan-va-dieu-kien-cashplus">điều khoản và điều kiện dịch vụ đối tác bán hàng</a> của CashPlus.</p>
+                                    <p class="txt-partner">Đối tác lưu ý không thay đổi tên và/hoặc địa chỉ Nhà hàng/Cửa hàng trong vòng 60 (sáu mươi) ngày kể từ ngày Nhà hàng/Cửa hàng được kích hoạt trên ứng dụng CashPlus. CashPlus có toàn quyền từ chối và/hoặc không hỗ trợ yêu cầu của Đối tác về việc thay đổi các thông tin này trong thời hạn trên.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

@@ -1,0 +1,66 @@
+﻿@model IOITWebApp31.Models.EF.News
+@using IOITWebApp31.Models;
+
+@{
+    Layout = "~/Views/Shared/_LayoutNews.cshtml";
+}
+@if (!string.IsNullOrEmpty(Model.Image))
+{
+    <div class="tesla-news-cover">
+        <img src="/uploads/@Model.Image" alt="@Model.Title" />
+    </div>
+}
+<!-- Breadcrumb dạng nút Tesla -->
+<div class="tesla-news-breadcrumb">
+    <a href="/home/news" class="tesla-news-breadcrumb-link">&lt; Tin Tức</a>
+</div>
+<h1 class="tesla-news-title">@Model.Title</h1>
+<div class="tesla-news-meta">
+    <span><i class="fa fa-calendar"></i> @(ViewBag.DayOfWeek), @(Model.DateStartActive.Value.ToString("dd/MM/yyyy"))</span>
+    @if(ViewBag.CategoryName != null) { <span><i class="fa fa-folder"></i> @ViewBag.CategoryName</span> }
+    <span><i class="fa fa-eye"></i> @Model.ViewNumber</span>
+</div>
+<div class="tesla-news-share">
+    <div class="share-section">
+        <div class="a2a_kit a2a_kit_size_32 a2a_default_style" id="a2a-share-buttons">
+            <a class="a2a_button_facebook"></a>            
+            <a class="a2a_button_twitter"></a>
+            <a class="a2a_button_telegram"></a>
+            <a class="a2a_button_google_gmail"></a>
+            <a class="a2a_button_copy_link"></a>
+            <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+        </div>
+        <script>
+            var a2a_config = a2a_config || {};
+            a2a_config.locale = "vi";
+            var currentUrl = window.location.href;
+            document.addEventListener('DOMContentLoaded', function () {
+                var shareButtons = document.getElementById('a2a-share-buttons');
+                if (shareButtons) {
+                    shareButtons.setAttribute('data-a2a-url', currentUrl);
+                }
+            });
+        </script>
+        <script async src="https://static.addtoany.com/menu/page.js"></script>
+    </div>
+</div>
+<div class="tesla-news-content">
+    @Html.Raw(Model.Contents)
+</div>
+@if (ViewBag.listPost != null && ((List<IOITWebApp31.Models.EF.News>)ViewBag.listPost).Count > 0)
+{
+    <div class="tesla-news-related">
+        <h2>Tin liên quan</h2>
+        <div class="tesla-news-related-list">
+            @foreach(var item in (List<IOITWebApp31.Models.EF.News>)ViewBag.listPost)
+            {
+                <div class="tesla-news-related-card">
+                    <a href="/@item.Url">
+                        <img src="/uploads/@item.Image" alt="@item.Title" />
+                        <div class="tesla-news-related-title">@item.Title</div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}

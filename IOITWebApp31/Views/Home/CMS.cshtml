@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "CMS";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        @ViewBag.SeoTitle
+    </title>
+    <meta name="keywords" content="@ViewBag.SeoKeywords" />
+    <meta name="description" content="@ViewBag.SeoDescription" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    <base href="/">
+    <link href="/cms/main.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/css/all-font-awesome-6.css" />
+    <script src="/cms/assets/ckeditor/ckeditor.js"></script>
+    <script src="/cms/assets/ckfinder/ckfinder.js"></script>
+
+</head>
+<body>
+    <script type="text/javascript" src="/cms/main.js"></script>
+    <script src="/assets/js/all-font-awesome-6.js"></script>
+    @*<script type="text/javascript" src="~/cms/runtime.js"></script>
+    <script type="text/javascript" src="~/cms/polyfills.js"></script>
+    <script type="text/javascript" src="~/cms/styles.js"></script>
+    <script type="text/javascript" src="~/cms/scripts.js"></script>
+    <script type="text/javascript" src="~/cms/vendor.js"></script>
+    <script type="text/javascript" src="~/cms/main.js"></script>*@
+</body>
+@*<app-root></app-root>*@
+
+</html>

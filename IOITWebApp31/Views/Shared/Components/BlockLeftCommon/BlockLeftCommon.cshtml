@@ -1,0 +1,23 @@
+﻿<div class="leftcolumn dk" ng-controller="BlockLeftCommonController" ng-init="init()">
+    <div class="bl">
+        <img src="/uploads/home/icon1.png" alt="">
+        <a href="/danh-cho-nguoi-moi.html" title="">Dành cho<br>người mới bắt đầu</a>
+    </div>
+    <div class="bl">
+        <img src="/uploads/home/icon2.png" alt="">
+        <a href="/huong-dan-su-dung.html" title="">Hướng dẫn<br>đấu giá cá</a>
+    </div>
+    <div class="bl">
+        <img src="/uploads/home/icon3.png" alt="">
+        <a href="/cau-hoi-thuong-gap.html" title="">Câu hỏi<br>thường gặp</a>
+    </div>
+    @*<div class="cart-bl">
+            <div class="title-bl"><img src="uploads/home/icon4.png" alt=""><span>Giỏ hàng</span></div>
+            <div class="content-bl">
+                <span>Không có lựa chọn nào<br>được chọn</span>
+            </div>
+        </div>*@
+    <div class="register-bl" ng-class="{'hide-register' : IsLogin === true}" *ngIf="CustomerId == -1">
+        <a href="/dang-ky.html" title="">Đăng ký thành viên</a>
+    </div>
+</div>

@@ -1,0 +1,130 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center Connect-gradientBg">
+    <div class="container">
+      <div class="Login-userFormWrap-2731">
+        <div class="MuiPaper-rounded">
+          <div class="Connect-topBar">
+            <a aria-current="page" class="Connect-brand-2776 active" href="/">
+              <img src="../../../assets/img/favicon.png">
+              Hệ thống quản lý CashPlus
+            </a>
+            <!--<a class="Connect-buttonLink-2796" tabindex="0" role="button" aria-disabled="false" href="javascript:void(0)" (click)="toat()"><span class="MuiButton-label"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-arrow-right fa-w-14"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z" class=""></path></svg>Đăng ký tài khoản</span><span class="MuiTouchRipple-root"></span></a>-->
+          </div>
+          <h4 class="Connect-title-2786">Đăng nhập</h4>
+          <!--<section class="loginToIsocal">
+            <div class="Connect-btnArea-5197">
+              <div class="loginToFacebook button-login-isocal">
+                <a href="javascript:void(0)" class="btn buttonFacebook" (click)="toatCommingSoon()"><svg style="height: 14px; position: relative; top: -2px;" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" class="svg-inline--fa fa-facebook-f fa-w-10"><path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" class=""></path></svg> Facebook</a>
+              </div>
+              <div class="loginToEmail button-login-isocal">
+                <a href="javascript:void(0)" class="btn buttonGoogle" (click)="toatCommingSoon()"><svg style="height: 14px; position: relative; top: -2px;" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-plus-g" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-google-plus-g fa-w-20"><path fill="currentColor" d="M386.061 228.496c1.834 9.692 3.143 19.384 3.143 31.956C389.204 370.205 315.599 448 204.8 448c-106.084 0-192-85.915-192-192s85.916-192 192-192c51.864 0 95.083 18.859 128.611 50.292l-52.126 50.03c-14.145-13.621-39.028-29.599-76.485-29.599-65.484 0-118.92 54.221-118.92 121.277 0 67.056 53.436 121.277 118.92 121.277 75.961 0 104.513-54.745 108.965-82.773H204.8v-66.009h181.261zm185.406 6.437V179.2h-56.001v55.733h-55.733v56.001h55.733v55.733h56.001v-55.733H627.2v-56.001h-55.733z" class=""></path></svg> Google</a>
+              </div>
+            </div>
+            <hr class="Content-content-180" data-content="Đăng nhập với tài khoản website">
+          </section>-->
+          <section class="Connect-formWrap-2777">
+            <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form" autocomplete="off">
+              <p *ngIf="submitted && message" class="text-muted error">{{ message }}</p>
+              <div [ngClass]="{ 'has-error': submitted && f.username.errors }">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-user"></i></span>
+                  </div>
+                  <input id="user" type="text" class="form-control" placeholder="Tài khoản" formControlName="username" autocomplete="username" required>
+                </div>
+                <div *ngIf="submitted && f.username.errors" class="help-block">
+                  <span *ngIf="f.username.errors.required">Chưa nhập tài khoản</span>
+                </div>
+              </div>
+              <div [ngClass]="{ 'has-error': submitted && f.password.errors }">
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span>
+                  </div>
+                  <input id="password" type="{{ showPassword ? 'text' : 'password' }}" class="form-control" placeholder="Mật khẩu" formControlName="password" autocomplete="current-password" required>
+                  <div class="input-group-prepstart">
+                    <span class="input-group-text" (click)="openToggleShowPassWord()">
+                      <svg *ngIf="showPassword == false" style="height:14px;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="eye-slash" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-eye-slash fa-w-20"><path fill="currentColor" d="M320 400c-75.85 0-137.25-58.71-142.9-133.11L72.2 185.82c-13.79 17.3-26.48 35.59-36.72 55.59a32.35 32.35 0 0 0 0 29.19C89.71 376.41 197.07 448 320 448c26.91 0 52.87-4 77.89-10.46L346 397.39a144.13 144.13 0 0 1-26 2.61zm313.82 58.1l-110.55-85.44a331.25 331.25 0 0 0 81.25-102.07 32.35 32.35 0 0 0 0-29.19C550.29 135.59 442.93 64 320 64a308.15 308.15 0 0 0-147.32 37.7L45.46 3.37A16 16 0 0 0 23 6.18L3.37 31.45A16 16 0 0 0 6.18 53.9l588.36 454.73a16 16 0 0 0 22.46-2.81l19.64-25.27a16 16 0 0 0-2.82-22.45zm-183.72-142l-39.3-30.38A94.75 94.75 0 0 0 416 256a94.76 94.76 0 0 0-121.31-92.21A47.65 47.65 0 0 1 304 192a46.64 46.64 0 0 1-1.54 10l-73.61-56.89A142.31 142.31 0 0 1 320 112a143.92 143.92 0 0 1 144 144c0 21.63-5.29 41.79-13.9 60.11z" class=""></path></svg>
+                      <svg *ngIf="showPassword == true" style="height:14px;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="eye" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-eye fa-w-18"><path fill="currentColor" d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z" class=""></path></svg>
+                    </span>
+                  </div>
+                </div>
+                <div *ngIf="submitted && f.password.errors" class="help-block">
+                  <span *ngIf="f.password.errors.required">Chưa nhập mật khẩu</span>
+                </div>
+              </div>
+              <div class="Connect-optArea-174">
+                <label class="Connect-label-148"><span class="PrivateSwitchBase-root-181" aria-disabled="false"><input class="PrivateSwitchBase-input-184" name="checkbox" type="checkbox" data-indeterminate="false" value="true" checked></span><span class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1">Nhớ mật khẩu</span></label>
+                <!--<a class="Connect-buttonLink-154" tabindex="0" role="button" aria-disabled="false" href="javascript:void(0)" (click)="toatCommingSoon()"><span class="MuiButton-label">Quên mật khẩu?</span><span class="MuiTouchRipple-root"></span></a>-->
+              </div>
+              <div class="Connect-btnArea-149">
+                <button type="submit" class="MuiButton-containedPrimary-9696"><span class="MuiButton-label">Đăng nhập</span> <svg style="height: 13px; margin-left: 10px; position: relative;top: -2px;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-arrow-right fa-w-14"><path fill="currentColor" d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z" class=""></path></svg></button>
+              </div>
+              <!--<div class="row">
+                <div class="col-6">
+                  <button type="submit" class="btn btn-primary px-4">Đăng nhập</button>
+                </div>
+                <div class="col-6 text-right">
+                  <button type="button" class="btn btn-link px-0">Quên mật khẩu?</button>
+                </div>
+              </div>-->
+            </form>
+          </section>
+        </div>
+      </div>
+      <!--<div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form">
+                  <h1>ĐĂNG NHẬP</h1>
+                  <p *ngIf="submitted && message" class="text-muted error">{{ message }}</p>
+                  <div [ngClass]="{ 'has-error': submitted && f.username.errors }">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-user"></i></span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="Tài khoản" formControlName="username" autocomplete="username" required>
+                    </div>
+                    <div *ngIf="submitted && f.username.errors" class="help-block">
+                      <span *ngIf="f.username.errors.required">Chưa nhập tài khoản</span>
+                    </div>
+                  </div>
+                  <div [ngClass]="{ 'has-error': submitted && f.password.errors }">
+                    <div class="input-group mb-4">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                      </div>
+                      <input type="password" class="form-control" placeholder="Mật khẩu" formControlName="password" autocomplete="current-password" required>
+                    </div>
+                    <div *ngIf="submitted && f.password.errors" class="help-block">
+                      <span *ngIf="f.password.errors.required">Chưa nhập mật khẩu</span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-primary px-4">Đăng nhập</button>
+                    </div>
+                    <div class="col-6 text-right">
+                      <button type="button" class="btn btn-link px-0">Quên mật khẩu?</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:44%">
+              <div class="card-body text-center">
+                <div>
+                  <h2>Tạo tài khoản</h2>
+                  <p>Tạo tài khoản để quản trị hệ thống.</p>
+                  <button type="button" (click)="toat()" class="btn btn-primary active mt-3"><i class="fa fa-user-circle fa-lg"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>-->
+    </div>
+  </main>
+</div>

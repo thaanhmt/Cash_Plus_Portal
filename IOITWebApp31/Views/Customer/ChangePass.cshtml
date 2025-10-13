@@ -1,0 +1,73 @@
+﻿@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main id="main" ng-controller="CustomerController" ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model), undefined)">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="top-action">
+                    @*<div class="btn-editor">
+                        <a href="javascript:void(0);" class="btn editor-click"><i class="fa-solid fa-pen"></i> Chỉnh sửa</a>
+                    </div>
+                    <div class="btn-action-editor">
+                        <a href="javascript:void(0);" class="btn editor-close"><i class="fa-duotone fa-circle-xmark"></i> Huỷ</a>
+                        <a href="javascript:void(0);" class="btn editor-save"><i class="fa-solid fa-floppy-disk"></i> Lưu lại</a>
+                    </div>*@
+                </div>
+                <div class="row row-small main-info">
+                    <div class="col col-lg-2 col-md-4 col-12 side-bar-info">
+                        <ul class="nav-tab-vertical">
+                            @*@await Component.InvokeAsync("MenuSideBar", new { MenuId = 41, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })*@
+                            @await Component.InvokeAsync("LeftColumn")
+                        </ul>
+                    </div>
+                    <div class="col col-lg-10 col-md-8 content-info col-12">
+                        <div class="form-group-info form-1-info">
+                            <div class="main-field-changepass">
+                                <div class="setting-info">
+                                    @*<div class="avatar">
+                                        <div class="label-av">Ảnh đại diện</div>
+                                        <div class="preview-avata">
+                                            <img src="images/avaataaaa.png" alt="">
+                                        </div>
+                                        <div class="custom-file-input">
+                                            <input type="file" id="media" name="media">
+                                            <label for="media"><i class="fa-solid fa-camera"></i> Chỉnh sửa</label>
+                                        </div>
+                                    </div>*@
+                                    <form class="field-editor-user">
+                                        <div class="input-group">
+                                            <input type="password" id="PasswordDk" class="form-control" placeholder="Nhập mật khẩu" ng-model="password.PasswordOld">
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="password" id="PasswordNewDk" class="form-control" placeholder="Nhập mật khẩu mới" ng-model="password.PasswordNew">
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="password" id="PasswordConfimDk" class="form-control" placeholder="Nhập lại mật khẩu" ng-model="password.ConfirmPassword">
+                                        </div>
+                                        @*<div class="action-btn">
+                                            <div class="action-item">
+                                                <div class="label">Trạng thái</div>
+                                                <div class="status-color orange">Đang hoạt động</div> <!-- or class gray when non-active -->
+                                            </div>
+                                            <div class="action-item">
+                                                <div class="label">Thời gian tạo</div>
+                                                <div class="time-dateactive">06/09/2022  16:56:09</div>
+                                            </div>
+                                        </div>*@
+                                        <div class="btn-save">
+                                            <button type="button" class="btn btn-primary btn-xanh" ng-click="ChangePassword()" ng-disabled="disableBtn.btSubmit == true">Đổi mật khẩu</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

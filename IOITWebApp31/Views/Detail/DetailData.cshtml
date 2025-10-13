@@ -1,0 +1,236 @@
+﻿@model IOITWebApp31.Models.Data.DataSetDTO
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@if (Model != null)
+{
+    int k = 1;
+    <main id="main" ng-controller="DataSetViewController" ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.CustomerLogin), @ViewBag.DataSetId)">
+        <div id="content" class="content-area">
+            <section class="section section-detail-data">
+                <div class="bg-section"></div>
+                <div class="container">
+                    <div class="head-detail-data">
+                        <h1 class="title-detail">@Model.Title</h1>
+                        @if (ViewBag.CustomerId != null)
+                        {
+                            <div class="action-download">
+
+                                <a class="btn-download" onclick="DownloadFileRar(@Model.DataSetId, @ViewBag.CustomerId, @Html.Raw(ViewBag.access_token))">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                                    <span>Tải về</span>
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="action-download">
+
+                                <a class="btn-download" href="/dang-nhap">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                                    <span>Tải về</span>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    <div class="content-area-detail">
+                        @Html.Raw(Model.Contents)
+                    </div>
+                    <div class="table-detail">
+                        <div class="left-table">
+                            <div class="item-table">
+                                <label>Phạm vi ứng dụng</label>
+
+                                <div class="list-lv">
+                                    @foreach (var item in Model.applicationRange)
+                                    {
+                                        <a href="javascript:void(0)">@item.Name</a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="item-table">
+                                <label>Lĩnh vực nghiên cứu:</label>
+                                <div class="list-lv">
+                                    @foreach (var item in Model.researchArea)
+                                    {
+                                        <a href="javascript:void(0)">@item.Code.@item.Name</a>
+                                    }
+                                </div>
+                            </div>
+                            <div class="item-table">
+                                <label>Tên tác giả:</label>
+                                <span class="list-lv">@Model.AuthorName</span>
+                            </div>
+                            @* <div class="item-table">
+                        <label>Số điện thoại:</label>
+                        <span class="list-lv">@Model.AuthorPhone</span>
+                        </div>
+                        <div class="item-table">
+                        <label>Địa chỉ email:</label>
+                        <span class="list-lv">@Model.AuthorEmail</span>
+                        </div>*@
+                        </div>
+                        <div class="right-table">
+                            <div class="item-table">
+                                <label>Loại dữ liệu:</label>
+                                @if (Model.Type == (int)Const.DataSetType.DATA_UNIT)
+                                {
+                                    <span class="list-lv">Tổ chức</span>
+                                }
+                                else
+                                {
+                                    <span class="list-lv">Cá nhân</span>
+                                }
+                            </div>
+                            <div class="item-table">
+                                <label>Ngày tạo:</label>
+                                <span class="list-lv">@Model.CreatedAt.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Ngày cập nhật:</label>
+                                <span class="list-lv">@Model.UpdatedAt.Value.ToString("dd/MM/yyyy HH:mm")</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Phiên bản tài liệu:</label>
+                                @if (Model.Version != null && Model.Version != "")
+                                {
+                                    <span class="list-lv">@Model.Version</span>
+                                }
+                                else
+                                {
+                                    <span class="list-lv">1.0</span>
+                                }
+                            </div>
+
+                            <div class="item-table">
+                                <label>Bản quyền:</label>
+                                <span class="list-lv">
+                                    @if (Model.licecses != null)
+                                    {
+                                        <a href="/@Model.licecses.Url"> @Model.licecses.Title</a>
+                                    }
+                                </span>
+                            </div>
+
+                            <div class="item-table">
+                                <label>Nguồn:</label>
+                                <span class="list-lv">@Model.Note</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-detail">
+                        <div class="left-table">
+                            <div class="item-table">
+                                <label>Người đăng tải:</label>
+                                <span class="list-lv">@Model.userCreated.FullName</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Tổ chức đăng tải:</label>
+                                <span class="list-lv">@Model.userCreated.UnitName</span>
+                            </div>
+                        </div>
+                        <div class="right-table">
+                            <div class="item-table">
+                                <label>Tổng số lượt xem:</label>
+                                <span class="list-lv red-color">@Model.ViewNumber</span>
+                            </div>
+                            <div class="item-table">
+                                <label>Tổng số lượt tải về:</label>
+                                <span class="list-lv">@Model.DownNumber</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-view-detail">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">STT</th>
+                                    <th scope="col">Tên file dữ liệu</th>
+                                    <th scope="col">Loại file</th>
+                                    <th scope="col">Dung lượng</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.listFiles)
+                                {
+                                    <tr>
+                                        <td>@k</td>
+                                        <td>@item.Name</td>
+                                        <td>
+                                            @item.ExtensionName
+                                        </td>
+                                        <td>@(item.Storage/1000) KB</td>
+                                        <td>
+
+                                            @if (item.ExtensionName == "PDF" || item.ExtensionName == "PNG" || item.ExtensionName == "JPEG" || item.ExtensionName == "JPG")
+                                            {
+                                                <a ng-click="ViewFile(@Newtonsoft.Json.JsonConvert.SerializeObject(item.AttactmentId))" class="btn-view"><i class="fa-solid fa-eye"></i></a>
+                                            }
+                                            @if (ViewBag.CustomerId != null)
+                                            {
+                                                <a ng-click="DownloadFile(@Newtonsoft.Json.JsonConvert.SerializeObject(item.AttactmentId))" class="btn-download"><i class="fa-solid fa-cloud-arrow-down"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="/dang-nhap"><i class="fa-solid fa-cloud-arrow-down"></i></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                    k++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="detail-file" style="text-align: center;">
+                        <span ng-show="attactment.Extension==1">
+                            <iframe ng-src="{{pdfBase64}}" style="width:100%; height:500px;" frameborder="0"></iframe>
+                        </span>
+                        <span ng-show="attactment.Extension==9 || attactment.Extension==10 || attactment.Extension==25">
+                            <img ng-src="{{dataFile}}" alt="Image" />
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-data section-data-related">
+                <div class="bg-section"></div>
+                <div class="container">
+                    <div class="title-related">Các dữ liệu liên quan</div>
+                    <div class="main-secdata">
+                        @await Component.InvokeAsync("BlockDS_Related", new { Number = 6, DatasetId = ViewBag.DatasetId, listResearchArea = Model.researchArea })
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="loadding-animate">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff0;display:block;" width="115px" height="115px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <g transform="translate(20 50)">
+                <circle cx="0" cy="0" r="6" fill="#96c639">
+                    <animateTransform attributeName="transform" type="scale" begin="-0.4807692307692307s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+                </circle>
+            </g>
+            <g transform="translate(40 50)">
+                <circle cx="0" cy="0" r="6" fill="#96c639">
+                    <animateTransform attributeName="transform" type="scale" begin="-0.3205128205128205s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+                </circle>
+            </g>
+            <g transform="translate(60 50)">
+                <circle cx="0" cy="0" r="6" fill="#96c639">
+                    <animateTransform attributeName="transform" type="scale" begin="-0.16025641025641024s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+                </circle>
+            </g>
+            <g transform="translate(80 50)">
+                <circle cx="0" cy="0" r="6" fill="#96c639">
+                    <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+                </circle>
+            </g>
+        </svg>
+    </div>
+
+}

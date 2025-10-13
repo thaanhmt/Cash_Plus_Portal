@@ -1,0 +1,22 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Slide>
+@if (Model != null)
+{
+    int k = 0;
+    if (Model.Count() > 0)
+    {
+        <div class="block-partner">
+            <div class="title-bl"><span>Đối tác</span></div>
+            <div class="partner2">
+                @while (k < Model.Count())
+                {
+                    <div class="img-partner2">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb148/" + Model.ToList()[k].Image)" class="img-responsive" alt="@Model.ToList()[k].Name">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb148/" + Model.ToList()[k + 1].Image)" class="img-responsive" alt="@Model.ToList()[k+1].Name">
+
+                    </div>
+                    k += 2;
+                }
+            </div>
+        </div>
+    }
+}

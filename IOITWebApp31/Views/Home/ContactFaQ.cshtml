@@ -1,0 +1,98 @@
+﻿@model IOITWebApp31.Models.EF.Category
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-md-3 col-12 side-bar-info menu-faq">
+                        <ul class="nav-tab-vertical">
+                            @await Component.InvokeAsync("MenuSideBar", new { MenuId = 40, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                        </ul>
+                    </div>
+                    <div class="col col-md-9 col-12 section-detail-data main-manage-data">
+                        <div class="search-all-data">
+                            <div class="search-wapper faq">
+                                <div class="wapper-search">
+                                    <input type="text" name="sNameF" id="sNameF" placeholder="Tìm kiếm faqs...">
+                                    <button class="btn-search" onclick="LoadFaQsPage(1)">
+                                        <img src="/images/search-ct_new.png" alt="">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="title-noitify">Câu hỏi</div>
+                        <div id="ListFaqs"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<div class="loadding-animate">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff0;display:block;" width="115px" height="115px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <g transform="translate(20 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.4807692307692307s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(40 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.3205128205128205s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(60 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.16025641025641024s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(80 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+    </svg>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            LoadFaQsPage(1);
+        });
+
+        function LoadFaQsPage(k) {
+            $('.overlay_menu').addClass('active');
+            $('.loadding-animate').show();
+            var textS = $("#sNameF").val();
+            if (textS == undefined) textS = "";
+            var obj = {
+                p: k,
+                textS: textS
+            };
+            function loadData() {
+                $("#ListFaqs").load("/Home/ListFaqs", obj, function() {
+                    $('.overlay_menu').removeClass('active');
+                    $('.loadding-animate').hide();
+                    $('html, body').animate({ scrollTop: $('#header').offset().top }, 100);
+                })
+            }
+            setTimeout(loadData, 1000);
+        }
+
+        var input = document.getElementById("sNameF");
+        input.addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) {
+                LoadFaQsPage(1);
+            }
+        });
+
+    </script>
+}

@@ -1,0 +1,158 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = "ManageUser";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main id="main" ng-controller="UserUnitController" ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-lg-2 col-md-4 col-12 side-bar-info">
+                        <ul class="nav-tab-vertical">
+                            @*@await Component.InvokeAsync("MenuSideBar", new { MenuId = 41, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })*@
+                            @await Component.InvokeAsync("LeftColumn")
+                        </ul>
+                    </div>
+                    <div class="col col-lg-10 col-md-8 col-12 main-manage-data">
+                        <div class="filter-manage-data">
+                            <div class="filter-date">
+                                <div class="input-group">
+                                    <md-datepicker ng-model="q.DateStart" md-placeholder="Từ ngày"></md-datepicker>
+                                </div>
+                                <div class="input-group">
+                                    <md-datepicker ng-model="q.DateEnd" md-placeholder="Đến ngày"></md-datepicker>
+                                </div>
+                                <div class="input-group">
+                                    <ui-select ng-model="userStatus" ng-change="[changeValue($select.selected, 11), onQueryChange()]" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Tất cả trạng thái">
+                                            <span ng-if="$select.isEmpty() && !$select.selected">Tất cả trạng thái</span>
+                                            <span ng-if="$select.selected">{{$select.selected.Name}}</span>
+                                            <span ng-if="$select.selected" ng-click="$select.clear($event)" class="ui-select-bootstrap-clear">&nbsp;&times;</span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in listStatus | propsFilter: {Name: $select.search, Code: $select.search } |limitTo:100" position='down'>
+                                            <div style="padding-left: {{20 * item.Level}}px" ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            @*<div class="filter-type-data">
+                            <div class="input-group">
+                            <ui-select ng-model="dataTypes" ng-change="[changeValue($select.selected, 4), onQueryChange()]" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                            <ui-select-match allow-clear="true" placeholder="Tất cả loại dữ liệu">{{ $select.selected.Name }}</ui-select-match>
+                            <ui-select-choices repeat="item in listDataTypes | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                            </ui-select>
+                            </div>
+                            <div class="input-group">
+                            <ui-select ng-model="dataExtentions" ng-change="[changeValue($select.selected, 5), onQueryChange()]" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                            <ui-select-match allow-clear="true" placeholder="Tất cả định dạng">{{ $select.selected.Name }}</ui-select-match>
+                            <ui-select-choices repeat="item in listDataExtentions | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                            </ui-select>
+                            </div>
+                            <div class="input-group">
+                            <ui-select ng-model="applicationRange" ng-change="[changeValue($select.selected, 1), onQueryChange()]" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                            <ui-select-match allow-clear="true" placeholder="Tất cả phạm vi ứng dụng">{{ $select.selected.Name }}</ui-select-match>
+                            <ui-select-choices repeat="item in listApplicationRange | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                            </ui-select-choices>
+                            </ui-select>
+                            </div>
+                            </div>*@
+                            <div class="filter-txt-data">
+                                <div class="input-group">
+                                    <input type="text" id="txt-filter-data" class="form-control" placeholder="Tìm kiếm theo tên, email, số điện thoại..."
+                                           ng-model="q.txtSearch" click-enter="onQueryChange();">
+                                    <a class="btn editor-search" click-enter="onQueryChange();" ng-click="onQueryChange();">
+                                        <img src="/images/search-icon-data.png" style="margin-top: -2px;" />
+                                        <span>Tìm kiếm</span>
+                                    </a>
+                                </div>
+                                <div class="create-data">
+                                    @if (ViewBag.Create)
+                                    {
+                                        <a href="/tao-moi-nguoi-dung" class="btn-data-create">Tạo mới</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-manage-data">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Họ và tên</th>
+                                        <th scope="col">Số điện thoại</th>
+                                        @*<th scope="col">Cơ quan/tổ chức</th>*@
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Ngày tạo</th>
+                                        <th scope="col">Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="item in listCustomers">
+                                        <td>{{((page-1) * page_size) + $index + 1}}</td>
+                                        <td>{{ item.Email }}</td>
+                                        <td>
+                                            {{ item.FullName }}
+                                        </td>
+                                        <td>
+                                            {{ item.Phone }}
+                                        </td>
+                                        @*<td>{{ item.listFiles.length }} file</td>*@
+                                        <td>
+                                            <span ng-show="item.Status==10">Đăng ký mới</span>
+                                            <span ng-show="item.Status==1">Hoạt động</span>
+                                            <span ng-show="item.Status==98">Khóa</span>
+                                        </td>
+                                        <td>{{ item.CreatedAt | date:'dd/MM/yyyy' }}</td>
+                                        <td class="action-col-table">
+                                            @if (ViewBag.View)
+                                            {
+                                                <a href="/xem-chi-tiet-nguoi-dung-{{item.CustomerId}}" class="btn editor-send">
+                                                    <i class="fa-solid fa-eye" style="color:#FF7733;"></i>
+                                                    @*<span>Xem</span>*@
+                                                </a>
+                                            }
+                                            @if (ViewBag.Update)
+                                            {
+                                                <a href="/cap-nhat-nguoi-dung-{{item.CustomerId}}" class="btn editor-send">
+                                                    <i class="fa-solid fa-pen" style="color:#174371;"></i>
+                                                    @*<span>Sửa</span>*@
+                                                </a>
+                                            }
+                                            @if (ViewBag.Delete)
+                                            {
+                                                <a ng-click="deleteData(item)" class="btn editor-send">
+                                                    <i class="fa-solid fa-trash-can" style="color:#DD425A;"></i>
+                                                    @*<span>Xóa</span>*@
+                                                </a>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="paging-data">
+                            <nav aria-label="...">
+                                <ul uib-pagination boundary-links="true" total-items="item_count" ng-model="page"
+                                    items-per-page="page_size" class="pagination" previous-text="&lsaquo;"
+                                    next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                                    ng-change="loadData();" rotate="true" max-size="10">
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+

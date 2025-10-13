@@ -1,0 +1,103 @@
+<svg width="83" height="68" viewBox="0 0 83 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2306_2727)">
+<g clip-path="url(#clip1_2306_2727)">
+<path d="M60.9491 13.8352C63.9599 13.8352 66.4006 11.6663 66.4006 8.99073C66.4006 6.31519 63.9599 4.14624 60.9491 4.14624C57.9383 4.14624 55.4976 6.31519 55.4976 8.99073C55.4976 11.6663 57.9383 13.8352 60.9491 13.8352Z" fill="#F47637"/>
+<path d="M63.4618 26.4672L45.2871 36.744L27.3121 27.4337C25.5364 26.5145 25.4964 24.4315 27.2367 23.469L45.3714 13.0896L63.3819 22.317C65.2242 23.2875 65.2642 25.4494 63.4662 26.4672H63.4618Z" fill="url(#paint0_linear_2306_2727)"/>
+<path d="M63.5195 29.0315C63.5195 29.0315 63.484 29.0591 63.4618 29.0709L45.2871 39.3477L27.3255 30.0454L27.2323 30.1006C25.4921 31.0632 25.532 33.1462 27.3077 34.0653L45.2827 43.7228L63.4574 33.0988C65.2065 32.1086 65.2109 30.0414 63.5151 29.0354L63.5195 29.0315Z" fill="url(#paint1_linear_2306_2727)"/>
+<path opacity="0.83" d="M63.5195 35.8013C63.5195 35.8013 63.484 35.8289 63.4618 35.8407L45.2871 46.1175L27.3255 36.8151L27.2323 36.8704C25.4921 37.833 25.532 39.9159 27.3077 40.8351L45.2827 50.4925L63.4574 39.8686C65.2065 38.8784 65.2109 36.8112 63.5151 35.8052L63.5195 35.8013Z" fill="url(#paint2_linear_2306_2727)"/>
+<path d="M56.8651 18.9164L46.7878 24.9167L50.0507 26.8774L39.0322 27.6743L40.333 21.2005L43.4094 22.9087L53.0872 17.0425L56.8651 18.9164Z" fill="url(#paint3_linear_2306_2727)"/>
+<path d="M29.6428 59.3925C32.6732 59.3925 35.1298 57.2094 35.1298 54.5164C35.1298 51.8235 32.6732 49.6404 29.6428 49.6404C26.6124 49.6404 24.1558 51.8235 24.1558 54.5164C24.1558 57.2094 26.6124 59.3925 29.6428 59.3925Z" fill="#F47637"/>
+<path d="M48.306 1.4873C46.4947 0.560222 44.2484 0.560222 42.4372 1.4873L17.306 14.3796C15.4947 15.3067 14.3716 17.0386 14.3716 18.8927V44.6853C14.3716 46.5434 15.4947 48.2713 17.306 49.1984L24.4844 52.8831C24.7597 52.1927 25.208 51.5615 25.8074 51.0368L18.5357 47.3048C17.4836 46.7643 16.831 45.7623 16.831 44.6814V18.8967C16.831 17.8197 17.4836 16.8137 18.5357 16.2733L43.6669 3.37697C44.1907 3.10871 44.7811 2.97458 45.3716 2.97458C45.962 2.97458 46.548 3.10871 47.0763 3.37697L54.9162 7.39695C55.187 6.70657 55.6309 6.07142 56.2258 5.54673L48.306 1.4873Z" fill="url(#paint4_linear_2306_2727)"/>
+<path d="M60.9491 13.8352C63.9599 13.8352 66.4006 11.6663 66.4006 8.99073C66.4006 6.31519 63.9599 4.14624 60.9491 4.14624C57.9383 4.14624 55.4976 6.31519 55.4976 8.99073C55.4976 11.6663 57.9383 13.8352 60.9491 13.8352Z" fill="#F47637"/>
+<path d="M73.437 14.3796L66.0855 10.6082C65.8102 11.2985 65.3619 11.9337 64.7625 12.4544L72.2073 16.2732C73.2595 16.8137 73.912 17.8157 73.912 18.8967V44.6853C73.912 45.7623 73.2595 46.7682 72.2073 47.3087L47.0762 60.205C46.024 60.7455 44.7189 60.7455 43.6667 60.205L35.778 56.1574C35.5028 56.8478 35.0544 57.479 34.4551 57.9997L42.437 62.0947C43.3427 62.5602 44.3548 62.7929 45.3714 62.7929C46.3881 62.7929 47.4002 62.5602 48.3059 62.0947L73.437 49.1984C75.2483 48.2713 76.3714 46.5394 76.3714 44.6853V18.8967C76.3714 17.0385 75.2483 15.3106 73.437 14.3835V14.3796Z" fill="url(#paint5_linear_2306_2727)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_2306_2727" x1="45.3714" y1="11.6694" x2="45.3714" y2="44.3224" gradientUnits="userSpaceOnUse">
+<stop offset="0.02" stop-color="white"/>
+<stop offset="0.14" stop-color="white" stop-opacity="0.99"/>
+<stop offset="0.25" stop-color="white" stop-opacity="0.94"/>
+<stop offset="0.36" stop-color="white" stop-opacity="0.87"/>
+<stop offset="0.46" stop-color="white" stop-opacity="0.77"/>
+<stop offset="0.56" stop-color="white" stop-opacity="0.64"/>
+<stop offset="0.67" stop-color="white" stop-opacity="0.47"/>
+<stop offset="0.76" stop-color="white" stop-opacity="0.28"/>
+<stop offset="0.86" stop-color="white" stop-opacity="0.07"/>
+<stop offset="0.89" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint1_linear_2306_2727" x1="45.367" y1="27.5758" x2="45.367" y2="44.9339" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.08" stop-color="white" stop-opacity="0.96"/>
+<stop offset="0.22" stop-color="white" stop-opacity="0.87"/>
+<stop offset="0.4" stop-color="white" stop-opacity="0.71"/>
+<stop offset="0.6" stop-color="white" stop-opacity="0.5"/>
+<stop offset="0.83" stop-color="white" stop-opacity="0.22"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint2_linear_2306_2727" x1="45.367" y1="35.8447" x2="45.367" y2="52.4138" gradientUnits="userSpaceOnUse">
+<stop stop-color="white"/>
+<stop offset="0.2" stop-color="white" stop-opacity="0.74"/>
+<stop offset="0.41" stop-color="white" stop-opacity="0.48"/>
+<stop offset="0.61" stop-color="white" stop-opacity="0.27"/>
+<stop offset="0.78" stop-color="white" stop-opacity="0.12"/>
+<stop offset="0.91" stop-color="white" stop-opacity="0.03"/>
+<stop offset="1" stop-color="white" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint3_linear_2306_2727" x1="47.0251" y1="28.75" x2="48.6162" y2="16.5069" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FBAC18"/>
+<stop offset="1" stop-color="#F26633"/>
+</linearGradient>
+<linearGradient id="paint4_linear_2306_2727" x1="53.5178" y1="0.619396" x2="11.2729" y2="54.4156" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FBAC18"/>
+<stop offset="1" stop-color="#F26633"/>
+</linearGradient>
+<linearGradient id="paint5_linear_2306_2727" x1="46.7698" y1="61.1755" x2="74.9748" y2="13.3517" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FBAC18"/>
+<stop offset="1" stop-color="#F26633"/>
+</linearGradient>
+<clipPath id="clip0_2306_2727">
+<rect width="82" height="67" fill="white" transform="translate(0.371582 0.369141)"/>
+</clipPath>
+<clipPath id="clip1_2306_2727">
+<rect width="62" height="62" fill="white" transform="translate(14.3716 0.789062)"/>
+</clipPath>
+</defs>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</svg>

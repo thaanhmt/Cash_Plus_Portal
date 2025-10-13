@@ -1,0 +1,162 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Product>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @if (Model.Count() > 0)
+    {
+    <div class="owl-carousel owl-theme slide_tab">
+
+        @foreach (var item in Model)
+        {
+            <div class="item">
+                <div class="product-box" style="width: 100%; display: inline-block;">
+                    <div class="box-image">
+                        <a href="/@(Const.DETAIL_PRODUCT + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.ProductId + ".html")"
+                           title="@item.Name">
+                            <img src="/uploads/@item.Image">
+                        </a>
+                    </div>
+                    <div class="box-text">
+                        <div class="title-wrapper">
+                            <p class="product-title"><a href="/@(Const.DETAIL_PRODUCT + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.ProductId + ".html")">@item.Name</a></p>
+                        </div>
+                        <div class="price-wrapper">
+                            @if (item.PriceSpecial != null)
+                            {
+
+                                <div class="price-amount">
+                                    <span>Giá: @String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:N0}", item.PriceSpecial)đ</span>
+                                </div>
+                            }
+                            @if (item.Discount != null)
+                            {
+                                <div class="pirce-sale">
+                                    <del>@String.Format(System.Globalization.CultureInfo.GetCultureInfo("vi-VN"), "{0:N0}", item.PriceSale)đ</del>
+                                    <span>-@item.Discount%</span>
+                                </div>
+                            }
+                            @if (item.PriceSale == null && item.PriceSpecial == null)
+                            {
+                                <div class="price-standard">
+                                    <span class="liene">Liên hệ</span>
+                                </div>
+                            }
+                        </div>
+                        <div class="clear"></div>
+                        <div class="quick-view-box">
+                            <a href="/@(Const.DETAIL_PRODUCT + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.ProductId + ".html")">Xem chi tiết</a>
+                        </div>
+                        <div class="review_box">
+
+                            @if (item.PointStar == 1)
+                            {
+                                <div class="star_box">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            }
+                            @if (item.PointStar == 2)
+                            {
+                                <div class="star_box">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+
+                                </div>
+                            }
+                            @if (item.PointStar == 3)
+                            {
+                                <div class="star_box">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            }
+                            @if (item.PointStar == 4)
+                            {
+                                <div class="star_box">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+
+                                </div>
+                            }
+                            @if (item.PointStar == 5)
+                            {
+                                <div class="star_box">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            }
+                            @if (item.PointStar == 0 || item.PointStar == null)
+                            {
+                                <div class="star_box">
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+
+
+                                </div>
+                            }
+                        <div class="cart_and_favorite">
+                            <ul class="list-quick-icon-box">
+                                <li class="item cart_small" onclick="return AddToCart(@item.ProductId, 1)"></li>
+                                @if (ViewBag.CustomerId == -1)
+                                {
+                                    <li class="item" onclick="return LikeProduct(@item.ProductId, -1)"><i class="far fa-heart"></i></li>
+                                }
+                                else
+                                {
+                                    if (item.Status == 10)
+                                    {
+                                        <li class="item" id="active_@item.ProductId" onclick="return DislikeProduct(@item.ProductId, @ViewBag.CustomerId, 10, @ViewBag.Token)"><i class="fa fa-heart"></i></li>
+                                        <li class="item love1" id="loveactive_@item.ProductId" onclick="return LikeProduct(@item.ProductId, @ViewBag.CustomerId, 10, @ViewBag.Token)"><i class="far fa-heart"></i></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="item" id="active_@item.ProductId" onclick="return LikeProduct(@item.ProductId, @ViewBag.CustomerId, 1, @ViewBag.Token)"><i class="far fa-heart"></i></li>
+                                        <li class="item remove1" id="loveactive_@item.ProductId" onclick="return DislikeProduct(@item.ProductId, @ViewBag.CustomerId, 1, @ViewBag.Token)"><i class="fa fa-heart"></i></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+                }
+           
+        }
+
+        <script>
+            $(document).ready(function () {
+                var owl = $('.owl-carousel');
+                owl.owlCarousel({
+                    margin: 10,
+                    nav: true,
+                    loop: false,
+                    dots: false,
+                    //autoplay: true,
+                    //autoplayTimeout: 4000,
+                    //autoplayHoverPause: true,
+                    responsive: {
+                        0: {
+                            items: 2
+                        },
+                        600: {
+                            items: 3
+                        },
+                        1000: {
+                            items: 5
+                        }
+                    }
+                })
+            })
+        </script>

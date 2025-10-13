@@ -1,0 +1,109 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main id="main" ng-controller="NotificationController" ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model))">
+    <div id="content" class="content-area">
+        <section class="section section-info-user page-tb">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-lg-2 col-md-4 col-12 side-bar-info">
+                        <ul class="nav-tab-vertical">
+                            @*@await Component.InvokeAsync("MenuSideBar", new { MenuId = 41, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })*@
+                            @await Component.InvokeAsync("LeftColumn")
+                        </ul>
+                    </div>
+                    <div class="col col-lg-10 col-md-8 col-12 section-detail-data main-manage-data">
+                        <div class="title-noitify">Thông báo</div>
+                        <div class="filter-noitify">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="typeview" id="inlineCheckbox1"
+                                       value="option1" checked ng-click="onQueryChange(0)">
+                                <label class="form-check-label" for="inlineCheckbox1">Tất cả</label>
+                            </div>
+                            <div class="form-check form-check-inline" ng-click="onQueryChange(10)">
+                                <input class="form-check-input" type="radio" name="typeview" id="inlineCheckbox2"
+                                       value="option2">
+                                <label class="form-check-label" for="inlineCheckbox2">Chưa đọc ({{numberNotRead}})</label>
+                            </div>
+                            <div class="form-check form-check-inline" ng-click="onQueryChange(1)">
+                                <input class="form-check-input" type="radio" name="typeview" id="inlineCheckbox3"
+                                       value="option3">
+                                <label class="form-check-label" for="inlineCheckbox3">Đã đọc ({{numberRead}})</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <div class="btn-save">
+                                    <button class="btn btn-primary btn-xanh" ng-click="ReadDataAll()" ng-disabled="disableBtn.btSubmit == true">
+                                        Đánh dấu tất cả
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-check form-check-inline" ng-show="listCheck.length > 0">
+                                <div class="btn-save">
+                                    <button class="btn btn-primary btn-xanh" ng-click="ReadData()" ng-disabled="disableBtn.btSubmit == true">
+                                        Đánh dấu đã đọc
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-check form-check-inline" ng-show="listCheck.length > 0">
+                                <div class="btn-save">
+                                    <button class="btn btn-primary btn-cam" ng-click="DeleteData()" ng-disabled="disableBtn.btSubmit == true">
+                                        Xóa chọn
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="wapper-list-noitify">
+                            <div class="item-noitify" ng-repeat="item in listNotification" ng-class="{ 'item-noitify-read': item.Status==1, 'item-noitify': item.Status==10 }">
+                                <div class="check-box-noitify">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value=""
+                                               id="flexCheckChecked" ng-model="item.Action" ng-change="CheckActionTable(item.NotificationId)">
+                                    </div>
+                                </div>
+                                <div class="logo-noitify">
+                                    <a href="/xem-chi-tiet-thong-bao-{{item.NotificationId}}" class="d-flex">
+                                        <img src="/images/avatar/{{item.userPush.Avata}}" alt="{{item.userPush.ShortName}}" ng-show="item.userPush.Avata!=null">
+                                        <img src="/images/logo-doanhnghiep.png" alt="{{item.userPush.ShortName}}" ng-show="item.userPush.Avata==null">
+                                    </a>
+                                </div>
+                                <div class="obj-title-noi">
+                                    <div class="title">
+                                        <a href="/xem-chi-tiet-thong-bao-{{item.NotificationId}}" class="textLine-1">
+                                            {{item.Title}}
+                                        </a>
+                                    </div>
+                                    <div class="content-noitify">
+                                        <div class="textLine-1" ng-bind-html="item.Description"></div>
+                                        @* <a class="textLine-1">
+                                        {{item.Contents}}
+                                        </a>*@
+                                    </div>
+                                </div>
+                                <div class="date-send-noitify">
+                                    {{item.CreatedAt | date:'dd/MM/yyyy'}}
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="paging-data">
+                            <nav aria-label="..." ng-show="item_count>0">
+                                <ul uib-pagination boundary-links="true" total-items="item_count" ng-model="page"
+                                    items-per-page="page_size" class="pagination" previous-text="&lsaquo;"
+                                    next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                                    ng-change="loadData();" rotate="true" max-size="10">
+                                </ul>
+
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

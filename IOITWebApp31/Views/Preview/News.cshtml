@@ -1,0 +1,97 @@
+﻿@model IOITWebApp31.Models.EF.News
+@using IOITWebApp31.Models;
+
+@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section category">
+            <div class="bg section-bg"></div>
+            <div class="section-content relative container">
+                <div class="row row-small row-cate-1">
+                    <div class="col col-12 col-cate-1-1">
+                        <div class="col-inner breadcumbs">
+                            <a href="/" class="d-block">
+                                <img class="icon-home-breadcumb"
+                                     src="/images/icon-home-breadcumb.svg" alt="icon home"> Trang Chủ
+                            </a>
+                            @if (@ViewBag.CategoryNameP != null)
+                            {
+                                <span class="d-block">
+                                    <img src="/images/arrow-breadcumbs.svg"
+                                         alt="icon arrow">
+                                </span>
+                                <a href="@ViewBag.CategoryUrlP" class="d-block">@ViewBag.CategoryNameP</a>
+                            }
+                            <span class="d-block">
+                                <img src="/images/arrow-breadcumbs.svg"
+                                     alt="icon arrow">
+                            </span>
+                            <a href="@ViewBag.CategoryUrl" class="d-block">@ViewBag.CategoryName</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-main-category">
+            <div class="bg section-bg"></div>
+            <div class="section-content relative container">
+                <div class="row row-small row-main-category">
+                    <div class="col col-lg-9 col-md-9 col-12 col-content-category">
+                        <div class="col-inner">
+                            <article class="content-area-news">
+                                <div class="article-inner">
+                                    <header class="entry-header">
+                                        <div class="entry-header-text entry-header-text-bottom text-left">
+                                            <h1 class="entry-title">
+                                                @ViewBag.Title
+                                            </h1>
+                                        </div>
+                                        <div class="entry-meta">
+                                            <div class="date_post_core">
+                                                @(ViewBag.DayOfWeek) , @(Model.DateStartActive.Value.ToString("dd/MM/yyyy")) <span><span><span>(GMT+7)</span></span></span>
+                                            </div>
+                                            <div class="entry-share">
+                                                <label class="share">Chia sẻ</label>
+                                                <ul class="list-share">
+                                                    <li class="item"><a href="//www.facebook.com/sharer.php?u=@(ViewBag.Url)" data-label="Facebook" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank"><img src="images/share-fb.svg" alt=""></a></li>
+                                                    <li class="item"><a href="//twitter.com/share?url=@(ViewBag.Url)" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank"><img src="images/share-twiter.svg" alt=""></a></li>
+                                                    <li class="item"><a href="mailto:?subject=Chỉa sẻ liên kết&amp;body=Chia sẻ một đường dẫn @(ViewBag.Url)" title="@ViewBag.Title"><img src="images/share-email.svg" alt=""></a></li>
+                                                    <li class="item share-link">
+                                                        <a href="javascript:void(0)"><img src="images/share-links.svg" alt=""></a>
+                                                        <input type="text" value="@(ViewBag.Url)" />
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </header>
+                                    <div class="entry-content single-page">
+                                        @Html.Raw(Model.Contents)
+                                    <div class="entry-meta-footer">
+                                        <div class="entry-share">
+                                            <label class="share">Chia sẻ</label>
+                                            <ul class="list-share">
+                                                <li class="item"><a href="//www.facebook.com/sharer.php?u=@(ViewBag.Url)" data-label="Facebook" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank"><img src="images/share-fb.svg" alt=""></a></li>
+                                                <li class="item"><a href="//twitter.com/share?url=@(ViewBag.Url)" onclick="window.open(this.href,this.title,'width=500,height=500,top=300px,left=300px');  return false;" rel="noopener noreferrer nofollow" target="_blank"><img src="images/share-twiter.svg" alt=""></a></li>
+                                                <li class="item"><a href="mailto:?subject=Chỉa sẻ liên kết&amp;body=Chia sẻ một đường dẫn @(ViewBag.Url)" title="@ViewBag.Title"><img src="images/share-email.svg" alt=""></a></li>
+                                                <li class="item share-link">
+                                                    <a href="javascript:void(0)"><img src="images/share-links.svg" alt=""></a>
+                                                    <input type="text" value="@(ViewBag.Url)" />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="post_releated_core">
+                                        <h2 class="title-sub-news">Các tin khác</h2>
+                                        @*@await Component.InvokeAsync("BlockNewsRelatedType", new { NewsId = Model.NewsId, Number = 5 })*@
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

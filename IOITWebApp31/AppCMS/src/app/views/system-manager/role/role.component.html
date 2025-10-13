@@ -1,0 +1,277 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Danh sách nhóm quyền</h1>
+      <button class="cms-addnew" type="button" (click)="OpenModalRole(undefined)"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+    </div>
+    <div class="description-page">
+      <!--<blockquote class="{{isNoitify ? 'hidden' : ''}}">
+        <p>Khu vực hiển thị danh sách các loại quyền, đã được phát triển sẵn nhằm phụ vụ với mục đích ban đầu, hãy chắc chắn bạn biết làm gì tại khu vực này! </p>
+        <a class="close" href="javascript:void(0)" (click)="closeNoityfy()"><span>×</span></a>
+      </blockquote>-->
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row cms-filter">
+
+          <div class="col-sm-12 col-md-6" style="padding-left:0px; margin-left: -5px;    display: flex;">
+            <ul class="cms-subsubsub">
+              <li class="all"><a class="current" aria-current="page">Tất cả <span class="count">({{ paging.item_count }})</span></a> | </li>
+              <li class="publish"><a>Hiển thị <span class="count">({{ paging.item_count }})</span></a></li>
+            </ul>
+          </div>
+          <div class="col-sm-12 col-md-6" style="display: flex; justify-content: flex-end;align-items: flex-end; padding-right:0">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+              <label>
+                Xem&nbsp;
+                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.page_size" (change)="GetListRole()">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>&nbsp;bản ghi
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row cms-filter action-table">
+          <div class="col-sm-6 col-md-3">
+            <!--<ng-select class="mw150-select"
+                       [items]="ActionTable"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [clearable]="true"
+                       placeholder="Tác vụ"
+                       [(ngModel)]="ActionId"
+                       [ngModelOptions]="{standalone: true}">
+            </ng-select>
+            <button class="cms-addnew button-action" type="button" [disabled]="!ActionId" (click)="ActionTableFunc()"><i class="fa-solid fa-badge-check"></i> Áp dụng</button>-->
+          </div>
+          <div class="col-sm-12 col-md-9" style="text-align: right; display: flex; justify-content: end;">
+            <input type="text" class="form-control form-control-sm" placeholder="Nhập mã hoặc tên cần tìm...." aria-controls="DataTables_Table_0" style="margin-right:10px;" [(ngModel)]="q.txtSearch" (keyup.enter)="QueryChanged()">
+            <!--<input type="text" class="form-control form-control-sm" placeholder="Nhập mã cần tìm...." aria-controls="DataTables_Table_0" [(ngModel)]="q.txtCode" (keyup.enter)="QueryChanged()">-->
+          </div>
+        </div>
+        <div class="row content-table-data">
+          <div class="col-sm-12">
+            <table class="table list-cat table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <!--<th class="btn-action-table" style="width: 5%;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="CheckAll" name="CheckAll" [value]="true" (change)="CheckActionTable(undefined)" [(ngModel)]="CheckAll">
+                      <label for="CheckAll"><span></span></label>
+                    </div>
+                  </th>-->
+                  <th style="width: 25%;"><span [ngClass]="GetClassSortTable('Name')" (click)="SortTable('Name')" class="sortBy">Tên</span></th>
+                  <th style="width: 15%;"><span [ngClass]="GetClassSortTable('Code')" (click)="SortTable('Code')" class="sortBy">Mã</span></th>
+                  <th style="width: 10%;"><span [ngClass]="GetClassSortTable('LevelRole')" (click)="SortTable('LevelRole')" class="sortBy">Cấp độ</span></th>
+                  <th style="width: 45%;"><span [ngClass]="GetClassSortTable('Note')" (click)="SortTable('Note')" class="sortBy">Mô tả</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listRole; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                  <!--<td class="btn-action-table" style="padding: 0.75rem!important;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="Check{{item.RoleId}}" name="Check{{item.RoleId}}" [value]="true" [(ngModel)]="item.Action" (change)="CheckActionTable(item.RoleId)">
+                      <label for="Check{{item.RoleId}}"><span></span></label>
+                    </div>
+                  </td>-->
+                  <td class="sorting_1 name-child column-name">
+                    {{ item.Name }}
+                    <ul class="cms-function">
+                      <li class="id-item">ID: {{item.RoleId}} | </li>
+                      <li (click)="OpenModalRole(item)">Chỉnh sửa | </li>
+                      <li (click)="ShowConfirmDelete(item.RoleId)" class="detete-item">Xóa</li>
+                    </ul>
+                  </td>
+                  <td>{{ item.Code }}</td>
+                  <td class="text-center">{{ item.LevelRole }}</td>
+                  <td>
+                    {{ item.Note }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row cms-paging">
+          <div class="col-sm-12 col-md-5">
+            <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+              Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i class="fa fa-long-arrow-right"></i>  <span>{{ paging.item_count < paging.page * paging.page_size ? paging.item_count : paging.page * paging.page_size }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{ paging.item_count }}</span> bản ghi
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-7">
+            <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5" [itemsPerPage]="paging.page_size" class="pagination-sm pull-right"
+                        previousText='<i class="fa-solid fa-chevron-left"></i>' nextText='<i class="fa-solid fa-chevron-right"></i>' [boundaryLinks]="true" (pageChanged)="PageChanged($event)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #modalRole="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}">
+  <div class="modal-dialog modal-big" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="Item.RoleId==undefined">Thêm mới quyền</h4>
+          <h4 class="modal-title" *ngIf="Item.RoleId!=undefined">Cập nhật quyền</h4>
+          <button type="button" class="close" (click)="modalRole.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body body-form-add-new ">
+              <div class="col col-sm-12 col-md-12 row">
+                <div class="col col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Code">Người dùng<span *ngIf="Item.Type==undefined" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8 row">
+                      <div class="radio-inline col-md-4">
+                        <label><input type="radio" name="optradio" [(ngModel)]="Item.Type" value="1"> Tổ chức</label>
+                      </div>
+                      <div class="radio-inline col-md-4">
+                        <label><input type="radio" name="optradio" [(ngModel)]="Item.Type" value="2"> Hệ thống</label>
+                      </div>
+                      <div class="radio-inline col-md-4">
+                        <label><input type="radio" name="optradio" [(ngModel)]="Item.Type" value="3"> Cá nhân</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="Code">Mã quyền<span *ngIf="Item.Code==undefined || Item.Code==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <input type="text" id="Code" name="Code" class="form-control" placeholder="" [(ngModel)]="Item.Code" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="Name">Tên quyền<span *ngIf="Item.Name==undefined || Item.Name==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <input type="text" id="Name" name="Name" class="form-control" placeholder="" [(ngModel)]="Item.Name" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+                <!--<div class="col col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="LevelRole">Cấp độ</label>
+                    <div class="col-md-8">
+                      <input type="number" id="LevelRole" name="LevelRole" class="form-control" min="1" onkeypress="return event.charCode >= 48" [(ngModel)]="Item.LevelRole" onkeypress="return event.charCode >= 48" autocomplete="off">
+                    </div>
+                  </div>
+                </div>-->
+                <div class="col col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Note">Ghi chú</label>
+                    <div class="col-md-10">
+                      <textarea id="Note" name="Note" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Note"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <div class="col col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <table id="tbl-role" class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th class="stt-role">STT</th>
+                          <th class="">Tên chức năng</th>
+                          <th class="func-role">
+                            <span>Menu</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Menu" name="Menu" value="" [(ngModel)]="Action.Menu" (change)="changeAction(9)">
+                          </th>
+                          <th class="func-role">
+                            <span>Full</span>
+                          </th>
+                          <th class="func-role">
+                            <span>Xem</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="View" name="View" value="" [(ngModel)]="Action.View" (change)="changeAction(1)">
+                          </th>
+                          <th class="func-role">
+                            <span>Thêm</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Create" name="Create" value="" [(ngModel)]="Action.Create" (change)="changeAction(2)">
+                          </th>
+                          <th class="func-role">
+                            <span>Sửa</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Update" name="Update" value="" [(ngModel)]="Action.Update" (change)="changeAction(3)">
+                          </th>
+                          <th class="func-role">
+                            <span>Xóa</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Delete" name="Delete" value="" [(ngModel)]="Action.Delete" (change)="changeAction(4)">
+                          </th>
+                          <!--<th class="func-role">
+                            <span>Import</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Import" name="Import" value="" [(ngModel)]="Action.Import" (change)="changeAction(5)">
+                          </th>
+                          <th class="func-role">
+                            <span>Export</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Export" name="Export" value="" [(ngModel)]="Action.Export" (change)="changeAction(6)">
+                          </th>
+                          <th class="func-role">
+                            <span>Print</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Print" name="Print" value="" [(ngModel)]="Action.Print" (change)="changeAction(7)">
+                          </th>
+                          <th class="func-role">
+                            <span>Other</span>
+                            <input type="checkbox" value="None" class="checkbox1" id="Other" name="Other" value="" [(ngModel)]="Action.Other" (change)="changeAction(8)">
+                          </th>-->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of listFunction; let i = index" role="row">
+                          <td style=" text-align: center; font-weight: bold;" class="stt-role">{{ i + 1 }}</td>
+                          <td>
+                            <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Menu" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Full" [ngModelOptions]="{standalone: true}" (change)="changeFull(i)">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.View" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Create" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Update" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Delete" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <!--<td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Import" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Export" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Print" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>
+                          <td class="func-role">
+                            <input type="checkbox" value="None" class="checkbox1" [(ngModel)]="item.Other" [ngModelOptions]="{standalone: true}" (change)="changeCell()">
+                          </td>-->
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveRole()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="modalRole.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

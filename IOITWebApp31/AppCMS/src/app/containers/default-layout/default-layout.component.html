@@ -1,0 +1,358 @@
+<div class="themeStyle {{ClassTheme}}">
+  <header class="MuiPaper-root {{stick ? 'sticky' : ''}} {{activeSide}}">
+    <div class="MuiToolbar-root">
+      <div class="jss158">
+        <span class="MuiIconButton-label" (click)="openFullscreen()">
+          <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="expand-wide" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-expand-wide fa-w-16"><path fill="currentColor" d="M0 212V88c0-13.3 10.7-24 24-24h124c6.6 0 12 5.4 12 12v8c0 6.6-5.4 12-12 12H32v116c0 6.6-5.4 12-12 12h-8c-6.6 0-12-5.4-12-12zM364 64h124c13.3 0 24 10.7 24 24v124c0 6.6-5.4 12-12 12h-8c-6.6 0-12-5.4-12-12V96H364c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12zm148 236v124c0 13.3-10.7 24-24 24H364c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h116V300c0-6.6 5.4-12 12-12h8c6.6 0 12 5.4 12 12zM148 448H24c-13.3 0-24-10.7-24-24V300c0-6.6 5.4-12 12-12h8c6.6 0 12 5.4 12 12v116h116c6.6 0 12 5.4 12 12v8c0 6.6-5.4 12-12 12z" class=""></path></svg>
+          <span class="toolTip">Full Screen</span>
+        </span>
+      </div>
+      <div class="jss158">
+        <span class="MuiIconButton-label" (click)="changeDrankToggle()">
+          <svg aria-hidden="true" focusable="false" data-prefix="fal" data-icon="lightbulb" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline--fa fa-lightbulb fa-w-11"><path fill="currentColor" d="M176 0C73.05 0-.12 83.54 0 176.24c.06 44.28 16.5 84.67 43.56 115.54C69.21 321.03 93.85 368.68 96 384l.06 75.18c0 3.15.94 6.22 2.68 8.84l24.51 36.84c2.97 4.46 7.97 7.14 13.32 7.14h78.85c5.36 0 10.36-2.68 13.32-7.14l24.51-36.84c1.74-2.62 2.67-5.7 2.68-8.84L256 384c2.26-15.72 26.99-63.19 52.44-92.22C335.55 260.85 352 220.37 352 176 352 78.8 273.2 0 176 0zm47.94 454.31L206.85 480h-61.71l-17.09-25.69-.01-6.31h95.9v6.31zm.04-38.31h-95.97l-.07-32h96.08l-.04 32zm60.4-145.32c-13.99 15.96-36.33 48.1-50.58 81.31H118.21c-14.26-33.22-36.59-65.35-50.58-81.31C44.5 244.3 32.13 210.85 32.05 176 31.87 99.01 92.43 32 176 32c79.4 0 144 64.6 144 144 0 34.85-12.65 68.48-35.62 94.68zM176 64c-61.75 0-112 50.25-112 112 0 8.84 7.16 16 16 16s16-7.16 16-16c0-44.11 35.88-80 80-80 8.84 0 16-7.16 16-16s-7.16-16-16-16z" class=""></path></svg>
+          <span class="toolTip" *ngIf="isDark == true">Chế độ sáng</span>
+          <span class="toolTip" *ngIf="isDark == false">Chế độ tối</span>
+        </span>
+      </div>
+      <div class="jss158">
+        <span class="MuiIconButton-label" (click)="OpenModleSupport()" *ngIf="activeSide == '' || activeSide == 'non-active'">
+          <svg class="svg-inline--fa fa-desktop" aria-hidden="true" focusable="false" data-prefix="fal" data-icon="desktop" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M512 0H64C28.65 0 0 28.65 0 64v288c0 35.35 28.65 64 64 64h149.7l-19.2 64H144C135.2 480 128 487.2 128 496S135.2 512 144 512h288c8.836 0 16-7.164 16-16S440.8 480 432 480h-50.49l-19.2-64H512c35.35 0 64-28.65 64-64V64C576 28.65 547.3 0 512 0zM227.9 480l19.2-64h81.79l19.2 64H227.9zM544 352c0 17.64-14.36 32-32 32H64c-17.64 0-32-14.36-32-32V288h512V352zM544 256H32V64c0-17.64 14.36-32 32-32h448c17.64 0 32 14.36 32 32V256z"></path></svg>
+          <span class="toolTip">Mở rộng</span>
+        </span>
+        <span class="MuiIconButton-label" (click)="OpenModleSupport()" *ngIf="activeSide == 'active'">
+          <svg width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-window-sidebar">
+            <path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+            <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v2H1V3a1 1 0 0 1 1-1h12zM1 13V6h4v8H2a1 1 0 0 1-1-1zm5 1V6h9v7a1 1 0 0 1-1 1H6z" />
+          </svg>
+          <span class="toolTip">Thu gọn</span>
+        </span>
+      </div>
+    </div>
+    <div class="menu-top {{activeSide}}">
+      <app-sidebar-nav [navItems]="navItem" [perfectScrollbar] [disabled]="sidebarMinimized"></app-sidebar-nav>
+    </div>
+    <div class="DetailUser {{activeSide}}">
+      <ul class="nav navbar-nav ml-auto">
+      <!-- Quang sửa -->
+        
+        <!-- <li class="nav-item d-md-down-none" (click)="GetListNotification()">
+          <a class="nav-link" href="javascript:void(0)">
+            <span class="fa-stack fa-2x" [attr.data-count]="paging.item_count">
+              <i class="fa fa-circle fa-stack-1x" style="color: #c05300;"></i>
+              <i class="fa-light fa-bell fa-stack-1x fa-inverse fix-size"></i>
+            </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right customizeDropdownUser" *dropdownMenu aria-labelledby="simple-dropdown">
+            <a *ngFor="let item of listNotification; let i = index" class="dropdown-item" href="javascript:void(0)">
+              {{ item.Title }}
+            </a>
+          </div>
+        </li> -->
+      <!-- Quang sửa -->
+
+        <li class="nav-item dropdown" dropdown placement="bottom right">
+          <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+            <img *ngIf="userChangePass.Avatar == 'undefined'" src="../../../../assets/img/avatar.png" class="img-avatar" alt="{{userChangePass.FullName}}" />
+            <img *ngIf="userChangePass.Avatar != 'undefined'" src="{{ staticDomainMedia }}{{ userChangePass.Avatar }}" class="img-avatar" alt="{{userChangePass.FullName}}" />
+          </a>
+          <div class="dropdown-menu dropdown-menu-right customizeDropdownUser" *dropdownMenu aria-labelledby="simple-dropdown">
+            <div class="dropdown-header text-center"><strong>Xin chào: </strong>{{ userChangePass.FullName }}</div>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="OpenModalInfo()"><i class="fa-regular fa-user"></i><span class="text-info-user">Thông tin tài khoản</span></a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="OpenChangePasswordModal()"><i class="fa-regular fa-wrench"></i><span class="text-info-user">Đổi mật khẩu</span></a>
+            <a class="dropdown-item" href="javascript:void(0)" (click)="logout()"><i class="fa-solid fa-arrow-right-from-bracket"></i><span class="text-info-user">Đăng xuất</span></a>
+          </div>
+        </li>
+        <li class="ClockHome {{activeSide}}"><ul class="header-time"><li><h4>{{date}}</h4></li><li><span>{{nameDay}}, {{getDate}} tháng {{getMonth}}, {{getFullYear}}</span></li></ul></li>
+      </ul>
+    </div>
+
+  </header>
+  <div class="app-body {{stick ? 'stickyAddNew' : ''}}">
+    <!-- Main content -->
+    <main class="main {{activeSide}}">
+      <div class="Decoration-bgWrap-44401">
+        <div class="Decoration-bgbar-44405 Decoration-gradientBg-44406 Decoration-halfBg-44403">
+          <img *ngIf="ClassTheme == ''" src="../../../assets/img/smoth.svg" alt="decoration" class="Decoration-decorationWave-44408">
+          <img *ngIf="ClassTheme == 'dark'" src="../../../assets/img/smothDark.svg" alt="decoration" class="Decoration-decorationWave-44408">
+        </div>
+      </div>
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div><!-- /.container-fluid -->
+    </main>
+  </div>
+  <!--<app-footer>
+    <span><a href="https://cnttvietnam.vn/">IOIT</a> &copy; 2018 Viện công nghệ thông tin.</span>
+    <span class="ml-auto">Được hỗ trợ bởi <a href="http://www.ioit.ac.vn/">.NET Team - IOIT</a></span>
+  </app-footer>-->
+  <app-sidebar [fixed]="true" [display]="'lg'" class="Sidebar-drawer" id="{{activeSide}}">
+    <div class="SidebarContent-drawerHeader-12987">
+      <!-- Quang sửa -->
+      <!-- <a class="SidebarContent-brandBar-12990 active" href="{{staticDomain}}" target="_blank">
+        <img src="../../../assets/img/favicon.ico" />
+        Hệ thống Dataset
+      </a> -->
+      <a class="SidebarContent-brandBar-12990 active" href="{{staticDomain}}" target="_blank">
+        <img src="../../../assets/favico.png" />
+        Hệ thống quản trị
+      </a>
+      <!-- Quang sửa -->
+      <div class="SidebarContent-user">
+        <div class="SidebarContent-avatar">
+          <img *ngIf="userChangePass.Avatar == 'undefined'" src="../../../../assets/img/avatar.png" class="img-avatar" alt="{{userChangePass.FullName}}" />
+          <img *ngIf="userChangePass.Avatar != 'undefined'" src="{{ staticDomainMedia }}{{ userChangePass.Avatar }}" class="img-avatar" alt="{{userChangePass.FullName}}" />
+        </div>
+        <div class="infoUser">
+          <h2 class="chuc_vu">{{ChucVu}}</h2>
+          <h4 *ngIf="userChangePass.FullName == 'Admin'">Administrator</h4>
+          <h4 *ngIf="userChangePass.FullName != 'Admin'">{{userChangePass.FullName}}</h4>
+          <span><svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="circle" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-circle fa-w-16" style="--fa-secondary-opacity:0.1;"><g class="fa-group"><path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 424c-97.06 0-176-79-176-176S158.94 80 256 80s176 79 176 176-78.94 176-176 176z" class="fa-secondary"></path><path fill="currentColor" d="M256 432c-97.06 0-176-79-176-176S158.94 80 256 80s176 79 176 176-78.94 176-176 176z" class="fa-primary"></path></g></svg> online</span>
+        </div>
+      </div>
+    </div>
+    <app-sidebar-nav [navItems]="navItem" [perfectScrollbar] [disabled]="sidebarMinimized"></app-sidebar-nav>
+    <!--<app-sidebar-minimizer></app-sidebar-minimizer>-->
+  </app-sidebar>
+  <div bsModal #supportModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md supportModle" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Hỗ Trợ</h4>
+          <button type="button" class="close" (click)="supportModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div bsModal #ChangePasswordModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+      <form class="login-form">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Đổi mật khẩu</h4>
+            <button type="button" class="close" (click)="ChangePasswordModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body body-form-add-new">
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-6 col-form-label" for="PasswordOld">Mật khẩu hiện tại<span *ngIf="userChangePass.PasswordOldE==undefined || userChangePass.PasswordOldE==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-6">
+                      <input type="password" id="PasswordOld" name="PasswordOld" class="form-control" placeholder="" [(ngModel)]="userChangePass.PasswordOldE">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-6 col-form-label" for="PasswordNew">Mật khẩu mới<span *ngIf="userChangePass.PasswordNewE==undefined || userChangePass.PasswordNewE==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-6">
+                      <input type="password" id="PasswordNew" name="PasswordNew" class="form-control" placeholder="" [(ngModel)]="userChangePass.PasswordNewE">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-6 col-form-label" for="ConfirmPassword">Xác nhận mật khẩu<span *ngIf="userChangePass.ConfirmPassword==undefined || userChangePass.ConfirmPassword=='' || userChangePass.PasswordNewE!=userChangePass.ConfirmPassword" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-6">
+                      <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control" placeholder="" [(ngModel)]="userChangePass.ConfirmPassword">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="ChangePassword()">Lưu</button>
+            <button type="button" class="btn btn-danger" (click)="ChangePasswordModal.hide()">Đóng</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div bsModal #modalMyInfo="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" [config]="{backdrop: 'static',  keyboard: false}">
+    <div class="modal-dialog modal-big" role="document">
+      <form class="login-form">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Thông tin tài khoản</h4>
+            <button type="button" class="close" (click)="modalMyInfo.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body body-form-add-new">
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="FullName">Tên người dùng<span *ngIf="Item.FullName==undefined || Item.FullName==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <input type="text" id="FullName" name="FullName" class="form-control" placeholder="" [(ngModel)]="Item.FullName" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="UserName">Tài khoản<span *ngIf="Item.UserName==undefined || Item.UserName==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <input type="text" id="UserName" name="UserName" class="form-control" placeholder="" [(ngModel)]="Item.UserName" autocomplete="off" disabled="">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Ảnh đại diện</label>
+                    <div class="col-md-8">
+                      <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal()" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400;">Đặt ảnh đại diện</a>
+                      <input type="text" name="image" value="" [(ngModel)]="Item.Avata" hidden />
+                      <div style="font-weight:bold;color:green;display:flex;align-items:center;">
+                        <img class="image-upload" *ngIf="Item.Avata != undefined" src="{{staticDomainMedia}}/{{ Item.Avata }}" style="width:80px;height:80px;object-fit:cover;" />
+                        <div style="color: red; font-size: 15px; cursor: pointer;margin-left:12px;" (click)="RemoveImage()" *ngIf="Item.Avata != undefined">
+                          <i class="fa-duotone fa-trash"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="EmailUser">Email</label>
+                    <div class="col-md-8">
+                      <input type="text" id="EmailUser" name="EmailUser" class="form-control" placeholder="" [(ngModel)]="Item.Email" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Address">Địa chỉ</label>
+                    <div class="col-md-8">
+                      <input type="text" id="Address" name="Address" class="form-control" placeholder="" [(ngModel)]="Item.Address" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Phone">Số điện thoại</label>
+                    <div class="col-md-8">
+                      <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="SaveInfo()">Lưu</button>
+            <button type="button" class="btn btn-danger" (click)="modalMyInfo.hide()">Đóng</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!--Modal Views Media File-->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #OpenMediaFile="bs-modal" class="modal fade modal-views-media" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="attachments-wrapper">
+    <div class="edit-media-header">
+      <div class="media-frame-title"><h1>Thư viện Media</h1></div>
+      <button type="button" class="media-modal-close" (click)="CloseMediaModal()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <div class="media-frame-router">
+      <ul class="head-tab">
+        <li class="item {{isActiveMedia ? 'active' : ''}}" (click)="tabHandleMedia()">Thư viện</li>
+        <li class="item {{isActiveUpload ? 'active' : ''}}" (click)="tabHandleMediaUpload()">Tải lên</li>
+      </ul>
+    </div>
+    <div class="upload-file {{isActiveUpload ? 'active' : 'hiden'}}">
+      <div class="wapper-modal-upload">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="card" style="border: none; padding: 1.5rem; margin-bottom: unset;">
+              <div class="card-body body-form-add-new">
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <div class="drag-drop-area">
+                      <div class="drag-drop-inside">
+                        <p class="drag-drop-info">Tải lên từ máy tính</p>
+                        <div class="progress" style=" height: 14px; margin-top: 10px; font-style: italic; font-weight: 500;" *ngIf="progress!=undefined">
+                          <div class="progress-bar progress-bar-striped bg-success"
+                               role="progressbar"
+                               aria-valuemin="0"
+                               aria-valuemax="100"
+                               [style.width.%]="progress"
+                               [attr.aria-valuenow]="progress">
+                            {{progress}}%
+                          </div>
+                        </div>
+                        <p class="drag-drop-buttons">
+                          <label for="upload-photo" class="label-upload">Tải lên <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cloud-upload-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-cloud-upload-alt fa-w-20"><path fill="currentColor" d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z" class=""></path></svg></label>
+                          <input #file type="file" (change)="upload3(file.files, 1)" id="upload-photo" />
+                        </p>
+                      </div>
+                      <div class="post-upload-ui" id="post-upload-info">
+                        <p class="max-upload-size">
+                          Kích thước tập tin tải lên tối đa: 512 MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-media {{isActiveMedia ? 'active' : 'hiden'}}">
+      <div class="attachments-ui">
+        <div class="attachment save-ready" *ngFor="let item of listItemMedia; let i = index">
+          <div class="thumb" (click)="SeclectMedia(item)">
+            <img src="{{staticDomainMedia}}{{ item.url }}/{{ item.name }}" alt="{{item.name}}" *ngIf="item.type == 1" />
+            <img src="{{staticDomain}}images/document.png" alt="media upload" *ngIf="item.type == 4" />
+            <img src="{{staticDomain}}images/audio.png" alt="media upload" *ngIf="item.type == 2" />
+            <img src="{{staticDomain}}images/video.png" alt="media upload" *ngIf="item.type == 3" />
+            <!--<div class="check-media">
+    <input type="radio" value="{{staticDomainMedia}}{{ item.url }}/{{ item.name }}" class="checkbox" name="media-parimary">
+  </div>-->
+          </div>
+        </div>
+      </div>
+      <div class="load-more-wrapper">
+        <span class="spinner"></span>
+        <p class="load-more-count">Đang hiển thị {{countMedia}} của {{countAllMedia}} file media</p>
+        <button type="button" class="button load-more button-primary {{isDelay ? 'hiden' : ''}}" (click)="loadMore()">Tải thêm</button>
+        <!--<button type="button" class="button chonse-media button-primary {{isDelay ? 'hiden' : ''}}" (click)="ChonseImage()">Chọn ảnh</button>-->
+        <div class="{{isDelay ? 'active' : 'hiden'}}">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="60px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <g>
+              <circle cx="73.801" cy="68.263" fill="#e15b64" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="0s"></animateTransform>
+              </circle>
+              <circle cx="68.263" cy="73.801" fill="#f47e60" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.062s"></animateTransform>
+              </circle>
+              <circle cx="61.481" cy="77.716" fill="#f8b26a" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.125s"></animateTransform>
+              </circle>
+              <circle cx="53.916" cy="79.743" fill="#abbd81" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.187s"></animateTransform>
+              </circle>
+              <circle cx="46.084" cy="79.743" fill="#849b87" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.25s"></animateTransform>
+              </circle>
+              <circle cx="38.519" cy="77.716" fill="#6492ac" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.312s"></animateTransform>
+              </circle>
+              <circle cx="31.737" cy="73.801" fill="#637cb5" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.375s"></animateTransform>
+              </circle>
+              <circle cx="26.199" cy="68.263" fill="#6a63b6" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.437s"></animateTransform>
+              </circle>
+              <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;0 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s"></animateTransform>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .ng-select .ng-select-container {
+    min-height: 30px !important;
+  }
+
+  .select-itembox .ng-select-container {
+    height: 30px !important;
+  }
+</style>

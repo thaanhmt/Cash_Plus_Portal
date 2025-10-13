@@ -1,0 +1,70 @@
+﻿<div class="modal-header ng-scope">
+    <h5 class="modal-title" ng-bind-html="title"></h5>
+    <button type="button" class="btn-close" aria-label="Close" ng-click="closeListDocumentEdit()">
+        <span aria-hidden="true">×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form name="formListDocument" ng-submit="saveListDocumentEdit()" autocomplete="off" novalidate>
+        <div class="">
+            <div class="row">
+                <div class="col-md-6">
+                    <!--Tên tài liệu-->
+                    <div class="lstFrmInfoUser">
+                        <span class="text-danger">*<p class="">Loại tài liệu</p></span>
+                        <div class="w-100 col-sm-3 col-md-3" id="input-otherDocument-type">
+                            <ui-select ng-model="otherDocument.name" required
+                                       name="name" id="name" theme="select2" ng-disabled="disabled"
+                                       title="{{ $select.selected.name }}">
+                                <ui-select-match allow-clear="true" placeholder="Chọn loại tài liệu">
+                                    {{ $select.selected.name }}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item.id as item in otherDocumentTypes | filter: $select.search" position="down">
+                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                            <span class="error" ng-show="formListDocument.$submitted && formListDocument.name.$invalid">
+                                <span class="text-danger" ng-show="formListDocument.name.$error.required">Loại tài liệu là bắt buộc.</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <!--Link tài liệu-->
+                    <div class="lstFrmInfoUser">
+                        <span class="">Link tài liệu<span class="text-danger">*</span></span>
+                        <div class="w-100 col-sm-3 col-md-3 input-group" id="input-otherDocument-link">
+                            <input type="text" class="form-control" ng-model="otherDocument.link"
+                                   required
+                                   ng-pattern="/^(?:(?:https?|ftp)://)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:\/[^\s]*)?$/"
+                                   name="link" id="link" ng-bind-html="otherDocument.link">
+                            <span class="input-group-text p-0" id="addon-wrapping">
+                                <span>
+                                    <button onclick="selectImage(8, event)" style="cursor: pointer; border-radius: 0 !important;" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải file</button>
+                                    <input type="file" id="fileInput8" style="display: none;" onchange="angular.element(this).scope().uploadOtherDocument(this)">
+                                </span>
+                            </span>
+                        </div>
+                        <span class="error" ng-show="(formListDocument.link.$touched || formListDocument.$submitted) && formListDocument.link.$invalid">
+                            <span class="text-danger" ng-show="formListDocument.link.$error.required">Link tài liệu là bắt buộc.</span>
+                            <span class="text-danger" ng-show="formListDocument.link.$error.pattern">Đường link không hợp lệ.</span>
+                        </span>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <div class="row justify-content-md-center">
+                <div class="col col-lg-2"></div>
+                <div class="col-md-auto">
+                    <button type="button" class="btn btn-default" ng-click="closeListDocumentEdit()">Hủy</button>
+                    <button type="submit" class="btn btn-primary" ng-bind-html="otherDocument.id ? 'Sửa' : 'Thêm'"></button>
+                </div>
+                <div class="col col-lg-2"></div>
+            </div>
+        </div>
+    </form>
+</div>

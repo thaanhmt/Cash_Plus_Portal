@@ -1,0 +1,905 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Danh sách bộ dữ liệu</h1>
+      <!--<button class="cms-addnew" type="button" (click)="OpenDataModal(undefined, 0)" *ngIf="CheckRole.Create"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>-->
+    </div>
+    <!--<div class="description-page">
+      <blockquote class="{{isNoitify ? 'hidden' : ''}}">
+      <blockquote class="{{isNoitify ? 'hidden' : ''}}">
+        <p>Trạng thái</p>
+        <a class="close" href="javascript:void(0)" (click)="closeNoityfy()"><span>×</span></a>
+      </blockquote>
+    </div>-->
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="container-fluid dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row cms-filter top-filter">
+          <div class="col-sm-12 col-md-12" style="display: flex; justify-content: flex-end;align-items: flex-end;">
+            <label style="margin-right:10px;display: flex;align-items: center;">
+              <span class="search-box">Tìm kiếm</span>
+              <input type="text" class="form-control form-control-sm" placeholder="Tìm kiếm theo tiêu đề dữ liệu, tác giả...." aria-controls="DataTables_Table_0" [(ngModel)]="q.txtSearch" (keyup.enter)="QueryChanged()">
+            </label>
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+              <label>
+                Xem&nbsp;
+                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.page_size" (change)="GetListData()">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>&nbsp;bản ghi
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row cms-filter action-table">
+          <!--<div class="col-sm-6 col-md-3" style="padding:0">
+            <ng-select class="mw150-select"
+                       [items]="ActionTable"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [clearable]="true"
+                       placeholder="Tác vụ"
+                       [(ngModel)]="ActionId"
+                       [ngModelOptions]="{standalone: true}">
+            </ng-select>
+            <button class="cms-addnew button-action" type="button" [disabled]="!ActionId" (click)="ActionTableFunc()">&nbsp;Áp dụng</button>
+          </div>-->
+          <div class="col-sm-12 col-md-12">
+            <ng-select [items]="listApplicationRange"
+                       class="select"
+                       bindLabel="Name"
+                       bindValue="CategoryId"
+                       [multiple]="false"
+                       placeholder="Phạm vi ứng dụng"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.ApplicationRangeId"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <ng-select [items]="listResearchArea"
+                       class="select"
+                       bindLabel="Name"
+                       bindValue="CategoryId"
+                       [multiple]="false"
+                       placeholder="Lĩnh vực nghiên cứu"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.ResearchAreaId"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <ng-select [items]="listUnit"
+                       class="select"
+                       bindLabel="Name"
+                       bindValue="UnitId"
+                       [multiple]="false"
+                       placeholder="Cơ quan/tổ chức"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.UnitId"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <ng-select [items]="listTypes"
+                       class="select"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [multiple]="false"
+                       placeholder="Loại dữ liệu"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.Type"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <!--<ng-select [items]="listLanguage"
+             class="mw150-select"
+             bindLabel="Name"
+             bindValue="LanguageId"
+             [multiple]="false"
+             placeholder="Ngôn ngữ"
+             (change)="QueryChanged()"
+             [(ngModel)]="q.LanguageId"
+             [ngModelOptions]="{standalone: true}"
+             style="text-align:left;">
+  </ng-select>-->
+            <ng-select [items]="listStatus"
+                       class="select"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [multiple]="false"
+                       placeholder="Trạng thái"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.Status"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <ng-select [items]="listAuthors"
+                       class="select"
+                       bindLabel="FullName"
+                       bindValue="CustomerId"
+                       [multiple]="false"
+                       placeholder="Người tạo dữ liệu"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.CustomerId"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <ng-select [items]="listHots"
+                       class="select"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [multiple]="false"
+                       placeholder="Dữ liệu nổi bật"
+                       (change)="QueryChanged()"
+                       [(ngModel)]="q.Hot"
+                       [ngModelOptions]="{standalone: true}"
+                       style="text-align:left;">
+            </ng-select>
+            <!--<input placeholder="Ngày tạo từ"
+         class="mw150-select date-pick"
+         onkeydown="return false"
+         [(ngModel)]="q.DateStart"
+         #dateStart
+         (change)="QueryChanged()"
+         [ngModelOptions]="{standalone: true}"
+         [owlDateTimeTrigger]="dtSS" [owlDateTime]="dtSS"
+         style=" margin-top: 10px;">
+  <owl-date-time [pickerType]="'calendar'" #dtSS></owl-date-time>
+  <input placeholder="Ngày tạo đến"
+         class="mw150-select date-pick no-grap"
+         onkeydown="return false"
+         [(ngModel)]="q.DateEnd"
+         #dateEnd
+         (change)="QueryChanged()"
+         [ngModelOptions]="{standalone: true}"
+         [owlDateTimeTrigger]="dtEE" [owlDateTime]="dtEE">
+  <owl-date-time [pickerType]="'calendar'" #dtEE></owl-date-time>-->
+            <button *ngIf="CheckRole.View" class="cms-addnew button-action" type="button" (click)="QueryChanged()">&nbsp;Tìm kiếm</button>
+          </div>
+        </div>
+        <div class="row content-table-data table-dataset-manage">
+          <div class="col-sm-12">
+            <table class="table table-striped table-bordered datatable dataTable no-footer list-cat " id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
+              <thead>
+                <tr role="row">
+                  <!--<th class="btn-action-table" style="width:15px;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="CheckAll" name="CheckAll" [value]="true" (change)="CheckActionTable(undefined)" [(ngModel)]="CheckAll">
+                      <label for="CheckAll"><span></span></label>
+                    </div>
+                  </th>-->
+                  <th class="text-center w-stt">
+                    STT
+                  </th>
+                  <th class="text-center small-50-1366 col-tt-dataset"><span class="hide-1366">Trạng thái</span><span class="show-1366">Trạng thái</span></th>
+                  <th class="text-center small-50-1366 col-dx-dataset"><span class="hide-1366">Đề xuất công khai</span><span class="show-1366">Đề xuất công khai</span></th>
+                  <th class="text-left column-name-key">
+                    <span class="sortBy" [ngClass]="GetClassSortTable('Title')" (click)="SortTable('Title')">Tiêu đề</span>
+                  </th>
+                  <th class="text-center small-50-1366 col-dl-dataset"><span class="hide-1366">Tệp dữ liệu</span><span class="show-1366">Dữ liệu</span></th>
+                  <th>Phạm vi ứng dụng</th>
+                  <th>Lĩnh vực nghiên cứu</th>
+                  <th>Cơ quan/tổ chức</th>
+                  <!--<th class="text-center" *ngIf="listLanguage.length > 1">Ngôn ngữ</th>-->
+                  <!--<th class="text-center" style="width:80px;">
+                    Lượt xem
+                  </th>-->
+                  <th class="text-center">
+                    Người tạo
+                  </th>
+                  <th class="text-center hide-1366">
+                    Ngày tạo
+                  </th>
+                  <!--<th class="text-center" style="width:65px;">Ẩn/Hiện</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listDatas; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                  <!--<td class="btn-action-table" style="padding: 0.75rem!important;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="Check{{item.NewsId}}" name="Check{{item.NewsId}}" [value]="true" [(ngModel)]="item.Action" (change)="CheckActionTable(item.NewsId)">
+                      <label for="Check{{item.NewsId}}"><span></span></label>
+                    </div>
+                  </td>-->
+                  <td class="text-center">
+                    {{i+1}}
+                  </td>
+                  <td class="text-center">
+                    <span *ngIf="item.Status==10">Tạo mới</span>
+                    <span *ngIf="item.Status==3">Chờ phê duyệt</span>
+                    <span *ngIf="item.Status==2">Đã duyệt</span>
+                    <span *ngIf="item.Status==1">Đã công khai</span>
+                    <span *ngIf="item.Status==4 || item.Status==5">Không duyệt</span>
+                  </td>
+                  <td>
+                    <label style="display: block; padding-top: 2px; margin: auto;" class="switch switch-label switch-pill switch-outline-primary-alt">
+                      <input type="checkbox" class="switch-input" [disabled]="true" />
+                      <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+                    </label>
+                  </td>
+                  <td class="column-name name-child">
+                    {{item.Title}}
+                    <ul class="cms-function">
+                      <li class="id-item">ID: {{item.DataSetId}} | </li>
+                      <!--<li *ngIf="CheckRole.Update" (click)="OpenDataModal(item, 1)">Chỉnh sửa | </li>-->
+                      <li *ngIf="CheckRole.View" (click)="OpenViewModal(item)">Xem </li>
+                      <li *ngIf="CheckRole.Update && item.IsHot!=true && item.Status==1" (click)="UpdateHot(item, true)">| Nổi bật</li>
+                      <li *ngIf="CheckRole.Update && item.IsHot==true && item.Status==1" (click)="UpdateHot(item, false)">| Hủy nổi bật</li>
+                      <!--<li *ngIf="CheckRole.Update" (click)="OpenDataModal(item)">Duyệt nội bộ |</li>
+                      <li *ngIf="CheckRole.Update" (click)="OpenDataModal(item)">Duyệt công khai</li>-->
+                      <li *ngIf="CheckRole.Delete && item.Status!=1 && item.Status!=2 && item.Status!=3" (click)="ShowConfirmDelete(item.DataSetId)" class="detete-item">| Xóa</li>
+                    </ul>
+                  </td>
+                  <td class="text-center column-hs">
+                    <!--<span (click)="DownloadFileRar(item.DataSetId)"> Tải về</span>-->
+                    <span (click)="DownloadFileRar(item.DataSetId)" style="color: #2271b1; cursor:pointer;"><i class="fa-light fa-cloud-arrow-down" style=" margin-right: 5px;"></i> <span class="hide-1366">Tải về</span></span>
+                  </td>
+                  <td class="text-left hidden-2Line">
+                    <div *ngFor="let cate of item.applicationRange" class="badge badge-pill badge-light">
+                      <i class="fa-solid fa-circle-small" style="color: #0073aa; margin-right: 5px; font-size: 7px; "></i><a>{{cate.Name}}</a>
+                    </div>
+                    <div class="more" *ngIf="item.applicationRange.length > 2" (click)="OpenModalDetailCate(item, 1)" title="Xem chi tiết"><i class="fa-regular fa-chevron-down"></i></div>
+                  </td>
+                  <td class="hidden-2Line">
+                    <div *ngFor="let cate of item.researchArea" class="badge badge-pill badge-light">
+                      <i class="fa-solid fa-circle-small" style="color: #0073aa; margin-right: 5px; font-size: 7px; "></i><a>{{cate.Name}}</a>
+                    </div>
+                    <div class="more" *ngIf="item.researchArea.length > 2" (click)="OpenModalDetailCate(item, 2)" title="Xem chi tiết"><i class="fa-regular fa-chevron-down"></i></div>
+                  </td>
+                  <td class="hidden-2Line">
+                    <div *ngFor="let cate of item.unit" class="badge badge-pill badge-light">
+                      <i class="fa-solid fa-circle-small" style="color: #0073aa; margin-right: 5px; font-size: 7px; "></i><a>{{cate.Name}}</a>
+                    </div>
+                    <div class="more" *ngIf="item.unit.length > 2" (click)="OpenModalDetailCate(item, 3)" title="Xem chi tiết"><i class="fa-regular fa-chevron-down"></i></div>
+                  </td>
+                  <td class="text-center column-hs">
+                    <span>{{ item.userCreated?.FullName }}</span>
+                    <br />
+                    <span>({{ item.userCreated?.Email }})</span>
+                  </td>
+                  <td class="text-center column-hs hide-1366">
+                    <!--<span>{{item.PublicName}}</span>
+                    <br />-->
+                    <span>{{item.CreatedAt | date: 'dd/MM/yyyy'}}</span>
+                  </td>
+                  <!--<th class="text-center" *ngIf="listLanguage.length > 1">
+                    <span *ngFor="let lang of item.listLanguage" style="padding-right:5px;" (click)="OpenNewsModal(lang.news, 3)">
+                      <img src="{{staticDomainMedia}}{{ lang.Flag }}" style="height:15px; width:25px;" />
+                    </span>
+                    <span *ngIf="item.listLanguage != undefined">
+                      <span (click)="OpenNewsModal(item, 2)" *ngIf="item.listLanguage.length < listLanguage.length - 1" title="Thêm bài viết cho ngôn ngữ khác">
+                        <i class="fa fa-plus"></i>
+                      </span>
+                    </span>
+
+                  </th>-->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row cms-paging">
+          <div class="col-sm-12 col-md-5">
+            <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+              Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i class="fa fa-long-arrow-right"></i>  <span>{{ paging.item_count < paging.page * paging.page_size ? paging.item_count : paging.page * paging.page_size }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{ paging.item_count }}</span> bản ghi
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-7">
+            <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5" [itemsPerPage]="paging.page_size" class="pagination-sm pull-right"
+                        previousText='<i class="fa-solid fa-chevron-left"></i>' nextText='<i class="fa-solid fa-chevron-right"></i>' [boundaryLinks]="true" (pageChanged)="PageChanged($event)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #DataModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-big" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="!Item.DataSetId">Thêm mới dữ liệu</h4>
+          <button type="button" class="close" (click)="DataModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12 row" style="margin: 10px 0px 0px;background: #f1f1f1;">-->
+<!--<div class="col col-sm-12 col-md-12">
+  <div class="form-group" style="text-align:center;">
+    <label class="col-form-label" style="font-size: 20px;">Thêm mới dữ liệu</label>
+  </div>
+</div>-->
+<!--<div class="col col-sm-12 col-md-12">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Title">Tiêu đề: <span *ngIf="Item.Title==undefined || Item.Title==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-10">
+                      <input type="text" id="Title" name="Title" class="form-control" placeholder="" [(ngModel)]="Item.Title" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="ApplicationRangeId">Phạm vi ứng dụng: <span *ngIf="Item.ApplicationRangeId==undefined" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <ng-select [items]="listApplicationRange"
+                                 bindLabel="Name"
+                                 bindValue="CategoryId"
+                                 placeholder="Chọn phạm vi ứng dụng"
+                                 [(ngModel)]="Item.ApplicationRangeId"
+                                 [ngModelOptions]="{standalone: true}">
+                        <ng-template ng-label-tmp let-item="item">
+                          <span>{{item.Name}}</span>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                          <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                    <div class="col-md-2">
+                      <button style="border:1px solid #000000;border-radius:5px;">...</button>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="ResearchAreaId">Lĩnh vực nghiên cứu: <span *ngIf="Item.ResearchAreaId==undefined" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <ng-select [items]="listResearchArea"
+                                 bindLabel="Name"
+                                 bindValue="CategoryId"
+                                 placeholder="Chọn lĩnh vực nghiên cứu"
+                                 [(ngModel)]="Item.ResearchAreaId"
+                                 [ngModelOptions]="{standalone: true}">
+                        <ng-template ng-label-tmp let-item="item">
+                          <span>{{item.Name}}</span>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                          <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                    <div class="col-md-2">
+                      <button style="border:1px solid #000000;border-radius:5px;">...</button>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="UserName">Nội dung mô tả: <span *ngIf="Item.Description==undefined || Item.Description==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-10">
+                      <textarea id="Description" name="Description" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Description"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="AuthorName">Tên tác giả: <span *ngIf="Item.AuthorName==undefined || Item.AuthorName==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-10">
+                      <input type="text" id="Url" name="Url" class="form-control" placeholder="" [(ngModel)]="Item.AuthorName" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="AuthorPhone">Số điện thoại:</label>
+                    <div class="col-md-10">
+                      <input type="text" id="AuthorPhone" name="AuthorPhone" class="form-control" placeholder="" [(ngModel)]="Item.AuthorPhone" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="AuthorEmail">Email: </label>
+                    <div class="col-md-10">
+                      <input type="text" id="AuthorEmail" name="AuthorEmail" class="form-control" placeholder="" [(ngModel)]="Item.AuthorEmail" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Version">Phiên bản tài liệu:</label>
+                    <div class="col-md-10">
+                      <input  type="text" id="Version" name="Version" class="form-control" placeholder="" [(ngModel)]="Item.Version" autocomplete="off">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="Note">Nguồn:</label>
+                    <div class="col-md-10">
+                      <textarea id="Note" name="Note" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Note"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-12" style="margin: 10px 0;">
+                  <div class="form-group row">
+                    <div class="col-md-12" style="margin: 10px 0;">
+                      <button>Tải lên dữ liệu</button>
+                    </div>
+                    <div class="col-md-12">
+                      <div style="border: 1px solid #e4e7ea;border-radius: 0.25rem;">
+                        <div class="role-to-data">
+                          <table class="table table-striped table-role table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+                            <thead>
+                              <tr role="row">
+                                <th rowspan="1" colspan="1" style="width: 15px;">STT</th>
+                                <th rowspan="1" colspan="1" style="width: 500px;">Tên File dữ liệu</th>
+                                <th rowspan="1" colspan="1" style="width: 80px;">Loại file</th>
+                                <th rowspan="1" colspan="1" style="width: 80px;">Dung lượng</th>
+                                <th rowspan="1" colspan="1" style="width: 100px;">Thao tác</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of listFiles; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                                <td style="text-align: center;"><b>{{ i + 1 }}</b></td>
+                                <td class="sorting_1">{{ item.Name }}</td>
+                                <td>{{ item.Note }}</td>
+                                <td>{{ item.Note }}</td>
+                                <td>{{ item.Note }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <label class="col-md-4 col-form-label" for="">Trạng thái (*): </label>
+                    <div class="col-md-8">
+                      <ng-select [items]="listStatus"
+                                 bindLabel="Name"
+                                 bindValue="Id"
+                                 placeholder="Chọn trạng thái"
+                                 [(ngModel)]="Item.Status"
+                                 [ngModelOptions]="{standalone: true}">
+                        <ng-template ng-label-tmp let-item="item">
+                          <span>{{item.Name}}</span>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                          <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col col-sm-12 col-md-6">
+                  <div class="form-group row">
+                    <div class="col-md-8 row">
+                      <div class="radio-inline col-md-8">
+                        <label>
+                        <input type="checkbox" name="optradio" [(ngModel)]="Item.IsPublish" value="1"> Đề xuất công khai</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveData(1)">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="DataModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>-->
+<!-- View dữ liệu -->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #ViewModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-big" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Xem dữ liệu</h4>
+          <button type="button" class="close" (click)="ViewModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12 row" style="margin: 10px 0px 0px;">
+                <div class="heading">
+                  <div class="form-group" style="text-align:left;">
+                    <label class="col-form-label" style="font-size: 20px;">Tiêu đề: {{Item.Title}}</label>
+                  </div>
+                </div>
+                <div class="col col-sm-12 col-md-12">
+                  <div class="form-group row">
+                      <div [innerHTML]="Item.Contents"></div>
+                  </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-12" style="margin: 10px 0;">
+                  <div class="form-group row">
+                    <div class="col-md-6" style="margin: 10px 0;background:#f1f1f1;padding-top:10px;">
+                      <div class="form-group row">
+                        <label class="col-md-4">Phạm vi ứng dụng:</label>
+                        <div class="col-md-8">
+                          <p *ngFor="let item of Item.applicationRange;">{{item.Name}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Lĩnh vực nghiên cứu:</label>
+                        <div class="col-md-8">
+                          <p *ngFor="let item of Item.researchArea;">{{item.Name}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Tên tác giả:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.AuthorName}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Số điện thoại:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.AuthorPhone}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Email:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.AuthorEmail}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" style="margin: 10px 0; background: #f1f1f1; padding-top: 10px;">
+                      <div class="form-group row">
+                        <label class="col-md-4">Loại dữ liệu:</label>
+                        <div class="col-md-8">
+                          <p *ngIf="Item.Type==1">Tổ chức</p>
+                          <p *ngIf="Item.Type==2">Cá nhân</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Ngày tạo:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.CreatedAt | date:'dd/MM/yyyy HH:mm'}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Ngày cập nhật:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.UpdatedAt | date:'dd/MM/yyyy HH:mm'}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Phiên bản tài liệu:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.Version}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Nguồn:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.Note}}</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6" style="margin: 10px 0; background: #f1f1f1; padding-top: 10px;">
+                      <div class="form-group row">
+                        <label class="col-md-4">Người đăng tải:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.userCreated?.FullName}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Tổ chức:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.userCreated?.UnitName}}</p>
+                        </div>
+                      </div>
+                      <!--<div class="form-group row">
+                        <label class="col-md-4">Phòng ban:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.DepartmentName}}</p>
+                        </div>
+                      </div>-->
+                    </div>
+                    <div class="col-md-6" style="margin: 10px 0; background: #f1f1f1; padding-top: 10px;">
+                      <div class="form-group row">
+                        <label class="col-md-4">Tổng số lượt xem:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.ViewNumber}}</p>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-md-4">Tổng số lượt tải về:</label>
+                        <div class="col-md-8">
+                          <p>{{Item.DownNumber}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!--  -->
+                    <div class="col-md-12">
+                      <div style="border: 1px solid #e4e7ea;border-radius: 0.25rem;">
+                        <div class="role-to-data">
+                          <table class="table table-bordered align-middle" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+                            <thead>
+                              <tr role="row">
+                                <th class="" style="width: 50px;text-align:center;">STT</th>
+                                <th class="" style="text-align: center;">Tên File dữ liệu</th>
+                                <th class="" style="width: 90px; text-align: center;">Loại file</th>
+                                <th class="" style="width: 120px; text-align: center;">Dung lượng</th>
+                                <th class="" style="width: 180px; text-align: center;">Thao tác</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="let item of Item.listFiles; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                                <td style="text-align: center;"><b>{{ i + 1 }}</b></td>
+                                <td class="sorting_1" style="text-align:center;">{{item.Name}}</td>
+                                <td style="text-align:center;">
+                                  {{item.ExtensionName}}
+                                </td>
+                                <td style="text-align:center;">{{item.Storage/1000}} KB</td>
+                                <td style="text-align:center;">
+                                  <button class="btn btn btn-info" style="margin-right:5px;" (click)="ViewFile(item.AttactmentId)"
+                                          *ngIf="item.ExtensionName == 'PDF' || item.ExtensionName == 'PNG' || item.ExtensionName == 'JPEG'">
+                                    <i class="fa-light fa-eye"></i> Xem
+                                  </button>
+                                  <button class="btn btn-secondary" (click)="DownloadFile(item)"><i class="fa-light fa-download"></i> Tải về</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col col-sm-12 col-md-12" style="margin:10px 0;">
+                  <div class="form-group" style="text-align:center;">
+                    <span *ngIf="fileView.Extension==1">
+                      <iframe [src]="pdfBase64" style="width:100%; height:500px;" frameborder="0"></iframe>
+                    </span>
+                    <span *ngIf="fileView.Extension==9 || fileView.Extension==10">
+                      <img [src]="dataFile" alt="Image" />
+                    </span>
+                  </div>
+                  <div class="form-group" *ngIf="Item.Status==2 || Item.Status==1">
+                    <label>Thông tin phê duyệt</label>
+                    <div class="row">
+                      <div class="col col-md-6" style="margin: 10px 0 0; background: #f1f1f1; padding-top: 10px;">
+                        <div class="form-group row">
+                          <label class="col-md-4">Trạng thái phê duyệt:</label>
+                          <div class="col-md-8">
+                            <p *ngIf="Item.Status==2">Phê duyệt</p>
+                            <p *ngIf="Item.Status==1">Công khai</p>
+                            <p *ngIf="Item.Status==4 || Item.Status==5">Không phê duyệt</p>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-md-4">Người duyệt:</label>
+                          <div class="col-md-8">
+                            <p *ngIf="(Item.Status==2 || Item.Status==4 || Item.Status==5) && Item.userApproved!= undefined">{{Item.userApproved.FullName}}</p>
+                            <p *ngIf="Item.Status==1 && Item.userPublished!= undefined">{{Item.userPublished.FullName}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col col-md-6" style="margin: 10px 0 0; background: #f1f1f1; padding-top: 10px;">
+                        <div class="form-group row">
+                          <label class="col-md-4">Ngày duyệt:</label>
+                          <div class="col-md-8">
+                            <p *ngIf="Item.Status==2 || Item.Status==4 || Item.Status==5">{{Item.ApprovedAt | date:'dd/MM/yyyy HH:mm'}}</p>
+                            <p *ngIf="Item.Status==1">{{Item.PublishedAt | date:'dd/MM/yyyy HH:mm'}}</p>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-md-4">Tổ chức:</label>
+                          <div class="col-md-8">
+                            <p *ngIf="(Item.Status==2 || Item.Status==4 || Item.Status==5) && Item.userApproved!= undefined">{{Item.userApproved.UnitName}}</p>
+                            <p *ngIf="Item.Status==1 && Item.userPublished!= undefined">{{Item.userPublished.UnitName}}</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col col-md-12" style="margin: 0; background: #f1f1f1; padding-top: 10px;" *ngIf="Item.Status==4">
+                        <div class="form-group row">
+                          <label class="col-md-2">Lý do không duyệt:</label>
+                          <div class="col-md-10">
+                            <textarea id="Confirms" name="Confirms" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.ConfirmsPrivate" disabled></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="OpenConfirmModal(Item, 1, 0)" *ngIf="(Item.Status==3 || Item.Status==4) && CheckRole2.Update && Item.Type==1">Phê duyệt nội bộ</button>
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="OpenConfirmModal(Item, 2, 0)" *ngIf="(Item.Status==2 || Item.Status==3 || Item.Status==5) && CheckRole3.Update">Phê duyệt công khai</button>
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="OpenConfirmModal(Item, 1, 1)" *ngIf="Item.Status==2 && CheckRole2.Update && Item.Type==1">Hủy phê duyệt nội bộ</button>
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="OpenConfirmModal(Item, 2, 2)" *ngIf="Item.Status==1 && CheckRole3.Update">Hủy phê duyệt công khai</button>
+          <button type="button" class="btn btn-danger" (click)="ViewModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--  -->
+<!--Modal Views Media File-->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #OpenMediaFile="bs-modal" class="modal fade modal-views-media" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="attachments-wrapper">
+    <div class="edit-media-header">
+      <div class="media-frame-title"><h1>Thư viện Media</h1></div>
+      <button type="button" class="media-modal-close" (click)="CloseMediaModal()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <div class="media-frame-router">
+      <ul class="head-tab">
+        <li class="item {{isActiveMedia ? 'active' : ''}}" (click)="tabHandleMedia()">Thư viện</li>
+        <li class="item {{isActiveUpload ? 'active' : ''}}" (click)="tabHandleMediaUpload()">Tải lên</li>
+      </ul>
+    </div>
+    <div class="upload-file {{isActiveUpload ? 'active' : 'hiden'}}">
+      <div class="wapper-modal-upload">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="card" style="border: none; padding: 1.5rem; margin-bottom: unset;">
+              <div class="card-body body-form-add-new">
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <div class="drag-drop-area">
+                      <div class="drag-drop-inside">
+                        <p class="drag-drop-info">Tải lên từ máy tính</p>
+                        <div class="progress" style=" height: 14px; margin-top: 10px; font-style: italic; font-weight: 500;" *ngIf="progress!=undefined">
+                          <div class="progress-bar progress-bar-striped bg-success"
+                               role="progressbar"
+                               aria-valuemin="0"
+                               aria-valuemax="100"
+                               [style.width.%]="progress"
+                               [attr.aria-valuenow]="progress">
+                            {{progress}}%
+                          </div>
+                        </div>
+                        <p class="text-center" style=" font-size: 14px; margin: 10px 0; color: #005b0c;">(Có thể tải cùng lúc nhiều file)</p>
+                        <p class="drag-drop-buttons">
+                          <label for="upload-photo" class="label-upload">Tải lên <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cloud-upload-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-cloud-upload-alt fa-w-20"><path fill="currentColor" d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z" class=""></path></svg></label>
+                          <input #file type="file" (change)="upload3(file.files, 1)" multiple id="upload-photo" />
+                        </p>
+                      </div>
+                      <div class="post-upload-ui" id="post-upload-info">
+                        <p class="max-upload-size">
+                          Kích thước tập tin tải lên tối đa: 512 MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-media {{isActiveMedia ? 'active' : 'hiden'}}">
+      <div class="attachments-ui" #scrollMe>
+        <div class="attachment save-ready" *ngFor="let item of listItemMedia; let i = index">
+          <div class="thumb" (click)="SeclectMedia(item)">
+            <img src="{{staticDomainMedia}}{{ item.url }}/{{ item.name }}" alt="{{item.name}}" *ngIf="item.type == 1" />
+            <img src="{{staticDomain}}images/document.png" alt="media upload" *ngIf="item.type == 4" />
+            <img src="{{staticDomain}}images/audio.png" alt="media upload" *ngIf="item.type == 2" />
+            <img src="{{staticDomain}}images/video.png" alt="media upload" *ngIf="item.type == 3" />
+          </div>
+        </div>
+      </div>
+      <div class="load-more-wrapper">
+        <span class="spinner"></span>
+        <p class="load-more-count">Đang hiển thị {{countMedia}} của {{countAllMedia}} file media</p>
+        <button type="button" class="button load-more button-primary {{isDelay ? 'hiden' : ''}}" (click)="loadMore()">Tải thêm</button>
+        <!--<button type="button" class="button chonse-media button-primary {{isDelay ? 'hiden' : ''}}" (click)="ChonseImage()">Chọn ảnh</button>-->
+        <div class="{{isDelay ? 'active' : 'hiden'}}">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="60px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <g>
+              <circle cx="73.801" cy="68.263" fill="#e15b64" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="0s"></animateTransform>
+              </circle>
+              <circle cx="68.263" cy="73.801" fill="#f47e60" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.062s"></animateTransform>
+              </circle>
+              <circle cx="61.481" cy="77.716" fill="#f8b26a" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.125s"></animateTransform>
+              </circle>
+              <circle cx="53.916" cy="79.743" fill="#abbd81" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.187s"></animateTransform>
+              </circle>
+              <circle cx="46.084" cy="79.743" fill="#849b87" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.25s"></animateTransform>
+              </circle>
+              <circle cx="38.519" cy="77.716" fill="#6492ac" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.312s"></animateTransform>
+              </circle>
+              <circle cx="31.737" cy="73.801" fill="#637cb5" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.375s"></animateTransform>
+              </circle>
+              <circle cx="26.199" cy="68.263" fill="#6a63b6" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.437s"></animateTransform>
+              </circle>
+              <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;0 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s"></animateTransform>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--duyệt dữ liệu-->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #ConfirmModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="ItemApproved.Type==1 && StatusApproved==0">Phê duyệt nội bộ</h4>
+          <h4 class="modal-title" *ngIf="ItemApproved.Type==2 && StatusApproved==0">Phê duyệt công khai</h4>
+          <h4 class="modal-title" *ngIf="ItemApproved.Type==1 && StatusApproved==1">Hủy phê duyệt nội bộ</h4>
+          <h4 class="modal-title" *ngIf="ItemApproved.Type==2 && StatusApproved==2">Hủy phê duyệt công khai</h4>
+          <button type="button" class="close" (click)="ConfirmModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12 row" style="margin: 10px 0px 0px;background: #f1f1f1;">
+                <div class="col col-sm-12 col-md-12" style="height:150px;">
+                  <div class="form-group row">
+                    <label class="col-md-2 col-form-label" for="DataSetStatus">Phê duyệt: <span *ngIf="ItemApproved.DataSetStatus==undefined" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-8">
+                      <ng-select [items]="listConfirmData"
+                                 bindLabel="Name"
+                                 bindValue="Id"
+                                 placeholder="Chọn phê duyệt"
+                                 [disabled]="disabledStatus"
+                                 [(ngModel)]="ItemApproved.DataSetStatus"
+                                 [ngModelOptions]="{standalone: true}">
+                        <ng-template ng-label-tmp let-item="item">
+                          <span>{{item.Name}}</span>
+                        </ng-template>
+                        <ng-template ng-option-tmp let-item="item" let-index="index">
+                          <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                        </ng-template>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="form-group row" *ngIf="ItemApproved.DataSetStatus==2">
+                    <label class="col-md-2 col-form-label" for="Confirms">Lý do không duyệt: <span *ngIf="ItemApproved.Confirms==undefined || Item.Confirms==''" style="color: red;">&ngsp;(*)</span></label>
+                    <div class="col-md-10">
+                      <textarea id="Confirms" name="Confirms" rows="3" class="form-control" placeholder="" [(ngModel)]="ItemApproved.Confirms"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveConfirm()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="ConfirmModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--Xem chi tiết danh mục-->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #DetailCategory="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title customtitle textLine-1">Xem chi tiết {{NameCate}} {{nameTitle}}</h4>
+          <button type="button" class="close" (click)="DetailCategory.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="padding:15px;">
+            <div *ngFor="let cate of listData" class="badge badge-pill badge-light" style="text-align:left;">
+              <i class="fa-solid fa-circle-small" style="color: #0073aa; margin-right: 5px; font-size: 7px; "></i><a>{{cate.Name}}</a>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="DetailCategory.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

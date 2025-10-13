@@ -1,0 +1,196 @@
+@{
+    ViewData["Title"] = "CashPlus – Nền Tảng Hoàn Tiền Thông Minh, Tăng Trưởng Bền Vững";
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+<!--Bỏ main toàn trang, chỉ đặt ở mục new section  <main id="main" ng-controller="UserUnitController" ng-init="getTinTucMoi()" onclick="closeWhiteDiv()"> -->
+<!-- Hero Section -->
+<section class="hero-slider">
+    <button class="hero-slider-arrow left" aria-label="Slide trước">&#60;</button>
+    <button class="hero-slider-arrow right" aria-label="Slide sau">&#62;</button>
+    
+    <div class="hero-slide hero-slide-1 active" style="background-image: url('/images/CashPlus-hoan-tien-ngay.jpg')">
+        <div class="hero-slide-content">
+            <h1 class="hero-slide-title">CASHPLUS</h1>
+            <p class="hero-slide-subtitle">Mua Sắm Thông Minh - Hoàn Tiền Ngay</p>
+            <div class="hero-slide-buttons">
+                <a href="/tai-cashplus-ngay" class="btn btn-primary">Tải App Ngay</a>
+                <a href="/dang-ky-doi-tac" class="btn btn-outline-light">Đăng Ký Đối Tác</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-slide hero-slide-2" style="background-image: url('/images/Mua-Sam-hoan-tien-ngay-cung-CashPlus.jpg')">
+        <div class="hero-slide-content">
+            <h1 class="hero-slide-title">HOÀN TIỀN NGAY</h1>
+            <p class="hero-slide-subtitle">Trực tiếp về tài khoản ngân hàng</p>
+            <div class="hero-slide-buttons">
+                <a href="/tai-cashplus-ngay" class="btn btn-primary">Tải App Ngay</a>
+                <a href="/dang-ky-doi-tac" class="btn btn-outline-light">Đăng Ký Đối Tác</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-slide hero-slide-3" style="background-image: url('/images/Affiliate-tang-doanh-thu-cung-CashPlus.jpg')">
+        <div class="hero-slide-content">
+            <h1 class="hero-slide-title">BÁN HÀNG HIỆU QUẢ</h1>
+            <p class="hero-slide-subtitle">Chỉ trả phí khi có khách thực</p>
+            <div class="hero-slide-buttons">
+                <a href="/tai-cashplus-ngay" class="btn btn-primary">Tải App Ngay</a>
+                <a href="/dang-ky-doi-tac" class="btn btn-outline-light">Đăng Ký Đối Tác</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hero-slide-dots">
+        <span class="hero-slide-dot active"></span>
+        <span class="hero-slide-dot"></span>
+        <span class="hero-slide-dot"></span>
+    </div>
+</section>
+
+<!-- Benefit Section -->
+<section class="tesla-benefit-section" data-aos="fade-up">
+    <div class="tesla-benefit-row" style="background-image: url('/images/Hoan-Tien-Truc-Tiep-CashPlus.jpg')">
+        <div id="user" class="tesla-benefit-content">
+            <h2 class="tesla-benefit-title">Người Tiêu Dùng</h2>
+            <p class="tesla-benefit-desc">Mua sắm, thanh toán qua tài khoản ngân hàng – hoàn tiền ngay. Hoa hồng Affiliate trọn đời.</p>
+            <a href="#" class="tesla-btn-secondary">Tìm hiểu thêm</a>
+        </div>
+    </div>
+    <div class="tesla-benefit-row" style="background-image: url('/images/Marketing-hieu-qua-Merchant-CashPlus.jpg')">
+        <div id="merchant" class="tesla-benefit-content">
+            <h2 class="tesla-benefit-title">Đối Tác Bán Hàng</h2>
+            <p class="tesla-benefit-desc">Giữ khách cũ. Tăng khách mới. Chỉ trả phí khi có đơn. Hoa hồng Affiliate trọn đời.</p>
+            <a href="#" class="tesla-btn-secondary">Tìm hiểu thêm</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- NGÀNH HÀNG SECTION -->
+<section class="section-gray fintech-category-section">
+    <h2 class="section-title-cashplus" data-aos="fade-up">Có gì trên CashPlus?</h2>
+    <div class="section-subtitle">Đa dạng ngành hàng, sản phẩm, dịch vụ, đáp ứng mọi nhu cầu của bạn.</div>
+    <div class="fintech-category-cards" data-aos="fade-up" data-aos-delay="100">
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-bowl-food"></i></span>
+            <div class="category-title">F&B – Ăn uống</div>
+            <div class="category-desc">Thưởng thức ẩm thực đa dạng, ưu đãi hoàn tiền hấp dẫn.</div>
+        </div>
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-shirt"></i></span>
+            <div class="category-title">Thời trang – Phụ kiện</div>
+            <div class="category-desc">Cập nhật xu hướng mới, mua sắm tiết kiệm mỗi ngày.</div>
+        </div>
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-spa"></i></span>
+            <div class="category-title">Làm đẹp – Spa, Salon</div>
+            <div class="category-desc">Chăm sóc sắc đẹp, tận hưởng dịch vụ chuyên nghiệp.</div>
+        </div>
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-notes-medical"></i></span>
+            <div class="category-title">Sức khỏe – Nhà thuốc, phòng khám</div>
+            <div class="category-desc">Bảo vệ sức khỏe, mua thuốc và dịch vụ y tế tiện lợi.</div>
+        </div>
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-apple-whole"></i></span>
+            <div class="category-title">Thực phẩm – Tạp hóa, siêu thị</div>
+            <div class="category-desc">Mua sắm thực phẩm tươi ngon, hoàn tiền trực tiếp.</div>
+        </div>
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-gamepad"></i></span>
+            <div class="category-title">Giải trí – Dịch vụ, vé</div>
+            <div class="category-desc">Đặt vé sự kiện, giải trí mọi lúc, hoàn tiền liền tay.</div>
+        </div>
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-plane"></i></span>
+            <div class="category-title">Du lịch – Tour, vé máy bay</div>
+            <div class="category-desc">Khám phá điểm đến mới, đặt tour và vé máy bay dễ dàng.</div>
+        </div>
+        <div class="fintech-category-box has-bg-icon">
+            <span class="category-bg-icon"><i class="fa-solid fa-hotel"></i></span>
+            <div class="category-title">Khách sạn – Lưu trú</div>
+            <div class="category-desc">Đặt phòng khách sạn nhanh chóng, giá ưu đãi.</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ĐỐI TÁC CHIẾN LƯỢC SECTION -->
+<section class="tesla-partner-section">
+  <h2 class="section-title-cashplus">Đối tác chiến lược</h2>
+  <div class="tesla-partner-logos" data-aos="fade-up">
+    <div class="tesla-partner-logo-box"><img src="/images/Logo-Napas.png" alt="Napas" title="CTCP Thanh Toán Quốc Gia Việt Nam"/></div>
+    <div class="tesla-partner-logo-box"><img src="/images/Logo-BIDV.png" alt="BIDV" title="Ngân hàng BIDV"/></div>
+    <div class="tesla-partner-logo-box"><img src="/images/Logo-VCB.png" alt="Vietcombank" title="Ngân hàng Vietcombank"/></div>
+    <div class="tesla-partner-logo-box"><img src="/images/Logo-BaoKim.png" alt="Bảo Kim" title="CTCP TMĐT Bảo Kim"/></div>
+    <div class="tesla-partner-logo-box"><img src="/images/Logo-Merchant.png" alt="Merchant" title="Hàng ngàn Merchant trên toàn quốc" /></div>
+  </div>
+</section>
+
+<!-- TIN TỨC SECTION -->
+<section class="section-gray tesla-news-section">
+  <div class="tesla-news-container" data-aos="fade-up">
+    <h2 class="section-title-cashplus">Tin mới trên CashPlus</h2>
+    <div class="tesla-news-wrapper">
+      <div class="tesla-news-slider" id="tesla-news-slider">
+        @if (ViewBag.NewsList != null)
+        {
+            foreach (var item in ViewBag.NewsList)
+            {
+                <div class="tesla-news-slide">
+                  <a href="/@item.Url">
+                    <div class="tesla-news-img-wrapper">
+                      <img src="@(string.IsNullOrEmpty(item.Image) ? "https://s3-hcmc02.higiocloud.vn/loyatly/prod/uploadfile/1PNG_562811090420251.png" : ("/uploads" + item.Image))"
+                           alt="@item.Title" class="tesla-news-img"
+                 onerror="this.src='https://s3-hcmc02.higiocloud.vn/loyatly/prod/uploadfile/1PNG_562811090420251.png'" />
+                    </div>
+                    <div class="tesla-news-info">
+                      <div class="tesla-news-title">@item.Title</div>
+            </div>
+          </a>
+        </div>
+            }
+        }
+      </div>      
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section fintech-cta-section" id="download">
+    <div class="container">
+        <div class="cta-content fintech-cta-content" data-aos="fade-up">
+            <h2 class="cta-title">Tải App CashPlus Ngay Hôm Nay</h2>
+            <p class="cta-description">Trải nghiệm nền tảng hoàn tiền thông minh số 1 Việt Nam</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="https://apps.apple.com/vn/app/cashplus/id6459993279?l=vi" class="cta-button fintech-btn-shadow">
+                    <i class="fab fa-apple me-2"></i> &nbsp; App Store
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=com.cashbackplus&hl=vi-VN" class="cta-button fintech-btn-shadow">
+                    <i class="fab fa-google-play me-2"></i> &nbsp; Google Play
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- </main>-->
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="~/js/home.index.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true,
+            offset: 0,
+            duration: 180,
+            delay: 0,
+            easing: 'ease-out'
+        });
+    </script>
+}
+

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.DataSetDTO>
+@using IOITWebApp31.Models;
+<div class="list-widget">
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            <div class="item-wigget">
+                <div class="title-item">
+                    <a href="/chi-tiet-du-lieu/@item.Url-@item.DataSetId" class="textLine-2">
+                        @item.Title
+                    </a>
+                </div>
+                <div class="meta-item">
+                    <div class="views">
+                        <i class="fa-solid fa-eye"></i> <span>@item.ViewNumber </span>
+                    </div>
+                    <div class="download">
+                        <i class="fa-solid fa-cloud-arrow-down"></i> <span>@item.DownNumber </span>
+                    </div>
+                    <div class="date-pub">Ngày tạo: <span>@item.CreatedAt.Value.ToString("dd/MM/yyyy")</span></div>
+                </div>
+                <div class="exception textLine-2">
+                    @(item.Description.Length > 100 ? item.Description.Substring(0, item.Description.Substring(0, 100).LastIndexOf(' ')) + "..." : item.Description)
+                </div>
+            </div>
+        }
+    }
+</div>

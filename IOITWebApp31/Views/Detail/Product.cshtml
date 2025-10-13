@@ -1,0 +1,437 @@
+﻿@model IOITWebApp31.Models.Data.ProductOutput
+@using IOITWebApp31.Models;
+@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="/images/banner-prd.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb">
+            <p>@ViewBag.CategoryName</p>
+            <ul>
+                <li><a href="/">@Startup._lang["Home"]</a></li>
+                <li><span>@Model.Name</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="maincontent-page page-listprd">
+        <div class="full-page">
+            <div class="container">
+                <div class="row">
+
+
+                    <div class="info-prd">
+                        <h1>@Model.Name</h1>
+                        <div class="col col-lg-6 col-md-6 product-gallery">
+                            <div id="aniimated-thumbnials" class="slider-for slide_main">
+
+                                @foreach (var item in ViewBag.Images as IEnumerable<IOITWebApp31.Models.EF.ProductImage>)
+                                {
+
+                                    <a href="/uploads/@item.Image">
+                                        <img class="img-responsive" src="/uploads/@item.Image" />
+                                    </a>
+                                }
+
+                            </div>
+                            <div class="slider-nav slide_thumb">
+
+                                @foreach (var item in ViewBag.Images as IEnumerable<IOITWebApp31.Models.EF.ProductImage>)
+                                {
+
+                                    <div class="item-slick">
+                                        <img class="img-responsive" src="/uploads/_thumb/@item.Image" alt="Alt">
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="col col-lg-6 col-md-6 product-summary">
+                            <div class="infoprod">
+                                <p>@Startup._lang["MASP"]: <span>@Model.Code</span></p>
+                            </div>
+                            <div class="infoprod info_se">
+                                <p class="xuat_xu_product">@Startup._lang["XUATXU"]: <span>@Model.ProductNote</span></p>
+                                <p class="nsx_product">@Startup._lang["THUONGHIEU"]: <span>@Model.ManufacturerName</span></p>
+                            </div>
+                            <div class="infoprod">
+                                <p>
+                                    @Startup._lang["TINHTRANG"]:
+                                @if (Model.StockQuantity > 0)
+                                {
+                                    <span>@Startup._lang["CONHANG"]</span>
+                                }
+                                else
+                                {
+                                <span>@Startup._lang["HETHANG"]</span>
+                                }
+                            </p>
+                            </div>
+                            <div class="infoprod">
+                                <p>@Startup._lang["SPBAOHANH"]: <span>@Model.GuaranteeProduct</span></p>
+                            </div>
+                            <div class="product-short-description">
+                                @Html.Raw(Model.Description)
+                            </div>
+                            <div class="text_num_quantity_devmd">
+                                <div class="before-quantity">@Startup._lang["SOLUONG"]</div>
+                               <div class="quantity buttons_added">
+                                     @*<div class="number-input">
+                                            <button onclick=""></button>
+                                            <input class="quantity" min="1" name="quantity" value="1" id="quantity" type="number">
+                                            <button onclick="" class="plus"></button>
+                                        </div>*@
+                                    
+                                        <div class="number-input">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                                            <input class="quantity" min="1" name="quantity" value="1" id="quantity" type="number">
+                                            <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                        </div>
+                                    @*</div>*@
+                                </div>
+                            </div>
+                            <div class="custom-add-to-cart tol_btn_add_cart">
+                                <button class="single_add_to_cart_quick" name=""><a href="tell: 024 33669966"><i class="fa fa-phone" aria-hidden="true"></i>  1900 2035</a></button>
+                                <button class="single_add_to_cart_slim" name="" onclick="return AddToCart(@Model.ProductId)"><i class="fa fa-shopping-cart" aria-hidden="true"></i>@Startup._lang["ADDTOCART"]</button>
+                            </div>
+
+                            <div class="share-icons share-row">
+                                <span>@Startup._lang["SHARE"]</span>
+                                <ul class="list_icon_share">
+                                    <li class="item icon_isocal icon_fb"><i class="fa fa-facebook-square" aria-hidden="true"></i></li>
+                                    <li class="item icon_isocal icon_gmail"><i class="fa fa-twitter-square" aria-hidden="true"></i></li>
+                                    <li class="item icon_isocal icon_tw"><i class="fa fa-google-plus-square" aria-hidden="true"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="info-detail col-xs-12">
+                            <div class="link-info">
+                                <div class="left-link">
+                                    <ul>
+                                        <li><a href="#intro1" title="">@Startup._lang["SPGIOITHIEU"]</a></li>
+                                        <li><a href="#intro2" title="">@Startup._lang["SPTINHNANG"]</a></li>
+                                        <li><a href="#intro3" title="">@Startup._lang["SPCAUHINH"]</a></li>
+                                        <li><a href="#intro4" title="">@Startup._lang["SPTHONGSO"]</a></li>
+                                    </ul>
+                                </div>
+                                <div class="right-link">
+                                    <a href="#download" title=""><img src="/images/brochure-download.png" class="img-responsive" alt=""></a>
+                                    <a href="/contact-us.html" title=""><img src="/images/buy.png" class="img-responsive" alt=""></a> <!-- Cho nhảy sang trang liên hệ -->
+                                </div>
+                            </div>
+
+                            <div class="content-detail">
+                                <div id="intro1">
+                                    @*<img src="/images/img1.jpg" class="img-responsive" alt="">*@
+                                    @Html.Raw(Model.Contents)
+                                </div>
+                                @if (Model.Feature != null)
+                                {
+                                    <div id="intro2">
+                                        <div class="title-intro">@Startup._lang["SPTINHNANG"]</div>
+                                        @*<img src="/images/img1.jpg" class="img-responsive" alt="">*@
+                                        @Html.Raw(Model.Feature)
+                                    </div>
+                                }
+                                @if (Model.Configuration != null)
+                                {
+                                    <div id="intro3">
+                                        <div class="title-intro">@Startup._lang["SPCAUHINH"]</div>
+                                        @*<img src="/images/img1.jpg" class="img-responsive" alt="">*@
+                                        @Html.Raw(Model.Configuration)
+                                    </div>
+                                }
+                                @if (Model.NoteTech != null)
+                                {
+                                    <div id="intro4">
+                                        <div class="title-intro">@Startup._lang["SPTHONGSO"]</div>
+                                        @Html.Raw(Model.NoteTech)
+                                    </div>
+                                }
+                                @if (ViewBag.listAttackment.Count > 0)
+                                {
+                                    <div id="download">
+                                        <div class="title-intro">Download</div>
+                                        <ul>
+
+                                            @foreach (var item in ViewBag.listAttackment as IEnumerable<IOITWebApp31.Models.EF.Attactment>)
+                                            {
+                                                @if (item.Url != null)
+                                                {
+                                                    <li><span>@item.Name</span><a href="/@(Const.ROOT_UPLOADS + item.Url)" title="" target="_blank">Download</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><span>@item.Name</span><a href="#" title="" target="_blank">Download</a></li>
+                                                }
+
+
+
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- Các sản phẩm cùng nhóm -->
+                    <div class="other other-solution">
+                        <div class="title-other col-xs-12"><span>@Startup._lang["SPCUNGNHOM"]</span></div>
+                        <div class="slide-solution owl-theme">
+
+
+                            @await Component.InvokeAsync("BlockProductLikeGroup", new { CategoryId = ViewBag.CategoryId, ProductId = Model.ProductId, Number = 12 })
+                        </div>
+                    </div>
+                    <!-- End Các sản phẩm cùng nhóm -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Add active class to the current button (highlight it)
+    var header = document.getElementById("danhgia");
+    var btns = header.getElementsByClassName("btn1");
+    //console.log("haha:" + btns.length);
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var element = document.getElementById("okee");
+            element.classList.remove("oke");
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+
+        });
+    }
+
+    var star = 5;
+
+    function CheckStar(s) {
+        star = s;
+    }
+
+    function PostReview(idp) {
+
+        var review = {
+            NumberStar: star,
+            ProductId: idp,
+            Contents: $('#rpComment').val(),
+            Email: $('#rpEmail').val(),
+            Name: $('#rpName').val(),
+        };
+
+        //review.ProductId = idp;
+        //review.Contents = $('#rpComment').val();
+        //review.Email = $('#rpEmail').val();
+        //review.Name = $('#rpName').val();
+        console.log(review);
+        $.ajax({
+            url: '/web/product/PostProductReviews/' + idp,
+            contentType: 'application/json; charset=utf-8',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(review)
+        })
+            .success(function (result) {
+                //console.log(result);
+                //$('#cart').html(result);
+                //if (type == 2) {
+                //    window.location = '/gio-hang.html';
+                //}
+                //else {
+                //    var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Thêm vào giỏ hàng thành công!</div>';
+                //    $('#formSubmitted').append(msgSuccess);
+                //    if (type == 1) {
+                //        $(document).ready(function () {
+                //            $("#shopping-cart").load("/ShoppingCart/LoadShoppingCart");
+                //        });
+                //    }
+                //}
+                var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Thêm đánh giá thành công!</div>';
+                $('#formSubmitted').append(msgSuccess);
+            })
+            .error(function (xhr, status) {
+                var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Thêm đánh giá không thành công!</div>';
+                $('#formSubmitted').append(msgSuccess);
+            });
+    }
+
+    //wishlist
+    function LikeProductDetail(idp, idc, type, token) {
+
+        if (idc == -1) {
+            var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Vui lòng đăng nhập để thực hiện chức năng này!</div>';
+            $('#formSubmitted').append(msgSuccess);
+        }
+        else {
+            $.ajax({
+                url: '/web/customer/LoveProduct/' + idc + '/' + idp,
+                headers: { 'Authorization': 'bearer ' + token },
+                contentType: 'application/json; charset=utf-8',
+                type: 'POST',
+                dataType: 'json'
+            })
+                .success(function (result) {
+                    console.log(result);
+                    var idd = 'active_' + idp;
+                    var idd1 = 'loveactive_' + idp;
+                    if (type == 10) {
+                        document.getElementById(idd).style.display = "block";
+                        document.getElementById(idd1).style.display = "none";
+                    }
+                    if (type == 1) {
+                        document.getElementById(idd).style.display = "none";
+                        document.getElementById(idd1).style.display = "block";
+                    }
+
+                    var idd = 'active_detail_' + idp;
+                    var idd1 = 'loveactive_detail_' + idp;
+                    if (type == 10) {
+                        document.getElementById(idd).style.display = "block";
+                        document.getElementById(idd1).style.display = "none";
+                    }
+                    if (type == 1) {
+                        document.getElementById(idd).style.display = "none";
+                        document.getElementById(idd1).style.display = "block";
+                    }
+                    var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Yêu thích sản phẩm thành công!</div>';
+                    $('#formSubmitted').append(msgSuccess);
+                })
+                .error(function (xhr, status) {
+                    var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Yêu thích sản phẩm thất bại!</div>';
+                    $('#formSubmitted').append(msgSuccess);
+                });
+        }
+
+        setTimeout(
+            function () {
+                $('#formSubmitted').empty();
+            }, 5000);
+    }
+
+    function DislikeProductDetail(idp, idc, type, token) {
+
+        if (idc == -1) {
+            //alert("Vui lòng đăng nhập để thực hiện chức năng này!");
+            var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Vui lòng đăng nhập để thực hiện chức năng này!</div>';
+            $('#formSubmitted').append(msgSuccess);
+        }
+        else {
+            $.ajax({
+                url: '/web/customer/RemoveLoveProduct/' + idc + '/' + idp,
+                headers: { 'Authorization': 'bearer ' + token },
+                contentType: 'application/json; charset=utf-8',
+                type: 'POST',
+                dataType: 'json'
+            })
+                .success(function (result) {
+                    console.log(result);
+                    var idd = 'active_' + idp;
+                    var idd1 = 'loveactive_' + idp;
+                    if (type == 10) {
+
+                        document.getElementById(idd).style.display = "none";
+                        document.getElementById(idd1).style.display = "block";
+
+                    }
+                    if (type == 1) {
+                        document.getElementById(idd).style.display = "block";
+                        document.getElementById(idd1).style.display = "none";
+                    }
+
+                    var idd = 'active_detail_' + idp;
+                    var idd1 = 'loveactive_detail_' + idp;
+                    if (type == 10) {
+                        document.getElementById(idd).style.display = "none";
+                        document.getElementById(idd1).style.display = "block";
+                    }
+                    if (type == 1) {
+                        document.getElementById(idd).style.display = "block";
+                        document.getElementById(idd1).style.display = "none";
+                    }
+
+                    var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Hủy yêu thích sản phẩm thành công!</div>';
+                    $('#formSubmitted').append(msgSuccess);
+                })
+                .error(function (xhr, status) {
+                    var msgSuccess = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button><strong></strong> Hủy yêu thích sản phẩm thất bại!</div>';
+                    $('#formSubmitted').append(msgSuccess);
+                });
+
+
+        }
+
+        setTimeout(
+            function () {
+                $('#formSubmitted').empty();
+            }, 5000);
+    }
+
+</script>
+
+<script>
+
+    // Thu gon mo ta ngan
+    var chieucaoDes = document.getElementById('product-short-description').clientHeight;
+    console.log(chieucaoDes);
+    if (chieucaoDes >= 165) {
+        document.getElementById('btn_read_more_description').style.display = 'block';
+    }
+    function descriptionClick() {
+        var x = document.getElementById("btn_read_more_description");
+        var box = document.getElementById('product-short-description')
+        if (x.innerHTML === "Xem thêm") {
+            x.innerHTML = "Thu gọn";
+            box.style.maxHeight = '100%';
+        } else {
+            x.innerHTML = "Xem thêm";
+            box.style.maxHeight = '165px';
+        }
+    }
+
+    // Thu gon chi tiet san pham
+    var chieucaoContent = document.getElementById('Content_product').clientHeight;
+    console.log(chieucaoContent);
+    if (chieucaoContent >= 400) {
+        document.getElementById('btn_read_more_content_sing_product').style.display = 'block';
+    }
+    function readMoreSingle() {
+        //  var x = document.getElementById("btn_read_more_content_sing_product");
+        var y = document.getElementById("assp");
+        var box = document.getElementById('Content_product')
+        if (y.innerHTML === "Xem thêm nội dung") {
+            y.innerHTML = "Thu gọn";
+            box.style.maxHeight = '100%';
+        } else {
+            y.innerHTML = "Xem thêm nội dung";
+            box.style.maxHeight = '400px';
+        }
+    }
+
+    // thu gon km
+    var kmContent = document.getElementById('infomation_sale').clientHeight;
+    console.log(kmContent);
+    if (kmContent >= 145) {
+        document.getElementById('read_more_sale_sum').style.display = 'block';
+    }
+    function readMoreSingleKm() {
+        var y = document.getElementById("read_more_sale_sum");
+        var box = document.getElementById('infomation_sale')
+        if (y.innerHTML === "Xem thêm") {
+            y.innerHTML = "Thu gọn";
+            box.style.maxHeight = '100%';
+        } else {
+            y.innerHTML = "Xem thêm";
+            box.style.maxHeight = '218px';
+        }
+    }
+
+</script>

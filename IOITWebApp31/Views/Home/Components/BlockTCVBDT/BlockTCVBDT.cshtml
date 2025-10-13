@@ -1,0 +1,15 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.LegalDoc>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <li class="item position-relative">
+            <a href="@("/van-ban/" + item.Url + "-" + item.LegalDocId)" class="d-block textLine-4">
+                @item.Name
+            </a>
+        </li>
+    }
+}

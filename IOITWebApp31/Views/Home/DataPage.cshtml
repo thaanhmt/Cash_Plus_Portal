@@ -1,0 +1,376 @@
+﻿@model IOITWebApp31.Models.EF.Category
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section section-1">
+            <div class="bg-section"></div>
+            <div class="container-fluid no-padding">
+                <div class="slide-home">
+                    <div class="item-slide">
+                        <img src="/images/bgdulieu_new.png" alt="">
+                        <div class="text-slider">
+                            <form class="search-wapper" method="post" action="/tim-kiem-dataset">
+                                <div class="wapper-search">
+                                    @*<input type="search" name="sNameA" id="sNameA" placeholder="Tìm kiếm bộ dữ liệu...">*@
+                                    <input type="search" name="sName" id="sName" placeholder="Tìm kiếm bộ dữ liệu...">
+                                    <button class="btn-search" type="submit">
+                                        <img src="images/search-ct_new.png"
+                                             alt="Tìm kiếm">
+                                    </button>
+                                </div>
+                                <div class="view-all">
+                                    <a href="/toan-bo-du-lieu">
+                                        <i class="fa-solid fa-eye"></i> Xem toàn bộ dữ
+                                        liệu
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-2">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="section-app">
+                    @*<div class="title-home">Phạm vi ứng dụng</div>*@
+                    <div class="main-data">
+                        @await Component.InvokeAsync("BlockDS_PVUD_Data", new { LanguageId = 1 })
+                    </div>
+                    <div class="wapper-chart-app">
+                        <div class="left-chart">
+                            <canvas id="myChart11"></canvas>
+                        </div>
+                        <div class="right-chart">
+                            @*<canvas id="myChart22"></canvas>*@
+                            <div>
+                                <span class="title-chart-donut">
+                                    Tỉ lệ chia sẻ bộ dữ liệu theo định dạng 12 tháng gần nhất
+                                </span>
+                            </div>
+                             <div id="myChart22" style="height: 350px; max-width: 920px; margin: 0px auto;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section section-data">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-data-page">
+                    <div class="col col-md-8 col-12">
+                        <div id="ListDataTq"></div>
+                    </div>
+                    <div class="col col-md-4 col-12">
+                        <div class="widget-data-page">
+                            <div class="title-widget">Top tải nhiều</div>
+                            <div id="ListTopDown"></div>
+                        </div>
+                        <div class="widget-data-page">
+                            <div class="title-widget">Top xem nhiều</div>
+                            <div id="ListTopView"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<div class="loadding-animate">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff0;display:block;" width="115px" height="115px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <g transform="translate(20 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.4807692307692307s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(40 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.3205128205128205s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(60 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.16025641025641024s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(80 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+    </svg>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            LoadDataTqPage(@ViewBag.ArId, 1);
+        });
+
+        function LoadDataTqPage(id, k) {
+            $('.overlay_menu').addClass('active');
+            $('.loadding-animate').show();
+            $('.item-cate-data.active').removeClass('active');
+            $("#item-cate-data-" + id).addClass("active");
+            //var value = 'Tìm kiếm trong phạm vi ứng dụng ' + $('#title-data-' + id).data('name');
+            //$('#sNameA').attr('placeholder', value);
+
+            function loadData() {
+                ChartDataArLine(id);
+                ChartDataArCircle(id);
+                //LoadDataTopDown(id, 5);
+                //LoadDataTopView(id, 5);
+                $("#ListTopDown").load("/Home/ListTopDown?id=" + id + "&n=" + 5);
+                $("#ListTopView").load("/Home/ListTopView?id=" + id + "&n=" + 5);
+                $("#ListDataTq").load("/Home/ListDataTq?id=" + id + "&p=" + k, function () {
+                    $('.overlay_menu').removeClass('active');
+                    $('.loadding-animate').hide();
+                    //$('html, body').animate({ scrollTop: $('#ListDataTq').offset().top }, 100);
+                })
+            }
+            setTimeout(loadData, 1000);
+            //$("#ListDataTq").load("/Home/ListDataTq?id=" + id + "&p=" + k);
+        }
+
+        function ChartDataArLine(id) {
+            if (window.myChart11 instanceof Chart) {
+                window.myChart11.destroy();
+            }
+            $.ajax({
+                url: '/web/dataSet/getDataChartDataArLine?id=' + id,
+                contentType: 'application/json; charset=utf-8',
+                type: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    if (result["meta"]["error_code"] == 200) {
+                        const ctx = document.getElementById('myChart11');
+                        ctx.height = 200;
+                        if (window.myChart111 != undefined)
+                            window.myChart111.destroy();
+                        window.myChart111 = new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: result["data"]["labels"],
+                                datasets: [
+                                    {
+                                        label: 'Bộ dữ liệu cá nhân',
+                                        fillColor: "rgba(255, 89, 114, 0.6)",
+                                        data: result["data"]["dataP"],
+                                        borderWidth: 3,
+                                        borderColor: '#174371',
+                                        backgroundColor: '#174371',
+                                    },
+                                    {
+                                        label: 'Bộ dữ liệu cơ quan/tổ chức',
+                                        data: result["data"]["dataU"],
+                                        borderDash: [8, 8],
+                                        borderWidth: 3,
+                                        borderColor: '#FF7733',
+                                        backgroundColor: '#FF7733',
+                                    }
+                                ]
+                            },
+                            options: {
+                                responsive: true,
+                                elements: {
+                                    point: {
+                                        radius: 2
+                                    }
+                                },
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Số lượng bộ dữ liệu trong 12 tháng gần nhất',
+                                        align: 'start',
+                                        fullSize: true,
+                                        color: '#174371',
+                                        font: {
+                                            size: 19,
+                                            family: 'Barlow'
+                                        },
+                                        padding: {
+                                            top: 0,
+                                            bottom: 20
+                                        },
+                                    },
+                                    legend: {
+                                        display: true,
+                                        labels: {
+                                            color: '#797979',
+                                            boxWidth: 12,
+                                            usePointStyle: true,
+                                            boxWidth: 12,
+                                            padding: 20
+                                        },
+                                        position: 'bottom',
+                                    }
+                                },
+                                scales: {
+                                    x: {
+                                        ticks: {
+                                            color: "#797979"
+                                        },
+                                        grid: {
+                                            color: '#FFFFFF'
+                                        }
+                                    },
+                                    y: {
+                                        ticks: {
+                                            color: "#797979"
+                                        },
+                                        grid: {
+                                            color: '#E6E7E8'
+                                        },
+                                        max: result["data"]["max"] * 1.5,
+                                        min: 0,
+                                    },
+                                }
+                            }
+                        });
+
+                    }
+                },
+                error: function(xhr, status) {
+                }
+            });
+        }
+
+        function ChartDataArCircle(id) {
+            $.ajax({
+                url: '/web/dataSet/GetDataChartDataArCircle?id=' + id,
+                contentType: 'application/json; charset=utf-8',
+                type: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    if (result["meta"]["error_code"] == 200) {
+
+                        google.charts.load('current', { 'packages': ['corechart'] });
+                        google.charts.setOnLoadCallback(drawChart);
+
+                        function drawChart() {
+
+                            var data = new google.visualization.DataTable();
+                            data.addColumn('string', 'Task');
+                            data.addColumn('number', 'Hours per Day');
+                            for (var i = 0; i < result["data"]["datas"].length; i++) {
+                                var label = result["data"]["labels"][i];
+                                var dt = parseInt(result["data"]["datas"][i]);
+                                data.addRow([label, dt]);
+                            }
+
+                            var options = {
+                                pieHole: 0.5,
+                                //title: 'Tỉ lệ chia sẻ bộ dữ liệu theo định dạng trong 12 tháng gần nhất'
+                                legend: {
+                                    alignment: 'center', // căn giữa theo chiều dọc
+                                    //position: 'bottom' // vị trí ở dưới
+                                    textStyle: {
+                                        fontSize: 13 // đặt kích thước font chữ của legend là 16px
+                                    }
+                                }
+                            };
+
+                            var chart = new google.visualization.PieChart(document.getElementById('myChart22'));
+
+                            chart.draw(data, options);
+                        }
+                        //const ctx2 = document.getElementById('myChart22');
+                        //if (window.myChart222 != undefined)
+                        //    window.myChart222.destroy();
+                        //window.myChart222 = new Chart(ctx2, {
+                        //    type: 'doughnut',
+                        //    circumference: 200,
+                        //    data: {
+                        //        labels: result["data"]["labels"],
+                        //        datasets: [
+                        //            {
+                        //                label: 'Dữ liệu',
+                        //                data: result["data"]["datas"],
+                        //                backgroundColor: [
+                        //                    '#A7B8E5',
+                        //                    '#FF7733',
+                        //                    '#FFD877',
+                        //                    '#698BBE',
+                        //                    '#48D8E1',
+                        //                    '#A8B8D3',
+                        //                    '#7CA070',
+                        //                    '#2AB57D',
+                        //                    '#FEBE52',
+                        //                ],
+                        //                hoverOffset: 4
+                        //            }
+                        //        ]
+                        //    },
+                        //    options: {
+                        //        cutout: '70%',
+                        //        tooltips: {
+                        //            callbacks: {
+                        //                label: function(tooltipItem, data) {
+                        //                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                        //                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                        //                        return previousValue + currentValue;
+                        //                    });
+                        //                    var currentValue = dataset.data[tooltipItem.index];
+                        //                    var percentage = parseFloat((currentValue / total * 100).toFixed(1));
+                        //                    return percentage + '%';
+                        //                }
+                        //            }
+                        //        },
+                        //        plugins: {
+                        //            tooltips: {
+                        //                enabled: true
+                        //            },
+                        //            datalabels: {
+                        //                formatter: function(value, ctx) {
+                        //                    var dataset = ctx.chart.data.datasets[ctx.datasetIndex];
+                        //                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                        //                        return previousValue + currentValue;
+                        //                    });
+                        //                    var percentage = Math.round((value / total) * 100) + '%';
+                        //                    return percentage;
+                        //                },
+                        //                color: '#fff'
+                        //            },
+                        //            title: {
+                        //                display: true,
+                        //                text: 'Tỉ lệ chia sẻ bộ dữ liệu theo định dạng trong 12 tháng gần nhất',
+                        //                align: 'center',
+                        //                color: '#174371',
+                        //                font: {
+                        //                    size: 19,
+                        //                    family: 'Barlow'
+                        //                },
+                        //                padding: {
+                        //                    top: 0,
+                        //                    bottom: 0
+                        //                },
+                        //            },
+                        //            legend: {
+                        //                display: true,
+                        //                labels: {
+                        //                    color: '#174371',
+                        //                    boxWidth: 12,
+                        //                    usePointStyle: true,
+                        //                    boxWidth: 12,
+                        //                    padding: 20
+                        //                },
+                        //                position: 'right',
+                        //            }
+                        //        }
+                        //    }
+                        //});
+                    }
+                },
+                error: function(xhr, status) {
+                }
+            });
+        }
+    </script>
+}
+

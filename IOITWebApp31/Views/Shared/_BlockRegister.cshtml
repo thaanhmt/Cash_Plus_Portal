@@ -1,0 +1,51 @@
+﻿
+
+<div ng-controller="CustomerController" ng-init="init();" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <div class="modal-title" id="myModalLabel">Đăng ký - Đăng nhập</div>
+            </div>
+            <div class="modal-body">
+                <div class="col-dky">
+                    <div class="title-modal">Bạn chưa có tài khoản?</div>
+                    <div class="text-modal">Vui lòng đăng ký tài khoản theo biểu mẫu bên dưới<br><span>Các ô có dấu * cần điền đầy đủ thông tin.</span></div>
+                    <form accept-charset="utf-8">
+                        <input type="text" name="UserName" ng-model="register.Username" value="" placeholder="Tên đăng nhập *">
+                        <input type="password" name="PassWord" ng-model="register.Password" value="" placeholder="Mật khẩu *">
+                        <input type="password" name="RePassWord" ng-model="register.RePassword" value="" placeholder="Nhập lại mật khẩu *">
+                        <input type="text" name="FullName" ng-model="register.FullName" value="" placeholder="Họ và tên *">
+                        <input type="text" name="Email" ng-model="register.Email" value="" placeholder="Email *">
+                        <input type="text" name="Mobile" ng-model="register.PhomeNumber" value="" placeholder="Điện thoại *">
+                        <p><input type="checkbox" name="" ng-model="register.Check" value="false"><label>Tôi đã xem và đồng ý với quy chế.</label></p>
+                        <div class="btn-form">
+                            <input type="button" name="submitRegister" ng-disabled="disableBtn.btRegister" ng-click="submitRegister();" value="Đăng ký">
+                            <input type="button" name="resetRegister" ng-disabled="disableBtn.btRegister" ng-click="resetRegister();" value="Nhập lại">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-dnhap">
+                    <div class="title-modal">Bạn đã có tài khoản?</div>
+                    <div class="text-modal">Vui lòng đăng nhập tài khoản của bạn<br><span>Các ô có dấu * cần điền đầy đủ thông tin.</span></div>
+                    <form accept-charset="utf-8">
+                        <input type="text" name="" ng-model="login.email" value="" placeholder="Tên đăng nhập *">
+                        <input type="password" name="" ng-model="login.password" value="" placeholder="Mật khẩu *">
+                        <div class="btn-form">
+                            <input type="button" name="" ng-disabled="disableBtn.btLogin" ng-click="submitLogin();" value="Đăng nhập" >
+                            <input type="button" name="" ng-disabled="disableBtn.btLogin" ng-click="resetLogin();" value="Nhập lại">
+                        </div>
+                        <div class="quen-mk" ng-click="showResetPass();">Bạn quên mật khẩu?</div>
+                        <div ng-show="reset">
+                            <div class="text-modal">Nhập địa chỉ Email bạn sử dụng để đăng ký vào ô bên dưới và mật khẩu mới sẽ được gửi cho bạn.</div>
+                            <input type="text" name="" ng-model="resetPass.Email" value="" placeholder="Email đăng ký tài khoản *">
+                            <div class="btn-form">
+                                <input type="button" name="" ng-disabled="disableBtn.btResetPass" ng-click="resetPass();" value="Khôi phục mật khẩu">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,155 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Danh sách liên kết</h1>
+      <button class="cms-addnew" type="button" (click)="OpenModalFunction(undefined)"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+    </div>
+    <div class="description-page">
+      <blockquote class="{{isNoitify ? 'hidden' : ''}}">
+        <p>Khu vực hiển thị danh sách các liên kết được đặt trên website!</p>
+        <a class="close" href="javascript:void(0)" (click)="closeNoityfy()"><span>×</span></a>
+      </blockquote>
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row cms-filter">
+
+          <div class="col-sm-12 col-md-6" style="padding-left:0px; margin-left: -5px;    display: flex;">
+            <ul class="cms-subsubsub">
+              <li class="all"><a class="current" aria-current="page">Tất cả <span class="count">({{ paging.item_count }})</span></a> | </li>
+              <!--<li class="publish"><a>Hiển thị <span class="count">({{ paging.item_count }})</span></a></li>-->
+            </ul>
+          </div>
+          <div class="col-sm-12 col-md-6" style="display: flex; justify-content: flex-end;align-items: flex-end; padding-right:0">
+            <label style="margin-right:10px;display: flex;align-items: center;">
+              <span class="search-box">Tìm kiếm</span>
+              <input type="text" class="form-control form-control-sm" placeholder="Nhập từ khóa cần tìm...." aria-controls="DataTables_Table_0" [(ngModel)]="q.txtSearch" (keyup.enter)="QueryChanged()">
+            </label>
+
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+              <label>
+                Xem&nbsp;
+                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.page_size" (change)="GetListBacklink()">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>&nbsp;bản ghi
+              </label>
+            </div>
+          </div>
+        </div>
+        <!--<div class="row cms-filter action-table">
+          <div class="col-sm-6 col-md-3" style="padding-left:0;">
+            <ng-select class="mw150-select"
+                       [items]="ActionTable"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [clearable]="true"
+                       placeholder="Tác vụ"
+                       [(ngModel)]="ActionId"
+                       [ngModelOptions]="{standalone: true}">
+            </ng-select>
+            <button class="cms-addnew button-action" type="button" [disabled]="!ActionId" (click)="ActionTableFunc()">&nbsp;Áp dụng</button>
+          </div>
+          <div class="col-sm-12 col-md-9">
+          </div>
+        </div>-->
+        <div class="row content-table-data">
+          <div class="col-sm-12">
+            <table class="table list-cat table-striped table-bordered datatable dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <th style="width: 55%"><span [ngClass]="GetClassSortTable('Name')" (click)="SortTable('Name')" class="sortBy">Liên kết gốc</span></th>
+                  <th>Ghi chú</th>
+                  <th style="width: 10%;"><span>Liên kết ngoài</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listBacklink; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                  <td class="sorting_1 name-child column-name">
+                    {{ item.LinkIn }}
+                    <ul class="cms-function">
+                      <li class="id-item">ID: {{item.BackLinkId}} | </li>
+                      <li (click)="OpenModalFunction(item)">Chỉnh sửa | </li>
+                      <li (click)="ShowConfirmDelete(item.BackLinkId)" class="detete-item">Xóa</li>
+                    </ul>
+                  </td>
+                  <td>
+                    {{ item.Note }}
+                  </td>
+                  <td>
+                    {{ item.LinkOut }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row  cms-paging">
+          <div class="col-sm-12 col-md-5">
+            <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+              Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i class="fa fa-long-arrow-right"></i>  <span>{{ paging.item_count < paging.page * paging.page_size ? paging.item_count : paging.page * paging.page_size }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{ paging.item_count }}</span> bản ghi
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-7">
+            <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5" [itemsPerPage]="paging.page_size" class="pagination-sm"
+                        previousText="&lsaquo;" nextText="&rsaquo;" [boundaryLinks]="true" (pageChanged)="PageChanged($event)" class="pull-right"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #modalFunction="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="Item.BackLinkId==undefined">Thêm mới Liên kết</h4>
+          <h4 class="modal-title" *ngIf="Item.BackLinkId!=undefined">Cập nhật Liên kết</h4>
+          <button type="button" class="close" (click)="modalFunction.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="border: none; padding: 1.5rem; margin-bottom: unset;">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12">
+                <!--<div class="form-group row">
+    <label class="col-md-4 col-form-label" for="Code">Mã chức năng<span *ngIf="Item.Code==undefined || Item.Code==''" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-8">
+      <input type="text" id="Code" name="Code" class="form-control" placeholder="" [(ngModel)]="Item.Code" autocomplete="off">
+    </div>
+  </div>-->
+                <div class="form-group row">
+                  <label class="col-md-4 col-form-label" for="Name">Tên Website<span *ngIf="Item.LinkIn==undefined || Item.LinkIn==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <input type="text" id="LinkIn" name="LinkIn" class="form-control" placeholder="" [(ngModel)]="Item.LinkIn" autocomplete="off">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-4 col-form-label" for="Name">Liên kết ngoài<span *ngIf="Item.LinkOut==undefined || Item.LinkOut==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-8">
+                    <input type="text" id="LinkOut" name="LinkOut" class="form-control" placeholder="" [(ngModel)]="Item.LinkOut" autocomplete="off">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-4 col-form-label" for="Note">Ghi chú</label>
+                  <div class="col-md-8">
+                    <textarea id="Note" name="Note" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Note"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveFunc()">Lưu thông tin</button>
+          <button type="button" class="btn btn-danger" (click)="modalFunction.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

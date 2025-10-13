@@ -1,0 +1,35 @@
+﻿<div class="supportOnline">
+    <div class="container">
+        <div class="row">
+            <div class="leftSupport col-xs-12 col-md-5">
+                <div class="titleSupport">@Startup._lang["DKTV"]</div>
+                <div class="logoSupport"><img src="/images/logo.png" alt=""></div>
+            </div>
+            <div class="RightSupport col-xs-12 col-md-7">
+                <div class="boxSupport">
+                    <div class="textSupport">@Startup._lang["DKTVV"]</div>
+                    <form action="" method="" accept-charset="utf-8">
+                        <div class="rowformRe"><input type="text" name="hotenut" class="hotenut" value="" placeholder="@Startup._lang["HOTEN"] *"></div>
+                        <div class="rowformRe rowtwice">
+                            <input type="email" name="emailut" class="emailut" value="" placeholder="Email *">
+                            <input type="tel" name="phoneut" class="phoneut" value="" placeholder="@Startup._lang["DIENTHOAI"] *">
+                        </div>
+                        <div class="rowformRe"><input type="text" name="diachiut" class="diachiut" value="" placeholder="@Startup._lang["DIACHI"]"></div>
+                        <div class="rowformRe"><textarea name="noidungut" class="noidungut" placeholder="Nội dung" rows="3"></textarea></div>
+                        <div class="btnSupport"><button type="button" onclick="TuVan()">@Startup._lang["BUTDK"]</button></div>
+                    </form>
+                    @*puopup*@
+                    <div id="dialogoverlay"></div>
+                    <div id="dialogbox">
+                        <div>
+                            <div id="dialogboxhead"></div>
+                            <div id="dialogboxbody"></div>
+                            <div id="dialogboxfoot"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

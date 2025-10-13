@@ -1,0 +1,21 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <div class="item-card-history">
+            <div class="left-card">
+                <div class="head-history"><a href="javascript:void(0);">@item.Title</a></div>
+                <div class="desc-history"><a href="javascript:void(0);">@item.Description</a></div>
+                <div class="conten-history">@item.Note</div>
+            </div>
+            <div class="center-card">
+                <div class="cricle-dot"></div>
+            </div>
+            <div class="right-card"><span>@(item.DateStartOn.Value.ToString("dd/MM/yyyy"))</span></div>
+        </div>
+    }
+}

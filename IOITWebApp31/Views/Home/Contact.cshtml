@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Liên hệ";
+}
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style type="text/css">
+
+    #map {
+        height: 515px;
+        width: 100%;
+    }
+
+    .infoWindowContent {
+        font-size: 14px !important;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+    }
+
+    h2 {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+</style>
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="~/images/banner-solution.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb">
+            <p>@Startup._lang["LIENHE"]</p>
+            <ul>
+                <li><a href="/" >@Startup._lang["Home"]</a></li>
+
+                <li><span>@Startup._lang["LIENHE"]</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="maincontent-page page-contact" ng-controller="ContactController" ng-init="init()">
+
+   
+            <div class="container">
+                <div class="row">
+                    <div class="form-lienhe col-xs-12 col-md-6 col-lg-6">
+                        <h2 class="title-lienhe">@Startup._lang["THONGTIN_LIENHE"]</h2>
+                        <p>@Startup._lang["ADD_CHINH"]</p>
+                        <p>@Startup._lang["ADD_HN"]</p>
+                        <p>@Startup._lang["ADD_HCM"]</p>
+                        <p>@Startup._lang["DIENTHOAI"]: </p>
+                        <p>Email: </p>
+                        <form action="" method="get" accept-charset="utf-8">
+                            <div class="row-contact box-contact">
+                                <img src="/uploads/home/bg-form1.png">
+                                <input type="text" id="tieude" name="tieude" placeholder="@Startup._lang["TIEUDE"] (*)" onkeyup="ConvertInfoContact(event)" class="input-placeholder" ng-model="contact.Title" autocomplete="off" spellcheck="false">
+                                @*<div class="contact-placeholder" id="tieude-bonus">
+                    <p>Tiêu đề</p><span>*</span>
+                </div>*@
+                            </div>
+                            <div class="row-contact box-contact">
+                                <img src="/uploads/home/bg-form2.png">
+                                <input type="text" id="hoten" name="hoten" placeholder="@Startup._lang["HOTEN"] (*)" onkeyup="ConvertInfoContact(event)" class="hoten" ng-model="contact.FullName" autocomplete="off" spellcheck="false">
+                                @*<div class="contact-placeholder" id="hoten-bonus">
+                    <p>Họ và tên</p><span>*</span>
+                </div>*@
+                            </div>
+                            <div class="row-contact box-contact">
+                                <img src="/uploads/home/bg-form3.png">
+                                <input type="text" id="email" name="email" placeholder="Email (*)" onkeyup="ConvertInfoContact(event)" class="email" ng-model="contact.Email" ng-pattern="regexEmail" autocomplete="off" spellcheck="false">
+                                @*<div class="contact-placeholder" id="email-bonus">
+                    <p>&nbsp;Email</p><span>*</span>
+                </div>*@
+                            </div>
+                            <div class="row-contact box-contact">
+                                <img src="/uploads/home/bg-form4.png">
+                                <input type="text" id="dienthoai" name="dienthoai" placeholder="@Startup._lang["DIENTHOAI"]" onkeyup="ConvertInfoContact(event)" class="dienthoai" ng-model="contact.Phone" ng-pattern="regexPhone" onkeypress="return isNumeric(event)" autocomplete="off" spellcheck="false">
+                                @*<div class="contact-placeholder" id="dienthoai-bonus">
+                    <p>Điện thoại</p>
+                </div>*@
+                            </div>
+                            <div class="row-contact box-contact">
+                                <textarea id="noidung" name="noidung" placeholder="@Startup._lang["NOIDUNG"]" onkeyup="ConvertInfoContact(event)" rows="5" ng-model="contact.Note" spellcheck="false"></textarea>
+                                @*<div class="contact-placeholder" id="noidung-bonus" style="left: 5px;top: 18%; z-index: 2; background: transparent;">
+                    Nội dung
+                </div>*@
+                            </div>
+                            @*<div class="luu-y">
+                <p><span class="first-span">Lưu ý: </span>Các trường có dấu <span class="second-span">*</span> là trường bắt buộc.</p>
+            </div>*@
+                            <div class="submit">
+                                <input type="button" name="nhaplai" value="@Startup._lang["NHAPLAI"]" class="nhaplai" ng-click="resetContact()">
+                                <input type="button" name="guidi" value="@Startup._lang["GUIDI"]" class="guidi" ng-click="addContact(1)" ng-disabled="disableBtn.btSendContact">
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="maps-lienhe col-xs-12 col-md-6">
+
+                        <div class="add-lienhe dk">
+
+                            <h2 class="title-lienhe">TECHPRO.VN</h2>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3725.032540177134!2d105.86036321540199!3d20.991332694429783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac10f3ba8675%3A0x3534c9a08da6e79c!2zMTggxJDGsOG7nW5nIFRhbSBUcmluaCwgTWFpIMSQ4buZbmcsIEhvw6BuZyBNYWksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1591953060282!5m2!1svi!2s" width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+                            @*<div id="map"></div>*@
+                            @*<img src="uploads/home/maps.jpg" class="img-responsive" alt="">*@
+
+                        </div>
+
+                        @*<div class="add-lienhe mb">
+
+                            <div class="row-maps" ng-repeat="item in listBranch">
+
+                                <p class="title-footmsg">
+                                    {{ item.Name }}
+                                    <a href="http://www.google.com/maps/place/{{item.Lat}},{{item.Long}}" title="{{ item.Name }}" target="_blank" rel="nofollow">
+                                        <img src="/uploads/home/maps.png" alt="koilover.vn">
+                                    </a>
+                                </p>
+
+                                <p>{{ item.Address }}</p>
+
+                                <p>Hotline: <a href="tel:{{ item.Phone }}" title="">{{ item.Phone }}</a></p>
+
+                                <p>Email: <a href="mailto:{{ item.Email }}" title="">{{ item.Email }}</a></p>
+
+                            </div>
+
+                            
+
+                        </div>*@
+                        @*}*@
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+

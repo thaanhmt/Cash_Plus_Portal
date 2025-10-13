@@ -1,0 +1,105 @@
+﻿@*<div class="col col-md-3 col-12 side-bar-info">
+    <ul class="nav-tab-vertical">*@
+@if (ViewBag.ActionMenu == 1 || ViewBag.ActionMenu == 2
+    || ViewBag.ActionMenu == 3 || ViewBag.ActionMenu == 4)
+{
+    <li class="item active">
+
+        <a href="/thong-tin-tai-khoan">Thông tin cá nhân</a>
+    </li>
+}
+    else
+    {
+<li class="item">
+    <a href="/thong-tin-tai-khoan">Thông tin cá nhân</a>
+</li>
+
+    }
+@if (ViewBag.ActionMenu == 5)
+{
+    <li class="item active"><a href="/quan-ly-du-lieu">Quản lý dữ liệu</a></li>
+}
+else
+{
+    <li class="item"><a href="/quan-ly-du-lieu">Quản lý dữ liệu</a></li>
+}
+<li class="item">
+    @if (ViewBag.CQTC == true || ViewBag.QLND == true)
+    {
+        <a class="has-child rotate" href="javascript:void(0);">Quản lý tổ chức</a>
+        <ul class="list-child-tab" style="display:block;">
+            @if (ViewBag.CQTC == true)
+            {
+                if (ViewBag.ActionMenu == 9)
+                {
+                    <li class="item active-child"><a href="/danh-sach-to-chuc">Danh sách tổ chức</a></li>
+                }
+                else
+                {
+                    <li class="item"><a href="/danh-sach-to-chuc">Danh sách tổ chức</a></li>
+                }
+            }
+            @if (ViewBag.QLND == true)
+            {
+                if (ViewBag.ActionMenu == 10)
+                {
+                    <li class="item active-child"><a href="/nguoi-dung-to-chuc">Người dùng tổ chức</a></li>
+                }
+                else
+                {
+                    <li class="item"><a href="/nguoi-dung-to-chuc">Người dùng tổ chức</a></li>
+                }
+            }
+        </ul>
+    }
+</li>
+<li class="item">
+    @*@if (ViewBag.ActionMenu == 6 || ViewBag.ActionMenu == 7
+    || ViewBag.ActionMenu == 8)
+    {*@
+    <a class="has-child rotate" href="javascript:void(0);">Thông báo</a>
+    <ul class="list-child-tab" style="display:block;">
+        @if (ViewBag.ActionMenu == 7)
+        {
+            <li class="item active-child"><a href="/quan-ly-thong-bao">Quản lý thông báo</a></li>
+        }
+        else
+        {
+            <li class="item"><a href="/quan-ly-thong-bao">Quản lý thông báo</a></li>
+        }
+        @if (ViewBag.ActionMenu == 8)
+        {
+            <li class="item active-child"><a href="/cai-dat-thong-bao">Cài đặt thông báo</a></li>
+        }
+        else
+        {
+            <li class="item"><a href="/cai-dat-thong-bao">Cài đặt thông báo</a></li>
+        }
+    </ul>
+    @*}
+    else
+    {
+    <a class="has-child" href="javascript:void(0);">Thông báo</a>
+    <ul class="list-child-tab">
+    @if (ViewBag.ActionMenu == 7)
+    {
+    <li class="item active"><a href="/quan-ly-thong-bao">Quản lý thông báo</a></li>
+    }
+    else
+    {
+    <li class="item"><a href="/quan-ly-thong-bao">Quản lý thông báo</a></li>
+    }
+    @if (ViewBag.ActionMenu == 8)
+    {
+    <li class="item active"><a href="/cai-dat-thong-bao">Cài đặt thông báo</a></li>
+    }
+    else
+    {
+    <li class="item"><a href="/cai-dat-thong-bao">Cài đặt thông báo</a></li>
+    }
+    </ul>
+    }*@
+
+</li>
+@*    </ul>
+</div>*@

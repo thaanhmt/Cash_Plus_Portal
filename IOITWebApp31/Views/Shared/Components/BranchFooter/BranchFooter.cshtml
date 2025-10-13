@@ -1,0 +1,37 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Branch>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    int j = 0;
+
+    @foreach (var item in Model)
+    {
+        if (j == 0)
+        {
+            <div class="add-footer">
+                <p class="p-title">@item.Name</p>
+                <p class="p-add">@item.Address</p>
+            </div>
+        }
+        if (j == 1)
+        {
+            <div class="add-footer">
+                <p class="p-title">@item.Name</p>
+                <p class="p-add">@item.Address</p>
+                <p class="p-phone">@Startup._lang["DIENTHOAI"]: @item.Phone</p>
+            </div>
+        }
+        if (j == 2)
+        {
+            <div class="add-footer">
+                <p class="p-title">@item.Name</p>
+                <p class="p-add">@item.Address</p>
+                <p class="p-phone">Email: @item.Email</p>
+                <p class="p-phone">Hotline: @item.Phone</p>
+            </div>
+        }
+        j++;
+    }
+    <div class="gpkd"><span>@Startup._lang["GPKD"]: 0101185981</span></div>
+}

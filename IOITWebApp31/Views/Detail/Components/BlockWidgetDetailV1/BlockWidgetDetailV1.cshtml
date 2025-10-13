@@ -1,0 +1,24 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    <div class="block-side-cate bg-gray">
+        <div class="titleBarHome">
+            <div class="labelTitleBar">@ViewBag.FirstNameCateWidget</div>
+        </div>
+        <div class="content-block-side">
+            @foreach (var item in Model)
+            {
+                <div class="box box-vertical box-bottom-side">
+                    <div class="box-image">
+                        <a href="@("/" + item.Url)"><img src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="@item.Title"></a>
+                    </div>
+                    <div class="box-text">
+                        <h5 class="title-post"><a href="@("/" + item.Url)" class="textLine-4">@item.Title</a></h5>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

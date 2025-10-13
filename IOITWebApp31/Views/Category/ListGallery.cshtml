@@ -1,0 +1,49 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+
+@{
+    ViewData["Title"] = "ListGallery";
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="/images/banner-chitiet-hoatdong.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb container">
+            <p>@ViewBag.CategoryName</p>
+            <ul>
+                <li><a href="/" title="Trang chủ">Trang chủ</a></li>
+                <li><span>@ViewBag.CategoryName</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="maincontent-page">
+        <div class="container">
+            <div class="row">
+                <div class="content-page">
+                    @if (Model != null)
+                    {
+
+                        @foreach (var item in Model)
+                        {
+                            <div class="gallery-item col-xs-6 col-sm-4">
+                                <div class="box-shadow">
+                                    <div class="img-itemda">
+                                        <a href="/@(Const.DETAIL_IMAGE + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title">
+                                            <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Title">
+                                        </a>
+                                    </div>
+                                    <div class="title-itemda"><a href="/@(Const.DETAIL_IMAGE + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title">@item.Title</a></div>
+                                    <div class="detail-link"><a href="/@(Const.DETAIL_IMAGE + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="Chi tiết">Chi tiết</a></div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

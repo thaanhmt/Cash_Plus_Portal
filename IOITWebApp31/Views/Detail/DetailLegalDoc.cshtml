@@ -1,0 +1,284 @@
+﻿@model IOITWebApp31.Models.Data.LegalDocDT
+
+@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+@if (ViewBag.LanguageId == "1008"){
+    <div class="child-page">
+        <div class="banner-page">
+            <img src="~/images/banner-chitiet-hoatdong.jpg" class="img-responsive" alt="">
+            <div class="breadcrumb">
+                <p>@ViewBag.SeoTitle</p>
+                <ul>
+                    <li><a href="/" title="Trang chủ">Trang chủ</a></li>
+                    <li><span>@ViewBag.SeoTitle</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="maincontainer mainCategoriesNews detail-legal">
+            <div class="container">
+                <div class="row">
+                    <!-- main column -->
+                    <div class="maincolumn2">
+                        @*<form class="form-legaldoc">
+                    <input id="textSearch" name="textSearch" type="text" placeholder="Tìm kiếm văn bản" value="@ViewBag.textSearch" />
+                    <select id="typeText" name="typeText">
+                    <option value="-1">-- Loại văn bản --</option>
+                    @if (ViewBag.typeTexts != null)
+                    {
+                    foreach (var item in ViewBag.typeTexts as IEnumerable<IOITWebApp31.Models.EF.TypeAttributeItem>)
+                    {
+                    if (ViewBag.typeText == item.TypeAttributeItemId)
+                    {
+                    <option value="@item.TypeAttributeItemId" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@item.TypeAttributeItemId">@item.Name</option>
+                    }
+                    }
+                    }
+                    </select>
+
+                    <select id="agencyIssue" name="agencyIssue">
+                    <option value="-1">-- Cơ quan ban hành --</option>
+                    @if (ViewBag.agencyIssues != null)
+                    {
+                    foreach (var item in ViewBag.agencyIssues as IEnumerable<IOITWebApp31.Models.EF.TypeAttributeItem>)
+                    {
+                    if (ViewBag.agencyIssue == item.TypeAttributeItemId)
+                    {
+                    <option value="@item.TypeAttributeItemId" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@item.TypeAttributeItemId">@item.Name</option>
+                    }
+                    }
+                    }
+                    </select>
+
+                    <select id="yearIssue" name="yearIssue">
+                    <option value="-1">-- Năm ban hành --</option>
+                    @if (ViewBag.agencyIssues != null)
+                    {
+                    foreach (var item in ViewBag.yearIssues as List<int>)
+                    {
+                    if (ViewBag.yearIssue == item)
+                    {
+                    <option value="@item" selected>@item</option>
+                    }
+                    else
+                    {
+                    <option value="@item">@item</option>
+                    }
+                    }
+                    }
+                    </select>
+
+                    <button id="search-legal-doc" type="button">Tìm kiếm</button>
+                    </form>*@
+
+                        <div class="detail-legal-doc col-xs-12">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Số/ký hiệu</td>
+                                        <td>@Model.Code</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ngày ban hành</td>
+                                        @if (Model.DateIssue != null)
+                                        {
+                                            <td>@Model.DateIssue.Value.ToString("dd/MM/yyyy")</td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td>Người ký</td>
+                                        <td>@Model.Signer</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trích yếu</td>
+                                        <td>@Model.TichYeu</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cơ quan ban hành</td>
+                                        <td>@Model.AgencyIssueName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phân loại</td>
+                                        <td>@Model.TypeTextName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tệp đính kèm</td>
+                                        <td>
+                                            @if (Model.Attactment != null && Model.Attactment != "")
+                                            {
+                                                @*<a target="_blank" href='@(Const.ROOT_UPLOADS + Model.Attactment)'>Download</a>*@
+                                                <a target="_blank" href='#'>Download</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Left column -->
+                    @await Component.InvokeAsync("BlockNewLegalDoc", new { Number = 8 })
+                        <!-- End leftcolumn -->
+                    </div>
+                    <input style="display: none;" id="page" value="@ViewBag.page" />
+
+                    <!-- Left column -->
+                    @*@await Component.InvokeAsync("BlockNewsMostView", new { Number = 8 })*@
+                    <!-- End leftcolumn -->
+                </div>
+            </div>
+        </div>
+    </div>
+}else{
+    <div class="child-page">
+        <div class="banner-page">
+            <img src="~/images/banner-chitiet-hoatdong.jpg" class="img-responsive" alt="">
+            <div class="breadcrumb">
+                <p>@ViewBag.SeoTitle</p>
+                <ul>
+                    <li><a href="index.php" title="Trang chủ">Trang chủ</a></li>
+                    @*<li><a href="@("/"+Const.CATEGORY_NEWS+"/" + ViewBag.CategoryUrl+ "-" + Const.WEBSITEID + "-" + ViewBag.CategoryId + "-1.html")">@ViewBag.CategoryName</a></li>*@
+
+                    <li><span>@ViewBag.SeoTitle</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="maincontainer mainCategoriesNews detail-legal">
+            <div class="container">
+                <div class="row">
+                    <!-- main column -->
+                    <div class="maincolumn2">
+                        @*<form class="form-legaldoc">
+                    <input id="textSearch" name="textSearch" type="text" placeholder="Tìm kiếm văn bản" value="@ViewBag.textSearch" />
+                    <select id="typeText" name="typeText">
+                    <option value="-1">-- Loại văn bản --</option>
+                    @if (ViewBag.typeTexts != null)
+                    {
+                    foreach (var item in ViewBag.typeTexts as IEnumerable<IOITWebApp31.Models.EF.TypeAttributeItem>)
+                    {
+                    if (ViewBag.typeText == item.TypeAttributeItemId)
+                    {
+                    <option value="@item.TypeAttributeItemId" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@item.TypeAttributeItemId">@item.Name</option>
+                    }
+                    }
+                    }
+                    </select>
+
+                    <select id="agencyIssue" name="agencyIssue">
+                    <option value="-1">-- Cơ quan ban hành --</option>
+                    @if (ViewBag.agencyIssues != null)
+                    {
+                    foreach (var item in ViewBag.agencyIssues as IEnumerable<IOITWebApp31.Models.EF.TypeAttributeItem>)
+                    {
+                    if (ViewBag.agencyIssue == item.TypeAttributeItemId)
+                    {
+                    <option value="@item.TypeAttributeItemId" selected>@item.Name</option>
+                    }
+                    else
+                    {
+                    <option value="@item.TypeAttributeItemId">@item.Name</option>
+                    }
+                    }
+                    }
+                    </select>
+
+                    <select id="yearIssue" name="yearIssue">
+                    <option value="-1">-- Năm ban hành --</option>
+                    @if (ViewBag.agencyIssues != null)
+                    {
+                    foreach (var item in ViewBag.yearIssues as List<int>)
+                    {
+                    if (ViewBag.yearIssue == item)
+                    {
+                    <option value="@item" selected>@item</option>
+                    }
+                    else
+                    {
+                    <option value="@item">@item</option>
+                    }
+                    }
+                    }
+                    </select>
+
+                    <button id="search-legal-doc" type="button">Tìm kiếm</button>
+                    </form>*@
+
+                        <div class="detail-legal-doc col-xs-12">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Số/ký hiệu</td>
+                                        <td>@Model.Code</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ngày ban hành</td>
+                                        @if (Model.DateIssue != null)
+                                        {
+                                            <td>@Model.DateIssue.Value.ToString("dd/MM/yyyy")</td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td>Người ký</td>
+                                        <td>@Model.Signer</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Trích yếu</td>
+                                        <td>@Model.TichYeu</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cơ quan ban hành</td>
+                                        <td>@Model.AgencyIssueName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Phân loại</td>
+                                        <td>@Model.TypeTextName</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tệp đính kèm</td>
+                                        <td>
+                                            @if (Model.Attactment != null && Model.Attactment != "")
+                                            {
+                                                @*<a target="_blank" href='@(Const.ROOT_UPLOADS + Model.Attactment)'>Download</a>*@
+                                                <a target="_blank" href='#'>Download</a>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Left column -->
+                    @await Component.InvokeAsync("BlockNewLegalDoc", new { Number = 8 })
+                        <!-- End leftcolumn -->
+                    </div>
+                    <input style="display: none;" id="page" value="@ViewBag.page" />
+
+                    <!-- Left column -->
+                    @*@await Component.InvokeAsync("BlockNewsMostView", new { Number = 8 })*@
+                    <!-- End leftcolumn -->
+                </div>
+            </div>
+        </div>
+    </div>
+}

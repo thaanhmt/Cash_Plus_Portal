@@ -1,0 +1,126 @@
+﻿@model List<IOITWebApp31.Models.Data.MenuItems>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var list_menu = Model.Where(m => m.MenuParentId == ViewBag.MenuParentId).OrderBy(m => m.Location).ToList();
+    string css_class = "";
+
+    foreach (var item in list_menu)
+    {
+        var listChild = Model.Where(m => m.MenuParentId == item.MenuItemId).ToList();
+
+        @*if (listChild.Count > 0)
+        {
+            css_class = "dropdown";
+        }*@
+
+        <div class="item">
+
+            @if (listChild.Count > 0)
+            {
+                if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE
+                || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT
+                || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                {
+                    <a href='@("/" + item.Url)'
+       title="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                {
+                    <a href='@("/" + item.Url)'
+       title="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                {
+                    <a href='@("/"+item.Url)' title="@item.CategoryName" rel="external" target="_blank">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                {
+                    <a href='@("/"+item.Url)' title="@item.CategoryName" rel="next">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                {
+                    <a href='@("/"+item.Url)' title="@item.CategoryName" target="_blank" rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                {
+                    <a href='@("/"+item.Url)' title="@item.CategoryName" rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                {
+                    <a href='@("/" + item.Url)'
+       title="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+
+                @*<ul class="dropmenu">
+    @await Component.InvokeAsync("HeaderMenu", new { MenuId = 28, MenuParentId = item.MenuItemId, menuItems = Model })
+    </ul>*@
+            }
+            else
+            {
+                if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE
+                || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT
+                || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                {
+                    <a href='@("/" + item.Url)' title="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                {
+                    <a href='@("/" + item.Url)'
+       title="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="external" target="_blank">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                {
+                    <a href='@("/"+item.Url)' title="@item.CategoryName" rel="next">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" target="_blank" rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                {
+                    <a class="first_level_nav" href='@("/" + item.Url)' title="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+
+            }
+
+        </div>
+    }
+}

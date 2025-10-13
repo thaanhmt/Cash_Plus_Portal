@@ -1,0 +1,202 @@
+﻿@model List<IOITWebApp31.Models.Data.MenuItems>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var list_menu = Model.Where(m => m.MenuParentId == ViewBag.MenuParentId).OrderBy(m => m.Location).ToList();
+    string css_class = "";
+
+    foreach (var item in list_menu)
+    {
+        var listChild = Model.Where(m => m.MenuParentId == item.MenuItemId).ToList();
+
+        if (listChild.Count > 0)
+        {
+            css_class = "li-cap1";
+        }
+
+        <li class="@css_class" style="background-color: #fff;">
+
+            @if (listChild.Count > 0)
+            {
+                if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.CATEGORY_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.CATEGORY_IMAGE + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.CATEGORY_VIDEO + "/" + item.Url + Const.WEBSITEID + "-" + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.CATEGORY_ATTACTMENT + "/" + item.Url + Const.WEBSITEID + "-" + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.CATEGORY_NOTIFICATION + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.PAGE_NOMAL + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + ".html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="external" target="_blank">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="next">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" target="_blank" rel="nofollow">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="nofollow">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.CATEGORY_PRODUCT + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+
+                <ul class="menu-cap2">
+                    @await Component.InvokeAsync("BlockCategory", new { MenuId = 31, MenuParentId = item.MenuItemId, menuItems = Model })
+                </ul>
+            }
+            else
+            {
+                if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT)
+                {
+                    <a href='@("/" + Const.CATEGORY_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE)
+                {
+                    <a href='@("/" + Const.CATEGORY_IMAGE + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO)
+                {
+                    <a href='@("/" + Const.CATEGORY_VIDEO + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT)
+                {
+                    <a href='@("/" + Const.CATEGORY_ATTACTMENT + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                {
+                    <a href='@("/" + Const.CATEGORY_NOTIFICATION + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                {
+                    <a href='@("/" + Const.PAGE_NOMAL + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + ".html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="external" target="_blank">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="next">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" target="_blank" rel="nofollow">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                {
+                    <a href='@(item.Url)' title="@item.CategoryName" rel="nofollow">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                {
+                    <a class="first_level_nav" href='@("/" + Const.CATEGORY_PRODUCT + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + "-1.html")'
+                       title="@item.CategoryName">
+                        <img src="/@(Const.ROOT_THUMBS + "/_thumb28/" + item.Icon)" alt="@item.CategoryName">
+                        @item.CategoryName
+                    </a>
+                }
+            }
+
+        </li>
+    }
+
+}

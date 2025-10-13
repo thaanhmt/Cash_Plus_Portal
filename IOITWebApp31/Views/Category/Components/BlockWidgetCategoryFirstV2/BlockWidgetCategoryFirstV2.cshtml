@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+   @foreach (var item in Model)
+    {
+<div class="box box-vertical first-box lengen-docs-box">
+    <div class="box-image">
+        @if (item.TypeNewsId == 4)
+        {
+                    <div class="img-video" data-link="@item.LinkVideo"><img src="@(ViewBag.LinkSite)/uploads/@item.Url"></div>
+            <a href="@("/" + item.Url)">
+                <span class="icon_thumb_videophoto"><i class="fas fa-play"></i></span>
+            </a>
+        }
+        else
+        {
+                    <img src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="@item.Title">
+        }
+    </div>
+    <div class="box-text">
+        <a href="@("/" + item.Url)" class="textLine-3 title-video-first">@item.Title</a>
+    </div>
+</div>
+    }
+}

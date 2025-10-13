@@ -1,0 +1,78 @@
+﻿@model List<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models.EF
+@using IOITWebApp31.Models
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutNews.cshtml";
+
+    var newsList = Model;
+    var heroNews = newsList != null && newsList.Count > 0 ? newsList[0] : null;
+    /*var featuredList = newsList != null && newsList.Count > 1 ? newsList.Skip(1).Take(3).ToList() : new List<News>();Bỏ query này*/
+    var otherNews = newsList != null && newsList.Count > 1 ? newsList.Skip(1).ToList() : new List<News>();
+}
+
+@await Component.InvokeAsync("BlockNewsHomeMain", new { Number = 10 })
+<!-- Thêm H1 cho tiêu đề trang, gộp liền search, tối ưu UI/UX -->
+<div class="news-header-block">
+    <h1 class="news-page-title">@ViewBag.SeoTitle</h1>
+    <form class="news-search-bar" role="search" method="get" action="/tim-kiem-thong-tin" onsubmit="return validateSearchNews(event)">
+        <input type="text" name="sName" id="sName" placeholder="Nhập từ khóa tìm kiếm" autocomplete="off">
+        <input type="hidden" name="typeS" value="1" />
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</div>
+<div id="search-news-error"></div>
+    <!-- Hero featured: 1 tin lớn nhất, ảnh trái, text phải, nền gradient full màn -->
+@if (heroNews != null)
+{
+<div class="news-hero">
+    <div class="news-hero-img">
+        <a href="/@heroNews.Url"><img src="/uploads/@heroNews.Image" alt="@heroNews.Title" /></a>
+    </div>
+    <div class="news-hero-content">
+        <h2 class="news-hero-title"><a href="/@heroNews.Url">@heroNews.Title</a></h2>
+        <div class="news-hero-desc">@heroNews.MetaDescription</div>
+    </div>
+</div>
+}
+
+<!-- Search + danh sách tin -->
+<div class="news-container news-container-wide">    
+    <div class="news-list news-list-wide">
+    @foreach(var item in otherNews) {
+        <div class="news-card">
+        <div class="news-card-img">
+            <a href="/@item.Url"><img src="/uploads/@item.Image" alt="@item.Title" /></a>
+        </div>
+        <!-- Dùng H3 cho tin thường -->
+        <h3 class="news-card-title"><a href="/@item.Url">@item.Title</a></h3>
+        <div class="news-card-desc">@item.MetaDescription</div>
+        </div>
+    }
+    </div>
+</div>
+
+<script>
+    function handleChange(select) {
+        var selectedValue = select.value;
+        if (selectedValue === "2") {
+            window.location.href = "/home/faq";
+        }
+    }
+
+function validateSearchNews(e) {
+    var input = document.getElementById('sName');
+    var error = document.getElementById('search-news-error');
+    if (!input.value.trim()) {
+        error.innerText = 'Bạn chưa nhập nội dung tìm kiếm';
+        error.style.display = 'block';
+        setTimeout(function(){ error.style.display = 'none'; }, 2000);
+        input.focus();
+        e.preventDefault();
+        return false;
+    }
+    error.style.display = 'none';
+    return true;
+}
+</script>

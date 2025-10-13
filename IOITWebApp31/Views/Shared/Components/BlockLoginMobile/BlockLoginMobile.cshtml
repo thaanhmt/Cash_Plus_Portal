@@ -1,0 +1,69 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+
+@if (Model.CustomerId < 0)
+{
+    <!-- Khi chưa đăng nhập -->
+    <div class="not-login">
+        <a href="/dang-nhap" class="d-block btn-login">Đăng nhập</a>
+        <a href="/dang-ky" class="d-block btn-register">Đăng ký</a>
+    </div>
+}
+else
+{
+    <!-- Khi đã đăng nhập -->
+    <div class="is-login">
+        <div class="list-function-client">
+            <div class="item bell-noitify">
+                <a href="/quan-ly-thong-bao">
+                    <span class="fa-stack" data-count="2">
+                        <i class="fa fa-circle" style="color: transparent;"></i>
+                        <i class="fa fa-bell"></i>
+                    </span>
+                </a>
+            </div>
+            <div class="item info-client">
+                <div class="avatar">
+                    @if (Model.Avata == null)
+                    {
+                        <img src="/images/avatar.png" alt="@Model.FullName">
+                    }
+                    else
+                    {
+                        <img src="/images/avatar/@Model.Avata" alt="@Model.FullName">
+                    }
+                </div>
+                <div class="name">
+                    @Model.FullName
+                    <div class="drop-ion">
+                        <img src="/images/dropdown_icon.svg" alt="">
+                    </div>
+                </div>
+                <div class="dropdown-action">
+                    <ul class="list-action">
+                        <li class="item">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <a href="/thong-tin-tai-khoan" style="color: #fff;">  Thông tin</a>
+                        </li>
+                        <li class="item">
+                            <i class="fa-solid fa-cloud"></i>
+                            <a href="/quan-ly-du-lieu" style="color: #fff;">  Dữ liệu cuả tôi</a>
+                        </li>
+                        <li class="item">
+                            <i class="fa-solid fa-wrench"></i>
+                            <a href="/doi-mat-khau" style="color: #fff;">  Đổi mật khẩu</a>
+                        </li>
+                        <li class="item">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <a href="/dang-xuat" style="color: #fff;"> Đăng xuất</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<!-- Kết thúc mục hiển thị đăng nhập -->
+@* <select id="chonse-language" name="language">
+    <option value="vi" selected>Tiếng việt</option>
+    <option value="en">English</option>
+</select>*@

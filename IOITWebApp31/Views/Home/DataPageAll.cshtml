@@ -1,0 +1,421 @@
+﻿@model IOITWebApp31.Models.EF.Category
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main" class="data-all-page">
+    <div id="content" class="content-area">
+        <section class="section section-all-data">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="wapper-all-data row row-small">
+                    <div class="col col-lg-3 col-md-4 col-12 col-left-all-data">
+                        <div class="widget-data">
+                            <div class="heading-widget">Phạm vi ứng dụng</div>
+                            <ul class="list-pv">
+                                @foreach (var item in (List<IOITWebApp31.Models.EF.Category>)ViewBag.listAr)
+                                {
+                                    <li class="item" id="item-pvud-@item.CategoryId" onclick="LoadDataAllPage(@item.CategoryId, 1, -1, -1, -1, 1)">
+                                        <a class="d-block">
+                                            <img src="/uploads/@item.Image" alt="@item.Name">
+                                            <span>@item.Name</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="widget-data">
+                            <div class="heading-widget">Định dạng</div>
+                            <div class="item-select-widget">
+                                <div class="fake-input">
+                                    <div class="chonnse-text" id="all-extension">Tất cả</div>
+                                    @* <button type="button" class="btn-close" onclick="LoadDataByExtensions(@Newtonsoft.Json.JsonConvert.SerializeObject(null))">
+                                    <span aria-hidden="true">×</span>
+                                    </button>*@
+                                    <img src="/images/arr-menu-right.png" data-bs-toggle="modal" data-bs-target="#ModalDinhDang" />
+                                </div>
+                            </div>
+                            @*<ul class="item-select-widget">
+                            <li class="item">
+                            <a class="d-block" onclick="LoadDataAllPage(-2, 1, -1, -2, -2, 1)">Tất cả</a>
+                            <ul class="has-child child-item-widget">
+                            @foreach (var item in (List<IOITWebApp31.Models.Data.AttactmentDTO>)ViewBag.listExtensions)
+                            {
+                            <li class="item" onclick="LoadDataAllPage(-2, 1, @item.Extension, -2, -2, 1)">
+                            <a>@item.ExtensionName</a>
+                            </li>
+                            }
+                            </ul>
+                            </li>
+                            </ul>*@
+                        </div>
+                        <div class="widget-data">
+                            <div class="heading-widget">Cơ quan tổ chức</div>
+                            <div class="item-select-widget">
+                                <div class="fake-input">
+                                    <div class="chonnse-text" id="all-unit">Tất cả</div>
+                                    <img src="/images/arr-menu-right.png" data-bs-toggle="modal" data-bs-target="#ModalCoQuan" />
+                                </div>
+                            </div>
+                            @*<ul class="item-select-widget">
+                            <li class="item">
+                            <a class="d-block" onclick="LoadDataAllPage(-2, 1, -2, -1, -2, 1)">Tất cả</a>
+                            <ul class="has-child child-item-widget">
+                            @foreach (var item in (List<IOITWebApp31.Models.EF.Unit>)ViewBag.listUnit)
+                            {
+                            <li class="item" onclick="LoadDataAllPage(-2, 1, -2, @item.UnitId, -2, 1)">
+                            <a>@item.Name</a>
+                            </li>
+                            }
+                            </ul>
+                            </li>
+                            </ul>*@
+                        </div>
+                        <div class="widget-data">
+                            <div class="heading-widget">Lĩnh vực nghiên cứu</div>
+                            <div class="item-select-widget">
+                                <div class="fake-input">
+                                    <div class="chonnse-text" id="all-ra">Tất cả</div>
+                                    <img src="/images/arr-menu-right.png" data-bs-toggle="modal" data-bs-target="#ModalLinhVuc" />
+                                </div>
+                            </div>
+                            @*<ul class="item-select-widget">
+                            <li class="item">
+                            <a class="d-block" onclick="LoadDataAllPage(-2, 1, -2, -2, -1, 1)">Tất cả</a>
+                            <ul class="has-child child-item-widget">
+                            @foreach (var item in (List<IOITWebApp31.Models.EF.Category>)ViewBag.listRa)
+                            {
+                            <li class="item" onclick="LoadDataAllPage(-2, 1, -2, -2, @item.CategoryId, 1)">
+                            <a>@item.Name</a>
+                            </li>
+                            }
+                            </ul>
+                            </li>
+                            </ul>*@
+                        </div>
+                    </div>
+                    <div class="col col-lg-9 col-md-8 col-12 col-right-all-data section-data">
+                        <div class="search-all-data">
+                            <div class="search-wapper">
+                                <div class="wapper-search">
+                                    <input type="search" name="sNameAr" id="sNameAr" placeholder="Tìm kiếm trong phạm vi ứng dụng..."
+                                           value="@ViewBag.NameAr">
+                                    <button class="btn-search" onclick="LoadDataAllPageSearch()">
+                                        <img src="images/search-ct_new.png"
+                                             alt="">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="filter-all-data">
+                            <div class="orderby">
+                                <div class="wapper-select-order">
+                                    <img src="images/select_all.png" alt="">
+                                    <select name="orderAr" id="orderAr" onchange="LoadDataAllOrder()">
+                                        <option value="1">Mới nhất</option>
+                                        <option value="2">Xem nhiều nhất</option>
+                                        <option value="3">Tải nhiều nhất</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="list-data-all">
+                            <div id="ListDataAll"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<div class="loadding-animate">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff0;display:block;" width="115px" height="115px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+        <g transform="translate(20 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.4807692307692307s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(40 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.3205128205128205s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(60 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="-0.16025641025641024s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+        <g transform="translate(80 50)">
+            <circle cx="0" cy="0" r="6" fill="#96c639">
+                <animateTransform attributeName="transform" type="scale" begin="0s" calcMode="spline" keySplines="0.3 0 0.7 1;0.3 0 0.7 1" values="0;1;0" keyTimes="0;0.5;1" dur="1.282051282051282s" repeatCount="indefinite"></animateTransform>
+            </circle>
+        </g>
+    </svg>
+</div>
+
+<div class="modal fade" id="ModalDinhDang" tabindex="-1" aria-labelledby="ModalDinhDanglLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" uib-modal-transclude="">
+            <div class="modal-header ng-scope">
+                <h5 class="modal-title">Định dạng tài liệu</h5>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-live">
+                    <input id="filter-extensions" type="text" placeholder="Tìm kiếm định dạng...">
+                </div>
+                <ul class="list_option customize-scroll-bar" id="list_extensions">
+                    <li class="item" style="padding-left: 20px" data-extensions="Tất cả" onclick="LoadDataByExtensions(@Newtonsoft.Json.JsonConvert.SerializeObject(null))">
+                        <input type="radio" id="extensions" name="extensions" />
+                        <span>Tất cả</span>
+                    </li>
+                    @foreach (var item in (List<IOITWebApp31.Models.Data.AttactmentDTO>)ViewBag.listExtensions)
+                    {
+                        <li class="item" style="padding-left: 20px" data-extensions="@item.ExtensionName" onclick="LoadDataByExtensions(@Newtonsoft.Json.JsonConvert.SerializeObject(item))">
+                            <input type="radio" id="extensions" name="extensions" />
+                            <span>@item.ExtensionName</span>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalCoQuan" tabindex="-1" aria-labelledby="ModalCoQuanlLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header ng-scope">
+                <h5 class="modal-title">Cơ quan tổ chức</h5>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-live">
+                    <input id="filter-units" type="text" placeholder="Tìm kiếm cơ quan/tổ chức...">
+                </div>
+                <ul class="list_option customize-scroll-bar" id="list_units">
+                    <li class="item" style="padding-left: 20px" data-units="Tất cả" onclick="LoadDataByUnits(@Newtonsoft.Json.JsonConvert.SerializeObject(null))">
+                        <input type="radio" id="units" name="units" />
+                        <span>Tất cả</span>
+                    </li>
+                    @foreach (var item in (List<IOITWebApp31.Models.EF.Unit>)ViewBag.listUnit)
+                    {
+                        <li class="item" style="padding-left: 20px" data-units="@item.Name" onclick="LoadDataByUnits(@Newtonsoft.Json.JsonConvert.SerializeObject(item))">
+                            <input type="radio" id="units" name="units" />
+                            <span>@item.Name</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+            @*<div class="modal-footer ng-scope">
+            <button type="button" class="btn btn-xanh">Lưu thông tin</button>
+            </div>*@
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalLinhVuc" tabindex="-1" aria-labelledby="ModalLinhVucLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" uib-modal-transclude="">
+            <div class="modal-header ng-scope">
+                <h5 class="modal-title">Lĩnh vực nghiên cứu</h5>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-live">
+                    <input id="filter-ra" type="text" placeholder="Tìm kiếm lĩnh vực nghiên cứu...">
+                </div>
+                <ul class="list_option customize-scroll-bar" id="list_ra">
+                    <li class="item" style="padding-left: 20px" data-ra="Tất cả" onclick="LoadDataByRa(@Newtonsoft.Json.JsonConvert.SerializeObject(null))">
+                        <input type="radio" id="cate-ra" name="cate-ra" />
+                        <span>Tất cả</span>
+                    </li>
+                    @foreach (var item in (List<IOITWebApp31.Models.EF.Category>)ViewBag.listRa)
+                    {
+                        <li class="item" style="padding-left: 20px" data-ra="@item.Name" onclick="LoadDataByRa(@Newtonsoft.Json.JsonConvert.SerializeObject(item))">
+                            <input type="radio" id="cate-ra" name="cate-ra" />
+                            <span>@item.Name</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+            LoadDataAllPage(@ViewBag.ArId, 1, @ViewBag.DsEx, @ViewBag.DsUId, @ViewBag.RaId, 1, @Html.Raw(ViewBag.NameAr2));
+        });
+        function LoadDataAllPage(id, k, ex, uid, aid, od, textS) {
+            $('.overlay_menu').addClass('active');
+            $('.loadding-animate').show();
+            if (id != -2) {
+                $('.list-pv .item').removeClass('active');
+                $("#item-pvud-" + id).addClass("active");
+            }
+            var textS = $("#sNameAr").val();
+            if (textS == undefined) textS = "";
+            var obj = {
+                textS: textS,
+                id: id,
+                ex: ex,
+                uid: uid,
+                aid: aid,
+                p: k,
+                od: od,
+            };
+            function loadData() {
+                $("#ListDataAll").load("/Home/ListDataAll", obj, function() {
+                    $('.overlay_menu').removeClass('active');
+                    $('.loadding-animate').hide();
+                    $('html, body').animate({ scrollTop: $('#header').offset().top }, 100);
+                })
+            }
+            setTimeout(loadData, 1000);
+            //$("#ListDataAll").load("/Home/ListDataAll", obj);
+        }
+
+        function LoadDataAllPageSearch() {
+            $('.overlay_menu').addClass('active');
+            $('.loadding-animate').show();
+            var textS = $("#sNameAr").val();
+            if (textS == undefined) textS = "";
+
+            var obj = {
+                textS: textS,
+                id: -2,
+                ex: -2,
+                uid: -2,
+                aid: -2,
+                p: 1,
+                od: 1
+            };
+            //$("#ListDataAll").load("/Home/ListDataAll?id=" + id + "&p=" + k + "&ex=" + ex + "&uid=" + uid + "&aid=" + aid);
+            function loadData() {
+                $("#ListDataAll").load("/Home/ListDataAll", obj, function() {
+                    $('.overlay_menu').removeClass('active');
+                    $('.loadding-animate').hide();
+                    $('html, body').animate({ scrollTop: $('#header').offset().top }, 100);
+                })
+            }
+            setTimeout(loadData, 1000);
+        }
+
+        function LoadDataAllOrder() {
+            $('.overlay_menu').addClass('active');
+            $('.loadding-animate').show();
+            var od = $("#orderAr").val();
+            if (od == undefined) od = 1;
+            var textS = $("#sNameAr").val();
+            if (textS == undefined) textS = "";
+            var obj = {
+                textS: textS,
+                id: -2,
+                ex: -2,
+                uid: -2,
+                aid: -2,
+                p: 1,
+                od: od
+            };
+            function loadData() {
+                $("#ListDataAll").load("/Home/ListDataAll", obj, function() {
+                    $('.overlay_menu').removeClass('active');
+                    $('.loadding-animate').hide();
+                    $('html, body').animate({ scrollTop: $('#header').offset().top }, 100);
+                })
+            }
+            setTimeout(loadData, 1000);
+        }
+
+        function LoadDataByExtensions(item) {
+            if (item != undefined) {
+                $('#all-extension').text(item.ExtensionName);
+                LoadDataAllPage(-2, 1, item.Extension, -2, -2, 1);
+            }
+            else {
+                $('#all-extension').text("Tất cả");
+                LoadDataAllPage(-2, 1, -1, -2, -2, 1);
+            }
+            $('#ModalDinhDang').modal('hide');
+        }
+
+        function LoadDataByUnits(item) {
+            if (item != undefined) {
+                $('#all-unit').text(item.Name);
+                LoadDataAllPage(-2, 1, -2, item.UnitId, -2, 1)
+            }
+            else {
+                $('#all-unit').text("Tất cả");
+                LoadDataAllPage(-2, 1, -2, -1, -2, 1)
+            }
+            $('#ModalCoQuan').modal('hide');
+        }
+
+        function LoadDataByRa(item) {
+            if (item != undefined) {
+                $('#all-ra').text(item.Name);
+                LoadDataAllPage(-2, 1, -2, -2, item.CategoryId, 1)
+            }
+            else {
+                $('#all-ra').text("Tất cả");
+                LoadDataAllPage(-2, 1, -2, -2, -1, 1)
+            }
+            $('#ModalLinhVuc').modal('hide');
+        }
+
+        var input = document.getElementById("sNameAr");
+        input.addEventListener("keydown", function(event) {
+            if (event.keyCode === 13) {
+                LoadDataAllPageSearch();
+            }
+        });
+
+        var inputE = document.getElementById("filter-extensions");
+        inputE.addEventListener("input", function(event) {
+            var filterValue = $(this).val().toLowerCase();
+            console.log(filterValue);
+            $('#list_extensions .item').each(function() {
+                var itemValue = $(this).data('extensions').toLowerCase();
+                if (itemValue.includes(filterValue)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        var inputU = document.getElementById("filter-units");
+        inputU.addEventListener("input", function(event) {
+            var filterU = $(this).val().toLowerCase();
+            console.log(filterU);
+            $('#list_units .item').each(function() {
+                var itemU = $(this).data('units').toLowerCase();
+                if (itemU.includes(filterU)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        var inputR = document.getElementById("filter-ra");
+        inputR.addEventListener("input", function(event) {
+            var filterR = $(this).val().toLowerCase();
+            console.log(filterR);
+            $('#list_ra .item').each(function() {
+                var itemR = $(this).data('ra').toLowerCase();
+                if (itemR.includes(filterR)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+    </script>
+}

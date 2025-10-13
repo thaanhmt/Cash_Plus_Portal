@@ -1,0 +1,498 @@
+﻿[
+  {
+    "Key": "Project",
+    "Value": "Dự án"
+  },
+  {
+    "Key": "NumberYearAction",
+    "Value": "Số năm phát triển"
+  },
+  {
+    "Key": "Customer",
+    "Value": "Khách hàng"
+  },
+  {
+    "Key": "Employee",
+    "Value": "Nguồn nhân lực"
+  },
+  {
+    "Key": "LinhVucHoatDong",
+    "Value": "Lĩnh Vực Hoạt Động"
+  },
+  {
+    "Key": "SanPham",
+    "Value": "Sản phẩm"
+  },
+  {
+    "Key": "TitleNew",
+    "Value": "Tin tức - sự kiện"
+  },
+  {
+    "Key": "GPDV",
+    "Value": "Giải pháp và dịch vụ"
+  },
+  {
+    "Key": "CHNN",
+    "Value": "CƠ HỘI NGHỀ NGHIỆP"
+  },
+  {
+    "Key": "UngTuyen",
+    "Value": "Ứng tuyển ngay"
+  },
+  {
+    "Key": "DesUngTuyen",
+    "Value": "Chúng tôi luôn chào đón các ứng viên mong muốn phát triển bản thân, yêu thích làm việc trong một môi trường năng động, trẻ trung và đầy thử thách."
+  },
+  {
+    "Key": "KhachHang",
+    "Value": "Khách hàng TECHPRO"
+  },
+  {
+    "Key": "LienKet",
+    "Value": "Liên kết"
+  },
+  {
+    "Key": "Home",
+    "Value": "Trang chủ"
+  },
+  {
+    "Key": "Project",
+    "Value": "Dự án"
+  },
+  {
+    "Key": "Page",
+    "Value": "Trang"
+  },
+  {
+    "Key": "About",
+    "Value": "Giới thiệu"
+  },
+  {
+    "Key": "CCTC",
+    "Value": "Cơ cấu tổ chức"
+  },
+  {
+    "Key": "GPLQ",
+    "Value": "Các giải pháp liên quan"
+  },
+  {
+    "Key": "CGP",
+    "Value": "Các giải pháp"
+  },
+  {
+    "Key": "DKBT",
+    "Value": "ĐĂNG KÝ NHẬN BẢN TIN"
+  },
+  {
+    "Key": "BUTDK",
+    "Value": "ĐĂNG KÝ"
+  },
+  {
+    "Key": "MASP",
+    "Value": "Mã sản phẩm"
+  },
+  {
+    "Key": "XUATXU",
+    "Value": "Xuất xứ"
+  },
+  {
+    "Key": "THUONGHIEU",
+    "Value": "Thương hiệu"
+  },
+  {
+    "Key": "TINHTRANG",
+    "Value": "Tình trạng"
+  },
+  {
+    "Key": "SOLUONG",
+    "Value": "Số lượng"
+  },
+  {
+    "Key": "ADDTOCART",
+    "Value": "Thêm vào giỏ"
+  },
+  {
+    "Key": "SHARE",
+    "Value": "Chia sẻ"
+  },
+  {
+    "Key": "SPGIOITHIEU",
+    "Value": "Giới thiệu"
+  },
+  {
+    "Key": "SPTINHNANG",
+    "Value": "Tính năng"
+  },
+  {
+    "Key": "SPCAUHINH",
+    "Value": "Cấu hình"
+  },
+  {
+    "Key": "SPTHONGSO",
+    "Value": "Thông số kỹ thuật"
+  },
+  {
+    "Key": "SPCUNGNHOM",
+    "Value": "Sản phẩm cùng nhóm"
+  },
+  {
+    "Key": "SPBAOHANH",
+    "Value": "Bảo hành"
+  },
+  {
+    "Key": "SODOHETHONG",
+    "Value": "Sơ đồ hệ thống"
+  },
+  {
+    "Key": "DUANDATRIENKHAI",
+    "Value": "Dự án đã triển khai"
+  },
+  {
+    "Key": "DUANKHAC",
+    "Value": "Dự án khác"
+  },
+  {
+    "Key": "TINLIENQUAN",
+    "Value": "Tin liên quan"
+  },
+  {
+    "Key": "XEMCHITIET",
+    "Value": "Xem chi tiết"
+  },
+  {
+    "Key": "XEMTHEM",
+    "Value": "Xem thêm"
+  },
+  {
+    "Key": "DKTVV",
+    "Value": "Quý khách đăng ký với chúng tôi để được tư vấn hỗ trợ những giải pháp, sản phẩm phù hợp với nhu cầu của Quý vị."
+  },
+  {
+    "Key": "CONGTY",
+    "Value": "CÔNG TY CỔ PHẦN PHÁT TRIỂN CÔNG NGHỆ TECHPRO"
+  },
+  {
+    "Key": "TEXTUNGTUYEN",
+    "Value": "Chúng tôi luôn chào đón các ứng viên mong muốn phát triển bản thân, yêu thích làm việc trong một môi trường năng động, trẻ trung và đầy thử thách."
+  },
+  {
+    "Key": "HOTEN",
+    "Value": "Họ và tên"
+  },
+  {
+    "Key": "DIENTHOAI",
+    "Value": "Điện thoại"
+  },
+  {
+    "Key": "DIACHI",
+    "Value": "Địa chỉ"
+  },
+  {
+    "Key": "THEMDIACHI",
+    "Value": "Thêm địa chỉ"
+  },
+  {
+    "Key": "NOIDUNG",
+    "Value": "Nội dung"
+  },
+  {
+    "Key": "HUY",
+    "Value": "Hủy"
+  },
+  {
+    "Key": "BTNUNGTUYEN",
+    "Value": "Ứng tuyển"
+  },
+  {
+    "Key": "DKTV",
+    "Value": "Đăng ký tư vấn"
+  },
+  {
+    "Key": "GPKD",
+    "Value": "Giấy phép đăng ký doanh nghiệp số"
+  },
+  {
+    "Key": "SPGH",
+    "Value": "Không có sản phẩm trong giỏ hàng"
+  },
+  {
+    "Key": "LIENHE",
+    "Value": "Liên hệ"
+  },
+  {
+    "Key": "XOA",
+    "Value": "Xóa"
+  },
+  {
+    "Key": "TONGTIEN",
+    "Value": "Tổng tiền"
+  },
+  {
+    "Key": "CHITIET_GIOHANG",
+    "Value": "Chi tiết giỏ hàng"
+  },
+  {
+    "Key": "DONG",
+    "Value": "Đóng"
+  },
+  {
+    "Key": "TIEPTUC_MUAHANG",
+    "Value": "Tiếp tục mua hàng"
+  },
+  {
+    "Key": "TIENHANH_DATHANG",
+    "Value": "Tiến hành đặt hàng"
+  },
+  {
+    "Key": "SANPHAM",
+    "Value": "Sản phẩm"
+  },
+  {
+    "Key": "GIOHANGCO",
+    "Value": "Giỏ hàng của bạn có"
+  },
+  {
+    "Key": "DIACHIDATHANG",
+    "Value": "Địa chỉ đặt hàng"
+  },
+  {
+    "Key": "TINHTP",
+    "Value": "Chọn tỉnh/TP"
+  },
+  {
+    "Key": "QUANHUYEN",
+    "Value": "Chọn quận/huyện"
+  },
+  {
+    "Key": "THANHTOAN",
+    "Value": "Tiến hành thanh toán"
+  },
+  {
+    "Key": "HINHTHUC_THANHTOAN",
+    "Value": "Chọn hình thức thanh toán"
+  },
+  {
+    "Key": "PAYMENT_DELIVERY",
+    "Value": "Thanh toán khi nhận hàng"
+  },
+  {
+    "Key": "TEXT_DELIVERY",
+    "Value": "Quý khách sẽ thanh toán bằng tiền mặt khi nhận hàng"
+  },
+  {
+    "Key": "NGAYDANG",
+    "Value": "Ngày đăng"
+  },
+  {
+    "Key": "THONGTIN_LIENHE",
+    "Value": "Thông tin liên hệ"
+  },
+  {
+    "Key": "ADD_CHINH",
+    "Value": "Trụ sở chính: Số 51/39 Hào Nam, phường Ô Chợ Dừa, quận Đống Đa, TP. Hà Nội"
+  },
+  {
+    "Key": "ADD_HN",
+    "Value": "Văn phòng kinh doanh tại Hà Nội: Tầng 19 tòa nhà VTC Online, số 18 Tam Trinh, quận Hai Bà Trưng, TP. Hà Nội"
+  },
+  {
+    "Key": "ADD_HCM",
+    "Value": "Chi nhánh tại TP Hồ Chí Minh: Tầng 5 - tòa nhà 132 Cộng Hòa, phường 4, quận Tân Bình, TP. Hồ Chí Minh"
+  },
+  {
+    "Key": "TIEUDE",
+    "Value": "Tiêu đề"
+  },
+  {
+    "Key": "NHAPLAI",
+    "Value": "Nhập lại"
+  },
+  {
+    "Key": "GUIDI",
+    "Value": "Gửi đi"
+  },
+  {
+    "Key": "CONHANG",
+    "Value": "Còn hàng"
+  },
+  {
+    "Key": "HETHANG",
+    "Value": "Hết hàng"
+  },
+  {
+    "Key": "GIAIPHAP",
+    "Value": "Giải pháp & dịch vụ"
+  },
+  {
+    "Key": "TIMKIEM",
+    "Value": "Tìm kiếm"
+  },
+  {
+    "Key": "GP",
+    "Value": "Giải pháp"
+  },
+  {
+    "Key": "TINTUC",
+    "Value": "Tin tức"
+  },
+  {
+    "Key": "MADONHANG",
+    "Value": "Mã đơn hàng"
+  },
+  {
+    "Key": "THONGTIN_NHANHANG",
+    "Value": "Thông tin nhận hàng"
+  },
+  {
+    "Key": "DONHANG_CUABAN",
+    "Value": "Đơn hàng của bạn"
+  },
+  {
+    "Key": "GIA",
+    "Value": "Giá"
+  },
+  {
+    "Key": "KETQUA_TIMKIEM",
+    "Value": "Kết quả tìm kiếm"
+  },
+  {
+    "Key": "NO_KQTK",
+    "Value": "Không có kết quả tìm kiếm"
+  },
+  {
+    "Key": "KD_DA",
+    "Value": "Kinh doanh dự án"
+  },
+  {
+    "Key": "KD_DA",
+    "Value": "Kinh doanh dự án"
+  },
+  {
+    "Key": "KT_KT",
+    "Value": "Kinh tế - kỹ thuật"
+  },
+  {
+    "Key": "KS_TC",
+    "Value": "Khảo sát - Thi công"
+  },
+  {
+    "Key": "DT",
+    "Value": "Đào tạo"
+  },
+  {
+    "Key": "BT",
+    "Value": "Bảo trì"
+  },
+  {
+    "Key": "BH",
+    "Value": "Bán hàng"
+  },
+  {
+    "Key": "PTK",
+    "Value": "Phát triển kênh"
+  },
+  {
+    "Key": "KTSP",
+    "Value": "Kỹ thuật sản phẩm"
+  },
+  {
+    "Key": "TVGP",
+    "Value": "Tư vấn giải pháp"
+  },
+  {
+    "Key": "TTIKTS",
+    "Value": "Trung tâm in KTS"
+  },
+  {
+    "Key": "XLDL",
+    "Value": "Xử lý dữ liệu"
+  },
+  {
+    "Key": "TT",
+    "Value": "Trung tâm"
+  },
+  {
+    "Key": "DVKT",
+    "Value": "dịch vụ kỹ thuật"
+  },
+  {
+    "Key": "TTGP",
+    "Value": "Trung tâm"
+  },
+  {
+    "Key": "SGP",
+    "Value": "giải pháp an ninh"
+  },
+  {
+    "Key": "DLGP",
+    "Value": "và quản lý tòa nhà"
+  },
+  {
+    "Key": "TTAN",
+    "Value": "Trung tâm phân phối thiết bị an ninh"
+  },
+  {
+    "Key": "CU_KV",
+    "Value": "Cung ứng - Kho vận"
+  },
+  {
+    "Key": "HC_NS",
+    "Value": "Hành chính - Nhân sự"
+  },
+  {
+    "Key": "TIEPTHI_TRUYENTHONG",
+    "Value": "Tiếp thị truyền thông"
+  },
+  {
+    "Key": "TC_KT",
+    "Value": "Tài chính - Kế toán"
+  },
+  {
+    "Key": "TGD",
+    "Value": "Tổng giám đốc"
+  },
+  {
+    "Key": "BKS",
+    "Value": "Ban kiểm soát"
+  },
+  {
+    "Key": "CT_HDQT",
+    "Value": "CT HĐQT"
+  },
+  {
+    "Key": "GPK",
+    "Value": "Các giải pháp khác"
+  },
+  {
+    "Key": "INTRO1",
+    "Value": "Về TECHPRO"
+  },
+  {
+    "Key": "INTRO2",
+    "Value": "Công ty Cổ Phần Phát Triển Công Nghệ TECHPRO. Được thành lập từ năm 2001, nhận thức Công Nghệ Cao là yếu tố quyết định mang đến sự khác biệt về chất lượng sản phẩm, chất lượng dịch vụ, giúp gia tăng khả năng cạnh tranh và tăng hiệu quả sản xuất kinh doanh của các doanh nghiệp. TECHPRO đặt ra cho mình sứ mệnh phải thúc đẩy việc ứng dụng các công nghệ cao và mới nhất trong cộng đồng và tạo ra hiệu quả tối ưu giúp cho Khách Hàng hài lòng. Với danh mục đầu tư gồm ba mũi nhọn chính:"
+  },
+  {
+    "Key": "INTRO3",
+    "Value": "1 – Hệ thống thiết bị an ninh và các giải pháp quản lý tòa nhà."
+  },
+  {
+    "Key": "INTRO4",
+    "Value": "2 – Hệ thống thiết bị, phần mềm và các giải pháp kỹ thuật công nghệ ngành in."
+  },
+  {
+    "Key": "INTRO5",
+    "Value": "3 - Thiết bị, Hệ thống điều khiển và các giải pháp quản lý sản xuất cho nhà máy."
+  },
+  {
+    "Key": "INTRO6",
+    "Value": "Năm 2020, TECHPRO được vinh danh trong top 100 Doanh nghiệp tiêu biểu Châu Á Thái Bình Dương."
+  },
+  {
+    "Key": "INTRO7",
+    "Value": "Để biết thêm thông tin hãy vui lòng liên hệ:"
+  },
+  {
+    "Key": "INTRO8",
+    "Value": "Hotline:1900 2035 hoặc gửi mail: info@techpro.com.vn"
+  }
+]

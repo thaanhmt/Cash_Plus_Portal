@@ -1,0 +1,33 @@
+﻿@*@model List<IOITWebApp31.Models.Data.MaterialDT>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Chủng loại</th>
+            <th>ĐVT</th>
+            <th>Giá bán</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@(item.Name.Length > 30 ? item.Name.Substring(0, item.Name.Substring(0, 30).LastIndexOf(' ')) + "..." : item.Name) </td>
+            <td> @item.UnitCalculate </td>
+            <td> @item.UnitPrice </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<div class="list-banggia">
+    <ul>
+        <li><span>11.07.2018</span><a href="#" title="">Giá vật liệu xây dựng quý III/2017</a></li>
+        <li><span>18.09.2018</span><a href="#" title="">Giá vật liệu xây dựng quý I/2018</a></li>
+        <li><span>11.07.2018</span><a href="#" title="">Giá vật liệu xây dựng quý II/2018</a></li>
+        <li><span>16.08.2018</span><a href="#" title="">Giá vật liệu xây dựng quý II/2017</a></li>
+        <li><span>11.07.2018</span><a href="#" title="">Giá vật liệu xây dựng quý I/2017</a></li>
+    </ul>
+    <div class="detail-banggia"><a href="#" title="">Xem bảng giá chi tiết</a></div>
+</div>*@

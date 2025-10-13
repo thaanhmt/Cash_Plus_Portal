@@ -1,0 +1,84 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.DataSetDTO>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        @foreach (var item in Model)
+        {
+            <div class="item-data-detail">
+                <div class="head-data">
+                    <div class="info-data">
+                        <div class="title-item">
+                            <a href="/chi-tiet-du-lieu/@item.Url-@item.DataSetId" class="textLine-1">
+                                @item.Title
+                            </a>
+                        </div>
+                        <div class="author-data">@item.AuthorName</div>
+                    </div>
+                    <div class="meta-data">
+                        <div class="top-meta">
+                            @if (item.RateStar != null && item.RateStar != 0)
+                            {
+                                <div class="rating">
+                                    <div class="rating color-@item.RateStar">
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                            }
+                            <div class="count-views">
+                                <i class="fa-solid fa-eye"></i>
+                                <span>@item.ViewNumber</span>
+                            </div>
+                            <div class="count-download">
+                                <i class="fa-solid fa-cloud-arrow-down"></i>
+                                <span>@item.DownNumber</span>
+                            </div>
+                        </div>
+                        <div class="bottom-meta">
+                            <div class="date-created">
+                                Ngày tạo: @item.CreatedAt.Value.ToString("dd/MM/yyyy")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-data">
+                    @(item.Description.Length > 500 ? item.Description.Substring(0, item.Description.Substring(0, 500).LastIndexOf(' ')) + "..." : item.Description)
+                </div>
+                <div class="bottom-data">
+                    <div class="source-upload">
+                        @if (item.userCreated != null)
+                        {
+                            <a href="/du-lieu-ca-nhan/@item.UserCreatedId">Đăng tải bởi: @item.userCreated.FullName / @item.userCreated.UnitName</a>
+                        }
+                    </div>
+                    <div class="action-data">
+                        <div class="pdf-action">
+                            @if (item.listFiles.Count > 0)
+                            {
+                                @foreach (var itemF in item.listFiles)
+                                {
+                                    <span class="extension-file">@itemF.ExtensionName</span>
+                                }
+                            }
+                        </div>
+                        @if (ViewBag.CustomerId != null)
+                        {
+                            <div class="download-action">
+                                <a onclick="DownloadFileRar(@item.DataSetId, @ViewBag.CustomerId, @Html.Raw(ViewBag.access_token))"><i class="fa-solid fa-cloud-arrow-down"></i></a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="download-action">
+                                <a href="/dang-nhap"><i class="fa-solid fa-cloud-arrow-down"></i></a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+}

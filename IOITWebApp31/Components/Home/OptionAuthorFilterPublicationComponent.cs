@@ -1,0 +1,28 @@
+﻿using IOITWebApp31.Models.EF;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace IOITWebApp31.Home.Components
+{
+    [ViewComponent(Name = "OptionAuthorFilterPublication")]
+    public class OptionAuthorFilterPublicationComponent : ViewComponent
+    {
+        public OptionAuthorFilterPublicationComponent()
+        {
+        }
+
+        public async Task<IViewComponentResult> InvokeAsync()
+        {
+            using (var db = new IOITDataContext())
+            {
+                IEnumerable<Author> data = (from c in db.Author
+                                            where c.Status == 1
+                                            select c).OrderBy(e => e.Name).ToList();
+                return await Task.FromResult((IViewComponentResult)View("OptionAuthorFilterPublication", data));
+            }
+        }
+
+    }
+}

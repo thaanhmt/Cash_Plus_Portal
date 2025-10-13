@@ -1,0 +1,50 @@
+<li *ngFor="let item of items; let i = index" class="dd-item" attr.data-id="{{ item.CategoryId }}" attr.data-Name="{{ item.Name }}">
+  <div class="dd-handle" style="position: relative;" *ngIf="hasAction==true">
+    <div class="category-move-btn">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div class="dd-handle" *ngIf="!hasAction">
+    &nbsp;{{item.Name}}
+  </div>
+  <div class="col-name-u-category" *ngIf="hasAction==true">
+    {{ item.Name }}
+    <div class="category-action">
+      <span class="id-item">ID: {{item.UnitId}} | </span>
+      <span *ngIf="CheckRole.Create" class="add-item" (click)="AddCate(item.UnitId)">Thêm mới | </span>
+      <span *ngIf="CheckRole.Update" class="update-item" (click)="UpdateCate(item.UnitId)">Chỉnh sửa | </span>
+      <span *ngIf="CheckRole.View" class="update-item" (click)="ViewCate(item.UnitId)">Xem | </span>
+      <span *ngIf="CheckRole.Delete" class="delete-item" (click)="DeleteCate(item.UnitId)">Xóa</span>
+    </div>
+  </div>
+  <!--<div class="col-image-category" *ngIf="hasAction==true">
+    <img src="../../../assets/img/no-image1.png" *ngIf="item.Image==undefined" />
+    <img src="{{ domainMedia }}{{item.Image}}" *ngIf="item.Image!=undefined" />
+  </div>-->
+  <div class="col-id-u-category" *ngIf="hasAction==true">
+    {{ item.Code }}
+  </div>
+  <div class="col-short-u-category" *ngIf="hasAction==true">
+    {{ item.ShortName }}
+  </div>
+  <div class="col-date-u-category" *ngIf="hasAction==true">
+    {{ item.CreatedAt | date:'dd/MM/yyyy hh:mm:ss' }}
+  </div>
+  <!--<div class="col-lang-category" *ngIf="hasAction==true">
+    <img src="{{domainMedia}}{{ item.language?.Flag }}" style="height:15px; width:25px;" />
+    <span (click)="AddCateLang(item.CategoryId)" *ngIf="(item.listLanguage.length < listLanguage.length - 1) && item.LanguageId == languageId && CheckRole.Create==true" title="Thêm danh mục với ngôn ngữ khác">
+      <i class="fa fa-plus"></i>
+    </span>
+  </div>-->
+  <div class="col-online-u-category" *ngIf="hasAction==true">
+    <label style="display: block; padding-top: 2px; margin: auto;" class="switch switch-label switch-pill switch-outline-primary-alt">
+      <input (change)="ShowHide(item.UnitId, item.IsShow)" type="checkbox" class="switch-input" [(ngModel)]="item.IsShow" [ngModelOptions]="{standalone: true}" />
+      <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+    </label>
+  </div>
+  <!--<div class="col-des-category" *ngIf="hasAction==true">
+    {{ item.Descriptions != undefined ? (item.Descriptions | truncate:[15]) : '—' }}
+  </div>-->
+  <ol-unit *ngIf="item[key].length" [key]="key" [data]="item[key]" [hasAction]="hasAction"
+           [listLanguage]="listLanguage" [languageId]="languageId" [functionCode]="functionCode" class="dd-list"></ol-unit>
+</li>

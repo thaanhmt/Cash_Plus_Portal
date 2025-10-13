@@ -1,0 +1,30 @@
+﻿@model IOITWebApp31.Models.EF.Category
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = "PaymentGuide";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="url-page">
+    <div class="container">
+        <div class="title-url">@ViewBag.SeoTitle</div>
+        <ul>
+            <li><a href="/" title="">Trang chủ</a></li>
+            <li><span>@ViewBag.SeoTitle</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="maincontainer">
+    <div class="container">
+        <h1 class="h1-news">@Model.MetaTitle</h1>
+        <div class="view-news">
+            @*<i class="fa fa-clock-o" aria-hidden="true"></i><span>Ngày đăng: @Model.CreatedAt.Value.ToString("dd/MM/yyyy")</span>*@
+        </div>
+        <div class="content-news">
+            @Html.Raw(Model.Contents)
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,50 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Attactment>
+@using IOITWebApp31.Models;
+
+@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="~/images/banner-chitiet-hoatdong.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb">
+            <p>Thư viện hình ảnh</p>
+            <ul>
+                <li><a href="/" title="Trang chủ">Trang chủ</a></li>
+                <li style="color: #ffffff;">@ViewBag.SeoTitle</li>
+            </ul>
+        </div>
+    </div>
+    <div class="maincontent-page">
+        <div class="container" id="content">
+            <div class="row row-post">
+                <div class="col col-lg-12">
+                    <article class="post post-image">
+                        <div class="title_sing">
+                            <h1 class="entry-title">@ViewBag.SeoTitle</h1>
+                        </div>
+                        <div class="entry-meta">
+                            
+                                <div class="demo-gallery">
+                                    <ul id="lightgallery" class="list-unstyled row">
+                                        @foreach (var item in Model)
+                                        {
+                                            <li class="col-xs-3 picone" data-src="/uploads/@item.Url" >
+                                            <a href="">  <img src="/uploads/@item.Url" alt="Alt"></a>
+                                            </li>
+                                        }
+                                        </ul>
+                                </div><?
+                            
+                        </div>
+                        
+                       
+                    </article>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+

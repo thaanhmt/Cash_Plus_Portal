@@ -1,0 +1,24 @@
+﻿<div class="leftcolumn dk" ng-controller="BlUserController" ng-init="init(@ViewBag.IndexRouter)">
+    <div class="bl-user">
+        <div class="title-bl-user">
+            <img style="width: 47px; height: 47px; object-fit: cover;" ng-show="CustomerAvata != undefined" src="/uploads/{{CustomerAvata}}" alt="">
+            <img ng-show="CustomerAvata == undefined" src="/uploads/home/icon-bl.png" alt="">
+            <p><span>Xin chào</span><span>{{CustomerFullName}}</span></p>
+        </div>
+        <div class="c-bl-user">
+            <ul>
+                <li ng-class="{active: IndexRouter==1}"><a href="/trang-ca-nhan.html" title="Thông tin tài khoản">Thông tin tài khoản</a></li>
+                <li ng-class="{active: IndexRouter==2}"><a href="/don-hang-cua-toi.html" title="Đơn hàng của bạn">Đơn hàng của bạn</a></li>
+                <li ng-class="{active: IndexRouter==3}"><a href="/san-pham-yeu-thich.html" title="Sản phẩm yêu thích">Sản phẩm yêu thích</a></li>
+                <li ng-class="{active: IndexRouter==3}"><a href="/theo-doi-don-hang.html" title="Sản phẩm yêu thích">Theo dõi đơn hàng</a></li>
+                @*<li ng-class="{active: IndexRouter==3 || IndexRouter==4}">
+                    <a href="javascript:void(0)" title="Danh mục thích của tôi">Danh mục thích của tôi</a>
+                    <ul>
+                        <li ng-class="{active: IndexRouter==3}"><a href="/san-pham-yeu-thich.html" title="Sản phẩm yêu thích">Sản phẩm yêu thích</a></li>
+                        <li ng-class="{active: IndexRouter==4}"><a href="/koi-theo-doi.html" title="Koi theo dõi">Koi theo dõi</a></li>
+                    </ul>
+                </li>*@
+            </ul>
+        </div>
+    </div>
+</div>

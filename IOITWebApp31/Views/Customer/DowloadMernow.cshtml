@@ -1,0 +1,358 @@
+﻿﻿@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Carattere&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<head>
+    <style>
+        /* CSS để ẩn/hiển thị */
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+
+        /*   .bg-section {
+                    width: 2000px;
+                    height: 100px;
+                }*/
+        .title1-ct1, .title1-ct2, .title1-ct3 {
+            margin-right: 20px; /* Khoảng cách giữa các phần tử */
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+
+
+<script>
+    document.getElementById("dang-ky").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn btn_hover"><span>Đăng Ký Đối Tác</span></a>';
+    //document.getElementById("doi-tac").innerHTML = '<a href="/chien-binh-khoi-nghiep" class="btn-cntt style-btn-kn btn_hover"><span>Hỗ trợ khởi nghiệp</span></a>';
+
+
+
+    function toggleParagraph(elementId) {
+        var paragraph = document.getElementById(elementId);
+        var rightIcon = document.getElementById(elementId + "-right");
+        var downIcon = document.getElementById(elementId + "-down");
+
+        if (paragraph.style.display === "none") {
+            paragraph.style.display = "block";
+            rightIcon.style.display = "none";
+            downIcon.style.display = "block";
+        } else {
+            paragraph.style.display = "none";
+            rightIcon.style.display = "block";
+            downIcon.style.display = "none";
+        }
+    }
+    function appregis(elementId) {
+        var paragraph = document.getElementById(elementId);
+        var rightIcon = document.getElementById(elementId + "-right");
+        var downIcon = document.getElementById(elementId + "-down");
+
+        if (paragraph.style.display === "none") {
+            paragraph.style.display = "block";
+            rightIcon.style.display = "none";
+            downIcon.style.display = "block";
+        } else {
+            paragraph.style.display = "none";
+            rightIcon.style.display = "block";
+            downIcon.style.display = "none";
+        }
+    }
+
+    //store width of container in the obj variable
+    // function goNext() {
+    //     var obj = document.getElementsByClassName('container1')[0].clientWidth;
+    //     document.getElementsByClassName('container1')[0].scrollBy({
+    //         left: obj,
+    //     });
+    // }
+
+    // function goPrevious() {
+    //     var obj = document.getElementsByClassName('container1')[0].clientWidth;
+    //     document.getElementsByClassName('container1')[0].scrollBy({
+    //         left: -obj,
+    //     });
+    // }
+    function goNext() {
+        var container = document.getElementsByClassName('container1')[0];
+        var obj = container.clientWidth;
+
+        // Vị trí hiện tại của scroll
+        var currentScroll = container.scrollLeft;
+        if (currentScroll == 31) {
+            currentScroll = 0;
+        }
+        // Tổng độ dài có thể scroll
+        var maxScroll = container.scrollWidth - container.clientWidth;
+
+        if (currentScroll > 1000) {
+            // Nếu đang ở slide cuối, di chuyển về slide đầu tiên
+            container.scrollLeft = 0;
+        } else {
+            container.scrollBy({
+                left: obj,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    function goPrevious() {
+        var container = document.getElementsByClassName('container1')[0];
+        var obj = container.clientWidth;
+
+        // Vị trí hiện tại của scroll
+        var currentScroll = container.scrollLeft;
+        console.log(currentScroll);
+
+        // if (currentScroll > 1085) {
+        //     currentScroll = 1085;
+        // }
+        if (currentScroll == 0) {
+            // Nếu đang ở slide đầu, di chuyển đến slide cuối cùng
+            container.scrollLeft = 1084;
+        } else {
+            container.scrollBy({
+                left: -obj,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+</script>
+
+
+<main id="main" ng-controller="UserUnitController" ng-init="getTinTucMoi()">
+    <div id="content" class="content-area">
+        <div class="container">
+            <div class="row s11_r3" style="display: none">
+                <div class="col col-md-12 col-12 s11_r3_c1">
+                    <div class="col-inner">
+                        <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                        <div id="countdown">
+                            <ul>
+                                <li><span id="days"></span>Ngày</li>
+                                <li><span id="hours"></span>Giờ</li>
+                                <li><span id="minutes"></span>Phút</li>
+                                <li><span id="seconds"></span>Giây</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dp-flex mg-t-a-2 show-for-full">
+
+            <div class="w-50 h-1">
+                <div class="titledow" style=" padding-top: 35%; padding-left: 25%; ">
+                    Tải ứng dụng CashPlus-Merchant ngay!
+                </div>
+                <div class="title-dow">
+                    <p style="white-space: pre-wrap; font-size: 51px;">
+                        Khách Tăng Phí Giảm Lợi Nhiều
+                    </p>
+                </div>
+                 @*<img class="img-grdowload" src="~/images/homecashplus/Group 36882.png" alt="" />
+        <span class="text-gr-dowload">
+            Tải ứng dụng
+            CashPlus-Merchant ngay!
+        </span>*@
+            </div>
+            <div class="w-50 h-1">
+                <div class="box-dow1">
+                    <div class="dp-fl-ct">
+                        <img class="img-apple" src="~/images/homecashplus/appledow.png" />
+                        <span class="sp-app">App Store</span>
+                        <a class="a-dow" href="https://apps.apple.com/vn/app/cashplus-merchant/id6459993154?l=vi"><span class="sp-dow">Tải ứng dụng</span></a>
+                        <img style="width: 100px ;height:100px" class="img-qrdow" src="~/images/banner/qr-mer/Appstore-dowload-mer.png" />                     
+                    </div>
+                </div>
+                <div class="br-b box-dow1">
+                    <div class="dp-fl-ct">
+                        <img class="img-apple" src="~/images/homecashplus/chpplaydow.png" />
+                        <span class="sp-app pd-l">CH Play</span>
+                        <a class="a-dow" href="https://play.google.com/store/apps/details?id=com.storecashplus&hl=vi"><span class="sp-dow">Tải ứng dụng</span></a>
+                        <img style="width: 100px ;height:100px" class="img-qrdow" src="~/images/banner/qr-mer/CHplay-dowload-mer.png" />
+                    </div>
+                </div>
+                <img class="img-dtdow" src="~/images/homecashplus/Tai-CashPlus-Merchant.jpg" alt="Tải ứng dụng CashPlus" style="width: 100%; max-width: 640px; max-height: 897px; margin-left: 9%; "/>
+            </div>
+        </div>
+        <div class="show-for-small">
+            <div class="mg-t-a-3">
+                <div class="box-dow-1">
+                    <div class="titledow">
+                        Tải ứng dụng CashPlus Merchant ngay!
+                    </div>
+                    <div class="title-dow">
+                        Khách Tăng Phí Giảm Lợi Nhiều
+                    </div>
+                </div>
+            </div>
+            <div class="br-b boxdow1">
+                <div class="container">
+                    <div class="dp-fl-ct">
+                        <div class="dp-fl-ct-e">
+                            <img class="img-apple1" src="~/images/homecashplus/appledow.png" />
+                            <span class="sp-app1">App Store</span>
+                        </div>
+                        <a class="a-dow" href="https://apps.apple.com/vn/app/cashplus-merchant/id6459993154?l=vi"><span class="sp-dow">Tải ứng dụng </span></a>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="dp-fl-ct">
+                        <div class="dp-fl-ct-e">
+                            <img class="img-apple1" src="~/images/banner/qr-mer/Appstore-dowload-mer.png" />
+                            
+                            <span class="sp-app1">Google Play</span>
+                        </div>
+                        <a class="a-dow" href="https://play.google.com/store/apps/details?id=com.storecashplus&hl=vi"><span class="sp-dow">Tải ứng dụng </span></a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <img  class="w-100" src="~/images/banner/qr-mer/CHplay-dowload-mer.png" alt="Tải ứng dụng CashPlus" style="width:100%; max-width:640px;"  />
+           
+            </div>
+        </div>
+
+         @*<section class="section section-7 bgNone">
+                <div class="bg-section bg-load-s5 bg-s5"></div>
+                <div class="container">
+                    <div class="col-inner">
+                        <div class="titlenew">
+                            <h3>Có gì mới trên CashPlus 12321</h3>
+                        </div>
+                    </div>
+                     <div class="col box-img-refund" style="margin-top:60px">
+                    <div class="col-inner dp-flex">
+                    <div class="box has-hover" ng-repeat="item in dataTinTuc">
+                    <div class="refund-image">
+                    <a id="openBtn" href="" rel="1">
+                    <div class="">
+                    <a href="/noi-dung-bai-viet/?newsId={{item.NewsId}}" alt="">
+                    <img ng-src="{{ item.Image === undefined ? '/images/avata-preview.png' : ('https://cashplus.vn/uploads' + item.Image) }}"
+                    alt="Ảnh bài viết" class="attchment-original img-baiviet" loading="lazy" />
+                    </a>
+                    </div>
+                    </a>
+                    </div>
+                    <div class="text-refund-image">
+                    <div class="box-text-inner">
+                    <p> {{ item.Title }}</p>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+                    <div class="container1">
+                        <a class="prev" onclick="goPrevious()">❮</a>
+                        <div class="box has-hover" ng-repeat="item in dataTinTuc">
+                            <div class="refund-image">
+                                <a id="openBtn" href="" rel="1">
+                                    <div class="">
+                                        <a href="/noi-dung-bai-viet/?newsId={{item.NewsId}}" alt="">
+                                            <img ng-src="{{ item.Image === undefined ? '/images/avata-preview.png' : ('/uploads' + item.Image) }}"
+                                                 alt="Ảnh bài viết" class=" img-baiviet" loading="lazy" />
+                                        </a>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="text-refund-image">
+                                <div class="box-text-inner">
+                                    <p> {{ item.Title }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="next" onClick="goNext()">❯</a>
+
+                    </div>
+
+                </div>
+            </section>*@
+         @*@Html.RenderPartial("~/Views/Home/informations.cshtml")*@
+
+@Html.Partial("~/Views/Home/informations.cshtml")
+</div>
+</main>
+
+
+@*<script>
+        const popup = document.getElementById("popup");
+        const popup2 = document.getElementById("popup2");
+        const popup3 = document.getElementById("popup3");
+        const openBtn = document.getElementById("openBtn");
+        const openBtn2 = document.getElementById("openBtn2");
+        const openBtn3 = document.getElementById("openBtn3");
+        const closeBtn = document.getElementById("closeBtn");
+        const closeBtn2 = document.getElementById("closeBtn2");
+        const closeBtn3 = document.getElementById("closeBtn3");
+
+
+        openBtn.addEventListener("click", () => {
+            popup.style.display = "block";
+        });
+        openBtn2.addEventListener("click", () => {
+            popup2.style.display = "block";
+        });
+        openBtn3.addEventListener("click", () => {
+            popup3.style.display = "block";
+        });
+
+        closeBtn.addEventListener("click", () => {
+            popup.style.display = "none";
+        });
+        closeBtn2.addEventListener("click", () => {
+            popup2.style.display = "none";
+        });
+        closeBtn3.addEventListener("click", () => {
+            popup3.style.display = "none";
+        });
+
+        window.addEventListener("click", (e) => {
+            if (e.target === popup) {
+                popup.style.display = "none";
+            }
+        });
+    </script>*@
+<script>
+    function showDiv(showDiv, hideDiv1, hideDiv2) {
+        document.getElementById(showDiv).classList.remove('hide');
+        document.getElementById(showDiv).classList.add('show');
+
+        document.getElementById(hideDiv1).classList.remove('show');
+        document.getElementById(hideDiv1).classList.add('hide');
+
+        document.getElementById(hideDiv2).classList.remove('show');
+        document.getElementById(hideDiv2).classList.add('hide');
+    }
+    function showDivMobile(showDiv, hideDiv1, hideDiv2) {
+        document.getElementById(showDiv).classList.remove('hide');
+        document.getElementById(showDiv).classList.add('show');
+
+        document.getElementById(hideDiv1).classList.remove('show');
+        document.getElementById(hideDiv1).classList.add('hide');
+
+        document.getElementById(hideDiv2).classList.remove('show');
+        document.getElementById(hideDiv2).classList.add('hide');
+    }
+    function changeActiveLi(element) {
+        var lis = document.querySelectorAll('.box-title span');
+        lis.forEach(function (span) {
+            span.classList.remove('title1-active');
+        });
+        element.classList.add('title1-active');
+    }
+</script>

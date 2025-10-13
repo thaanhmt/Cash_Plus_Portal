@@ -1,0 +1,48 @@
+﻿@model IOITWebApp31.Models.EF.LegalDoc
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <@* div class="col col-md-3 col-12 side-bar-info menu-faq">
+                        <ul class="nav-tab-vertical">
+                            @await Component.InvokeAsync("MenuSideBar", new { MenuId = 40, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                        </ul>
+                    </div> *@
+                    <div class="col col-md-12 col-12 section-detail-data main-manage-data">
+                        @*<div class="search-all-data">
+                            <form class="search-wapper faq" method="get">
+                                <div class="wapper-search">
+                                    <input type="text" name="txtS" placeholder="Tìm kiếm trong lĩnh vực...">
+                                    <button class="btn-search" type="submit"><img src="images/search-ct.png" alt=""></button>
+                                </div>
+                            </form>
+                        </div>*@
+                        <div class="title-noitify">Câu hỏi</div>
+                        <div class="block-faq">
+                            <div class="item-faq-page">
+                                <div class="icon-faq">
+                                    <i class="fa-regular fa-circle-question"></i>
+                                </div>
+                                <div class="main-faq">
+                                    <div class="title-faq-page"><a href="/chi-tiet-faq/@(Model.Url)-@(Model.LegalDocId)">@Model.Name</a></div>
+                                    <div class="content-faq">
+                                        @Html.Raw(Model.Contents)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

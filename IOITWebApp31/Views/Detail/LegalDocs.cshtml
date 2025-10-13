@@ -1,0 +1,312 @@
+﻿@using IOITWebApp31.Models;
+@model IOITWebApp31.Models.Data.LegalDocDT
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.LanguageId == "1008"){
+    <main id="main" class="single-legaldocs">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="/" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                     src="@(ViewBag.LinkSite)/images/icon-home-breadcumb.svg" alt="icon home"> Home
+                                </a>
+                                <span class="d-block">
+                                    <img src="@(ViewBag.LinkSite)/images/arrow-breadcumbs.svg"
+                                     alt="icon arrow">
+                                </span>
+                                <a href="/de-tai-van-ban" class="d-block">Documents</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section head-lengislation-single">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container" id="list-legandocs">
+                </div>
+            </section>
+            <section class="section head-lengislation-single single-page">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-lengislation-single">
+                        <div class="col col-12 col-lengislation-single">
+                            <article class="item-lengislation-single item-lengislation">
+                                <div class="head-lengislation-single head-lengislation">
+                                    <h2 class="title-lengislation-single title-lengislation"><a href="/van-ban/@(Model.Url)-@(Model.LegalDocId)">@Model.Name</a></h2>
+                                    <div class="block-views-lengis">
+                                        @if (ViewBag.ext == ".pdf")
+                                        {
+                                            <div class="view-pdf">
+                                                <i class="views-icon"></i>
+                                                <span><a href="/uploads/@Model.Attactment" target="_">View Online</a></span>
+                                            </div>
+                                        }
+                                        <div class="download-pdf">
+                                            <i class="download-icon"></i>
+                                            <span><a href="/uploads/@Model.Attactment" download>Download</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="body-lengislation-single">
+                                    <div class="info-lengislator-single">
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Promulgate: </div>
+                                            <span>@Model.DateIssue.Value.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Effect: </div>
+                                            <span> @Model.DateEffect.Value.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Status: </div>
+                                            <span class="check-false-text">
+                                                @if (Model.DateEffect < DateTime.Now)
+                                                {
+                                                    <span class="content-field-lengislation text-success">Already in effect</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="content-field-lengislation text-danger">No effect yet</span>
+                                                }
+                                            </span>
+                                        </div>
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Agency issued: </div>
+                                            <span class="check-false-text">@await Component.InvokeAsync("BlockNameAgencyDetail", new { AgencyIssued = Model.AgencyIssued })</span>
+                                        </div>
+                                    </div>
+                                    <div class="photo-vbpt-details">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" style="width: 195px;">Number of symbols</th>
+                                                    <td>@Model.Code</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Document Type</th>
+                                                    <td>@ViewBag.ext</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Abstract</th>
+                                                    <td colspan="2">@Model.TichYeu</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Signer</th>
+                                                    <td colspan="2">@Model.Signer</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Content</th>
+                                                    <td colspan="2">@Model.Contents</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        @*<div class="content-vb" style="margin-bottom:30px;">
+                                    @Html.Raw(Model.Contents)
+                                    </div>*@
+                                        @*<iframe src="/uploads/@Model.Attactment" style="width: 100%;height:1000px;border: none;"></iframe>*@
+                                    </div>
+                                </div>
+                                <div class="footer-lengistolation-single">
+                                    <i class="icon-download"></i>
+                                    <ul class="list-lengislation-footer">
+                                        <li class="item">
+                                            <span class="heading">Download attachments</span>
+                                        </li>
+                                        <li class="item">
+                                            <span class="d-block">Filename:</span>
+                                            <a href="/uploads/@Model.Attactment" class="d-block" download="">@Model.Attactment</a>
+                                        </li>
+                                        @if (ViewBag.ext == ".pdf")
+                                        {
+                                            <li class="item">
+                                                <span class="d-block">Attached files:</span>
+                                                <a href="/uploads/@Model.Attactment" class="d-block" target="_blank">@Model.Attactment - (Quick view)</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-other-publication">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-ap-other">
+                        <div class="col col-12 ap-other">
+                            <div class="col-inner">
+                                <div class="post_releated_core anpham-other">
+                                    <h2 class="title-sub-news">Other Legal Documents</h2>
+                                    <div class="wapper news-releated" style="margin:0;">
+                                        @await Component.InvokeAsync("BlockLegalRelated", new { Number = 8, Id = ViewBag.Id, Language = "en" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+}else{
+    <main id="main" class="single-legaldocs">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="/" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                     src="@(ViewBag.LinkSite)/images/icon-home-breadcumb.svg" alt="icon home"> Trang Chủ
+                                </a>
+                                <span class="d-block">
+                                    <img src="@(ViewBag.LinkSite)/images/arrow-breadcumbs.svg"
+                                     alt="icon arrow">
+                                </span>
+                                <a href="/de-tai-van-ban" class="d-block">Văn bản</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section head-lengislation-single">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container" id="list-legandocs">
+                </div>
+            </section>
+            <section class="section head-lengislation-single single-page">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-lengislation-single">
+                        <div class="col col-12 col-lengislation-single">
+                            <article class="item-lengislation-single item-lengislation">
+                                <div class="head-lengislation-single head-lengislation">
+                                    <h2 class="title-lengislation-single title-lengislation"><a href="/van-ban/@(Model.Url)-@(Model.LegalDocId)">@Model.Name</a></h2>
+                                    <div class="block-views-lengis">
+                                        @if (ViewBag.ext == ".pdf")
+                                        {
+                                            <div class="view-pdf">
+                                                <i class="views-icon"></i>
+                                                <span><a href="/uploads/@Model.Attactment" target="_">Xem Online</a></span>
+                                            </div>
+                                        }
+                                        <div class="download-pdf">
+                                            <i class="download-icon"></i>
+                                            <span><a href="/uploads/@Model.Attactment" download>Tải về</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="body-lengislation-single">
+                                    <div class="info-lengislator-single">
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Ban hành: </div>
+                                            <span>@Model.DateIssue.Value.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Hiệu lực: </div>
+                                            <span> @Model.DateEffect.Value.ToString("dd/MM/yyyy")</span>
+                                        </div>
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Trạng thái: </div>
+                                            <span class="check-false-text">
+                                                @if (Model.DateEffect < DateTime.Now)
+                                                {
+                                                    <span class="content-field-lengislation text-success">Đã có hiệu lực</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="content-field-lengislation text-danger">Chưa có hiệu lực</span>
+                                                }
+                                            </span>
+                                        </div>
+                                        <div class="field-single-lengislator">
+                                            <div class="label">Cơ quan ban hành: </div>
+                                            <span class="check-false-text">@await Component.InvokeAsync("BlockNameAgencyDetail", new { AgencyIssued = Model.AgencyIssued })</span>
+                                        </div>
+                                    </div>
+                                    <div class="photo-vbpt-details">
+                                        <table class="table table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row" style="width: 195px;">Số ký hiệu</th>
+                                                    <td>@Model.Code</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Loại Văn bản</th>
+                                                    <td>@ViewBag.ext</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Trích yếu</th>
+                                                    <td colspan="2">@Model.TichYeu</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Người ký</th>
+                                                    <td colspan="2">@Model.Signer</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Nội dung</th>
+                                                    <td colspan="2">@Model.Contents</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        @*<div class="content-vb" style="margin-bottom:30px;">
+                                    @Html.Raw(Model.Contents)
+                                    </div>*@
+                                        @*<iframe src="/uploads/@Model.Attactment" style="width: 100%;height:1000px;border: none;"></iframe>*@
+                                    </div>
+                                </div>
+                                <div class="footer-lengistolation-single">
+                                    <i class="icon-download"></i>
+                                    <ul class="list-lengislation-footer">
+                                        <li class="item">
+                                            <span class="heading">Tải file đính kèm</span>
+                                        </li>
+                                        <li class="item">
+                                            <span class="d-block">Tên file:</span>
+                                            <a href="/uploads/@Model.Attactment" class="d-block" download="">@Model.Name</a>
+                                        </li>
+                                        @if (ViewBag.ext == ".pdf")
+                                        {
+                                            <li class="item">
+                                                <span class="d-block">File đính kèm:</span>
+                                                <a href="/uploads/@Model.Attactment" class="d-block" target="_blank">@Model.Attactment - (Xem nhanh)</a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-other-publication">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-ap-other">
+                        <div class="col col-12 ap-other">
+                            <div class="col-inner">
+                                <div class="post_releated_core anpham-other">
+                                    <h2 class="title-sub-news">Các văn bản khác</h2>
+                                    <div class="wapper news-releated" style="margin:0;">
+                                        @await Component.InvokeAsync("BlockLegalRelated", new { Number = 8, Id = ViewBag.Id , Language = "vi" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+}

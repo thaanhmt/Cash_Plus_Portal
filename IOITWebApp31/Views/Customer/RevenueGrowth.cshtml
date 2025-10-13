@@ -1,0 +1,93 @@
+@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+<script>
+    document.getElementById("dang-ky").innerHTML = '<span class="dang-ky-thamgia"></span>';
+</script>
+<style>
+    .revenue-container {
+        width: 100%;
+        height: 100%;
+  padding-left: 4rem;
+  padding-right: 3rem; 
+  font-family: Time-new-roman
+}
+ .revenue-header{
+    margin-top: 30px;
+    text-align: end;
+    font-size: 12px;
+ }
+ .li-revenue p {
+    padding-left: 59pt; 
+    
+ }
+
+   @@media (max-width: 768px) {
+        .li-revenue {
+            padding-left: 21pt; /* Update padding-left for mobile */
+        }
+        .revenue-container {
+        width: 100%;
+        height: 100%;
+  padding-left: 2rem;
+  padding-right: 1rem;
+}
+    }
+</style>
+
+
+<main  ng-controller="UserUnitController" >
+<div class="revenue-container">
+    <div><img src="./images/LogoCashplus.png">
+            </div>
+    <div> <p style="padding-top: 4pt;padding-left: 5pt;text-indent: 0pt;text-align: justify;">Kính gửi <i>Quý Đối tác</i>,</p>
+    <p style="padding-top: 10pt;padding-left: 5pt;text-indent: 0pt;line-height: 114%;text-align: justify;">ATS Group xin
+        trân trọng cảm ơn sự đồng hành và hợp tác của Quý Đối tác trong suốt thời gian qua. Sự tin tưởng, đồng hành và
+        hỗ trợ từ Quý Đối tác là điểm tựa chiến lược giúp ATS Group không ngừng đổi mới, hoàn thiện các giải pháp nhằm
+        mang lại giá trị vượt trội và đáp ứng tốt nhất các mục tiêu chung của đôi bên.</p>
+    <p style="padding-top: 8pt;padding-left: 5pt;text-indent: 0pt;line-height: 114%;text-align: justify;">Trên tinh thần
+        không ngừng nâng cao hiệu quả hợp tác và thúc đẩy sự phát triển bền vững giữa hai bên. Trong thời gian tới, ATS
+        Group sẽ triển khai một số hoạt động cụ thể như sau:</p>
+    <ul>
+        <li class="li-revenue">
+            <p style="padding-top: 8pt;text-indent: -18pt;line-height: 114%;text-align: justify;">
+                1. Các chương trình ưu đãi đặc biệt dành cho Quý Đối tác có sự tăng trưởng mạnh mẽ về số lượng End User, nhằm
+                khuyến khích và hỗ trợ tăng trưởng doanh thu cho Quý Đối tác một cách hiệu quả.</p>
+        </li>
+        <li>
+            <p style="padding-top: 8pt;text-indent: -18pt;line-height: 114%;text-align: justify;">
+                2. Các hoạt động PG nhằm thúc đẩy sự gia tăng số lượng End User một cách thực tế, góp phần trực tiếp vào việc
+                nâng cao doanh thu và tối ưu hóa kết quả kinh doanh cho Quý Đối tác.</p>
+        </li>
+    </ul>
+    <p style="padding-top: 8pt;padding-left: 5pt;text-indent: 0pt;line-height: 114%;text-align: justify;">Với kế hoạch
+        chiến lược tập trung vào khảo sát nhu cầu, đánh giá hiện trạng và đo lường độ phản ứng của thị trường, ATS Group
+        mong nhận được sự hỗ trợ từ phía đối tác trong việc cung cấp đầy đủ dữ liệu thông tin trong phiếu khảo sát. Đây
+        là trường dữ liệu giúp ATS Group phân tích chính xác và toàn diện về tình hình hoạt động thực tế, từ đó triển
+        khai các hoạt động PG phù hợp, nhằm gia tăng số lượng End User và nâng cao doanh thu một cách hiệu quả cho Quý
+        Đối tác.</p>
+    <p style="padding-top: 8pt;padding-left: 5pt;text-indent: 0pt;line-height: 114%;text-align: justify;">ATS Group hy
+        vọng nhận được sự hợp tác tích cực trong việc triển khai các hoạt động này. Chúng tôi tin tưởng rằng chương
+        trình không chỉ mang lại những giá trị thiết thực mà còn góp phần củng cố mối quan hệ hợp tác bền vững và lâu
+        dài giữa hai bên.</p>
+    <p style="padding-top: 8pt;padding-left: 5pt;text-indent: 0pt;line-height: 114%;text-align: justify;">Một lần nữa,
+        xin trân trọng cảm ơn Quý Đối tác đã luôn đồng hành cùng ATS Group. Chúc Quý Đối tác sức khỏe và mong sự hợp tác
+        giữa hai bên không chỉ mang lại giá trị to lớn cho chúng ta mà còn đóng góp vào sự phát triển chung của nền kinh
+        tế thị trường Việt Nam.</p>
+    <p style="padding-top: 8pt;padding-left: 5pt;text-indent: 0pt;text-align: justify;">Trân trọng./.</p>
+    <p style="text-indent: 0pt;text-align: left;"><br /></p>
+   </div>
+   <div class="revenue-header">   
+    <p><strong>CÔNG TY CỔ PHẦN TẬP ĐOÀN CÔNG NGHỆ ATS</strong></p>
+     <p><strong>Email:</strong> info@cashplus.vn </p>
+       <p><strong>Website:</strong> www.atsgroup.net.vn / www.cashplus.vn</p>
+  <p><strong>Trụ sở:</strong> Tầng 1 Khối C Tòa nhà Sông Đà Số 18 đường Phạm Hùng, Nam Từ Liêm, Hà Nội</p>
+  <p><strong>Văn phòng đại diện:</strong> Tầng 25, toà nhà Eurowindow, số 27 phố Trần Duy Hưng, Cầu Giấy, Hà Nội</p>
+
+    </div>
+   </div>
+
+</main>

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Category>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <option value="@item.CategoryId">@item.Name</option>
+    }
+}

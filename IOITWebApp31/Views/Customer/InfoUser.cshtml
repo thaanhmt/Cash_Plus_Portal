@@ -1,0 +1,52 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = "InfoUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-area page-wrapper page-customer">
+    <div class="breadcumb_main"><div class="container">
+        <p class="breadcumb_salm">Trang chủ   |   Thông tin tài khoản</p>
+    </div></div>
+    <div class="container main_follow_page">
+        <div class="row main_follow">
+
+            <div class="col col-lg-2 col-md-4 col-12 side-bar-info">
+                <ul class="nav-tab-vertical">
+           @*@await Component.InvokeAsync("MenuSideBar", new { MenuId = 41, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })*@
+                            @await Component.InvokeAsync("LeftColumn")
+                </ul>
+            </div>
+
+            <div class="col col-lg-10 col-md-8 col-sm-9 main_user_order">
+
+                <div class="block_info_user row">
+                    <div class="title_tabs_order title_info_user_page">
+                        <h2 class="the_title_tabs_order">
+                            Thông tin tài khoản
+                        </h2>
+                        <p class="subtitle_user_page">Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+                    </div>
+                    <div class="col col-lg-9 col-md-9" ng-controller="CustomerController" ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model));">
+                        <ul class="list_infomation">
+                            <li class="item info_user_tab"><span class="label_info">Họ tên:</span><span>{{EditCustomer.FullName}}</span></li>
+                            <li class="item info_user_tab"><span class="label_info">Email: </span>{{ EditCustomer.Email}}<span></span></li>
+                            <li class="item info_user_tab"><span class="label_info">Số điện thoại: </span><span>{{ EditCustomer.PhomeNumber}}</span></li>
+                            <li class="item info_user_tab" ng-show="Sex == '1'"><span class="label_info">Giới tính: </span><span>Nam</span></li>
+                            <li class="item info_user_tab" ng-show="Sex == '0'"><span class="label_info">Giới tính: </span><span>Nữ</span></li>
+                            @*<li class="item info_user_tab"><span class="label_info">Ngày sinh: </span><span>{{FullName}}</span></li>*@
+                            <li class="item info_user_tab"><span class="label_info">Địa chỉ: </span><span>{{ EditCustomer.Address}}</span></li>
+                        </ul>
+                    </div>
+                    <div class="col col-lg-3 col-md-3 avatar_user">
+                        <img src="/images/avarta.jpg" ng-show=" EditCustomer.Avata == undefined" id="uploadPreview" style="width: 120px; height: 120px;" />
+                        <img ng-src="/uploads/{{ EditCustomer.Avata}}" ng-show="Avata != undefined" id="uploadPreview" style="width: 120px; height: 120px;" />
+                    </div>
+                    <div class="btn_sua col-xs-12"><a href="/sua-tai-khoan.html">Sửa thông tin</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

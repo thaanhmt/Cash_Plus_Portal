@@ -1,0 +1,76 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+<script>
+    document.getElementById("dang-ky").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn"><span>Đăng Ký Đối Tác</span></a>';
+</script>
+<main id="main" ng-controller="UserUnitController" ng-init="Xacnhandkdt();getEmployeeData()">
+    <div id="content" class="content-area">
+        <img class="w-100" src="./images/homecashplus/imgAffiliate.png" alt="" />
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="row s11_r3" style="display: none">
+                <div class="col col-md-12 col-12 s11_r3_c1">
+                    <div class="col-inner">
+                        <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                        <div id="countdown">
+                            <ul>
+                                <li><span id="days"></span>Ngày</li>
+                                <li><span id="hours"></span>Giờ</li>
+                                <li><span id="minutes"></span>Phút</li>
+                                <li><span id="seconds"></span>Giây</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="w-100 col-contact">
+                        <div>
+                            <span><span class="text-danger">*</span>Mã đăng nhập (được gửi kèm trong email)</span>
+                            <div class="input-group field-full textarea-field">
+                                <input type="text" class="form-control" ng-model="login_code" ng-bind-html="login_code" required readonly>
+                            </div>
+                        </div>
+                        <div class="mg-t-2">
+                            <!--<span>Tên/Email người giới thiệu (không bắt buộc)</span>-->
+                            <span>Nhân viên kinh doanh giới thiệu (không bắt buộc)</span>
+                            <div class="input-group col-sm-3 col-md-3">
+                                <ui-select ng-model="partner.support_person_id" theme="select2" ng-disabled="disabled" title="{{ $select.selected.full_name }}">
+                                    <ui-select-match allow-clear="true" placeholder="Nhân viên kinh doanh giới thiệu">{{ $select.selected.full_name }}</ui-select-match>
+                                    <ui-select-choices repeat="item.id as item in employee_data | filter: $select.search" position="down">
+                                        <div ng-bind-html="item.full_name | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                            @*<div class="input-group field-full textarea-field">
+                                <input type="text" class="form-control" ng-model="partner.support_person_email">
+                            </div>*@
+                        </div>
+                        <div class="dp-flex-cl" style="margin-top:20px;margin-bottom:20px;">
+                            <span>Đối tác lưu ý kiểm tra kỹ các thông tin trước khi chọn <strong>"Kế tiếp"</strong></span>
+                            <span>Sau khi chọn <strong>"Kế tiếp"</strong>, Đối tác sẽ không thể sửa được các thông tin trên</span>
+                        </div>
+                        <div>
+                            <p><b>Bằng cách tiếp tục sử dụng ứng dụng</b>, thay mặt cho Công ty và những cá nhân liên quan đến Công ty như Giám đốc, Các cổ đông,... (được gọi chung là Các Cá nhân liên quan), bạn đồng ý rằng CashPlus có thể sử dụng các thông tin doanh nghiệp đã cung cấp cho các mục đích dưới đây (bất kể việc ứng dụng có được đại diện bán hàng hỗ trợ thiết lập hay không):</p>
+                            <p>a) để xử lý đơn hàng đăng ký và đánh giá mức độ phù hợp của Công ty bạn để trở thành Đối tác của chúng tôi, bao gồm nhưng không giới hạn ở việc tiến hành tất cả các kiểm tra lý lịch cần thiết và phân tích rủi ro, có thể bao gồm các việc chấm điểm tín dụng và tuân thủ các yêu cầu pháp lý hoặc nghĩa vụ hợp đồng.</p>
+                            <p>b) trong trường hợp đơn đăng ký được phê duyệt, để quản lý hồ sơ công ty bạn với tư cách là Đối tác với chúng tôi và để cung cấp cho bạn các dịch vụ.</p>
+                            <p>c) để cung cấp cho bạn các sản phẩm hoặc dịch vụ phù hợp của CashPlus hoặc gửi các thông tin tiếp thị và khảo sát có thể liên quan đến bạn và doanh nghiệp của bạn (dựa trên các thông tin mà CashPlus có thể từ bạn vào từng thời điểm) thông qua các phương thức khác nhau bao gồm email, tin nhắn, thông báo và các ứng dụng trò chuyện theo các thông tin liên hệ chi tiết mà bạn đã cung cấp. Bạn có thể sửa đổi tùy chọn của mình về vấn đề này bằng cách liên hệ với CashPlus qua các thông tin liên hệ trong Thông báo Bảo mật của chúng tôi hoặc thông qua tài khoản của bạn sau khi tài khoản đã được thiết lập thành công.</p>
+                            <p>d) để tạo các báo cáo kinh doanh có thể được chia sẻ với các bên thứ ba được bạn ủy quyền.</p>
+                            <p>e) khi phù hợp, tuân theo <a href="/tin-chinh-sach-bao-mat-cashplus">Thông báo Bảo mật của CashPlus</a>.</p>
+                        </div>
+                        <div class="w-100 border-xndk">
+                        </div>
+                        <div class="box-btn-xndk">
+                            <button class="btn-xndk" type="submit" ng-click="submitStoreInfo()">Kế tiếp</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

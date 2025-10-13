@@ -1,0 +1,967 @@
+﻿@{
+    ViewData["Title"] = "Danh sách Merchant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+</head>
+
+<style>
+    .search-list-merchant-container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .search-list-merchant-container label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .search-list-merchant-container select, .search-list-merchant-container input, .search-list-merchant-container button {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .search-list-merchant-container button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+        flex: 0 0 auto;
+        padding: 10px 20px;
+        align-self: flex-end;
+    }
+    .search-list-merchant-container button:hover {
+        background-color: #45a049;
+    }
+    .merchant-card {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        background-color: #ffffff;
+    }
+    .merchant-card.selected {
+        background-color: #e0f7fa;
+    }
+    .merchant-card img {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+    }
+    .merchant-card h3 {
+        margin: 0;
+        font-size: 1.5em;
+    }
+    .merchant-card div {
+        display: flex;
+        align-items: flex-start;
+    }
+    .merchant-card p {
+        margin: 5px 0;
+    }
+    .map-container {
+        transition: width 0.5s, height 0.5s;
+    }
+
+    .map-container.small {
+        width: 50%;
+        height: 300px;
+    }
+
+    .map-container.large {
+        width: 100%;
+        height: 600px;
+    }
+    .merchant-list-div {
+        display: flex;
+    }
+    .merchant-list-div #list {
+      width: 100vh; 
+      padding: 10px; 
+      height: 600px; 
+      overflow-y: auto;
+    }
+
+    /* CSS cho thanh cuộn khi ở chế độ điện thoại */
+    .mobile-scrollbar {
+        overflow-y: auto;
+        max-height: 400px; /* Chiều cao tối đa của danh sách merchant khi ở chế độ điện thoại */
+    }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropbtn {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content a:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+
+   #modal-container {
+  max-width: 400px;
+  margin: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white; /* Nền trắng để đảm bảo nội dung bên dưới không bị chồng lên */
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.modal-header h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+   max-height: 60vh; /* Giới hạn chiều cao của body */
+    overflow-y: auto; /* Cho phép cuộn theo chiều dọc */
+}
+
+.modal-body {
+  padding: 10px 0;
+}
+
+.store-details {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.store-details .icon {
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.store-details strong {
+  color: #000;
+}
+
+.store-details p {
+  margin: 5px 0;
+}
+.product-container {
+    display: flex;
+     max-height: 50vh; /* Tùy chỉnh chiều cao của danh sách sản phẩm */
+    overflow-y: auto; /* Cho phép cuộn theo chiều dọc */
+    flex-wrap: wrap;
+}
+
+.cashback {
+  background-color: red;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  z-index: 1;
+  margin-bottom: 2px;
+  align-self: flex-end; /* Đặt nó vào góc phải của container */
+  /* margin-top: -40px; Điều chỉnh khoảng cách để nó nổi lên trên ảnh */
+}
+
+.service-list {
+  display: contents;
+}
+
+.service-item {
+  width: calc(50% - 10px);
+  
+  text-align: center;
+  min-height: 200px; /* Thiết lập chiều cao tối thiểu để các phần tử cùng kích thước */
+}
+
+.service-item img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.service-item h4 {
+  font-size: 0.9rem;
+  margin: 10px 0 5px;
+    word-wrap: break-word; /* Giúp tên sản phẩm tự xuống dòng nếu quá dài */
+
+}
+
+.service-item .price {
+  font-size: 0.85rem;
+  color: #666;
+    margin-top: auto; /* Đẩy phần giá xuống dưới cùng */
+
+}
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+    z-index: 1000; /* Đảm bảo overlay ở phía sau modal */
+    display: none;
+}
+
+/* thanh cuon */
+/* Áp dụng cho thanh cuộn của cả modal-body và product-container */
+.modal-body, .product-container {
+    scrollbar-width: thin; /* Thanh cuộn nhỏ hơn */
+    scrollbar-color: #888 #f1f1f1; /* Màu sắc của thanh cuộn và nền của nó */
+}
+
+/* Tùy chỉnh thanh cuộn cho các trình duyệt dựa trên WebKit (Chrome, Safari) */
+.modal-body::-webkit-scrollbar, 
+.product-container::-webkit-scrollbar {
+    width: 8px; /* Chiều rộng của thanh cuộn */
+    height: 8px; /* Chiều cao của thanh cuộn ngang (nếu có) */
+}
+
+.modal-body::-webkit-scrollbar-thumb, 
+.product-container::-webkit-scrollbar-thumb {
+    background-color: #888; /* Màu của thanh cuộn */
+    border-radius: 10px; /* Bo tròn thanh cuộn */
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover, 
+.product-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Màu của thanh cuộn khi di chuột qua */
+}
+
+.modal-body::-webkit-scrollbar-track, 
+.product-container::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* Nền của thanh cuộn */
+    border-radius: 10px; /* Bo tròn nền của thanh cuộn */
+}
+.detail-button {
+    text-decoration: underline; /* Gạch chân */
+    cursor: pointer; /* Hiển thị con trỏ chuột khi hover */
+}
+
+.detail-button:hover {
+    color: blue; /* Thay đổi màu sắc khi hover (tùy chọn) */
+}
+.custom-popup {
+    background-color: rgba(173, 216, 230, 0.8); /* Màu xanh dương nhạt */
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+</style>
+
+<div class="merchant-list-container" style="display: flex; flex-direction: column; margin-bottom: 50px;">
+    <div class="search-list-merchant-container" style="display: flex; justify-content: space-between;">
+        <h2 style="width: 100%;">Tìm kiếm</h2>
+        <div class="search-fields" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <div class="search-field-province" style="flex: 0.1;">
+                <label for="province">Tỉnh thành:</label>
+                <select id="province" onchange="filterMerchants()">
+                    <option value="">Tất cả</option>
+                    <option value="Hà Nội">Hà Nội</option>
+                    <option value="Hải Dương">Hải Dương</option>
+                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                    <option value="Đà Nẵng">Đà Nẵng</option>
+                </select>
+            </div>
+
+            <div class="search-name-merchant" style="flex: 0.1;">
+                <label for="name">Tên đối tác:</label>
+                <input type="text" id="name" placeholder="Nhập tên merchant" onkeyup="searchMerchantsByName()">            
+            </div>
+
+            <!-- <div class="search-field-service" style="flex: 0.1;">
+                <label for="service">Loại dịch vụ:</label>
+                <select id="service" onchange="filterMerchants()">
+                    <option value="">Tất cả</option>
+                    <option value="Nhà hàng">Nhà hàng</option>
+                    <option value="Cửa hàng">Cửa hàng</option>
+                    <option value="Khách sạn">Khách sạn</option>
+                </select>
+            </div>
+            <div class="search-field-merchant" style="flex: 0.1;">
+                <label for="merchant">Merchant:</label>
+                <select id="merchant" onchange="filterMerchants()">
+                    <option value="">Tất cả</option>
+                </select>
+            </div> -->
+        </div>
+        <div class="search-filter" style="align-self: flex-end;">
+            <button onclick="filterMerchants()">Lọc</button>
+        </div>
+    </div>
+
+    <h2 style="background-color: #68C8F0; color: white; padding: 10px;margin: 10px; border-radius: 8px;">Danh sách Merchant</h2> <!-- Thay đổi CSS cho thẻ Danh sách Merchant -->
+    <p id="merchantCount" style="margin: 10px; font-weight: bold;">Số lượng merchant gần bạn: 0</p> <!-- Thêm phần tử để hiển thị số lượng merchant -->
+    <div class="merchant-list-div" >
+        <div id="list" >
+            <div id="merchantList"></div>
+        </div>
+        <div id="map" class="map-container small" style="width: 50%; height: 600px;"></div>
+    </div>
+    <button id="retryLocation" style="display: none;" onclick="retryGeolocation()">Thử lại vị trí của tôi</button>
+</div>
+<!-- Modal -->
+<div id="overlay" style="display: none;"></div>
+
+<div id="detailModal" class="modal" style="top: 62px">
+<div id="modal-container">
+  
+</div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.search-fields > div:not(.search-name-merchant)').forEach(function(element) {
+                element.style.display = 'none';
+            });
+        }
+    });
+</script>
+
+
+<script>
+    var map; // Khai báo biến map ở phạm vi toàn cục
+    var markers = []; // Mảng để lưu trữ các markers
+    var userMarker; // Marker để hiển thị vị trí của người dùng
+    var tokenCMS = sessionStorage.getItem('access_tokenCMS'); 
+    var tokenAPI = "";
+    fetch('https://apigw.cashplus.vn/api/app/auth/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            phone_number: "0379685933",
+            password: "123",
+             "is_android": true,
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(res => {
+        console.log(res)
+        tokenAPI = res.data.token; 
+    })
+    .catch(error => {
+        console.error('Error fetching token:', error);
+        return null;
+    });
+
+    var userPosition = { latitude: 21.006236898331938, longtitude: 105.79898994415998 }; // Vị trí mặc định của người dùng
+    var currentFilters = {
+        search: "",
+        district_id: null,
+        province_id: null,
+        ward_id: null,
+        latitude: 21.006236898331938,
+        longtitude: 105.79898994415998,
+        north_east: { latitude: 21.006236898331938 + 0.031281885170912, longtitude: 105.79898994415998 + 0.03059025853874 },
+        south_west: { latitude: 21.006236898331938 - 0.031281885170912, longtitude: 105.79898994415998 - 0.03059025853874 },
+        is_update_zoom: false
+    };
+
+    document.addEventListener('DOMContentLoaded', function() {        
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            userPosition.latitude = position.coords.latitude;
+            userPosition.longtitude = position.coords.longitude;
+            currentFilters.latitude = userPosition.latitude;
+            currentFilters.longtitude = userPosition.longtitude;
+            loadMerchants(userPosition.latitude, userPosition.longtitude);
+            // Thêm marker màu đỏ cho vị trí của người dùng
+            if (map) {
+                userMarker = L.marker([userPosition.latitude, userPosition.longtitude], {
+    icon: L.divIcon({
+        html: '<i class="fas fa-map-marker-alt" style="color: red; font-size: 25px;"></i>',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        className: 'custom-div-icon'
+                    })
+                }).addTo(map);
+            }
+        }, function(error) {
+            console.error('Error getting location:', error);
+            // Hiển thị nút thử lại vị trí của tôi
+            document.getElementById('retryLocation').style.display = 'block';
+            // Nếu không lấy được vị trí, sử dụng tọa độ mặc định
+            loadMerchants(userPosition.latitude, userPosition.longtitude);
+        });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+        // Nếu không hỗ trợ geolocation, sử dụng tọa độ mặc định
+        loadMerchants(userPosition.latitude, userPosition.longtitude);
+    }
+});
+function showDetailModal(merchantId) {
+    console.log("merchantId", merchantId);
+    var merchantData = {
+        "partner_id": merchantId,
+        "page_no": 1,
+        "page_size": 100
+    };
+
+    // Fetch merchant details
+    fetch(`https://apigw.cashplus.vn/api/partner/${merchantId}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${tokenCMS}`,
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+
+    .then(data => {
+        console.log(data);
+
+        var detailContent = `
+        <div class="modal-header">
+            <h3>${data.data.name}</h3>
+            <div class="cashback">${data.data.discount_rate ? data.data.discount_rate * 0.4 : 'Không xác định'} % HOÀN TIỀN</div>
+
+        </div>
+
+
+        <div class="modal-body">
+            <div class="store-details" style="border-radius:15px; border: 1px solid #ddd; padding: 10px; margin-bottom: 20px;">
+                <p><span class="icon">📍</span><strong>Địa chỉ: ${data.data.address}</strong></p>
+                <p><span class="icon">⏱</span>Thời gian hoạt động: ${data.data.working_day || 'Không xác định'}</p>
+                <p><span class="icon">📅</span>Giờ mở cửa: ${data.data.working_times.map(time => `${time.start_hour} - ${time.end_hour}`).join(', ') || 'Không xác định'}</p>
+                <p><span class="icon">⭐</span>3 đánh giá | 4.33</p>
+            </div>
+
+        `;
+        document.getElementById('modal-container').innerHTML = detailContent;
+        document.getElementById('detailModal').style.height = '70vh'; 
+        document.getElementById('detailModal').style.scrollbar = 'auto'; 
+        // Fetch merchant products
+
+        return fetch('https://apigw.cashplus.vn/api/app/customer/home/listProduct', {
+
+            method: 'POST',
+            headers: {
+
+                'Authorization': `Bearer ${tokenAPI}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(merchantData)
+        });
+
+    })
+    .then(response => response.json())
+
+    .then(data => {
+
+         var productContent = 
+        `<div class="product-container">
+            <h4>Danh sách sản phẩm</h4>
+            ${data.data.data.map(product => 
+                `<div class="service-list">
+                    <div class="service-item">
+                        <img style="width: 150px; height: 150px" src="${product.avatar || 'default-image.png'}" alt="${product.name}">
+                        <h4><b>${product.product_name.charAt(0).toUpperCase() + product.product_name.slice(1)}</b></h4>
+                        <p class="price">${product.price} VND</p>
+                        <p class="product-description" style="display: none; width: 100%;"><b>Mô tả:</b> ${product.description}</p>
+                    </div>
+                </div>`
+            ).join('')}
+        </div>`;
+    document.getElementById('modal-container').innerHTML += productContent;
+
+    })
+    .catch(error => console.error('Error fetching merchant products:', error));
+
+    
+
+    document.getElementById('overlay').style.display = 'block'; // Hiển thị overlay
+    document.getElementById('detailModal').style.display = 'block'; // Hiển thị modal
+    document.body.style.overflow = 'hidden'; // Ngăn cuộn trang khi modal mở
+
+    // Thêm sự kiện đóng modal khi bấm ra ngoài
+    document.addEventListener('click', function(event) {
+        if (event.target === document.getElementById('detailModal') || event.target === document.getElementById('overlay')) {
+            document.getElementById('detailModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none'; // Ẩn overlay khi modal đóng
+            document.body.style.overflow = 'auto'; // Cho phép cuộn lại trang khi modal đóng
+        }
+    });
+}
+
+
+
+
+
+    async function loadMerchants(latitude, longitude, shouldUpdateList = true) {
+    console.log("loadMerchants", latitude, longitude);
+
+    // Cập nhật tọa độ hiện tại
+    currentFilters.latitude = latitude;
+    currentFilters.longtitude = longitude;
+
+    // Tính toán lại north_east và south_west
+    var bounds = map.getBounds();
+    currentFilters.north_east = {
+        latitude: bounds.getNorthEast().lat,
+        longtitude: bounds.getNorthEast().lng
+    };
+    currentFilters.south_west = {
+        latitude: bounds.getSouthWest().lat,
+        longtitude: bounds.getSouthWest().lng
+    };
+
+    try {
+        const response = await fetch('https://apigw.cashplus.vn/api/app/customer/home/listPartnerV2', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${tokenAPI}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(currentFilters)
+        });
+
+        const res = await response.json();
+        console.log(res);
+        var Listmerchants = res.data.data;
+        var merchantCountElement = document.getElementById('merchantCount'); // Lấy phần tử hiển thị số lượng merchant
+        merchantCountElement.textContent = `Merchant gần bạn: ${Listmerchants.length}`; // Cập nhật số lượng merchant
+
+        if (Array.isArray(Listmerchants)) {
+            // Tính khoảng cách từ mỗi merchant đến vị trí trung tâm
+            Listmerchants.forEach(function(merchant) {
+                merchant.distance = getDistanceFromLatLonInKm(latitude, longitude, merchant.latitude, merchant.longtitude);
+            });
+
+            // Sắp xếp danh sách merchant theo khoảng cách
+            Listmerchants.sort(function(a, b) {
+                return a.distance - b.distance;
+            });
+
+            if (shouldUpdateList) {
+                var merchantList = document.getElementById('merchantList');
+                merchantList.innerHTML = '';
+                Listmerchants.forEach(function(merchant) {
+                    var card = document.createElement('div');
+                    card.className = 'merchant-card';
+                    card.setAttribute('data-merchant-id', merchant.id); // Lưu ID của merchant vào thẻ
+                    card.innerHTML = `
+                        <div style="display: flex; justify-content: space-between;">
+                            <h3>${merchant.name}</h3>
+                        </div>
+                        <div style="display: flex; align-items: flex-start;">
+                            <img src="${merchant.avatar || 'default-image.png'}" alt="${merchant.name}">
+                            <div style="display: block">
+                                <p><b>Địa chỉ:</b> ${merchant.address}</p>
+                                <p><b>Giờ mở cửa:</b> ${merchant.working_times.map(time => `${time.start_hour} - ${time.end_hour}`).join(', ') || 'Không xác định'}</p>
+                                <p><b>Ngày làm việc:</b> ${merchant.working_day || 'Không xác định'}</p>
+                                <p><b>Chiết khấu:</b> ${merchant.discount_rate || 'Không xác định'} %</p>
+                            </div>
+                        </div>
+                    `;
+                    card.addEventListener('click', function(event) {
+                        event.stopPropagation();
+                        document.querySelectorAll('.merchant-card').forEach(function(card) {
+                            card.classList.remove('selected');
+                        });
+                        card.classList.add('selected');
+
+                        console.log(merchant.id);  // Thêm dòng này để kiểm tra giá trị merchant.id
+                        const currentMerchantId = sessionStorage.getItem('selectedMerchantId');
+                         if (currentMerchantId !== merchant.id) {
+                                sessionStorage.setItem('selectedMerchantId', merchant.id);
+                         }
+
+                        if (map) {
+                            map.setView([merchant.latitude, merchant.longtitude], 18, {
+                                animate: true,
+                                duration: 1.5
+                            });
+                            var popupContent = `
+                                <b>${merchant.name}</b><br>
+                                <b>Địa chỉ:</b> ${merchant.address}<br>
+                                <b>Giờ mở cửa:</b> ${merchant.working_times.map(time => `${time.start_hour} - ${time.end_hour}`).join(', ') || 'Không xác định'}<br>
+                                <b>Ngày làm việc:</b> ${merchant.working_day || 'Không xác định'}<br>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <b>Chiết khấu: ${merchant.discount_rate || 'Không xác định'} %</b>
+                                    <a class="detail-button" onclick="showDetailModal('${merchant.id}'); event.stopPropagation();" style="display: none">Xem chi tiết</a>
+                                    <a class="detail-button" href="/shop/${merchant.name}" event.stopPropagation();>Xem chi tiết</a>
+                                </div>
+                            `;
+                            L.popup()
+                                .setLatLng([merchant.latitude, merchant.longtitude])
+                                .setContent(popupContent)
+                                .openOn(map);
+                        }
+                        var mapcontainer = document.getElementById('map');
+                        mapcontainer.classList.remove('small');
+                        mapcontainer.classList.add('large');
+
+                        loadMerchants(currentFilters.latitude, currentFilters.longtitude, false);
+                    });
+                    merchantList.appendChild(card);
+                });
+            }
+            updateMapMarkers(Listmerchants);
+        } else {
+            console.error('Data received is not an array');
+        }
+    } catch (error) {
+        console.error('Error fetching merchants:', error);
+    }
+}
+
+    // Hàm tính khoảng cách giữa hai điểm (latitude và longitude)
+    function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+        var R = 6371; // Bán kính của Trái Đất theo km
+        var dLat = deg2rad(lat2 - lat1);
+        var dLon = deg2rad(lon2 - lon1);
+        var a = 
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        var distance = R * c; // Khoảng cách theo km
+        return distance;
+    }
+
+    function deg2rad(deg) {
+        return deg * (Math.PI / 180);
+    }
+
+    function initMap() {
+        if (!map) { // Kiểm tra nếu map chưa được khởi tạo
+            map = L.map('map').setView([21.006236898331938, 105.79898994415998], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 22,  // Mức zoom cao hơn
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            map.on('moveend', function() {
+                var center = map.getCenter();
+                loadMerchants(center.lat, center.lng);
+            });
+
+            // Thêm nút "Trở lại vị trí của tôi"
+            L.control.locate({
+                position: 'topright',
+                drawCircle: false,
+                follow: false,
+                setView: true,
+                keepCurrentZoomLevel: true,
+                markerStyle: {
+                    weight: 0,
+                    opacity: 0,
+                    fillOpacity: 0
+                },
+                icon: 'fa fa-location-arrow',
+                metric: false,
+                strings: {
+                    title: "Trở lại vị trí của tôi",
+                    popup: "Vị trí của tôi",
+                    outsideMapBoundsMsg: "Bạn đang ở ngoài giới hạn bản đồ"
+                },
+                locateOptions: {
+                    maxZoom: 16,
+                    enableHighAccuracy: true
+                }
+            }).addTo(map).on('click', retryGeolocation);
+        }
+    }
+
+    function updateMapMarkers(merchants) {
+        console.log(merchants)
+    // Xóa tất cả các markers hiện tại
+    markers.forEach(function(marker) {
+        map.removeLayer(marker);
+    });
+    markers = [];
+
+    // Thêm các markers mới
+    merchants.forEach(function(merchant) {
+        var marker = L.marker([merchant.latitude, merchant.longtitude], {
+            icon: L.divIcon({
+                className: 'custom-marker',
+                html: `<div style="background-color: white; border: 1px solid red; border-radius: 5px; padding: 5px; text-align: center;">
+                           <span style="font-weight: bold;">${merchant.discount_rate || '0'}%</span>
+                       </div>`,
+                iconSize: [50, 30],
+                iconAnchor: [25, 15]
+            })
+        }).addTo(map)
+        .bindPopup(`<div >
+                        <b>${merchant.name}</b><br>
+                        <b>Địa chỉ:</b> ${merchant.address}<br>
+                        <b>Giờ mở cửa:</b> ${merchant.working_times.map(time => `${time.start_hour} - ${time.end_hour}`).join(', ') || 'Không xác định'}<br>
+                        <b>Ngày làm việc:</b> ${merchant.working_day || 'Không xác định'}<br>
+                        <div style="display: flex; justify-content: space-between;">
+                            <b>Chiết khấu: ${merchant.discount_rate || 'Không xác định'} %</b>
+                            <a class="detail-button" style="display: none" onclick="showDetailModal('${merchant.id}'); event.stopPropagation();">Xem chi tiết</a>
+                            <a class="detail-button" href="/shop/${merchant.name}" event.stopPropagation();>Xem chi tiết</a>
+                        </div>
+                    </div>`);
+        markers.push(marker);
+    });
+    }
+
+    initMap();
+
+    function filterMerchants() {
+    const provinceCoordinates = {
+        "Hà Nội": { latitude: 21.0285, longitude: 105.8542 },
+        "Hải Dương": { latitude: 20.9794, longitude: 106.3603 },
+        "Hồ Chí Minh": { latitude: 10.8231, longitude: 106.6297 },
+        "Đà Nẵng": { latitude: 16.0544, longitude: 108.2022 }
+    };
+
+    // Cập nhật các giá trị bộ lọc hiện tại
+    const selectedProvince = document.getElementById('province').value;
+
+    // Kiểm tra xem tỉnh thành có trong đối tượng không
+    if (selectedProvince && provinceCoordinates[selectedProvince]) {
+        const { latitude, longitude } = provinceCoordinates[selectedProvince];
+        // Chưa fix tim theo thanh pho
+        loadMerchants(latitude, longitude).then((merchants) => {
+            // Di chuyển đến cửa hàng đầu tiên nếu có
+            console.log(merchants)
+            const merchantList = document.getElementById('merchantList');
+            const firstMerchantCard = merchantList.querySelector('.merchant-card');
+            if (firstMerchantCard) {
+                const firstMerchantId = firstMerchantCard.getAttribute('data-merchant-id'); // Giả sử bạn đã lưu id của merchant trong thẻ
+                const firstMerchant = merchants.find(merchant => merchant.id === firstMerchantId); // Tìm merchant trong danh sách
+                if (firstMerchant) {
+                    map.setView([firstMerchant.latitude, firstMerchant.longtitude], 18, {
+                        animate: true,
+                        duration: 1.5
+                    });
+                }
+            }
+        });
+    } else {
+        // Nếu không có tỉnh thành nào được chọn, có thể gọi loadMerchants với tọa độ mặc định
+        loadMerchants(userPosition.latitude, userPosition.longitude);
+    }
+}
+
+    function searchMerchantsByName() {
+    const searchValue = document.getElementById('name').value;
+
+    // Gọi API với dữ liệu JSON
+    const data = JSON.stringify({ search: searchValue });
+
+    fetch('https://apigw.cashplus.vn/api/app/customer/home/listPartnerV2', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${tokenAPI}`,
+            'Content-Type': 'application/json'
+        },
+        body: data
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Xử lý dữ liệu trả về từ API
+        console.log(data);
+        
+        // Cập nhật danh sách merchant
+        const merchantList = document.getElementById('merchantList');
+        merchantList.innerHTML = ''; // Xóa danh sách hiện tại
+
+        data.data.data.forEach(merchant => {
+            const card = document.createElement('div');
+            card.className = 'merchant-card';
+            card.innerHTML = `
+                <div style="display: flex; justify-content: space-between;">
+                    <h3>${merchant.name}</h3>
+                </div>
+                <div style="display: flex; align-items: flex-start;">
+                    <img src="${merchant.avatar || 'default-image.png'}" alt="${merchant.name}">
+                    <div style="display: block">
+                        <p><b>Địa chỉ:</b> ${merchant.address}</p>
+                        <p><b>Giờ mở cửa:</b> ${merchant.working_times.map(time => `${time.start_hour} - ${time.end_hour}`).join(', ') || 'Không xác định'}</p>
+                        <p><b>Ngày làm việc:</b> ${merchant.working_day || 'Không xác định'}</p>
+                        <p><b>Chiết khấu:</b> ${merchant.discount_rate || 'Không xác định'} %</p>
+                    </div>
+                </div>
+            `;
+            card.addEventListener('click', function(event) {
+                event.stopPropagation();
+                document.querySelectorAll('.merchant-card').forEach(function(card) {
+                    card.classList.remove('selected');
+                });
+                card.classList.add('selected');
+
+                // Di chuyển bản đồ đến vị trí của merchant
+                if (map) {
+                    map.setView([merchant.latitude, merchant.longtitude], 18, {
+                        animate: true,
+                        duration: 1.5
+                    });
+                }
+            });
+            merchantList.appendChild(card);
+        });
+
+        // Cập nhật bản đồ với các merchant mới
+        updateMapMarkers(data.data.data);
+    })
+    .catch(error => {
+        console.error('Error fetching merchants:', error);
+    });
+    }
+
+    // Thêm sự kiện click cho tài liệu để bỏ chọn thẻ khi click vào chỗ khác
+    document.addEventListener('click', function() {
+        document.querySelectorAll('.merchant-card').forEach(function(card) {
+            card.classList.remove('selected');
+        });
+    });
+
+    function retryGeolocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                userPosition.latitude = position.coords.latitude;
+                userPosition.longtitude = position.coords.longitude;
+                currentFilters.latitude = userPosition.latitude;
+                currentFilters.longtitude = userPosition.longtitude;
+                loadMerchants(userPosition.latitude, userPosition.longtitude);
+                // Thêm marker màu đỏ cho vị trí của người dùng
+                if (map) {
+                    if (userMarker) {
+                        map.removeLayer(userMarker);
+                    }
+                    userMarker = L.marker([userPosition.latitude, userPosition.longtitude], {
+                        icon: L.divIcon({
+                            html: '<i class="fas fa-map-marker-alt" style="color: red; font-size: 25px;"></i>',
+                            iconSize: [25, 41],
+                            iconAnchor: [12, 41],
+                            className: 'custom-div-icon'
+                        })
+                    }).addTo(map)
+                    .bindPopup("Vị trí hiện tại của bạn")
+                    .openPopup();
+                }
+                // Ẩn nút thử lại vị trí của tôi
+                document.getElementById('retryLocation').style.display = 'none';
+            }, function(error) {
+                console.error('Error getting location:', error);
+                // Hiển thị nút thử lại vị trí của tôi
+                document.getElementById('retryLocation').style.display = 'block';
+            });
+        } else {
+            console.error('Geolocation is not supported by this browser.');
+        }
+    }
+
+    
+
+    function closeDetailModal() {
+    document.getElementById('detailModal').style.display = 'none';
+}
+
+    
+</script>
+
+
+<script>
+    function handleMediaQueryChange(mediaQuery) {
+        // const searchcontainer = document.querySelector('.search-list-merchant-container');
+        const merchantListDiv = document.querySelector('.merchant-list-div');
+        const mapcontainer = document.querySelector('.map-container');
+        const merchantList = document.querySelector('.merchant-list-div #list');
+        const merchantListcontainer = document.querySelector('.merchant-list-container');
+
+        if (mediaQuery.matches) {
+            // Chế độ điện thoại
+            searchcontainer.style.flexDirection = 'column';
+            searchcontainer.style.gap = '';
+            searchcontainer.style.position = '';
+            searchcontainer.style.top = '';
+            searchcontainer.style.zIndex = '';
+            merchantListDiv.style.flexDirection = 'column';
+            mapcontainer.style.width = '100%';
+            mapcontainer.style.height = '300px';
+            mapcontainer.style.marginTop = '8px';
+            mapcontainer.style.padding = '12px';
+            merchantList.style.width = '100%';
+            merchantList.style.padding = '0';
+            merchantListDiv.style.margin = '25px';
+            
+            // Thêm lớp CSS cho thanh cuộn
+            merchantListcontainer.classList.add('mobile-scrollbar');
+        } else {
+            // Chế độ desktop
+            searchcontainer.style.flexDirection = 'row';
+            searchcontainer.style.gap = '10px';
+            searchcontainer.style.position = 'sticky';
+            searchcontainer.style.top = '0';
+            searchcontainer.style.zIndex = '1000';
+            merchantListDiv.style.flexDirection = 'row';
+            mapcontainer.style.width = '50%';
+            mapcontainer.style.height = '600px';
+            mapcontainer.style.marginTop = '';
+            mapcontainer.style.padding = '';
+            merchantList.style.width = '50%';
+            merchantList.style.padding = '10px';
+            merchantListDiv.style.margin = '';
+            
+            // Xóa lớp CSS cho thanh cuộn
+            merchantListcontainer.classList.remove('mobile-scrollbar');
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        handleMediaQueryChange(mediaQuery);
+        mediaQuery.addListener(handleMediaQueryChange);
+    });
+</script>

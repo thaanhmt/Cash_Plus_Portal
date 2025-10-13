@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="url-page">
+    <div class="container">
+        @*<div class="title-url">Đăng ký</div>*@
+        <ul>
+            <li><a href="/" title="">Trang chủ</a></li>
+            <li><span>Xác nhận đăng ký</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="maincontainer xacnhandk">
+    <div class="container">
+        <div class="row">
+
+            <div class="maincolumn">
+                <div class="col-xs-12 box-dktvtc">
+                    <div class="title-dk title-confirm-register"><span>Bạn đã đăng ký thành viên thành công!</span></div>
+                    <div class="content-dk">
+                        <p>Xin chào <span style="font-weight: bold;">@ViewBag.FullName</span>, bạn đã đăng ký thành viên thành công. Chúng tôi đã gửi link xác nhận đăng ký tài khoản tới email <span style="font-style: italic;">@ViewBag.Email</span>. Bạn hãy xác nhận bằng cách click vào link đã gửi email cho bạn.</p>
+                        @*<p>Xin cảm ơn!</p>*@
+                        <a class="back-home" href="/">
+                            Quay lại trang chủ?
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

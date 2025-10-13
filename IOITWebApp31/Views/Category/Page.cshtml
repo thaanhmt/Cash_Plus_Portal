@@ -1,0 +1,59 @@
+﻿@model IOITWebApp31.Models.EF.Category
+@using IOITWebApp31.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    td {
+        border-width: 1px
+    }
+</style>
+<script>
+    document.getElementById("dang-ky").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn btn_hover"><span>Đăng Ký Đối Tác</span></a>';
+    //document.getElementById("doi-tac").innerHTML = '<a href="/chien-binh-khoi-nghiep" class="btn-cntt style-btn-kn btn_hover"><span>Hỗ trợ khởi nghiệp</span></a>';
+
+    var isWhiteDivVisible = false;
+    var whiteDiv = document.getElementById("whiteDiv");
+    function closeWhiteDiv() {
+        if (whiteDiv.style.display = "block") {
+            isWhiteDivVisible = false;
+            whiteDiv.style.display = "none";
+        }
+        document.removeEventListener("click", handleDocumentClick);
+    }
+
+    function handleDocumentClick(event) {
+        if (!whiteDiv.contains(event.target)) {
+            closeWhiteDiv();
+        }
+    }
+
+</script>
+
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    @*<div class="col col-md-3 col-12 side-bar-info">
+                        <ul class="nav-tab-vertical">
+                            @await Component.InvokeAsync("MenuSideBar", new { MenuId = 40, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                        </ul>
+                    </div>*@
+                    <div class="col col-md-12 col-12 section-detail-data main-manage-data">
+                        @if (Model != null)
+                        {
+                            <h1>@Model.Name</h1>
+                            <div class="list-news">
+                                @Html.Raw(@Model.Contents)
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

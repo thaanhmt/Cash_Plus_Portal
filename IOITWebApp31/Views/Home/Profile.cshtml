@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="url-page">
+    <div class="container">
+        <div class="title-url">Thông tin tài khoản</div>
+        <ul>
+            <li><a href="javascript:void(0)" title="">Trang chủ</a></li>
+            <li><span>Thông tin tài khoản</span></li>
+        </ul>
+    </div>
+</div>
+<div class="maincontainer mainProfile">
+    <div class="container">
+        @*<div class="row">*@
+            <!-- Left column -->
+            @await Component.InvokeAsync("BlUser", new { IndexRouter = 1 })
+            <!-- End leftcolumn -->
+
+            <div class="maincolumn" ng-controller="MainUserController" ng-init="init()">
+                <div class="profileCustomer">
+                    <div class="title-profile dk">Thông tin tài khoản</div>
+                    <div class="left-profile">
+                        <div class="row-profile">
+                            <div class="label-profile">Họ tên<span class="sao-error">*</span></div>
+                            <div class="value-profile"><input type="text" id="FullName" ng-model="user.FullName" name="" value="" placeholder="" autocomplete="off" spellcheck="false"></div>
+                        </div>
+                        <div class="row-profile">
+                            <div class="label-profile">Email<span class="sao-error">*</span></div>
+                            <div class="value-profile"><input type="text" id="Email" ng-model="user.Email" ng-pattern="regexEmail" name="" value="" placeholder="" autocomplete="off" spellcheck="false" disabled></div>
+                        </div>
+                        <div class="row-profile">
+                            <div class="label-profile">Số điện thoại</div>
+                            <div class="value-profile"><input type="text" id="PhomeNumber" ng-model="user.PhomeNumber" ng-pattern="regexPhone" onkeypress="return isNumeric(event)" name="" value="" placeholder="" autocomplete="off" spellcheck="false"></div>
+                        </div>
+                        <div class="row-profile">
+                            <div class="label-profile">Địa chỉ</div>
+                            <div class="value-profile"><input type="text" id="Address" ng-model="user.Address" name="" value="" placeholder="" autocomplete="off" spellcheck="false"></div>
+                        </div>
+                        <div class="row-profile">
+                            <div class="label-profile">Giới tính</div>
+                            <div class="value-profile">
+                                <div class="raidoProfile">
+                                    <input type="radio" name="raidoProfile" ng-model="user.Sex" ng-value="'Nam'" placeholder="">
+                                    <label>Nam</label>
+                                </div>
+                                <div class="raidoProfile">
+                                    <input type="radio" name="raidoProfile" ng-model="user.Sex" ng-value="'Nữ'" placeholder="">
+                                    <label>Nữ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-profile">
+                            <div class="label-profile"></div>
+                            <div class="value-profile">
+                                <div class="btn-save"><input type="button" ng-click="ChangeInfo()" name="" value="Lưu thông tin"></div>
+                                <a href="/doi-mat-khau.html" title="">Thay đổi mật khẩu</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-profile">
+                        <div class="avatar-profile">
+                            <img ng-show="user.Avata != undefined" src="/uploads/{{user.Avata}}" alt="">
+                            <img ng-show="user.Avata == undefined" src="/uploads/home/img7.jpg" alt="">
+                            <div class="input-f"><input type="file" id="file" name="file" onchange="angular.element(this).scope().uploadAvatar(this)" accept="image/*" value="" placeholder=""><input type="button" name="" value="Thay đổi"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!--end maincolumn-->
+
+        @*</div>*@
+    </div>
+</div>

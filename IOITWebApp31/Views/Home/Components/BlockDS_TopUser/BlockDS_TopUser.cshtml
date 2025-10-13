@@ -1,0 +1,43 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.TopUserHome>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    int i = 1;
+    @foreach (var item in Model)
+    {
+        <div class="card-customer">
+            <div class="head-card">
+                <div class="avata">
+                    @if (item.Avata == null || item.Avata == "")
+                    {
+                        <img src="/images/avatar/no-avatar.png">
+                    }
+                    else
+                    {
+                        <img src="/images/avatar/@item.Avata">
+                    }
+                </div>
+                <div class="info-user">
+                    <div class="name">
+                        <a class="textLine-1" href="/du-lieu-ca-nhan/@item.CustomerId">
+                            @item.FullName
+                        </a>
+                        @*<div class="role_user">User</div>*@
+                        <div class="role_user">Tổng: <span>@item.DataSetNumber</span> bộ dữ liệu</div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="main-card">*@
+                @*<div class="data-user">Tổng: <span>@item.DataSetNumber</span> bộ dữ liệu</div>*@
+                @*<div class="action-function">
+                    <div class="add">
+                        <a href="/du-lieu-ca-nhan/@item.CustomerId">
+                            <img src="/images/library_add_24px.png">
+                        </a>
+                    </div>
+                </div>*@
+            @*</div>*@
+        </div>
+    }
+}

@@ -1,0 +1,30 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">Danh mục lĩnh vực nghiên cứu</h5>
+    <button type="button" class="btn-close"aria-label="Close" ng-click="closeResearchArea()"><span aria-hidden="true">×</span></button>
+</div>
+<div class="modal-body">
+    <div class="filter-live">
+        <input id="filterResearch" type="text" placeholder="Tìm kiếm theo tên lĩnh vực..">
+    </div>
+    <div ng-repeat="item in listResearchArea" style="padding-left: {{20 * item.Level}}px" class="col-md-12 item-checkbox-tree squaredcheck">
+        <input type="checkbox" class="checkbox4" id="Cate{{item.CategoryId}}" name="Cate{{item.CategoryId}}" ng-model="item.Check" ng-click="CheckResearchArea(item.CategoryId, item)">
+        <label for="Cate{{item.CategoryId}}"><span class="check-cat-sidebar">{{ item.Code }}.{{ item.Name }}</span></label>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-xanh" ng-click="selectResearchArea()">Lưu thông tin</button>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#filterResearch").keyup(function () {
+            var filter = $(this).val().trim().toLowerCase();
+            $(".item-checkbox-tree").each(function () {
+                if ($(this).find(".check-cat-sidebar").text().toLowerCase().includes(filter)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        })
+    });
+</script>

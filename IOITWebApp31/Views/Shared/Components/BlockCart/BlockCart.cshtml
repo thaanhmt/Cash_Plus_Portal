@@ -1,0 +1,24 @@
+﻿<div class="giohang">
+    <button type="button" class="close-btn" data-dismiss="giohang">Đóng <i class="fa fa-minus" aria-hidden="true"></i></button>
+    <div class="head-gio">
+        <span>Giỏ hàng</span>
+    </div>
+    <div class="prd-gio" ng-show="!listOrder || listOrder.length == 0">
+        <span class="no-product">Không có sản phẩm nào trong giỏ hàng</span>
+    </div>
+    <div class="prd-gio" ng-show="listOrder.length > 0">
+        <div class="list-gio" ng-repeat="product in listOrder">
+            <a href="/@(Const.DETAIL_PRODUCT + "/{{ product.Url }}-" + Const.WEBSITEID + "-{{product.ProductId}}.html")" title=""><img src="/uploads/{{product.Image}}" class="img-responsive" alt=""></a>
+            <div class="title-prd-gio"><a href="/@(Const.DETAIL_PRODUCT + "/{{ product.Url }}-" + Const.WEBSITEID + "-{{product.ProductId}}.html")" title="{{product.Name}}">{{product.Name}}</a></div>
+            <div class="close-prd" ng-click="RemoveProductOrder(product.ProductId)"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <div class="sl-prd">{{product.quantity}} x <span ng-show="product.PriceSpecial">{{ product.PriceSpecial | formatPrice }} đ</span><span ng-show="!product.PriceSpecial">Liên hệ</span></div>
+        </div>
+        <div class="tongtien">
+            <span>Tổng tiền:</span>
+            <div ng-show="totalPriceOrder" class="tong-gio">{{ totalPriceOrder | formatPrice }} đ</div>
+            <div ng-show="!totalPriceOrder" class="tong-gio">Liên hệ</div>
+        </div>
+        <div class="xemgio" ng-click="GoCart()"><a href="javascript:void(0)" title="">Chi tiết giỏ hàng</a></div>
+        @*<div class="checkout" ng-click="GoOrderInformation()"><a href="javascript:void(0)" title="">Thông tin đặt hàng</a></div>*@
+    </div>
+</div>

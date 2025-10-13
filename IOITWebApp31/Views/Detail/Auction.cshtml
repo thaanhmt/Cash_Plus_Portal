@@ -1,0 +1,172 @@
+﻿@model IOITWebApp31.Models.Data.SessionAutionMVC
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = "Auction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    <div class="url-page">
+        <div class="container">
+            @switch (Model.Type)
+            {
+                case 1:
+                    <div class="title-url">Đấu giá im lặng</div>
+                    break;
+                case 2:
+                    <div class="title-url">Mở bán bốc thăm</div>
+                    break;
+                case 3:
+                    <div class="title-url">Đấu giá online</div>
+                    break;
+            }
+            <ul>
+                <li><a href="/" title="">Trang chủ</a></li>
+                <li><span>Đấu giá KOI</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="maincontainer">
+        <div class="container">
+            <div class="row">
+                <!-- Left column -->
+                @await Component.InvokeAsync("BlockLeftCommon", new { })
+                <!-- End leftcolumn -->
+
+                <div class="maincolumn">
+                    <h1 class="title-daugia">Chương trình giới thiệu cá hồi quốc tế</h1>
+
+                    <div class="video-gallery">
+                        <ul class="nav nav-tabs" role="tablist">
+                            @{ int i = 0;}
+                            @foreach (var item in Model.ListSessionProduct)
+                            {
+                                if (i == 0)
+                                {
+                                    <li class="active">
+                                        <a href="#video-@item.ProductId" role="tab" data-toggle="tab">
+                                            <span>[@item.Name]</span>
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="">
+                                        <a href="#video-@item.ProductId" role="tab" data-toggle="tab">
+                                            <span>[@item.Name]</span>
+                                        </a>
+                                    </li>
+                                }
+                                i++;
+                            }
+                        </ul>
+                        <div class="tab-content">
+                            @{ int j = 0;}
+
+                            @foreach (var item in Model.ListSessionProduct)
+                            {
+                                if (j == 0)
+                                {
+                                    <div class="tab-pane active" id="video-@item.ProductId">
+                                        <iframe width="100%" height="480" src="https://www.youtube.com/embed/@item.LinkYoutube" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <div class="desc-video"><p>Chủ: @item.ManufacturerName, @item.Name @item.Width cm, @(item.ProductSex != "" ? ("giới tính "+ item.ProductSex) : "")</p></div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="tab-pane" id="video-@item.ProductId">
+                                        <iframe width="100%" height="480" src="https://www.youtube.com/embed/@item.LinkYoutube" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        <div class="desc-video"><p>Chủ: @item.ManufacturerName, @item.Name @item.Width cm, @(item.ProductSex != "" ? ("giới tính " + item.ProductSex) : "")</p></div>
+                                    </div>
+                                }
+                                j++;
+                            }
+                        </div>
+                    </div>
+                    <div class="xemthem mb"><a href="#" title="">Xem thêm</a></div>
+                    <div class="col-xs-12">
+                        <div class="intro-daugia">
+                            <div class="title-home-dg">Thông tin sự kiện đấu giá</div>
+                            <p>@Model.Contents  </p>
+                            <p style="margin-bottom: 0px;">Bắt đầu đấu thầu: Thứ Sáu, ngày @Model.DateStart.Value.Date tháng @Model.DateStart.Value.Month - @Model.DateStart.Value.Hour giờ </p>
+                            <p style="margin-bottom: 0px;">Hạn chót đấu thầu: Chủ nhật, ngày @Model.DateEnd.Value.Date tháng @Model.DateEnd.Value.Month - @Model.DateEnd.Value.Hour giờ</p>
+                            @*@await Component.InvokeAsync("BlockPolicy", new { })*@
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12">
+                        <div class="fillter fillter2">
+                            <form action="" method="" accept-charset="utf-8">
+                                <div class="fill">
+                                    <span>Nhà lai tạo</span>
+                                    <select name="">
+                                        <option value="">Nhà lai tạo 1</option>
+                                        <option value="">Nhà lai tạo 2</option>
+                                        <option value="">Nhà lai tạo 3</option>
+                                        <option value="">Nhà lai tạo 4</option>
+                                        <option value="">Nhà lai tạo 5</option>
+                                    </select>
+                                </div>
+                                <div class="fill">
+                                    <span>Loại Koi</span>
+                                    <select name="">
+                                        <option value="">Loại Koi 1</option>
+                                        <option value="">Loại Koi 2</option>
+                                        <option value="">Loại Koi 3</option>
+                                        <option value="">Loại Koi 4</option>
+                                        <option value="">Loại Koi 5</option>
+                                    </select>
+                                </div>
+                                <div class="fill">
+                                    <span>Kích thước</span>
+                                    <select name="">
+                                        <option value="">Kích thước 1</option>
+                                        <option value="">Kích thước 2</option>
+                                        <option value="">Kích thước 3</option>
+                                        <option value="">Kích thước 4</option>
+                                        <option value="">Kích thước 5</option>
+                                    </select>
+                                </div>
+                                <div class="fill">
+                                    <span>Giống cá</span>
+                                    <select name="">
+                                        <option value="">Giống cá 1</option>
+                                        <option value="">Giống cá 2</option>
+                                        <option value="">Giống cá 3</option>
+                                        <option value="">Giống cá 4</option>
+                                        <option value="">Giống cá 5</option>
+                                    </select>
+                                </div>
+                                <div class="fill">
+                                    <span>Tuổi</span>
+                                    <select name="" style="width:50px; min-width: auto;">
+                                        <option value="">1</option>
+                                        <option value="">2</option>
+                                        <option value="">3</option>
+                                        <option value="">4</option>
+                                        <option value="">5</option>
+                                    </select>
+                                </div>
+                                <input type="button" name="" value="Tìm">
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="check-ds col-xs-12"><input type="checkbox" name="" value=""><label>Chỉ hiển thị Koi mà bạn đặt giá thầu</label></div>
+
+                    <div class="danhsach">
+                        <div class="col-xs-12"><div class="title-home-dg">Danh sách cá Koi</div></div>
+                        @*@await Component.InvokeAsync("BlockKoiAuction", new { p = ViewBag.page, SessionAutionId = ViewBag.SessionAutionId })*@
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

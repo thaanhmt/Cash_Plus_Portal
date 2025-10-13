@@ -1,0 +1,105 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.LegalDoc>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        if (ViewBag.Language == "en")
+        {
+            var extn = item.Attactment.Split(".").Last();
+            <article class="item-lengislation">
+                <div class="head-lengislation">
+                    <h2 class="title-lengislation"><a href="/van-ban/@(item.Url)-@(item.LegalDocId)">@item.Name</a></h2>
+                    <div class="block-views-lengis">
+                        @if (extn == "pdf")
+                        {
+                            <div class="view-pdf">
+                                <i class="views-icon"></i>
+                                <span><a href="/uploads/files/@item.Attactment" target="_">View Online</a></span>
+                            </div>
+                        }
+                        <div class="download-pdf">
+                            <i class="download-icon"></i>
+                            <span><a href="/uploads/files/@item.Attactment" download>Download</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-lengislation">
+                    <div class="left-content-lengislation">
+                        @item.TichYeu
+                    </div>
+                    <div class="right-content-lengislation">
+                        <div class="field-right-lengislation">
+                            <div class="label">Promulgate:  </div>
+                            <div class="content-field-lengislation">@item.DateIssue.Value.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="field-right-lengislation">
+                            <div class="label">Effect:  </div>
+                            <div class="content-field-lengislation">@item.DateEffect.Value.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="field-right-lengislation">
+                            <div class="label">Status: </div>
+                            @if (item.DateEffect < DateTime.Now)
+                            {
+                                <div class="content-field-lengislation text-success">Already in effect</div>
+                            }
+                            else
+                            {
+                                <div class="content-field-lengislation text-danger">No effect yet</div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </article>
+        }else{
+            var extn = item.Attactment.Split(".").Last();
+            <article class="item-lengislation">
+                <div class="head-lengislation">
+                    <h2 class="title-lengislation"><a href="/van-ban/@(item.Url)-@(item.LegalDocId)">@item.Name</a></h2>
+                    <div class="block-views-lengis">
+                        @if (extn == "pdf")
+                        {
+                            <div class="view-pdf">
+                                <i class="views-icon"></i>
+                                <span><a href="/uploads/files/@item.Attactment" target="_">Xem Online</a></span>
+                            </div>
+                        }
+                        <div class="download-pdf">
+                            <i class="download-icon"></i>
+                            <span><a href="/uploads/files/@item.Attactment" download>Tải về</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="body-lengislation">
+                    <div class="left-content-lengislation">
+                        @item.TichYeu
+                    </div>
+                    <div class="right-content-lengislation">
+                        <div class="field-right-lengislation">
+                            <div class="label">Ban hành:  </div>
+                            <div class="content-field-lengislation">@item.DateIssue.Value.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="field-right-lengislation">
+                            <div class="label">Hiệu lực:  </div>
+                            <div class="content-field-lengislation">@item.DateEffect.Value.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="field-right-lengislation">
+                            <div class="label">Trạng thái: </div>
+                            @if (item.DateEffect < DateTime.Now)
+                            {
+                                <div class="content-field-lengislation text-success">Đã có hiệu lực</div>
+                            }
+                            else
+                            {
+                                <div class="content-field-lengislation text-danger">Chưa có hiệu lực</div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </article>
+        }
+    }
+}

@@ -1,0 +1,424 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Danh sách câu hỏi</h1>
+      <button class="cms-addnew" *ngIf="CheckRole.Create" type="button" (click)="OpenLegalDocModal(undefined, undefined)"><i class="fa fa-plus"></i>&nbsp;Thêm mới</button>
+    </div>
+    <!--<div class="description-page">
+      <blockquote class="{{isNoitify ? 'hidden' : ''}}">
+        <p>Khu vực hiển thị danh sách các câu hỏi. Khu vực này chỉ cho Admin mới có thể thêm mới và chỉnh sửa lại! </p>
+        <a class="close" href="javascript:void(0)" (click)="closeNoityfy()"><span>×</span></a>
+      </blockquote>
+    </div>-->
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row" style="padding-left:0;">
+          <div class="col-sm-12 col-md-12">
+            <div class="row cms-filter action-table">
+              <div class="col-sm-12 col-md-6" style="display:flex;align-items:center;">
+                <ng-select class="mw150-select"
+                           [items]="ActionTable"
+                           bindLabel="Name"
+                           bindValue="Id"
+                           [clearable]="true"
+                           placeholder="Tác vụ"
+                           [(ngModel)]="ActionId"
+                           [ngModelOptions]="{standalone: true}">
+                </ng-select>
+                <button class="cms-addnew button-action" type="button" [disabled]="!ActionId" (click)="DeleteMuntiAddress()"><i class="fa-solid fa-badge-check"></i> Áp dụng</button>
+              </div>
+              <div class="col-sm-12 col-md-6" style="display: flex; justify-content: flex-end;align-items: flex-end;">
+                <label style="margin-right:10px;display: flex;align-items: center;">
+                  <span class="search-box">Tìm kiếm</span>
+                  <input type="text" class="form-control form-control-sm" placeholder="Nhập theo tên câu hỏi..." aria-controls="DataTables_Table_0" [(ngModel)]="q.txtSearch" (keyup.enter)="QueryChanged()">
+                </label>
+                <div class="dataTables_length" id="DataTables_Table_0_length">
+                  <label>
+                    Xem&nbsp;
+                    <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select custom-select-sm form-control form-control-sm" [(ngModel)]="paging.page_size" (change)="GetListLegalDoc()">
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>&nbsp;bản ghi
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row content-table-data">
+          <div class="col-sm-12">
+            <table class="table table-striped table-bordered datatable dataTable no-footer list-cat" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="border-collapse: collapse !important">
+              <thead>
+                <tr role="row">
+                  <th class="btn-action-table" style="width: 25px;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" [(ngModel)]="CheckitemAll" id="CheckAll" (click)="CheckAllAddress()" name="checkall" />
+                      <label for="CheckAll"><span></span></label>
+                    </div>
+                  </th>
+                  <th width="30px">STT</th>
+                  <th class="text-left">
+                    <span>Loại câu hỏi</span>
+                  </th>
+                  <th class="text-left">
+                    <span>Tên câu hỏi</span>
+                  </th>
+                  <!--<th style="width: 120px" class="text-center" *ngIf="listLanguage.length > 1">Ngôn ngữ</th>-->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listLegalDoc; let i = index" role="row" ng-class-odd='odd' ng-class-even='even'>
+                  <td class="btn-action-table" style="padding-left: 10px !important;">
+                    <div class="squaredcheck">
+                      <input type="checkbox" class="checkbox1" id="Check{{item.LegalDocId}}" name="listcomment" [(ngModel)]="item.IsCheck" (change)="CheckDeleteAddress(item)">
+                      <label for="Check{{item.LegalDocId}}"><span></span></label>
+                    </div>
+                  </td>
+                  <td style=" position:relative; top: 2px;">{{i+1}}</td>
+                  <td class="sorting_1 column-name name-child">
+                    {{ item.Name }}
+                    <ul class="cms-function">
+                      <li class="id-item">ID: {{item.LegalDocId}} | </li>
+                      <li *ngIf="CheckRole.Update" (click)="OpenLegalDocModal(item, 1)">Chỉnh sửa | </li>
+                      <li *ngIf="CheckRole.View" (click)="OpenLegalDocModal(item, 3)"> Xem | </li>
+                      <li *ngIf="CheckRole.Delete" (click)="ShowConfirmDelete(item.LegalDocId)" class="detete-item">Xóa</li>
+                    </ul>
+                  </td>
+                  <td>
+                    {{ item.Name }}
+                  </td>
+                  <!--<td class="text-center column-hs">
+    <img src="{{staticDomainMedia}}/{{ item.language?.Flag }}" style="height:15px; width:25px;" />
+    <span (click)="OpenLegalDocModal(item, 2)" *ngIf="CheckRole.Create && (item.listLanguage.length < listLanguage.length - 1) && item.LanguageId == languageId" title="Thêm bài viết cho ngôn ngữ khác">
+      <i class="fa fa-plus"></i>
+    </span>
+  </td>-->
+                  <!--<td class="text-center" *ngIf="listLanguage.length > 1">
+    <span *ngFor="let lang of item.listLanguage" style="padding-right:5px;" (click)="OpenLegalDocModal(lang.legalDoc, 3)">
+      <img src="{{staticDomainMedia}}{{ lang.Flag }}" style="height:15px; width:25px" />
+    </span>
+    <span *ngIf="item.listLanguage != undefined">
+      <span (click)="OpenLegalDocModal(item, 2)" *ngIf="item.listLanguage.length < listLanguage.length - 1" title="Thêm văn bản cho ngôn ngữ khác">
+        <i class="fa fa-plus"></i>
+      </span>
+    </span>
+  </td>-->
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row" style="padding-left:15px;">
+          <div class="col-sm-12 col-md-5">
+            <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+              Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i class="fa fa-long-arrow-right"></i>  <span>{{ paging.item_count < paging.page * paging.page_size ? paging.item_count : paging.page * paging.page_size }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{ paging.item_count }}</span> bản ghi
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-7">
+            <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5" [itemsPerPage]="paging.page_size" class="pagination-sm pull-right"
+                        previousText='<i class="fa-solid fa-chevron-left"></i>' nextText='<i class="fa-solid fa-chevron-right"></i>' [boundaryLinks]="true" (pageChanged)="PageChanged($event)"></pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #LegalDocModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-big" role="document">
+    <form class="login-form">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" *ngIf="Item.LegalDocId == undefined && Item.LanguageRootCode == undefined">Thêm mới câu hỏi</h4>
+          <h4 class="modal-title" *ngIf="Item.LegalDocId != undefined && typeAction==1">Cập nhật thông tin câu hỏi</h4>
+          <h4 class="modal-title" *ngIf="Item.LegalDocId != undefined && typeAction==3">Xem chi tiết thông tin câu hỏi</h4>
+          <h4 class="modal-title" *ngIf="Item.LegalDocId == undefined && Item.LanguageRootCode != undefined">Thêm mới câu hỏi cho ngôn ngữ</h4>
+          <button type="button" class="close" (click)="LegalDocModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12" style="margin:20px 0px; display: inline-block;">
+                <!--<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="Code">Mã văn bản<span *ngIf="Item.Code==undefined || Item.Code==''" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-10">
+      <input type="text" id="Code" name="Code" maxlength="500" class="form-control" placeholder="" [(ngModel)]="Item.Code" autocomplete="off">
+    </div>
+  </div>-->
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" for="Name">Loại câu hỏi <span *ngIf="Item.AgencyIssued==undefined" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-10">
+                    <ng-select [items]="listCateNews"
+                               bindLabel="Name"
+                               bindValue="CategoryId"
+                               [multiple]="false"
+                               [disabled]="typeAction==3"
+                               placeholder="Chọn loại câu hỏi"
+                               [(ngModel)]="Item.AgencyIssued"
+                               [ngModelOptions]="{standalone: true}">
+                    </ng-select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" for="Name">Tên câu hỏi<span *ngIf="Item.Name==undefined || Item.Name==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-10">
+                    <input type="text" id="Name" name="Name" maxlength="500" class="form-control" placeholder=""
+                           [(ngModel)]="Item.Name" autocomplete="off" (ngModelChange)="ChangeTitle(1)" [disabled]="typeAction==3">
+                  </div>
+                </div>
+                <div class="form-group row custom-ckeditor">
+                  <label class="col-form-label col-md-12">Nội dung câu hỏi<span *ngIf="Item.Contents==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-12">
+                    <ckeditor name="Contents"
+                              [(ngModel)]="Item.Contents"
+                              [config]=""
+                              [readonly]="typeAction==3"
+                              debounce="500">
+                    </ckeditor>
+                  </div>
+                </div>
+                <!--<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="Url">Đường dẫn<span *ngIf="Item.Url==undefined || Item.Url==''" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-10">
+      <input type="text" id="Url" name="Url" class="form-control" placeholder="" [(ngModel)]="Item.Url" autocomplete="off">
+    </div>
+  </div>-->
+                <!--<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="Name">Cơ quan ban hành<span *ngIf="Item.AgencyIssued==undefined" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-10">
+      <ng-select [items]="listTypeAttributeItem"
+                 bindLabel="Name"
+                 bindValue="TypeAttributeItemId"
+                 [multiple]="false"
+                 placeholder="Chọn cơ quan ban hành"
+                 [(ngModel)]="Item.AgencyIssued"
+                 [ngModelOptions]="{standalone: true}">
+      </ng-select>
+    </div>
+  </div>-->
+                <!--<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="">Ngôn ngữ <span *ngIf="Item.LanguageId==undefined" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-10">
+      <ng-select [items]="listLanguageTemp"
+                 bindLabel="Name"
+                 bindValue="LanguageId"
+                 [multiple]="false"
+                 placeholder="Chọn ngôn ngữ"
+                 [(ngModel)]="Item.LanguageId"
+                 [disabled]="true"
+                 [ngModelOptions]="{standalone: true}">
+      </ng-select>
+    </div>
+  </div>-->
+                <!--<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="DateIssue">Ngày ban hành<span *ngIf="Item.DateIssue==undefined || Item.DateIssue==''" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-10">
+      <input placeholder="Ngày ban hành"
+             class="form-control"
+             [(ngModel)]="Item.DateIssue"
+             [ngModelOptions]="{standalone: true}"
+             [owlDateTimeTrigger]="dt" [owlDateTime]="dt">
+      <owl-date-time [pickerType]="'calendar'" #dt></owl-date-time>
+    </div>
+  </div>-->
+                <!--<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="DateEffect">Ngày hiệu lực<span *ngIf="Item.DateEffect==undefined || Item.DateEffect==''" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-10">
+      <input placeholder="Ngày hiệu lực"
+             class="form-control"
+             [(ngModel)]="Item.DateEffect"
+             [ngModelOptions]="{standalone: true}"
+             [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1">
+      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+    </div>
+  </div>-->
+                <!--<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="Signer">Người ký<span *ngIf="Item.Signer==undefined || Item.Signer==''" style="color: red;">&ngsp;(*)</span></label>
+    <div class="col-md-10">
+      <input type="text" id="Signer" name="Signer" class="form-control" placeholder="" [(ngModel)]="Item.Signer" autocomplete="off">
+    </div>
+  </div>-->
+              </div>
+              <!--<div class="col-sm-4 col-md-4 siderbar-product" style="margin-top:0px; padding:0; display: inline-block;">
+                <div class="row dm-vbpq" style="margin-left:0; padding:0; margin:0; border:none;">
+                  <label class="col-md-12 col-form-label" for="" style="font-weight:normal;">Danh mục câu hỏi</label>
+                  <div class="col-md-10">
+                    <div class="danhmuc-sp">
+                      <div class="in-cat-product" style="margin-top:5px;">
+                        <div *ngFor="let item of listCateNews;let i = index" [ngStyle]="{'margin-left.px': item.Level * 20}" class="col-md-4 squaredcheck">
+                          <div class="squaredcheck">
+                            <input type="checkbox" class="checkbox4" id="Cate{{item.CategoryId}}" name="Cate{{item.CategoryId}}"
+                                   [(ngModel)]="item.Check" (click)="CheckCategory(item.CategoryId, item)">
+                            <label for="Cate{{item.CategoryId}}"><span>{{ item.Name }}</span></label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>-->
+              <!--<div class="col-sm-12 col-md-12" style="margin:20px 0px">
+                <div class="form-group row image-upload fix-height">
+                  <label class="col-md-2 col-form-label" for="file-input">Tệp đính kèm <span *ngIf="Item.Attactment==undefined || Item.Attactment==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-10" style=" padding: 7px 20px;">
+                    <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal()" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400;">Tải lên từ thư viện</a>
+                    <input type="text" name="image" value="" [(ngModel)]="Item.Attactment" hidden />
+                    <div *ngIf="Item.Attactment" style="margin-top:10px;">
+                      <a href="{{staticDomainMedia}}/{{ Item.Attactment }}" target="_blank" style=" color: #760000;">{{Item.AttactmentName}}</a>
+                    </div>
+                    <i class="fa fa-trash icon-remove-image" style="" (click)="RemoveFile()" *ngIf="Item.Attactment != undefined"></i>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" for="Contents">Nội dung <span *ngIf="Item.Contents==undefined || Item.Contents==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-10">-->
+                    <!-- <input type="text" id="Contents" name="Contents" class="form-control" placeholder="" [(ngModel)]="Item.Contents" autocomplete="off"> -->
+                    <!--<textarea id="Contents" name="Contents" maxlength="300" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Contents" #Contents></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" for="Note">Ghi chú</label>
+                  <div class="col-md-10">-->
+                    <!-- <input type="text" id="Note" name="Note" class="form-control" placeholder="" [(ngModel)]="Item.Note"> -->
+                    <!--<textarea id="Note" name="Note" maxlength="300" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.Note" #Note></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" for="Long">Trích yếu<span *ngIf="Item.TichYeu==undefined || Item.TichYeu==''" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-10">-->
+                    <!-- <input type="text" id="TichYeu" name="TichYeu" class="form-control" placeholder="" [(ngModel)]="Item.TichYeu"> -->
+                    <!--<textarea id="TichYeu" name="TichYeu" maxlength="300" rows="3" class="form-control" placeholder="" [(ngModel)]="Item.TichYeu" #TichYeu></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-2 col-form-label" for="Long">Năm ban hành<span *ngIf="Item.YearIssue==undefined || Item.YearIssue==null" style="color: red;">&ngsp;(*)</span></label>
+                  <div class="col-md-10">-->
+                    <!-- <input type="text" id="TichYeu" name="TichYeu" class="form-control" placeholder="" [(ngModel)]="Item.TichYeu"> -->
+                    <!--<input id="YearIssue" type="number" name="YearIssue" class="form-control" placeholder="" [(ngModel)]="Item.YearIssue" />
+                  </div>
+                </div>
+              </div>-->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" appNoDblClickMat (click)="SaveLegalDoc()" *ngIf="typeAction!=3">Lưu thông tin</button>
+          <!--<button type="button" class="btn btn-primary" appNoDblClickMat (click)="GetTranslate(Item.LegalDocRootId)"
+                  *ngIf="Item.LegalDocId == undefined && Item.LanguageRootCode != undefined">
+            Dịch
+          </button>-->
+          <button type="button" class="btn btn-danger" (click)="LegalDocModal.hide()">Đóng</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--Modal Views Media File-->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #OpenMediaFile="bs-modal" class="modal fade modal-views-media" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="attachments-wrapper">
+    <div class="edit-media-header">
+      <div class="media-frame-title"><h1>Thư viện Media</h1></div>
+      <button type="button" class="media-modal-close" (click)="CloseMediaModal()"><i class="fa fa-times" aria-hidden="true"></i></button>
+    </div>
+    <div class="media-frame-router">
+      <ul class="head-tab">
+        <li class="item {{isActiveMedia ? 'active' : ''}}" (click)="tabHandleMedia()">Thư viện</li>
+        <li class="item {{isActiveUpload ? 'active' : ''}}" (click)="tabHandleMediaUpload()">Tải lên</li>
+      </ul>
+    </div>
+    <div class="upload-file {{isActiveUpload ? 'active' : 'hiden'}}">
+      <div class="wapper-modal-upload">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="card" style="border: none; padding: 1.5rem; margin-bottom: unset;">
+              <div class="card-body body-form-add-new">
+                <div class="col-sm-12 col-md-12">
+                  <div class="form-group">
+                    <div class="drag-drop-area">
+                      <div class="drag-drop-inside">
+                        <p class="drag-drop-info">Tải lên từ máy tính</p>
+                        <div class="progress" style=" height: 14px; margin-top: 10px; font-style: italic; font-weight: 500;" *ngIf="progress!=undefined">
+                          <div class="progress-bar progress-bar-striped bg-success"
+                               role="progressbar"
+                               aria-valuemin="0"
+                               aria-valuemax="100"
+                               [style.width.%]="progress"
+                               [attr.aria-valuenow]="progress">
+                            {{progress}}%
+                          </div>
+                        </div>
+                        <p class="text-center" style=" font-size: 14px; margin: 10px 0; color: #005b0c;">(Có thể tải cùng lúc nhiều file)</p>
+                        <p class="drag-drop-buttons">
+                          <label for="upload-photo" class="label-upload">Tải lên <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cloud-upload-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-cloud-upload-alt fa-w-20"><path fill="currentColor" d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z" class=""></path></svg></label>
+                          <input #file type="file" (change)="upload3(file.files, 1)" id="upload-photo" multiple />
+                        </p>
+                      </div>
+                      <div class="post-upload-ui" id="post-upload-info">
+                        <p class="max-upload-size">
+                          Kích thước tập tin tải lên tối đa: 512 MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="main-media {{isActiveMedia ? 'active' : 'hiden'}}">
+      <div class="attachments-ui" #scrollMe>
+        <div class="attachment save-ready" *ngFor="let item of listItemMedia; let i = index">
+          <div class="thumb" (click)="SeclectMedia(item)">
+            <img src="{{staticDomainMedia}}{{ item.url }}/{{ item.name }}" alt="{{item.name}}" *ngIf="item.type == 1" />
+            <img src="{{staticDomain}}images/document.png" alt="media upload" *ngIf="item.type == 4" />
+            <img src="{{staticDomain}}images/audio.png" alt="media upload" *ngIf="item.type == 2" />
+            <img src="{{staticDomain}}images/video.png" alt="media upload" *ngIf="item.type == 3" />
+          </div>
+        </div>
+      </div>
+      <div class="load-more-wrapper">
+        <span class="spinner"></span>
+        <p class="load-more-count">Đang hiển thị {{countMedia}} của {{countAllMedia}} file media</p>
+        <button type="button" class="button load-more button-primary {{isDelay ? 'hiden' : ''}}" (click)="loadMore()">Tải thêm</button>
+        <!--<button type="button" class="button chonse-media button-primary {{isDelay ? 'hiden' : ''}}" (click)="ChonseImage()">Chọn ảnh</button>-->
+        <div class="{{isDelay ? 'active' : 'hiden'}}">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff;display:block;" width="60px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <g>
+              <circle cx="73.801" cy="68.263" fill="#e15b64" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="0s"></animateTransform>
+              </circle>
+              <circle cx="68.263" cy="73.801" fill="#f47e60" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.062s"></animateTransform>
+              </circle>
+              <circle cx="61.481" cy="77.716" fill="#f8b26a" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.125s"></animateTransform>
+              </circle>
+              <circle cx="53.916" cy="79.743" fill="#abbd81" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.187s"></animateTransform>
+              </circle>
+              <circle cx="46.084" cy="79.743" fill="#849b87" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.25s"></animateTransform>
+              </circle>
+              <circle cx="38.519" cy="77.716" fill="#6492ac" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.312s"></animateTransform>
+              </circle>
+              <circle cx="31.737" cy="73.801" fill="#637cb5" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.375s"></animateTransform>
+              </circle>
+              <circle cx="26.199" cy="68.263" fill="#6a63b6" r="3">
+                <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.437s"></animateTransform>
+              </circle>
+              <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;0 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s"></animateTransform>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

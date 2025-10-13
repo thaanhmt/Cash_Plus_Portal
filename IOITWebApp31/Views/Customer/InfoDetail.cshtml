@@ -1,0 +1,577 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <title>Restaurant Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .detail-merchant-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .restaurant-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+        }
+
+        .restaurant-header img {
+            width: 120px;
+            border-radius: 10px;
+        }
+
+        .restaurant-info {
+            flex-grow: 1;
+        }
+
+        .restaurant-info h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .restaurant-info p {
+            font-size: 14px;
+            color: gray;
+        }
+
+        .restaurant-info .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+        }
+
+        .image-container {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-cashback-info {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+        .navtabs {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  padding: 10px 20px;
+  position: relative;
+}
+.navtab {
+  margin: 0 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
+}
+.navtab:hover {
+  background-color: #007bff;    
+    color: white;
+    border-radius: 5px;
+}
+.navtab.active {
+  color: #007BFF;
+  font-weight: 600;
+}
+.underline {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  background: #007BFF;
+  transition: left 0.3s ease, width 0.3s ease;
+}
+
+        .offer-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fafafa;
+            border-radius: 10px;
+        }
+
+        .offer-section h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #f16e00;
+        }
+
+        .offer-section p {
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .related-restaurants {
+            margin-top: 30px;
+        }
+
+        .related-restaurants h3 {
+            margin-bottom: 10px;
+        }
+
+        .restaurant-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .restaurant-item {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            width: 30%;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .restaurant-item img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .restaurant-item h4 {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .restaurant-item .rating {
+            font-size: 14px;
+            color: #f16e00;
+        }
+
+        .restaurant-item p {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .info-section {
+            display: none;
+        }
+
+        .info-section.active {
+            display: block;
+        }
+        /* phan thong tin chung  */
+       
+
+
+.flag {
+    width: 24px;
+    height: 24px;
+}
+
+.map-section {
+    margin: 20px 0;
+}
+
+.map {
+    width: 100%;
+    height: auto;
+}
+
+.details {
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.section-header {
+    margin-bottom: 20px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info div {
+    width: 30%;
+}
+
+h3 {
+    font-size: 16px;
+    color: #e74c3c;
+    margin-bottom: 10px;
+}
+
+.amenities ul {
+    list-style-type: none;
+}
+
+
+
+.description {
+    margin: 10px 0;
+}
+
+.contact a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.contact a:hover {
+    text-decoration: underline;
+}
+.active-tab {
+    background-color: #007bff; /* Màu nền cho tab được chọn */
+    color: white; /* Màu chữ cho tab được chọn */
+    border-radius: 5px; /* Bo góc cho tab */
+}
+.pagination {
+    display: flex;
+    justify-content: center; /* Căn giữa các nút */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    margin: 20px 0; /* Khoảng cách trên và dưới */
+}
+
+.pagination button {
+    background-color: #007bff; /* Màu nền cho nút */
+    color: white; /* Màu chữ */
+    border: none; /* Không có viền */
+    border-radius: 5px; /* Bo góc */
+    padding: 1px 3px; /* Khoảng cách bên trong */
+    margin: 0 5px; /* Khoảng cách giữa các nút */
+    cursor: pointer; /* Con trỏ chuột khi di chuột qua */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+.pagination button:hover {
+    background-color: #0056b3; /* Màu nền khi di chuột qua */
+}
+
+.pagination button:disabled {
+    background-color: #ccc; /* Màu nền cho nút bị vô hiệu hóa */
+    cursor: not-allowed; /* Con trỏ chuột khi nút bị vô hiệu hóa */
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 100%;
+}
+
+.arrow-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    font-size: 24px;
+}
+
+.arrow-button:hover {
+    opacity: 1;
+}
+
+.arrow-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
+}
+
+.page-info {
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    bottom: -30px;
+}
+
+
+.pagination-arrow {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s;
+    font-size: 24px;
+}
+
+.pagination-arrow:hover {
+    opacity: 1;
+}
+
+.pagination-arrow:disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
+}
+
+.qr-image {
+    width: 50vw; 
+    height: auto; 
+}
+
+.qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.merchant-name {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+        
+    </style>
+</head>
+
+<body>
+<main id="main" ng-app="myApp" ng-controller="UserUnitController" ng-init="getInfoDetailMerchant()">
+
+<div class="detail-merchant-container">
+    <!-- Restaurant Header -->
+    <div class="restaurant-header">
+    <div class="image-container">
+        <img ng-src="{{ detailmerchant.avatar || 'https://via.placeholder.com/120' }}" alt="{{ detailmerchant.name }}">
+        <div class="custom-cashback-info">Hoàn tiền: {{ calculateDiscount(detailmerchant.discount_rate) }}%</div>
+    </div>
+    <div class="restaurant-info">
+        <h1>{{detailmerchant.name}}</h1>
+        <p>{{detailmerchant.address}}</p>
+        <div class="rating">
+            <span>5.0</span>
+            <span>★</span>
+        </div>
+        <p>{{detailmerchant.status_name}}</p>
+    </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="navtabs">       
+        <div class="navtab" onclick="showSection('info')">Thông tin chung</div>
+        <div class="navtab" onclick="showSection('offer')">Ưu đãi</div>
+        <div class="navtab" onclick="showSection('photos')">Sản phẩm</div>
+        <div class="navtab" onclick="showSection('album')">Album</div>
+        <div class="navtab" onclick="showSection('qrcode')">QR Thanh toán</div>
+    </div>
+
+    <!-- Offer Section -->
+    <div id="offer" class="info-section">
+        <div class="offer-section">
+            <h2>{{detailmerchant.name}}</h2>
+            <p>
+                Từ ngày 15/11/2023,  khao bạn mới HOÀN TIỀN 10% cho giao dịch đầu tiên tại các cửa hàng đang hợp tác với CashPlus.
+            </p>
+            <p>- Không giới hạn số tiền được hoàn và số lần giao dịch. Giá trị giao dịch càng cao, số tiền hoàn càng lớn.</p>
+            <p>- Hoàn tiền trực tiếp về tài khoản ngân hàng trong vòng 24h kể từ khi thanh toán thành công (không bao gồm thứ Bảy, Chủ Nhật).</p>
+            <p>- Ưu đãi hoàn tiền của CashPlus áp dụng đồng thời với các ưu đãi khác.</p>
+        </div>
+    </div>
+
+    <!-- General Info Section -->
+    <div id="info" class="info-section active">
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="map"> </div>
+        </section>
+
+        <!-- Details Section -->
+        <section class="details">
+            <div class="section-header">
+                <h2>Thông Tin Chung</h2>
+            </div>
+            <div class="info">
+                <div class="opening-hours">
+                    <h3>Giờ Mở Cửa</h3>
+                    <p>{{detailmerchant.working_day}}:</p>
+                    <ul>
+                        <li ng-repeat="time in detailmerchant.working_times">
+                          {{time.start_hour}} - {{time.end_hour}}
+                        </li>
+                    </ul>
+                </div>
+                <div class="price-range">
+                    <h3>Mức Giá</h3>
+                    <p>{{getMinMaxPriceProductMerchant().min | formatVND}} - {{getMinMaxPriceProductMerchant().max | formatVND}}</p>
+                </div>
+                <div class="amenities">
+                    <h3>Tiện Ích / Hỗ Trợ</h3>
+                    <ul>
+                        <li>Chỗ để ô tô</li>
+                        <li>Chỗ để xe máy</li>
+                        <li>Wifi</li>
+                        <li>Máy lạnh & Điều hòa</li>
+                        <li>Thanh toán thẻ</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer Section --> 
+        <div>
+            <p class="description">
+                {{detailmerchant.description}}
+            </p>
+            <div class="contact">
+                <a ng-href="{{detailmerchant.website || '' }}" target="_blank">Website</a>
+                <p>Email: <a ng-href="{{detailmerchant.email}}">{{detailmerchant.email}}</a></p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- product merchant -->
+    <div id="photos" class="info-section" ng-init="getProductMerchant(); currentPagePhotos = 1; pageSizePhotos = 6">
+        <div class="photos-section">
+            <div class="restaurant-grid">
+                <div class="restaurant-item" ng-repeat="product in listProductMerchant | limitTo:pageSizePhotos:(currentPagePhotos-1)*pageSizePhotos">
+                    <img ng-src="{{product.avatar || 'default-image.png'}}" alt="{{product.product_name}}" style="width: 150px; height: 150px;">               
+                    <h4>{{product.product_name}}</h4>
+                    <div class="rating">{{product.price | formatVND}}</div>
+                    <p>{{product.description}}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Pagination Controls -->
+        <div class="pagination">
+         <button ng-click="currentPagePhotos = currentPagePhotos - 1" ng-disabled="currentPagePhotos === 1" class="pagination-arrow">
+         <i class="fa fa-chevron-left"></i>
+        </button>
+         <span> {{currentPagePhotos}} / {{Math.ceil(listProductMerchant.length / pageSizePhotos)}}</span>
+        <button ng-click="currentPagePhotos = currentPagePhotos + 1" ng-disabled="currentPagePhotos * pageSizePhotos >= listProductMerchant.length" class="pagination-arrow">
+        <i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- album -->
+    <div id="album" class="info-section" currentPagePhotos = 1; pageSizePhotos = 12">
+    <div class="photos-section">
+        <div class="restaurant-grid">
+            <div class="restaurant-item" ng-repeat="document in detailmerchant.list_document | filter: {file_name: 'cửa hàng'} | limitTo:pageSizePhotos:(currentPagePhotos-1)*pageSizePhotos">
+                <img ng-src="{{document.links}}" alt="{{document.file_name}}" style="width: 150px; height: 150px;">               
+            </div>
+        </div>
+    </div>
+    
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <button ng-click="currentPagePhotos = currentPagePhotos - 1" ng-disabled="currentPagePhotos === 1" class="pagination-arrow">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+        <span> {{currentPagePhotos}} / {{Math.ceil((detailMerchant.list_document | filter: {file_name: 'cửa hàng'}).length / pageSizePhotos)}}</span>
+        <button ng-click="currentPagePhotos = currentPagePhotos + 1" ng-disabled="currentPagePhotos * pageSizePhotos >= (detailMerchant.list_document | filter: {file_name: 'cửa hàng'}).length" class="pagination-arrow">
+            <i class="fa fa-chevron-right"></i>
+        </button>
+    </div>
+   </div>
+
+    <!-- qrcode -->
+    <div id="qrcode" class="info-section">
+    <div class="qr-container">
+        <img ng-src="{{detailmerchant.link_QR}}" alt="QR Code">
+        <h2 class="merchant-name"><b>{{detailmerchant.name}}</b></h2>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Related Restaurants -->
+    <div class="related-restaurants" ng-if="recentPartner && recentPartner.length > 0" ng-init="currentPage = 1; pageSize = 3">
+    <p>Có thể bạn quan tâm</p>
+    <div class="pagination-container">
+        <button ng-click="currentPage = currentPage - 1" ng-disabled="currentPage === 1" class="arrow-button left">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+        <div class="restaurant-grid">
+            <div class="restaurant-item" ng-repeat="partner in recentPartner | limitTo:pageSize:(currentPage-1)*pageSize" ng-click="gotoDetailMerchant(partner.id, partner.name)">
+                <img ng-src="{{partner.avatar || 'https://via.placeholder.com/100'}}" alt="{{partner.name}}" width="150px" height="150px">
+                <h4>{{partner.name}}</h4>
+                <div class="rating">{{partner.rating || 'Không xác định'}} ★</div>
+                <p>{{partner.address}}</p>
+            </div>
+        </div>
+        <button ng-click="currentPage = currentPage + 1" ng-disabled="currentPage * pageSize >= recentPartner.length" class="arrow-button right">
+            <i class="fa fa-chevron-right"></i>
+        </button>
+    </div>
+    <!-- <span class="page-info"> {{currentPage}} / {{Math.ceil(recentPartner.length / pageSize)}}</span> -->
+    </div>
+    
+</div>
+
+</div>
+</main>
+
+<script>
+    function showSection(sectionId) {
+        // Hide all sections
+        const sections = document.querySelectorAll('.info-section');
+        sections.forEach(section => {
+            section.classList.remove('active');
+            section.classList.remove('highlight'); // Xóa lớp highlight nếu có
+        });
+
+        // Show the clicked section
+        const sectionToShow = document.getElementById(sectionId);
+        sectionToShow.classList.add('active');
+
+        // Highlight the selected tab
+        const tabs = document.querySelectorAll('.navtabs .navtab');
+        tabs.forEach(tab => {
+            tab.classList.remove('active-tab'); // Xóa lớp active-tab khỏi tất cả các tab
+        });
+        const selectedTab = Array.from(tabs).find(tab => tab.getAttribute('onclick').includes(sectionId));
+        if (selectedTab) {
+            selectedTab.classList.add('active-tab'); // Thêm lớp active-tab cho tab được chọn
+        }
+    }
+
+    // Đặt ô mặc định là active và highlight
+    document.addEventListener('DOMContentLoaded', function() {
+        const defaultSectionId = 'info'; // Thay đổi thành ID của ô mặc định bạn muốn
+        showSection(defaultSectionId);
+    });
+</script>
+
+</body>

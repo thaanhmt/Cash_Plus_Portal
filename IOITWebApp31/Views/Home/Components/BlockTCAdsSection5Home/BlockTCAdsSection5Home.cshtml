@@ -1,0 +1,10 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Slide>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <a href="@(item.Url)" class="d-block"><img src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="banner-2-1"></a>
+    }
+}

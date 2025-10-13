@@ -1,0 +1,16 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Slide>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    <div class="main-partner" data-slick='{"autoplay": true, "autoplaySpeed": @(ViewBag.TimeAuto*1000), "slidesToShow": @ViewBag.Slideshow}'>
+        @foreach (var item in Model)
+        {
+            <div class="item-parter">
+                <a href="@item.Url" class="d-block" target="_blank">
+                    <img src="/uploads/@item.Image" width="@ViewBag.Width" height="@ViewBag.Height">
+                </a>
+            </div>
+        }
+    </div>
+}

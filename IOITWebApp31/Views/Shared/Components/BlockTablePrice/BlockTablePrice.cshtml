@@ -1,0 +1,67 @@
+﻿
+<div class="gia-vatlieu">
+    <div class="title-bl"><span>Công bố giá vật liệu các tỉnh thành</span></div>
+    <div class="tinhthanh">
+        <ul class="nav nav-tabs tab-tt" role="tablist">
+            <li class="active"><a href="#hn" role="tab" data-toggle="tab">Hà Nội</a></li>
+            <li><a href="#bn" role="tab" data-toggle="tab">Đà Nẵng</a></li>
+            <li><a href="#bg" role="tab" data-toggle="tab">TP HCM</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="hn">
+                <ul class="nav nav-tabs tab-vl" role="tablist">
+                    <li class="active"><a href="#ximang-hn" role="tab" data-toggle="tab">@ViewData["dataHN1"]</a></li>
+                    <li><a href="#theptron-hn" role="tab" data-toggle="tab">@ViewData["dataHN2"]</a></li>
+                    <li><a href="#thepcuon-hn" role="tab" data-toggle="tab">@ViewData["dataHN3"]</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="ximang-hn">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem= @ViewData["dtHN1"] })
+                    </div>
+                    <div class="tab-pane" id="theptron-hn">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtHN2"] })
+                    </div>
+                    <div class="tab-pane" id="thepcuon-hn">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtHN3"] })
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="bn">
+                <ul class="nav nav-tabs tab-vl" role="tablist">
+                    <li class="active"><a href="#ximang-bn" role="tab" data-toggle="tab">@ViewData["dataHCM1"]</a></li>
+                    <li><a href="#theptron-bn" role="tab" data-toggle="tab">@ViewData["dataHCM2"]</a></li>
+                    <li><a href="#thepcuon-bn" role="tab" data-toggle="tab">@ViewData["dataHCM3"]</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="ximang-bn">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtHCM1"] })
+                    </div>
+                    <div class="tab-pane" id="theptron-bn">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtHCM2"] })
+                    </div>
+                    <div class="tab-pane" id="thepcuon-bn">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtHCM3"] })
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="bg">
+                <ul class="nav nav-tabs tab-vl" role="tablist">
+                    <li class="active"><a href="#ximang-bg" role="tab" data-toggle="tab">@ViewData["dataDN1"]</a></li>
+                    <li><a href="#theptron-bg" role="tab" data-toggle="tab">@ViewData["dataDN2"]</a></li>
+                    <li><a href="#thepcuon-bg" role="tab" data-toggle="tab">@ViewData["dataDN3"]</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="ximang-bg">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtDN1"] })
+                    </div>
+                    <div class="tab-pane" id="theptron-bg">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtDN2"] })
+                    </div>
+                    <div class="tab-pane" id="thepcuon-bg">
+                        @await Component.InvokeAsync("BlockPrice", new { MaterialItem = @ViewData["dtDN3"] })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

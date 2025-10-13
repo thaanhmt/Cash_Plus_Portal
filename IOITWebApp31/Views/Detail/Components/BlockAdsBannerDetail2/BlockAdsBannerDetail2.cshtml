@@ -1,0 +1,10 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.TypeAttributeItem>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <a href="@(item.Code)" class="QC-SideCate-Item"><img src="@(ViewBag.LinkSite)/uploads/@item.Image" alt=""></a>
+    }
+}

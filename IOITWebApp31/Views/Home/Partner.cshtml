@@ -1,0 +1,59 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@{
+    ViewBag.Title = "Partner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <div class="home1">
+            <div class="container">
+                <div class="row">
+                    <div class="mainpage">
+                        <div class="list-prd col-xs-12 col-md-9">
+                            <div class="url-page">
+                                <ul>
+                                    <li><a href="/" title="">Trang chủ</a><span>/</span></li>
+                                    <li>
+                                        <a href="/doi-tac.html")"
+                                           title="@ViewBag.CategoryName">@ViewBag.CategoryName</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            @foreach (var item in Model)
+                            {
+                                <div class="prd-nnt col-xs-6 col-sm-4 col-md-3">
+                                    <div class="img-prd">
+                                        <a href="/@(Const.DETAIL_PARTNER + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title">
+                                            <img src="/@(Const.ROOT_THUMBS + "/_thumb262/" + item.Image)" style="width:100%; height:154px;" class="img-responsive" alt="@item.Title">
+                                        </a>
+                                    </div>
+                                    <div class="title-prd">
+                                        <a href="/@(Const.DETAIL_PARTNER + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title">
+                                            @(item.Title.Length > 75 ? item.Title.Substring(0, item.Title.Substring(0, 75).LastIndexOf(' ')) + "..." : item.Title)
+                                        </a>
+                                    </div>
+                                    <div class="detail-prd">
+                                        <a href="/@(Const.DETAIL_PARTNER + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title">
+                                            Chi tiết
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <div class="right-home1 col-xs-12 col-md-3">
+                            @await Html.PartialAsync("_BlockCategoryMain")
+                            @await Component.InvokeAsync("BlockTablePrice", new { })
+                            @await Component.InvokeAsync("BlockPartnerTwo", new { PartnerId = 31, Number = 6 })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+}

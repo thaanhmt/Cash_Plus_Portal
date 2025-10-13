@@ -1,0 +1,15 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Publication>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+
+    @foreach (var item in Model)
+    {
+        <div class="item-anpham-9-2-3">
+            <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="d-block">
+                <img class="image-cover" src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="@item.Title">
+            </a>
+        </div>
+    }
+}

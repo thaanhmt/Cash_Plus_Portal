@@ -1,0 +1,53 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    int i = 0;
+    if (Model.Count() > 1)
+    {
+        <div class="row row-small wapper-news-events">
+                <div class="col col-lg-6 col-md-6 col-12 left-event-news">
+                    <div class="col-inner">
+                        <div class="left-box-event box">
+                            <div class="box-image">
+                            <a href="/@Model.ToList()[0].Url" title="@Model.ToList()[0].Title" class="d-block">
+                                <img class="image-cover" src="@(ViewBag.LinkSite)/uploads/@Model.ToList()[0].Image" alt="@Model.ToList()[0].Title">
+                                </a>
+                            </div>
+                            <div class="box-text">
+                            <a href="/@Model.ToList()[0].Url"
+                       title="@Model.ToList()[0].Title" class="d-block heading textLine-2">
+                                    @(Model.ToList()[0].Title.Length > 300 ? Model.ToList()[0].Title.Substring(0, Model.ToList()[0].Title.Substring(0, 145).LastIndexOf(' ')) + "..." : Model.ToList()[0].Title)
+                                </a>
+                                <div class="desc-event-left textLine-3">@(Model.ToList()[0].Description.Length > 200 ? Model.ToList()[0].Description.Substring(0, Model.ToList()[0].Description.Substring(0, 200).LastIndexOf(' ')) + "..." : Model.ToList()[0].Description)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-lg-6 col-md-6 col-12 right-event-news">
+                    <div class="col-inner">
+                        @foreach (var item in Model)
+                        {
+                            if (i > 0)
+                            {
+                                <div class="right-event-news box">
+                                    <div class="box-image">
+                                    <a href="/@item.Url" title="@item.Title" class="d-block">
+                                        <img class="image-cover" src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="@item.Title">
+                                        </a>
+                                    </div>
+                                    <div class="box-text">
+                                    <a href="/@item.Url" title="@item.Title" class="d-block heading textLine-2">
+                                            @(item.Title.Length > 120 ? item.Title.Substring(0, item.Title.Substring(0, 120).LastIndexOf(' ')) + "..." : item.Title)
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+                            i++;
+                        }
+                    </div>
+                </div>
+            </div>
+    }
+}

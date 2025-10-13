@@ -1,0 +1,13 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Slide>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var i = 15;
+    @foreach (var item in Model)
+            {
+        <div class="col col-lg-@(i = i - 6) col-12">
+            <a href="@(item.Url)"><img src="@(ViewBag.LinkSite)/uploads/@item.Image" alt=""></a>
+        </div>
+    }
+}

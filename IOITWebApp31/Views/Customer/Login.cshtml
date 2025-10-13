@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main id="main" ng-controller="CustomerController" ng-init="init(undefined, undefined)">
+    <div id="content" class="content-area">
+        <section class="section section-login-1">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="say_hello">
+                    <div class="welcom">Chào mừng bạn đến với</div>
+                    <div class="subwelcome">CÔNG TY CP TẬP ĐOÀN CÔNG NGHỆ ATS</div>
+                </div>
+                <div class="main-login-page">
+                    <div class="left-login">
+                        <div class="head-form">
+                            <div class="left-head">
+                                <img src="/images/Frame.png" alt="">
+                            </div>
+                            <div class="right-head">
+                                <div class="top-left-head">Đăng nhập tài khoản</div>
+                                @*<div class="bottom-left-head">Đăng nhập để tiếp tục đến Nasati</div>*@
+                                <div class="forword">
+                                    <i class="fa-solid fa-lock-keyhole"></i>
+                                    <a href="/lay-lai-mat-khau">Quên mật khẩu</a>
+                                </div>
+                                <div class="bottom-form">
+                                    <div class="register">Nếu bạn chưa có tài khoản? <a href="/dang-ky">Đăng ký</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-login">
+                        <div class="wapper-form-login">
+                            <form method="post">
+                                <div class="input-group">
+                                    <input id="txtLoginEmail" type="text" name="username" class="form-control" placeholder="Email đăng ký" autocomplete="NOPE" spellcheck="false">
+                                </div>
+                                <div class="input-group">
+                                    <input id="txtLoginPassword" type="password" name="password" class="form-control" placeholder="Mật khẩu" click-enter="submitLogin();">
+                                    <span class="input-group-text" id="basic-addon2"><i class="fa-sharp fa-regular fa-eye-slash"></i></span>
+                                </div>
+                                <div class="remember-pass">
+                                    <div class="capcha">
+                                        <div vc-recaptcha key="publicKey"></div>
+                                    </div>
+                                    @*<div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                    Nhớ mật khẩu
+                                    </label>
+                                    </div>*@
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-login" ng-click="submitLogin()" ng-disabled="disableBtn.btLogin">Đăng nhập</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @*<section class="section section-login-2">
+            <div class="bg-section"></div>
+            <div class="container"></div>
+        </section>*@
+    </div>
+</main>

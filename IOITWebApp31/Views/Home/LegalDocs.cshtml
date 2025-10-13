@@ -1,0 +1,218 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (ViewBag.LanguageId == "1008"){
+    <main id="main">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="/" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                     src="@(ViewBag.LinkSite)/images/icon-home-breadcumb.svg" alt="icon home"> Home
+                                </a>
+                                <span class="d-block">
+                                    <img src="@(ViewBag.LinkSite)/images/arrow-breadcumbs.svg"
+                                     alt="icon arrow">
+                                </span>
+                                <a href="/de-tai-van-ban" class="d-block">Legal documents</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section wapper-search-ap wapper-search-legislation">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small search-form">
+                        <div class="col col-12">
+                            <div class="col-inner">
+                                <div class="form-search-anpham form-search-legislation">
+                                    <div class="top_form">
+                                        <div class="key_search">
+                                            <input type="text" id="search-key" value="" name="s-legislation" placeholder="Search Keyword…"
+                                               class="field-search-key">
+                                        </div>
+                                        <div class="block-radio">
+                                            <div class="block-radio-item">
+                                                <label for="title">Title</label>
+                                                <input type="radio" id="title" name="tieu_chi" value="title" checked>
+                                            </div>
+                                            <div class="block-radio-item">
+                                                <label for="all">All</label>
+                                                <input type="radio" id="all" name="tieu_chi" value="all">
+                                            </div>
+                                        </div>
+                                        <div class="block-radio">
+                                            <div class="block-radio-item">
+                                                <label for="trich_yeu">Abstract</label>
+                                                <input type="radio" id="trich_yeu" name="tieu_chi" value="trich_yeu">
+                                            </div>
+                                            <div class="block-radio-item">
+                                                @*<label for="cate-cq">Số liệu</label>
+                                            <select name="cate-cq" id="cate-cq" class="select-custom">
+                                            <option value="">Danh mục 1</option>
+                                            <option value="1">Danh mục 2</option>
+                                            <option value="2">Danh mục 3</option>
+                                            <option value="3">Danh mục 4</option>
+                                            <option value="4">Danh mục 5</option>
+                                            </select>*@
+                                            </div>
+                                        </div>
+                                        <div class="rever-drect">
+                                            <div class="block-date-searh">
+                                                <div class="block-date-item">
+                                                    <label for="date-start">Date issued</label>
+                                                    <div class="position-relative">
+                                                        <input type="text" id="date-start" name="date-start" placeholder="Since">
+                                                    </div>
+                                                    <div class="position-relative">
+                                                        <input type="text" id="date-end" name="date-end" placeholder="To date">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="select-group departments departments-legislation">
+                                                <label>Agency issued</label>
+                                                <select name="departments" id="departments" class="select-custom">
+                                                    <option value="-1">Agency issued</option>
+                                                    @await Component.InvokeAsync("OptionDepartmentsFilterLegdocs")
+                                                </select>
+                                            </div>
+                                            <div class="select-group departments cateDM departments-legislation">
+                                                <label for="cate-cq">Category</label>
+                                                <select name="cate-cq" id="cate-cq" class="select-custom">
+                                                    <option value="-1">Category</option>
+                                                    @await Component.InvokeAsync("OptionCategoryFilterLegdocs")
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="btn-submit">
+                                            <input type="submit" id="submit-search-form" value="Search" onclick="LoadLeganDocs(1)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section head-lengislation-single">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container" id="list-legandocs">
+                </div>
+            </section>
+        </div>
+    </main>
+}else{
+    <main id="main">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="/" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                     src="@(ViewBag.LinkSite)/images/icon-home-breadcumb.svg" alt="icon home"> Trang Chủ
+                                </a>
+                                <span class="d-block">
+                                    <img src="@(ViewBag.LinkSite)/images/arrow-breadcumbs.svg"
+                                     alt="icon arrow">
+                                </span>
+                                <a href="@(ViewBag.LinkSite)de-tai-van-ban" class="d-block">Văn bản</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section wapper-search-ap wapper-search-legislation">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small search-form">
+                        <div class="col col-12">
+                            <div class="col-inner">
+                                <div class="form-search-anpham form-search-legislation">
+                                    <div class="top_form">
+                                        <div class="key_search">
+                                            <input type="text" id="search-key" value="" name="s-legislation" placeholder="Từ khóa tìm kiếm…"
+                                               class="field-search-key">
+                                        </div>
+                                        <div class="block-radio">
+                                            <div class="block-radio-item">
+                                                <label for="title">Tiêu đề</label>
+                                                <input type="radio" id="title" name="tieu_chi" value="title" checked>
+                                            </div>
+                                            <div class="block-radio-item">
+                                                <label for="all">Tất cả</label>
+                                                <input type="radio" id="all" name="tieu_chi" value="all">
+                                            </div>
+                                        </div>
+                                        <div class="block-radio">
+                                            <div class="block-radio-item">
+                                                <label for="trich_yeu">Trích yếu</label>
+                                                <input type="radio" id="trich_yeu" name="tieu_chi" value="trich_yeu">
+                                            </div>
+                                            <div class="block-radio-item">
+                                                @*<label for="cate-cq">Số liệu</label>
+                                            <select name="cate-cq" id="cate-cq" class="select-custom">
+                                            <option value="">Danh mục 1</option>
+                                            <option value="1">Danh mục 2</option>
+                                            <option value="2">Danh mục 3</option>
+                                            <option value="3">Danh mục 4</option>
+                                            <option value="4">Danh mục 5</option>
+                                            </select>*@
+                                            </div>
+                                        </div>
+                                        <div class="rever-drect">
+                                            <div class="block-date-searh">
+                                                <div class="block-date-item">
+                                                    <label for="date-start">Ngày ban hành</label>
+                                                    <div class="position-relative">
+                                                        <input type="text" id="date-start" name="date-start" placeholder="Từ ngày">
+                                                    </div>
+                                                    <div class="position-relative">
+                                                        <input type="text" id="date-end" name="date-end" placeholder="Đến ngày">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="select-group departments departments-legislation">
+                                                <label>Cơ quan ban hành</label>
+                                                <select name="departments" id="departments" class="select-custom">
+                                                    <option value="-1">Cơ quan ban hành</option>
+                                                    @await Component.InvokeAsync("OptionDepartmentsFilterLegdocs")
+                                                </select>
+                                            </div>
+                                            <div class="select-group departments cateDM departments-legislation">
+                                                <label for="cate-cq">Danh mục</label>
+                                                <select name="cate-cq" id="cate-cq" class="select-custom">
+                                                    <option value="-1">Danh mục</option>
+                                                    @await Component.InvokeAsync("OptionCategoryFilterLegdocs")
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="btn-submit">
+                                            <input type="submit" id="submit-search-form" value="Tìm kiếm" onclick="LoadLeganDocs(1)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section head-lengislation-single">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container" id="list-legandocs">
+                </div>
+            </section>
+        </div>
+    </main>
+}
+
+
+

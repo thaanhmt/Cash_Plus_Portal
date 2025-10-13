@@ -1,0 +1,176 @@
+﻿﻿@{
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<script>
+    document.getElementById("dang-ky").innerHTML = '';
+
+    function selectBtnDetail(element) {
+        const btnDetailNhomItems = document.querySelectorAll('.btnDetailNhomitem');
+        const txtDetailNhomItems = document.querySelectorAll('.txtDetailNhomitem');
+        const infoDetailNhom = document.querySelector('.infoDetailNhom');
+        const tableContainer = document.querySelector('.table-containerdetailnhom');
+
+        // Xóa lớp 'selectedbtnDetail' khỏi tất cả các phần tử
+        btnDetailNhomItems.forEach(function (item) {
+            item.classList.remove('selectedbtnDetail');
+        });
+        txtDetailNhomItems.forEach(function (item) {
+            item.classList.remove('selectedbtnDetail');
+        });
+
+        // Thêm lớp 'selectedbtnDetail' vào phần tử được nhấp vào
+        element.classList.add('selectedbtnDetail');
+        element.querySelector('.txtDetailNhomitem').classList.add('selectedbtnDetail');
+
+        // Hiển thị/ẩn các phần tử tương ứng
+        if (element.querySelector('.txtDetailNhomitem').textContent === 'Thông tin nhóm') {
+            infoDetailNhom.style.display = 'block';
+            tableContainer.style.display = 'none';
+        } else if (element.querySelector('.txtDetailNhomitem').textContent === 'Danh sách thành viên') {
+            infoDetailNhom.style.display = 'none';
+            tableContainer.style.display = 'block';
+        }
+    }
+</script>
+<main id="main" ng-controller="UserUnitController" ng-init="getGroupbyId()">
+    <div id="content" class="content-area">
+        <div class="container">
+            <div class="row s11_r3" style="display: none">
+                <div class="col col-md-12 col-12 s11_r3_c1">
+                    <div class="col-inner">
+                        <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                        <div id="countdown">
+                            <ul>
+                                <li><span id="days"></span>Ngày</li>
+                                <li><span id="hours"></span>Giờ</li>
+                                <li><span id="minutes"></span>Phút</li>
+                                <li><span id="seconds"></span>Giây</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="DetailNhom">
+                <div class="imgDetailNhom">
+                    <img src="/images/homecashplus/truongtm.png" />
+                </div>
+                <div class="nameDetailNhom">
+                    <p ng-if="NhomSV.Location == 1">Trường cao đẳng du lịch và thương mại Hà Nội</p>
+                    <p ng-if="NhomSV.Location == 2">Trường cao đẳng công thương Việt Nam</p>
+                    <p class="nameDetailNhom-item">{{NhomSV.Name}}</p>
+                </div>
+            </div>
+
+            <div class="btnDetailNhom">
+                <div class="btnDetailNhomitem selectedbtnDetail" onclick="selectBtnDetail(this)">
+                    <span class="txtDetailNhomitem selectedbtnDetail">Danh sách thành viên</span>
+                </div>
+                <div class="btnDetailNhomitem" onclick="selectBtnDetail(this)">
+                    <span class="txtDetailNhomitem">Thông tin nhóm</span>
+                </div>
+            </div>
+
+            <div class="table-containerdetailnhom scrolltableDetail">
+
+                <table class="table table-striped ">
+                    <thead style="background-color: #2B3990; color: white">
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Họ và tên</th>
+                            <th scope="col">Mã sinh viên</th>
+                        </tr>
+                    </thead>
+                   @* <tbody">
+                        <tr ng-repeat="item in listSV">
+                            <td scope="row">1</td>
+                            <td><img src="./images/homecashplus//nguoi1.png" class="imgtabledetail" /></td>
+                            <td>{{item.FullName}}</td>
+                            <td>{{item.StudentCode}}</td>
+                        </tr>
+                    </tbody>*@
+                    <tbody>
+                        <tr ng-repeat="item in listSV track by $index">
+                            <td scope="row"> {{$index + 1}} </td>
+                            <td>
+                              @*  <img class="imgtabledetail" ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('//cashplus.vn/images/avatar/' + item.Avata) }}"
+                                     alt="Ảnh đại diện"  />*@
+                                <img class="imgtabledetail" ng-src="{{ item.Avata == undefined ? '/images/avata-preview.png' : ('/images/avatar/' + item.Avata) }}"
+                                     alt="Ảnh đại diện" />
+                            </td>
+                            <td>{{item.FullName}}</td>
+                            <td> {{item.StudentCode}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="infoDetailNhom">
+                <div class="txtInfoDetailNhom">
+                    <div ng-bind-html="NhomSV.Description"></div>
+                </div>
+                <div class="frmImg">
+                    <img class="ttNhom" ng-src="{{ NhomSV.Image == undefined ? '/images/avata-preview.png' : ('//cashplus.cnttvietnam.com.vn/images/avatar/' + NhomSV.Image) }}"
+                         alt="Ảnh đại diện" />
+                </div>
+            </div>
+        </div>
+
+        <section class="section section-13">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row s13_r1">
+                    <div class="col col-md-12 col-12 s13_r1_c1">
+                        <div class="col-inner">
+                            <div class="title-s13">ĐƠN VỊ ĐỒNG HÀNH</div>
+                            <div class="desc-s13">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row s13_r2">
+                    <div class="col col-md-12 col-12 s13_r2_c1">
+                        <div class="col-inner">
+                            <div class="main-partner">
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/1.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/2.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/3.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/4.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/5.png" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/DFC_logo_final-03.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/CNTT.jpg" style="min-height: 128px !important" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/logo-mbbank.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/vienCNTT.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/SHB.jpg" alt="">
+                                </div>
+                                <div class="item-partner">
+                                    <img src="../images/cashplus/baokim.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

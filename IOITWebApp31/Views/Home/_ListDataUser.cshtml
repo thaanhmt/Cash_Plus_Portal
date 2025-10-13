@@ -1,0 +1,162 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.DataSetDTO>
+@using IOITWebApp31.Models;
+<div class="row-datatq">
+    <div class="main-secdata">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="item-data-detail">
+                    <div class="head-data">
+                        <div class="info-data">
+                            <div class="title-item">
+                                <a href="/chi-tiet-du-lieu/@item.Url-@item.DataSetId" class="textLine-1">
+                                    @item.Title
+                                </a>
+                            </div>
+                            <div class="author-data">@item.AuthorName</div>
+                        </div>
+                        <div class="meta-data">
+                            <div class="top-meta">
+                                @if (item.RateStar != null && item.RateStar != 0)
+                                {
+                                    <div class="rating color-@item.RateStar">
+                                        @*@for (int i = 0; i < item.RateStar; i++)
+                                        {*@
+                                        <i class="fa-solid fa-star"></i>
+                                        @*}*@
+                                    </div>
+                                }
+                                <div class="count-views">
+                                    <i class="fa-solid fa-eye"></i>
+                                    <span>@item.ViewNumber</span>
+                                </div>
+                                <div class="count-download">
+                                    <i class="fa-solid fa-cloud-arrow-down"></i>
+                                    <span>@item.DownNumber</span>
+                                </div>
+                            </div>
+                            <div class="bottom-meta">
+                                <div class="date-created">
+                                    Ngày tạo: @item.CreatedAt.Value.ToString("dd/MM/yyyy")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-data">
+                        @(item.Description.Length > 500 ? item.Description.Substring(0, item.Description.Substring(0, 500).LastIndexOf(' ')) + "..." : item.Description)
+                    </div>
+                    <div class="bottom-data">
+                        <div class="source-upload">
+                            @if (item.userCreated != null)
+                            {
+                                <a href="/du-lieu-ca-nhan/@item.UserCreatedId">Đăng tải bởi: @item.userCreated.FullName / @item.userCreated.UnitName</a>
+                            }
+                        </div>
+                        <div class="action-data">
+                            <div class="pdf-action">
+                                @if (item.listFiles.Count > 0)
+                                {
+                                   @foreach (var itemF in item.listFiles)
+                                    {
+                                        if (itemF.ExtensionName == "CSV")
+                                        {
+                                            <img src="/images/icons/csv-13-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "DOC" || itemF.ExtensionName == "DOCX")
+                                        {
+                                            <img src="/images/icons/doc-icon-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "JPG" || itemF.ExtensionName == "JPEG")
+                                        {
+                                            <img src="/images/icons/jpg-icon-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "MP3")
+                                        {
+                                            <img src="/images/icons/mp3-icon-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "PDF")
+                                        {
+                                            <img src="/images/icons/pdf-icon-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "PNG")
+                                        {
+                                            <img src="/images/icons/png-icon-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "TXT")
+                                        {
+                                            <img src="/images/icons/txt-icon-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "XLS" || itemF.ExtensionName == "XLSX")
+                                        {
+                                            <img src="/images/icons/txt-icon-512.png" />
+                                        }
+                                        else if (itemF.ExtensionName == "ZIP")
+                                        {
+                                            <img src="/images/icons/zip-icon-1-512.png" />
+                                        }
+                                        else
+                                        {
+                                            <span class="extension-file">@itemF.ExtensionName</span>
+                                        }
+                                    }
+                                }
+                            </div>
+                            @if (ViewBag.CustomerId != null)
+                            {
+                                <div class="download-action">
+                                    <a onclick="DownloadFileRar(@item.DataSetId, @ViewBag.CustomerId, @Html.Raw(ViewBag.access_token))"><i class="fa-solid fa-cloud-arrow-down"></i></a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="download-action">
+                                    <a href="/dang-nhap" ><i class="fa-solid fa-cloud-arrow-down"></i></a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="paging-data">
+                <nav aria-label="...">
+                    @if (int.Parse(ViewBag.total.ToString()) >= int.Parse(ViewBag.NumPage.ToString()))
+                    {
+                        <ul class="pagination">
+                            @if ((int)ViewBag.Pre <= 0)
+                            {
+                                <li class="page-item disabled"><a href='javascript:void(0);' class="prev page-number page-link"><i class="fas fa-angle-left"></i></a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href='javascript:void(0);' class="prev page-number page-link" onclick="LoadDataUserPage(-2, @ViewBag.Pre, -2, -2)"><i class="fas fa-angle-left"></i></a></li>
+                            }
+
+                            @for (int i = int.Parse(ViewBag.pageS.ToString()); i <= int.Parse(ViewBag.pageE.ToString()); i++)
+                            {
+                                if (ViewBag.page == i)
+                                {
+                                    <li class="page-item active"><a href='javascript:void(0);' class="page-number current page-link">@i <span class="sr-only">(current)</span></a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a href='javascript:void(0);' class="page-number page-link" onclick="LoadDataUserPage(-2, @i, -2, -2)">@i</a></li>
+                                }
+                            }
+
+                            @if ((int)ViewBag.Next > (int.Parse(ViewBag.total.ToString()) / int.Parse(ViewBag.NumPage.ToString())) + 1)
+                            {
+                                <li class="page-item disabled"><a href='javascript:void(0);' class="next page-number page-link"><i class="fas fa-angle-right"></i></a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href='javascript:void(0);' class="next page-number page-link" onclick="LoadDataUserPage(-2, @ViewBag.Next, -2, -2)"><i class="fas fa-angle-right"></i></a></li>
+                            }
+                        </ul>
+                    }
+
+                </nav>
+            </div>
+        }
+    </div>
+</div>

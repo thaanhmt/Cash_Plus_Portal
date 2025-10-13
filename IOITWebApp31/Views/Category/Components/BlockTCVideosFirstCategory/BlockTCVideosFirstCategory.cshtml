@@ -1,0 +1,66 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+
+
+<div class="player_playing row g-0">
+            <div class="detail_left col col-lg-8 col-12">
+                <div class="wapper-video">
+                    @if (item.Image == null || item.Image == "" || item.Image == "")
+                    {
+                        <video id="my-video" class="video-js vjs-theme-city vjs-big-play-centered" controls preload="auto" poster="@(ViewBag.LinkSite)/images/bg-video-poster.jpg"
+                               data-setup='{"controls": true, "autoplay": false, "preload": "auto", "fill": true, "fluid": true}' playsinline>
+                            <source src="@(ViewBag.LinkSite)/uploads/@item.LinkVideo" type="video/mp4" />
+                            <source src="@(ViewBag.LinkSite)/uploads/@item.LinkVideo" type="video/webm" />
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider
+                                upgrading to a
+                                web browser that
+                                <a href="https://videojs.com/html5-video-support/"
+                                   target="_blank">supports HTML5 video</a>
+                            </p>
+                        </video>
+                    }
+                    else
+                    {
+                        <video id="my-video" class="video-js vjs-theme-city vjs-big-play-centered" controls preload="auto" poster="/uploads/@item.Image"
+                               data-setup='{"controls": true, "autoplay": false, "preload": "auto", "fill": true, "fluid": true}' playsinline>
+                            <source src="@(ViewBag.LinkSite)/uploads/@item.LinkVideo" type="video/mp4" />
+                            <source src="@(ViewBag.LinkSite)/uploads/@item.LinkVideo" type="video/webm" />
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider
+                                upgrading to a
+                                web browser that
+                                <a href="https://videojs.com/html5-video-support/"
+                                   target="_blank">supports HTML5 video</a>
+                            </p>
+                        </video>
+                    }
+
+                </div>
+            </div>
+            <div class="detail_right col col-lg-4 col-12 customize-scroll-bar">
+                <div class="inner_detail_right">
+                    <h1 class="title-video">
+                        @item.Title
+                    </h1>
+                    <p class="description-video">
+                        @(item.Description.Length > 200 ? item.Description.Substring(0, item.Description.Substring(0, 200).LastIndexOf(' ')) + "..." : item.Description)
+                    </p>
+                    <div class="inline-share">
+                        <div class="fb-platform">
+                            <iframe src="https://www.facebook.com/plugins/like.php?href=https://danchuphapluat.vn/@( item.Url )&width=150&layout=button_count&action=like&size=small&share=true&height=46&appId=650644645328980"
+                                    width="150" height="46" style="border:none;overflow:hidden"
+                                    scrolling="no" frameborder="0" allowfullscreen="true"
+                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

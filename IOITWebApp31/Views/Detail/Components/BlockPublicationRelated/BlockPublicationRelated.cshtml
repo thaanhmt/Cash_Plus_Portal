@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Publication>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        if (ViewBag.Language == "en")
+        {
+            <div class="box box-anpham-other">
+                <div class="box-image">
+                    <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="d-block"><img class="image-cover" src="@(ViewBag.LinkSite)/uploads/@item.Image" alt=""></a>
+                </div>
+                <div class="box-text">
+                    <div class="cate-anpham-other texxtLine-1">Number of topics @item.NumberOfTopic</div>
+                    <h2 class="heading">
+                        @if(item.IsLanguage == true){
+                            <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="textLine-2">@item.TitleEn</a>
+                        }else{
+                            <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="textLine-2">@item.Title</a>
+                        }
+                    </h2>
+                </div>
+            </div>
+        }else{
+            <div class="box box-anpham-other">
+                <div class="box-image">
+                    <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="d-block"><img class="image-cover" src="@(ViewBag.LinkSite)/uploads/@item.Image" alt=""></a>
+                </div>
+                <div class="box-text">
+                    <div class="cate-anpham-other texxtLine-1">Số chuyên đề @item.NumberOfTopic</div>
+                    <h2 class="heading">
+                        <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="textLine-2">@item.Title</a>
+                    </h2>
+                </div>
+            </div>
+        }
+    }
+}

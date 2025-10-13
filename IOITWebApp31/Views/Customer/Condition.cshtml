@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "CashplusInfo";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<script>
+    document.getElementById("dang-ky").innerHTML = '';
+</script>
+<style>
+    img {
+        
+    }
+</style>
+<main id="main" ng-controller="UserUnitController" ng-init="">
+    <div id="content" class="content-area">
+        <section class="section section-login-1">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row s11_r3" style="display: none">
+                    <div class="col col-md-12 col-12 s11_r3_c1">
+                        <div class="col-inner">
+                            <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                            <div id="countdown">
+                                <ul>
+                                    <li><span id="days"></span>Ngày</li>
+                                    <li><span id="hours"></span>Giờ</li>
+                                    <li><span id="minutes"></span>Phút</li>
+                                    <li><span id="seconds"></span>Giây</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="say_hello">
+                </div>
+                <div>
+                    @*  <span class="close" id="closeBtn3">&times;</span>*@
+
+                </div>
+            </div>
+        </section>
+        @*<section class="section section-login-2">
+        <div class="bg-section"></div>
+        <div class="container"></div>
+        </section>*@
+    </div>
+</main>

@@ -1,0 +1,278 @@
+<div class="animated fadeIn cms-main">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Cấu hình sao</h1>
+    </div>
+    <div class="description-page">
+      <blockquote class="{{isNoitify ? 'hidden' : ''}}">
+        <p>Cài đặt cấu hình sao</p>
+        <a class="close" href="javascript:void(0)" (click)="closeNoityfy()"><span>×</span></a>
+      </blockquote>
+    </div>
+    <div class="card-body" style="padding-right:10px; padding-left:10px;">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <tabset>
+          <tab heading="Cấu hình sao" (click)="changeTab(1)">
+            <div class="row">
+                  <div class="col col-sm-12 col-md-12">
+                    <div class="col-sm-12 col-md-12 row" style="margin:0;" >
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group" style="text-align:center;margin-bottom:20px;">
+                          <label style="font-weight:bold;">Hạng sao</label>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group" style="text-align:center;margin-bottom:20px;">
+                          <label style="font-weight:bold">Số lượt xem</label>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group" style="text-align:center;margin-bottom:20px;">
+                          <label style="font-weight:bold">AND hay OR</label>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group" style="text-align:center;margin-bottom:20px;">
+                          <label style="font-weight:bold">Số lượt tải</label>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 row" style="margin:0;" *ngFor="let item of listConfigStar; let i = index">
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group star-icon-group">
+                          <!--<img src="../../../assets/img/{{item.Star}}-sao.png" alt="{{item.Star}} sao" style=" height: 20px;" /><br />-->
+                          <div class="star-mask">
+                            <i class="fa-duotone fa-star"></i>
+                            <i class="fa-duotone fa-star"></i>
+                            <i class="fa-duotone fa-star"></i>
+                            <i class="fa-duotone fa-star"></i>
+                            <i class="fa-duotone fa-star"></i>
+                          </div>
+                          <div class="star-light color-5" *ngIf="item.Star == 5">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                          </div>
+                          <div class="star-light color-4" *ngIf="item.Star == 4">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                          </div>
+                          <div class="star-light color-3" *ngIf="item.Star == 3">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                          </div>
+                          <div class="star-light color-2" *ngIf="item.Star == 2">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                          </div>
+                          <div class="star-light color-1" *ngIf="item.Star == 1">
+                            <i class="fa-solid fa-star"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="FromView_{{i}}" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="FromView_{{i}}" name="FromView_{{i}}" class="form-control" placeholder="" [(ngModel)]="item.FromView" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="ToView_{{i}}" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="ToView_{{i}}" name="ToView_{{i}}" class="form-control" placeholder="" [(ngModel)]="item.ToView" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group">
+                          <ng-select [items]="listOperators"
+                                     bindLabel="Name"
+                                     bindValue="Id"
+                                     placeholder="Chọn học vị"
+                                     [(ngModel)]="item.Operator"
+                                     [ngModelOptions]="{standalone: true}">
+                            <ng-template ng-label-tmp let-item="item">
+                              <span>{{item.Name}}</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                              <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="FromDownload_{{i}}" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="FromDownload_{{i}}" name="FromDownload_{{i}}" class="form-control" placeholder="" [(ngModel)]="item.FromDownload" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="ToDownload_{{i}}" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="ToDownload_{{i}}" name="ToDownload_{{i}}" class="form-control" placeholder="" [(ngModel)]="item.ToDownload" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--<div class="col-sm-12 col-md-12 row" style="margin:0;">
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group">
+                          <img src="../../../assets/img/3-sao.png" alt="3 sao" style=" height: 20px;" /><br />
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group">
+                          <ng-select [items]="listFunctionParent"
+                                     bindLabel="Name"
+                                     bindValue="FunctionId"
+                                     placeholder="Chọn học vị"
+                                     [(ngModel)]="Item.FunctionParentId"
+                                     [ngModelOptions]="{standalone: true}">
+                            <ng-template ng-label-tmp let-item="item">
+                              <span>{{item.Name}}</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                              <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 row" style="margin:0;">
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group">
+                          <img src="../../../assets/img/2-sao.png" alt="2 sao" style=" height: 20px;" /><br />
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group">
+                          <ng-select [items]="listFunctionParent"
+                                     bindLabel="Name"
+                                     bindValue="FunctionId"
+                                     placeholder="Chọn học vị"
+                                     [(ngModel)]="Item.FunctionParentId"
+                                     [ngModelOptions]="{standalone: true}">
+                            <ng-template ng-label-tmp let-item="item">
+                              <span>{{item.Name}}</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                              <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-12 row" style="margin:0;">
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group">
+                          <img src="../../../assets/img/1-sao.png" alt="1 sao" style=" height: 20px;" /><br />
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-2">
+                        <div class="form-group">
+                          <ng-select [items]="listFunctionParent"
+                                     bindLabel="Name"
+                                     bindValue="FunctionId"
+                                     placeholder="Chọn học vị"
+                                     [(ngModel)]="Item.FunctionParentId"
+                                     [ngModelOptions]="{standalone: true}">
+                            <ng-template ng-label-tmp let-item="item">
+                              <span>{{item.Name}}</span>
+                            </ng-template>
+                            <ng-template ng-option-tmp let-item="item" let-index="index">
+                              <span [innerHTML]="item.Space"></span><span>{{item.Name}}</span>
+                            </ng-template>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <div class="col col-sm-12 col-md-4">
+                        <div class="form-group row">
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Từ</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                          <label class="col-md-1 col-form-label" for="Phone" style="padding:0;">Đến</label>
+                          <div class="col-md-5" style="padding:0;">
+                            <input type="text" id="Phone" name="Phone" class="form-control" placeholder="" [(ngModel)]="Item.Phone" autocomplete="off" style="width: 100px;">
+                          </div>
+                        </div>
+                      </div>
+                    </div>-->
+                    <!--<div class="col-sm-12 col-md-6 row" style="margin:30px auto 0;">
+                      <img src="../capcha.jpg" />
+                    </div>-->
+                  </div>
+            </div>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+    <div class="modal-footer" style="border-top:none;">
+      <button type="button" class="btn btn-primary" (click)="Update()">Cập nhật</button>
+    </div>
+  </div>
+</div>
+

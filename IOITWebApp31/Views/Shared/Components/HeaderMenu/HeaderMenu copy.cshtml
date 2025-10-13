@@ -1,0 +1,152 @@
+﻿@model List<IOITWebApp31.Models.Data.MenuItems>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var list_menu = Model.Where(m => m.MenuParentId == ViewBag.MenuParentId).OrderBy(m => m.Location).ToList();
+    string css_class = "menu-item item";
+
+    foreach (var item in list_menu)
+    {
+        var listChild = Model.Where(m => m.MenuParentId == item.MenuItemId).ToList();
+
+        if (listChild.Count > 0)
+        {
+            css_class = "dropdown menu-item";
+        }
+
+        <li class="@css_class">
+
+            @if (listChild.Count > 0)
+            {
+                if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE
+                    || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT
+                    || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                {
+                    <a href='@("/" + item.Url)'>
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                {
+                    <a href='@("/" + item.Url)'>
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                {
+                    <a href='@(item.Url)' rel="external">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                {
+                    if (item.Url != null && item.Url != "")
+                    {
+                        <a href='@("/"+item.Url)' rel="next">
+                            @item.CategoryName
+                        </a>
+                    }
+                    else
+                    {
+                        <a href='javascript: void(0)' rel="next">
+                            @item.CategoryName
+                        </a>
+                    }
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                {
+                    <a href='@(item.Url)' rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                {
+                    <a href='@item.Url)' rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                {
+                    <a href='@("/" + item.Url)'>
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_LEGAL_DOC)
+                {
+                    <a href='@("/"+item.Url)' rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                <ul class="dropmenu sub-menu nav-dropdown nav-dropdown-default">
+                    @await Component.InvokeAsync("HeaderMenu", new { MenuId = 28, MenuParentId = item.MenuItemId, menuItems = Model })
+                </ul>
+            }
+            else
+            {
+                if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_TEXT || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_IMAGE
+                    || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_VIDEO || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_ATTACTMENT
+                    || item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_NEWS_NOTIFICATION)
+                {
+                    <a href='@("/" + item.Url)'>
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_NORMAL)
+                {
+                    <a href='@("/" + item.Url)'>
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_BLALK)
+                {
+                    <a href='@(item.Url)' rel="external">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_DO_NORMAL)
+                {
+                    if (item.Url != null && item.Url != "")
+                    {
+                        <a href='@("/"+item.Url)' rel="next">
+                            @item.CategoryName
+                        </a>
+                    }
+                    else
+                    {
+                        <a href='javascript: void(0)' rel="next">
+                            @item.CategoryName
+                        </a>
+                    }
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_BLALK)
+                {
+                    <a href='@(item.Url)' rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PAGE_LINK_NO_NORMAL)
+                {
+                    <a href='@(item.Url)' rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_PRODUCT)
+                {
+                    <a class="first_level_nav" href='@("/" + item.Url)'>
+                        @item.CategoryName
+                    </a>
+                }
+                else if (item.TypeCategoryId == (int)Const.TypeCategory.CATEGORY_LEGAL_DOC)
+                {
+                    <a href='@("/"+item.Url)' rel="nofollow">
+                        @item.CategoryName
+                    </a>
+                }
+
+            }
+
+        </li>
+    }
+}
+

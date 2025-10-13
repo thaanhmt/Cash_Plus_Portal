@@ -1,0 +1,178 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Publication>
+@using IOITWebApp31.Models;
+
+<div class="row row-small row-list-ap">
+    @if (Model != null)
+    {
+        @foreach (var item in Model)
+        {
+            @if (ViewBag.LanguageId == "1008"){
+                <div class="col col-lg-3 col-md-3 col-6">
+                    <div class="col-inner item-anpham">
+                        <div class="box box-anpham">
+                            <div class="box-image">
+                                <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="d-block">
+                                    <img class="image-cover"
+                             src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="">
+                                </a>
+                            </div>
+                            <div class="box-text">
+                                <div class="number-cd textLine-1">Number of topics @(item.NumberOfTopic) </div>
+                                <h2 class="heading">
+                                    @if(item.IsLanguage == true){
+                                        <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="textLine-2">
+                                            @item.TitleEn
+                                        </a>
+                                    }else{
+                                         <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="textLine-2">
+                                            @item.Title
+                                        </a>
+                                    }
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }else{
+                <div class="col col-lg-3 col-md-3 col-6">
+                    <div class="col-inner item-anpham">
+                        <div class="box box-anpham">
+                            <div class="box-image">
+                                <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="d-block">
+                                    <img class="image-cover"
+                             src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="">
+                                </a>
+                            </div>
+                            <div class="box-text">
+                                <div class="number-cd textLine-1">Số chuyên đề @(item.NumberOfTopic) </div>
+                                <h2 class="heading">
+                                    <a href="/an-pham/@(item.Url)-@(item.PublicationId)" class="textLine-2">
+                                        @item.Title
+                                    </a>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @if (Model != null)
+        {
+            <section class="section pagging">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row">
+                        <div class="col col-12">
+                            @if (int.Parse(ViewBag.total.ToString()) >= int.Parse(ViewBag.np.ToString()))
+                            {
+                                <ul class="page-numbers nav-pagination links text-center">
+                                    @if ((int)ViewBag.Pre <= 0)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        <li><a href='javascript:void(0);' class="prev page-number" onclick="LoadPublication(@ViewBag.Pre)"><i class="fas fa-angle-left"></i></a></li>
+                                    }
+
+                                    @if ((ViewBag.Page + 5) <= ViewBag.totalPage)
+                                    {
+                                        @for (int i = ViewBag.Page; i <= (ViewBag.Page + 5); i++)
+                                        {
+                                            if (ViewBag.Page == i)
+                                            {
+                                                <li><span class="page-number current">@i</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='javascript:void(0);' class="page-number" onclick="LoadPublication(@i)">@i</a></li>
+                                            }
+                                        }
+                                    }
+                                    else if ((ViewBag.Page + 4) <= ViewBag.totalPage)
+                                    {
+                                        @for (int i = ViewBag.Page; i <= (ViewBag.Page + 4); i++)
+                                        {
+                                            if (ViewBag.Page == i)
+                                            {
+                                                <li><span class="page-number current">@i</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='javascript:void(0);' class="page-number" onclick="LoadPublication(@i)">@i</a></li>
+                                            }
+                                        }
+                                    }
+                                    else if ((ViewBag.Page + 3) <= ViewBag.totalPage)
+                                    {
+                                        @for (int i = ViewBag.Page; i <= (ViewBag.Page + 3); i++)
+                                        {
+                                            if (ViewBag.Page == i)
+                                            {
+                                                <li><span class="page-number current">@i</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='javascript:void(0);' class="page-number" onclick="LoadPublication(@i)">@i</a></li>
+                                            }
+                                        }
+                                    }
+                                    else if ((ViewBag.Page + 2) <= ViewBag.totalPage)
+                                    {
+                                        @for (int i = ViewBag.Page; i <= (ViewBag.Page + 2); i++)
+                                        {
+                                            if (ViewBag.Page == i)
+                                            {
+                                                <li><span class="page-number">@i</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='javascript:void(0);' class="page-number" onclick="LoadPublication(@i)">@i</a></li>
+                                            }
+                                        }
+                                    }
+                                    else if ((ViewBag.Page + 1) <= ViewBag.totalPage)
+                                    {
+                                        @for (int i = ViewBag.Page; i <= (ViewBag.Page + 1); i++)
+                                        {
+                                            if (ViewBag.Page == i)
+                                            {
+                                                <li><span class="page-number current">@i</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='javascript:void(0);' class="page-number" onclick="LoadPublication(@i)">@i</a></li>
+                                            }
+                                        }
+                                    }
+                                    else if ((ViewBag.Page) <= ViewBag.totalPag)
+                                    {
+                                        @for (int i = ViewBag.Page; i <= ViewBag.totalPage; i++)
+                                        {
+                                            if (ViewBag.Page == i)
+                                            {
+                                                <li><span class="page-number current">@i</span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href='javascript:void(0);' class="page-number" onclick="LoadPublication(@i)">@i</a></li>
+                                            }
+                                        }
+                                    }
+
+                                    @if ((int)ViewBag.Next > (int.Parse(ViewBag.total.ToString()) / int.Parse(ViewBag.np.ToString())) + 1)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        <li><a href='javascript:void(0);' class="next page-number" onclick="LoadPublication(@ViewBag.Next)"><i class="fas fa-angle-right"></i></a></li>
+                                    }
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+</div>

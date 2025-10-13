@@ -1,0 +1,45 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        if (ViewBag.Template == "Template_1")
+        {
+            <div class="news-card news-featured">
+                <div class="news-card-img">
+                    <a href="/@item.Url"><img src="/uploads/@item.Image" alt="@item.Title"></a>
+                </div>
+                <div class="news-featured-content">
+                    <div class="news-featured-title news-card-title">
+                        <a href="/@item.Url">@item.Title</a>
+                    </div>
+                    <div class="news-featured-date news-card-date">
+                        @(item.DateStartActive.Value.ToString("dd/MM/yyyy"))
+                    </div>
+                    <div class="news-featured-desc news-card-desc">
+                        @item.MetaDescription
+                    </div>
+                </div>
+            </div>
+        }
+        else if (ViewBag.Template == "Template_2")
+        {
+            <div class="news-card">
+                <div class="news-card-img">
+                    <a href="/@item.Url"><img src="/uploads/@item.Image" alt="@item.Title"></a>
+                </div>
+                <div class="news-card-date">
+                    @(item.DateStartActive.Value.ToString("dd/MM/yyyy"))
+                </div>
+                <div class="news-card-title">
+                    <a href="/@item.Url">@item.Title</a>
+                </div>
+                <div class="news-card-desc">
+                    @item.MetaDescription
+                </div>
+            </div>
+        }
+    }
+}

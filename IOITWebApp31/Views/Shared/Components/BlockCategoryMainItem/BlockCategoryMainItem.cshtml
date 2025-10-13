@@ -1,0 +1,31 @@
+﻿@model List<IOITWebApp31.Models.EF.Category>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var cates = Model.Where(c => c.CategoryParentId == ViewBag.CategoryParentId).OrderBy(c => c.Location).ToList();
+    string css_class = "";
+
+    foreach(var item in cates)
+    {
+        var childs = Model.Where(m => m.CategoryParentId == item.CategoryId).ToList();
+
+        if (childs.Count > 0)
+        {
+            css_class = "dropdown";
+        }
+
+        <li class="menu-item @css_class">
+            <a href="/@(Const.CATEGORY_PRODUCT+ "/"+ item.Url+"-1-" + item.CategoryId+".html")">
+                <img src='@("/" + Const.ROOT_THUMBS + "/" + item.Icon)' />
+                @item.Name
+            </a>
+            @if(childs.Count > 0)
+            {
+                <ul class="dropmenu">
+                    @await Component.InvokeAsync("BlockCategoryMainItem", new { TypeCategoryId = ViewBag.TypeCategoryId, CategoryParentId = item.CategoryId, cates = Model })
+                </ul>
+            }
+        </li>
+    }
+}

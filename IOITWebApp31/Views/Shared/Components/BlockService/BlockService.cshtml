@@ -1,0 +1,30 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <div class="home4">
+            <div class="container">
+                <div class="row">
+                    <div class="title-home"><a href="/dich-vu.html"><span><h3>Dịch vụ</h3></span></a></div>
+                    <div class="box-home4">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-dv col-xs-12 col-md-4">
+                                <div class="box-dv">
+                                    <div class="img-dv">
+                                        <a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title"><img src="/uploads/@item.Image" class="img-responsive" alt="@item.Title"></a>
+                                    </div>
+                                    <div class="title-dv"><a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + Const.WEBSITEID + "-" + item.NewsId + ".html")" title="@item.Title">@item.Title</a></div>
+                                    <div class="text-dv">@item.Description</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

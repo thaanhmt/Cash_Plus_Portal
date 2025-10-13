@@ -1,0 +1,48 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Category>
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = "GroupProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <div class="url-page">
+            <div class="container">
+                <div class="title-url">@ViewBag.CategoryName</div>
+                <ul>
+                    <li><a href="/">@Startup._lang["Home"]</a></li>
+                    <li><span>@ViewBag.CategoryName</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="maincontainer dk">
+            <div class="container">
+                <div class="row">
+                    <h1 class="title">@Startup._lang["SanPham"]</h1>
+                    @foreach (var item in Model)
+                    {
+                        @await Component.InvokeAsync("BlockGroupProduct", new { CategoryId = item.CategoryId, Number = 10, Type = 1 })
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="maincontainer mb">
+            <div class="container">
+                <div class="row">
+                    @await Component.InvokeAsync("BlockCateProduct", new { })
+                    @foreach (var item in Model)
+                    {
+                        @await Component.InvokeAsync("BlockGroupProduct", new { CategoryId = item.CategoryId, Number = 10, Type = 2 })
+                    }
+                    @await Component.InvokeAsync("BlockSeenProductCategory", new { ProductId = 0, Number = 10, Type = 2 })
+                </div>
+            </div>
+        </div>
+    }
+}

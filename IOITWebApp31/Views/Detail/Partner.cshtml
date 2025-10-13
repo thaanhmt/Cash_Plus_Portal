@@ -1,0 +1,47 @@
+﻿@model IOITWebApp31.Models.EF.News
+@using IOITWebApp31.Models;
+
+@{
+    ViewData["Title"] = "Partner";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="home1">
+    <div class="container">
+        <div class="row">
+            <div class="mainpage">
+                <div class="page-detail col-xs-12 col-md-9">
+                    <div class="url-page">
+                        <ul>
+                            <li><a href="/" title="">Trang chủ</a><span>/</span></li>
+                            <li>
+                                <a href='/doi-tac.html'
+                                   title="@ViewBag.CategoryName">@ViewBag.CategoryName</a><span>/</span>
+                            </li>
+                            <li><a href="" title="">@Model.Title</a></li>
+                        </ul>
+                    </div>
+                    <h1 class="title col-xs-12"> @Model.Title </h1>
+                    <div class="share-bottom col-xs-12">
+                        <div class="addthis_native_toolbox"></div>
+                    </div>
+                    <div class="bodytext col-xs-12">
+                        @Html.Raw(Model.Contents)
+                    </div>
+
+                    @await Component.InvokeAsync("BlockNewsRelated", new { CategoryId = ViewBag.CategoryId, NewsId = Model.NewsId, Number = 4 })
+                </div>
+                <!-- Tìm kiếm - giá vật liệu -->
+                <div class="right-home1 col-xs-12 col-md-3">
+                    @await Html.PartialAsync("_BlockCategoryMain")
+                    @await Component.InvokeAsync("BlockTablePrice", new { })
+                    @await Component.InvokeAsync("BlockPartnerTwo", new { PartnerId = 31, Number = 6 })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-55fa95a82f18cb2a" async="async"></script>
+

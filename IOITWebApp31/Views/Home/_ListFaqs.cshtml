@@ -1,0 +1,62 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.LegalDoc>
+@using IOITWebApp31.Models;
+@using System.Web;
+<div class="row-faqs">
+    <div class="block-faq">
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <div class="item-faq-page">
+                    <div class="icon-faq">
+                        <i class="fa-regular fa-circle-question"></i>
+                    </div>
+                    <div class="main-faq">
+                        <div class="title-faq-page"><a href="/chi-tiet-faq/@(item.Url)-@(item.LegalDocId)">@item.Name</a></div>
+                        <div class="content-faq">
+                            @Html.Raw(item.Contents)
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="paging-data">
+                <nav aria-label="...">
+                     @if (int.Parse(ViewBag.total.ToString()) >= int.Parse(ViewBag.NumPage.ToString()))
+                    {
+                        <ul class="pagination">
+                            @if ((int)ViewBag.Pre <= 0)
+                            {
+                                <li class="page-item disabled"><a href='javascript:void(0);' class="prev page-number page-link"><i class="fas fa-angle-left"></i></a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href='javascript:void(0);' class="prev page-number page-link" onclick="LoadFaQsPage(@ViewBag.Pre)"><i class="fas fa-angle-left"></i></a></li>
+                            }
+
+                            @for (int i = int.Parse(ViewBag.pageS.ToString()); i <= int.Parse(ViewBag.pageE.ToString()); i++)
+                            {
+                                if (ViewBag.page == i)
+                                {
+                                    <li class="page-item active"><a href='javascript:void(0);' class="page-number current page-link">@i <span class="sr-only">(current)</span></a></li>
+                                }
+                                else
+                                {
+                                    <li class="page-item"><a href='javascript:void(0);' class="page-number page-link" onclick="LoadFaQsPage(@i)">@i</a></li>
+                                }
+                            }
+
+                            @if ((int)ViewBag.Next > (int.Parse(ViewBag.total.ToString()) / int.Parse(ViewBag.NumPage.ToString())) + 1)
+                            {
+                                <li class="page-item disabled"><a href='javascript:void(0);' class="next page-number page-link"><i class="fas fa-angle-right"></i></a></li>
+                            }
+                            else
+                            {
+                                <li class="page-item"><a href='javascript:void(0);' class="next page-number page-link" onclick="LoadFaQsPage(@ViewBag.Next)"><i class="fas fa-angle-right"></i></a></li>
+                            }
+                        </ul>
+                    }
+                </nav>
+            </div>
+        }
+    </div>
+</div>

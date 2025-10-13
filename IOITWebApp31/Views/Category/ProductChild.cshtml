@@ -1,0 +1,95 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Product>
+@using IOITWebApp31.Models;
+@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="/images/banner-prd.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb container">
+            <p>@Startup._lang["SanPham"]</p>
+            <ul>
+                <li><a href="/">@Startup._lang["Home"]</a></li>
+                <li><span>@ViewBag.CategoryName</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="maincontent-page page-listprd">
+        <div class="full-page">
+            <div class="container">
+                <div class="row">
+                    <div class="left-list">
+                        <div class="title-listprd"><h1>@ViewBag.CategoryName</h1></div>
+                        <div class="text-listprd"><p>@ViewBag.MoTa</p></div>
+                    </div>
+                    <div class="right-list">
+                        <div class="box-list">
+                            <ul>
+                                @foreach (var item in ViewBag.listCatChild as IEnumerable<IOITWebApp31.Models.EF.Category>)
+                                {
+                                    if (item.CategoryId == ViewBag.CategoryId)
+                                    {
+                                        <li class="active" id="@item.CategoryId"><a href='@("/" + item.Url)' title="@item.Name">@item.Name</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="" id="@item.CategoryId"><a href='@("/" + item.Url)' title="@item.Name">@item.Name</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- List danh sách sản phẩm -->
+                    <div class="list-prd">
+                        @if (Model != null)
+                        {
+                            if (Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <div class="prd col-xs-6 col-md-3">
+                                        <div class="box-prd">
+                                            <div class="img-prd">
+                                                <a href="@("/" + item.Url)" title="@item.Name">
+                                                    <img src="/uploads/@item.Image" class="img-responsive" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="title-prd"><a href="@("/" + item.Url)" title="@item.Name">@item.Name</a></div>
+                                            <div class="text-prd">@Html.Raw(item.Description)</div>
+                                            <div class="detail-prd"><a href="@("/" + item.Url)" title="@item.Name">@Startup._lang["XEMCHITIET"] >></a></div>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+                        }
+
+                    </div>
+                    <!-- End List danh sách sản phẩm -->
+                    <!-- Các giải pháp liên quan -->
+                    <div class="other other-solution">
+                        <div class="title-other col-xs-12"><span>@Startup._lang["GPLQ"]</span></div>
+                        <div class="slide-solution owl-theme">
+                            @foreach (var item in ViewBag.Solution as IEnumerable<IOITWebApp31.Models.EF.News>)
+                            {
+                                <div class="ItemSv">
+                                    <div class="boxSv">
+                                        <div class="titleSv"><a href="@("/" + item.Url)" title="@item.Title">@item.Title</a></div>
+                                        <div class="imgSv"><a href="@("/" + item.Url)" title="@item.Title"><img src="/uploads/@item.Image" class="img-responsive" alt="@item.Title"></a></div>
+                                        <div class="textSv">@item.Description</div>
+                                        <div class="detailSv"><a href="@("/" + item.Url)" title="@item.Title">@Startup._lang["XEMCHITIET"] >></a></div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- End Các giải pháp liên quan -->
+                </div>
+            </div>
+        </div>
+        @await Html.PartialAsync("_FromSupport")
+    </div>
+</div>

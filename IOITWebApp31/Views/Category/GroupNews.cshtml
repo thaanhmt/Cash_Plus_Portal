@@ -1,0 +1,106 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = "GroupNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="url-page">
+    <div class="container">
+        <div class="title-url">@ViewBag.CategoryName</div>
+        <ul>
+            <li><a href="/" title="">@Startup._lang["Home"]</a></li>
+            <li><span>@ViewBag.CategoryName</span></li>
+        </ul>
+    </div>
+</div>
+
+<div class="maincontainer tintuicc" style="background: #fff">
+    @if (Model != null)
+    {
+        var k = 0;
+        if (Model.Count() > 0)
+        {
+            @*<div class="container-fluid" style="background: #EFEFEF; padding-top: 20px">*@
+            <div class="news-sukien" style="width: 100%">
+                <div class="container">
+                    <div class="row">
+                        <!-- main column -->
+                        @*<div class="maincolumn2" style="width: 100%">*@
+                            <h1 class="title">
+                                <a href='@("/"+Const.CATEGORY_NEWS+"/"+ViewBag.CategoryUrl + "-" + Const.WEBSITEID + "-" + ViewBag.CategoryId + "-1.html")'>
+                                    @ViewBag.Name
+                                </a>
+                            </h1>
+                            <div class="news col-xs-12 col-sm-6 col-md-7 itemtoptp">
+                                <div class="img-news">
+                                    <a href="/@(Const.DETAIL_NEWS + "/" + Model.ToList()[0].Url + "-" + ViewBag.CategoryId + "-" + Model.ToList()[0].NewsId + ".html")" title="@Model.ToList()[0].Title">
+                                        <img src="/@(Const.ROOT_THUMBS + "/" + Model.ToList()[0].Image)" class="img-responsive" alt="@Model.ToList()[0].Title">
+                                    </a>
+                                    <span> @Model.ToList()[0].DateStartActive.Value.ToString("dd/MM/yyyy")</span>
+                                </div>
+                                <div class="title-news">
+                                    <a href="/@(Const.DETAIL_NEWS + "/" + Model.ToList()[0].Url + "-" + ViewBag.CategoryId + "-" + Model.ToList()[0].NewsId + ".html")" title="@Model.ToList()[0].Title">
+                                        @Model.ToList()[0].Title
+                                    </a>
+                                </div>
+                                <div class="text-news">
+                                    @(Model.ToList()[0].Description.Length > 150 ? Model.ToList()[0].Description.Substring(0, Model.ToList()[0].Description.Substring(0, 150).LastIndexOf(' ')) + "..." : Model.ToList()[0].Description)
+                                </div>
+                            </div>
+                            <div class="news col-xs-12 col-sm-6 col-md-5 col33">
+                                @foreach (var item in Model)
+                                {
+                                    if (k > 0)
+                                    {
+                                        <div class="itemnewtop">
+
+                                            <div class="img-news">
+                                                <a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + ViewBag.CategoryId + "-" + item.NewsId + ".html")" title="@item.Title">
+                                                    <img src="/@(Const.ROOT_THUMBS + "/_thumb/" + item.Image)" class="img-responsive" alt="@item.Title">
+                                                </a>
+                                            </div>
+                                            <div class="title-news">
+                                                <a class="dk" href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + ViewBag.CategoryId + "-" + item.NewsId + ".html")" title="@item.Title">
+                                                    @item.Title
+                                                </a>
+                                                <a class="mb" href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + ViewBag.CategoryId + "-" + item.NewsId + ".html")" title="@item.Title">
+                                                    @(item.Title.Length > 50 ? item.Title.Substring(0, item.Title.Substring(0, 50).LastIndexOf(' ')) + "..." : item.Title)
+                                                </a>
+                                                <span>@item.DateStartActive.Value.ToString("dd/MM/yyyy")</span>
+                                            </div>
+
+                                        </div>
+                                    }
+                                    k++;
+                                }
+                            </div>
+                        @*</div>*@
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    @*<div style="clear: both;"></div>*@
+
+    @await Component.InvokeAsync("BlockGroupNewsKnowledge", new { CategoryId = 3221, Number = 4 })
+
+    <div class="gocchuabenh2">
+        <div class="container">
+            <div class="row">
+                @await Component.InvokeAsync("BlockGroupNewsHealing", new { CategoryId = 3222, Number = 5 })
+
+                <div class="news col-xs-12 col-md-6 fewf">
+                    @await Component.InvokeAsync("BlockGroupNewsPublish", new { CategoryId = 3223, Number = 4 })
+                    @*<div style="clear: both"></div>*@
+                    <!-- tin2 -->
+                    @await Component.InvokeAsync("BlockGroupNewsReview", new { CategoryId = 3224, Number = 4 })
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

@@ -1,0 +1,184 @@
+﻿
+@{
+    ViewData["Title"] = "Video";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <main id="main">
+        <div id="content" class="content-area">
+            <section class="section category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-cate-1">
+                        <div class="col col-12 col-cate-1-1">
+                            <div class="col-inner breadcumbs">
+                                <a href="#" class="d-block">
+                                    <img class="icon-home-breadcumb"
+                                         src="/images/icon-home-breadcumb.svg" alt="icon home"> Trang Chủ
+                                </a>
+                                <span class="d-block">
+                                    <img src="/images/arrow-breadcumbs.svg"
+                                         alt="icon arrow">
+                                </span>
+                                <a href="#" class="d-block">Bản tin hình</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section section-main-category">
+                <div class="bg section-bg"></div>
+                <div class="section-content relative container">
+                    <div class="row row-small row-main-category-video">
+                        <div class="col col-12 col-archive-video">
+                            <div class="head-archive-video">
+                                <div class="player_playing row g-0">
+                                    <div class="detail_left col col-lg-8 col-12">
+                                        <div class="wapper-video">
+                                            @if(Model.Image != null)
+                                             {
+                                                <video id="my-video" class="video-js vjs-theme-city vjs-big-play-centered" controls preload="auto" poster="/uploads/@Model.Image"
+                                                    data-setup='{"controls": true, "autoplay": false, "preload": "auto", "fill": true, "fluid": true}'>
+                                                    <source src="/uploads/@Model.LinkVideo" type="video/mp4" />
+                                                    <source src="/uploads/@Model.LinkVideo" type="video/webm" />
+                                                    <p class="vjs-no-js">
+                                                        To view this video please enable JavaScript, and consider
+                                                        upgrading to a
+                                                        web browser that
+                                                        <a href="https://videojs.com/html5-video-support/"
+                                                            target="_blank">supports HTML5 video</a>
+                                                    </p>
+                                                </video>
+                                                }
+                                                else
+                                                {
+                                                <video id="my-video" class="video-js vjs-theme-city vjs-big-play-centered" controls preload="auto" poster="/images/bg-video-poster.jpg"
+                                                        data-setup='{"controls": true, "autoplay": false, "preload": "auto", "fill": true, "fluid": true}'>
+                                                    <source src="/uploads/@Model.LinkVideo" type="video/mp4" />
+                                                    <source src="/uploads/@Model.LinkVideo" type="video/webm" />
+                                                    <p class="vjs-no-js">
+                                                        To view this video please enable JavaScript, and consider
+                                                        upgrading to a
+                                                        web browser that
+                                                        <a href="https://videojs.com/html5-video-support/"
+                                                            target="_blank">supports HTML5 video</a>
+                                                    </p>
+                                                </video>
+                                              }
+                                        </div>
+                                    </div>
+                                    <div class="detail_right col col-lg-4 col-12 customize-scroll-bar">
+                                        <div class="inner_detail_right">
+                                            <h1 class="title-video">
+                                                @Model.Title
+                                            </h1>
+                                            <p class="description-video">
+                                                @(Model.Description.Length > 200 ? Model.Description.Substring(0, Model.Description.Substring(0, 200).LastIndexOf(' ')) + "..." : Model.Description)
+                                            </p>
+                                            <div class="inline-share">
+                                                <div class="fb-platform">
+                                                    <iframe src="https://www.facebook.com/plugins/like.php?href=http%3A%2F%2F127.0.0.1%3A5500%2Fvideo-archive.html&width=150&layout=button_count&action=like&size=small&share=true&height=46&appId=650644645328980"
+                                                            width="150" height="46" style="border:none;overflow:hidden"
+                                                            scrolling="no" frameborder="0" allowfullscreen="true"
+                                                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section bottom-archive-video">
+                <div class="bg section-bg"></div>
+                <div class="container">
+                    <div class="row wapper-video-list">
+                        @*@await Component.InvokeAsync("BlockVideoRelated", new { NewsId = Model.NewsId, Number = 8 })*@
+                    </div>
+                </div>
+            </section>
+            <div class="container">
+                <div class="row row-small comment-area-video">
+                    <div class="col col-12">
+                        <div class="commnents-post">
+                            <h2 class="title-sub-news">Ý kiến bạn đọc (<span class="total-comment">0</span>)</h2>
+                            <div class="comment">
+                                <div class="wapper-info-customer">
+                                    <form action="/" class="form-commnent-single" method="post">
+                                        <div class="row row-small row-1-form">
+                                            <div class="col">
+                                                <input type="text" class="form-control" placeholder="Họ và tên">
+                                            </div>
+                                            <div class="col">
+                                                <input type="email" class="form-control" placeholder="Email">
+                                            </div>
+                                        </div>
+                                        <div class="row row-small row-2-form">
+                                            <div class="col">
+                                                <textarea class="form-control" name="comment-customer" id="comment-customer" cols="15" rows="5" placeholder="Ý kiến của bạn"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="row row-small row-3-form">
+                                            <div class="col">
+                                                <input type="submit" value="Gửi bình luận">
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="list-comment-single">
+                                        <div class="item-comment">
+                                            <div class="avatar"><img src="./images/avatar-comment.svg" alt="avatar"></div>
+                                            <div class="content-comment">
+                                                <div class="name-customer">Mr Hà Ngọc Sơn</div>
+                                                <div class="comment-custommer">Hội chợ Triển lãm Quốc tế VIETBUILD 2020 - là sự kiện lớn đầy ấn tượng của Ngành Xây dựng, Bất động sản, Vật liệu xây dựng &amp; Trang trí nội ngoại thất tại Việt Nam.</div>
+                                                <div class="other-comment">
+                                                    <div class="count-line">
+                                                        <img src="./images/like.svg" alt="like icon">
+                                                        <span class="count">1</span>
+                                                    </div>
+                                                    <div class="reply-comment">Trả lời</div>
+                                                    <div class="time-comment">19/12/2021 - 08:12</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-comment">
+                                            <div class="avatar"><img src="./images/avatar-comment.svg" alt="avatar"></div>
+                                            <div class="content-comment">
+                                                <div class="name-customer">Mr Hà Ngọc Sơn</div>
+                                                <div class="comment-custommer">Hội chợ Triển lãm Quốc tế VIETBUILD 2020 - là sự kiện lớn đầy ấn tượng của Ngành Xây dựng, Bất động sản, Vật liệu xây dựng &amp; Trang trí nội ngoại thất tại Việt Nam.</div>
+                                                <div class="other-comment">
+                                                    <div class="count-line">
+                                                        <img src="./images/like.svg" alt="like icon">
+                                                        <span class="count">1</span>
+                                                    </div>
+                                                    <div class="reply-comment">Trả lời</div>
+                                                    <div class="time-comment">19/12/2021 - 08:12</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="item-comment">
+                                            <div class="avatar"><img src="./images/avatar-comment.svg" alt="avatar"></div>
+                                            <div class="content-comment">
+                                                <div class="name-customer">Mr Hà Ngọc Sơn</div>
+                                                <div class="comment-custommer">Hội chợ Triển lãm Quốc tế VIETBUILD 2020 - là sự kiện lớn đầy ấn tượng của Ngành Xây dựng, Bất động sản, Vật liệu xây dựng &amp; Trang trí nội ngoại thất tại Việt Nam.</div>
+                                                <div class="other-comment">
+                                                    <div class="count-line">
+                                                        <img src="./images/like.svg" alt="like icon">
+                                                        <span class="count">1</span>
+                                                    </div>
+                                                    <div class="reply-comment">Trả lời</div>
+                                                    <div class="time-comment">19/12/2021 - 08:12</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Slide>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    <div class="slide-home" data-slick='{"autoplay": true, "autoplaySpeed": @(ViewBag.TimeAuto*1000), "slidesToShow": @ViewBag.Slideshow}'>
+        @foreach (var item in Model)
+        {
+            <div class="item-slide">
+                @if (item.IsLinkNewTab == true)
+                {
+                    <a href="@item.Url" target="_blank">
+                        <img src="/uploads/@item.Image" width="@ViewBag.Width" height="@ViewBag.Height">
+                        <div class="text-slider">
+                            <div class="subtitle-slide">@(item.Title)</div>
+                            <div class="title-slide">
+                                @Html.Raw(item.Description)
+                            </div>
+                        </div>
+                    </a>
+                }
+                else
+                {
+                    <a href="@item.Url">
+                        <img src="/uploads/@item.Image" width="@ViewBag.Width" height="@ViewBag.Height">
+                        <div class="text-slider">
+                            <div class="subtitle-slide">@(item.Title)</div>
+                            <div class="title-slide">
+                                @Html.Raw(item.Description)
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+}

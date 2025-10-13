@@ -1,0 +1,56 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="/images/banner-solution.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb container">
+            <p>@Startup._lang["GIAIPHAP"]</p>
+            <ul>
+                <li><a href="/">@Startup._lang["Home"]</a></li>
+                <li><span>@ViewBag.CategoryName</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="maincontent-page page-listsolution">
+        <div class="full-page">
+            <div class="container">
+                <div class="row">
+                    <h1 class="title-solution">@Startup._lang["CGP"]</h1>
+                    <div class="list-solution">
+                        @if (Model != null)
+                        {
+                            if (Model.Count() > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <div class="ItemSv col-xs-6 col-md-3">
+                                        <div class="boxSv">
+                                            <div class="titleSv"><a href="@("/" + item.Url)" title="@item.Title">@item.Title</a></div>
+                                            <div class="imgSv">
+                                                <a href="@("/" + item.Url)" title="@item.Title">
+                                                    <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Title">
+                                                </a>
+                                            </div>
+                                            <div class="textSv">@item.Description</div>
+                                            <div class="detailSv"><a href="@("/" + item.Url)" title="@item.Title">@Startup._lang["XEMCHITIET"] >></a></div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Đăng ký tư vấn -->
+        @await Html.PartialAsync("_FromSupport")
+        <!-- End Đăng ký tư vấn -->
+    </div>
+</div>

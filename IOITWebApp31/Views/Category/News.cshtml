@@ -1,0 +1,102 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main id="main">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="row row-small main-info">
+                    <div class="col col-md-3 col-12 side-bar-info menu-faq">
+                        <ul class="nav-tab-vertical">
+                            @await Component.InvokeAsync("MenuSideBar", new { MenuId = 40, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                        </ul>
+                    </div>
+                    <div class="col col-md-9 col-12 section-detail-data main-manage-data">
+                        <div class="search-all-data">
+                            <form class="search-wapper faq" role="search" method="get" action="/tim-kiem-thong-tin">
+                                <div class="wapper-search">
+                                    <input type="text" name="sName" id="sName" placeholder="Tìm kiếm tin tức...">
+                                    <input type="number" name="sType" id="sType" value="1" hidden="hidden">
+                                    <button class="btn-search" type="submit"><img src="images/search-ct_new.png" alt=""></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="list-news">
+                            @if (Model != null)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <div class="item-news box box-vertical">
+                                        <div class="box-image">
+                                            <a href="@("/" + item.Url)" class="d-block">
+                                                <img src="/uploads/@item.Image" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="box-text">
+                                            <a href="@("/" + item.Url)" class="d-block">
+                                                <div class="head-news">
+                                                    <h3 class="title-news textLine-2">@item.Title</h3>
+                                                    <div class="date-active">@(item.DateStartActive.Value.ToString("dd/MM/yyyy"))</div>
+                                                </div>
+                                                <div class="desc-news textLine-4">
+                                                    @(item.Description.Length > 300 ? item.Description.Substring(0, item.Description.Substring(0, 250).LastIndexOf(' ')) + "..." : item.Description)
+                                                </div>
+                                                <div class="bottom-read">
+                                                    Xem chi tiết <i class="fa-solid fa-angles-right"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        @if (Model != null)
+                        {
+                            <div class="paging-data">
+                                <nav aria-label="...">
+                                    @if (int.Parse(ViewBag.total.ToString()) >= int.Parse(ViewBag.NumPage.ToString()))
+                                    {
+                                        <ul class="pagination">
+                                            @if ((int)ViewBag.Pre <= 0)
+                                            {
+                                                <li class="page-item disabled"><a href='javascript:void(0);' class="prev page-number page-link"><i class="fas fa-angle-left"></i></a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item"><a href='@("/" + ViewBag.CategoryUrl + "?p=" + @ViewBag.Pre)' class="prev page-number page-link"><i class="fas fa-angle-left"></i></a></li>
+                                            }
+
+                                            @for (int i = int.Parse(ViewBag.pageS.ToString()); i <= int.Parse(ViewBag.pageE.ToString()); i++)
+                                            {
+                                                if (ViewBag.page == i)
+                                                {
+                                                    <li class="page-item active"><a href='javascript:void(0);' class="page-number current page-link">@i <span class="sr-only">(current)</span></a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="page-item"><a href='@("/" + ViewBag.CategoryUrl + "?p=" + i)' class="page-number page-link">@i</a></li>
+                                                }
+                                            }
+
+                                            @if ((int)ViewBag.Next > (int.Parse(ViewBag.total.ToString()) / int.Parse(ViewBag.NumPage.ToString())) + 1)
+                                            {
+                                                <li class="page-item disabled"><a href='javascript:void(0);' class="next page-number page-link"><i class="fas fa-angle-right"></i></a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="page-item"><a href='@("/" + ViewBag.CategoryUrl + "?p=" + @ViewBag.Next)' class="next page-number page-link"><i class="fas fa-angle-right"></i></a></li>
+                                            }
+                                        </ul>
+                                    }
+                                </nav>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

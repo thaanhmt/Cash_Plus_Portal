@@ -1,0 +1,2018 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+<!-- Thêm thẻ script để tải thư viện EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.3.0/purify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.68/vfs_fonts.js"></script>
+
+@*<script src="~/lib/leaflet/leaflet.js"></script>
+<script src="~/lib/leaflet/leaflet.min.js"></script>*@
+<script>
+    document.getElementById("dang-ky").innerHTML = '<span  class="btn-cntt style-btn-kn">ĐĂNG KÝ ĐỐI TÁC</span>';
+    var dangKyElement = document.querySelector("#dang-ky");
+    dangKyElement.style.display = "none";
+
+    function selectImage(inputId, event) {
+        event.preventDefault();
+        var fileInput = document.getElementById('fileInput' + inputId);
+        fileInput.click();
+    }
+
+    function previewImage(event, inputId) {
+        var input = event.target;
+        var reader = new FileReader();
+        reader.onload = function () {
+            var image = document.getElementById('preview' + inputId);
+            var uploadedImage = document.getElementById('uploadedImage' + inputId);
+
+            image.src = reader.result;
+            image.style.display = 'block';
+            uploadedImage.style.display = 'none';
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+</script>
+<style>
+    .ui-select-container.select2.select2-container.ng-not-empty.ng-valid.select2-allowclear {
+        width: 100%;
+    }
+
+    #permission-request {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        padding: 20px;
+        border-radius: 5px;
+        z-index: 9999;
+        display: none;
+    }
+
+    #overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: none;
+    }
+
+    .align-items-center {
+        align-items: center;
+    }
+    a.select2-choice.ui-select-match.ng-scope {
+        height: 38px;
+    }
+    .select2-container .select2-choice > .select2-chosen {
+        line-height: 34px;
+    }
+    .ui-select-container {
+        width: 100%;
+    }
+    button.btn.btn-warning {
+        background-color: #ffc107 !important;
+    }
+    button.btn.btn-primary {
+        padding: 8px 15px;
+        background-color: #0d6efd !important;
+        border-radius: 20px;
+    }
+    button.btn.btn-sm.btn-primary {
+            padding: 0px 8px;
+            background-color: #0d6efd !important;
+            border-radius: 15px;
+        }
+    button.btn.btn-danger {
+        background-color: #dc3545 !important;
+    }
+</style>
+
+<main id="main" ng-controller="UserUnitController" ng-init="getAddress()">
+    <div id="content" class="content-area">
+    <form name="formPartnerUpdate" ng-submit="updateInfoMerchant()" autocomplete="on" novalidate>
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container bgfullpartnerUpdate">
+                <div ng-show="checkloading" class="loading-overlay">
+                    <!-- Hiệu ứng loading (ví dụ: vòng tròn xoay) -->
+                    <div class="loading-container">
+                        <div class="loading-spinner"></div>
+                        <!-- Dòng chữ -->
+                        <div class="loading-text">
+                            <p> Vui lòng đợi. Hệ thống đang xử lý</p> <span class="loading-dots"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row m-0 mt-40">
+                    <div class="card p-0 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Mô hình kinh doanh
+                            </p>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @*Mô hình kinh doanh*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-store-type-id">
+                                            <ui-select ng-model="UpdatePartner.store_type_id" name="store_type_id" id="store_type_id"
+                                                       required ng-change="changeValueTypeStore($select)"
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Mô hình kinh doanh">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.id as item in Storetype | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.store_type_id.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.store_type_id.$error.required">Mô hình kinh doanh là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*Ảnh đại diện*@
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Ảnh đại diện
+                            </p>
+                        </div>
+                        <div class="card-body pt-0">
+                            <div style="text-align: start; margin-top: 30px" class="text-al-st" id="avatar">
+                                <input type="file" id="fileInput1" name="avatar" style="display: none;" ng-model="UpdatePartner.avatar" onchange="angular.element(this).scope().uploadAvatarPartner(this)" accept="image/*" class="form-control" required>@*required*@
+                                @*onchange="previewImage(event,1)"*@
+                                <img id="avatarpartner" ng-src="{{ UpdatePartner.avatar == undefined ? '' : (UpdatePartner.avatar) }}"
+                                     alt="Ảnh đại diện" style="display:none;width: 150px; height: 150px; margin-top: -37px">
+                                <div class="clear" id="reset-image-input1" ng-if="customer.Avata != undefined" ng-click="clearAvatar()">
+                                    <i class="fa-duotone fa-trash"></i>
+                                </div>
+                                <p class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.avatar.$invalid">
+                                    <span class="text-danger" ng-show="formPartnerUpdate.avatar.$error.required">Bạn chưa chọn ảnh đại diện để hiển thị trên App</span>
+                                </p>
+                                <button onclick="selectImage(1, event)" style="cursor: pointer" class="setAvt mt-2">
+                                    <i class="fa-solid fa-upload" style="margin-right: 10px"></i><strong>Tải Ảnh Đại Diện - Hiển thị lên APP <span class="text-danger">*</span> </strong>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-0 mt-40 border-0" ng-show="showFormUserDN">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Thông tin doanh nghiệp - GPĐKKD/Hình ảnh cửa hàng/Giấy tờ khác
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row m-0">
+                                @*Thông tin file đính kèm*@
+                                <div ng-class="{'d-none': !showFormUserDN, 'col-md-6 d-block': showFormUserDN}">
+                                    <div class="frmfileDinhKem d-block" id="frmfileDinhKem">
+                                        @*gpkd mat truoc*@
+                                        <div class="detailFileDinhKem" id="business_registration_front">
+                                            <span class="titleFileDinhKem">Giấy phép đăng ký kinh doanh mặt trước</span>
+                                            <p class="desFileDinhKem"> Lưu ý: Hình ảnh chụp cần có đầy đủ 4 góc như hình mẫu</p>
+                                            <div class="imgFileDinhKem" id="imgContainer">
+                                                <img id="uploadedImage4" src="../images/homecashplus/kinhdoanh.jpg"/>
+                                                <object id="preview4" ng-data="{{ UpdatePartner.license_image == undefined ? '' : (UpdatePartner.license_image) }}"
+                                                        type="application/pdf" data="{{ UpdatePartner.license_image == undefined ? '' : (UpdatePartner.license_image) }}"
+                                                        style="width: 100%; height: 294px; border: none; overflow: hidden; object-fit: contain;">
+                                                   
+                                                </object>
+                                                <div class="clear" id="reset-image-input2" ng-if="customer.Avata != undefined" ng-click="clearFile()">
+                                                    <i class="fa-duotone fa-trash"></i>
+                                                </div>
+                                            </div>
+                                            <span class="starFileDinhKem">
+                                                <span class="noteFileDinhKem">Giấy phép đăng ký kinh doanh<span class="text-danger">*</span></span>
+                                            </span>
+                                            <button onclick="selectImage(4, event)" style="cursor: pointer" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải Lên GPKD mặt trước</button>
+                                            <input type="file" id="fileInput4" style="display: none;" onchange="angular.element(this).scope().uploadDKKDPartner(this)"
+                                                   ng-model="business_registration_front" name="business_registration_front">@*required*@
+                                            <p class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.business_registration_front.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.business_registration_front.$error.required">Giấy phép đăng ký kinh doanh là bắt buộc.</span>
+                                            </p>
+                                        </div>
+                                        <!--Kiểm tra xử lý sau với list_documents - hiện tại không upload được dữ liệu tại trường này-->
+                                        @*gpkd mat sau*@
+                                        <div class="detailFileDinhKem" id="business_registration_back">
+                                            <span class="titleFileDinhKem">Giấy phép đăng ký kinh doanh mặt sau (nếu có)</span>
+                                            <p class="desFileDinhKem"> Lưu ý: Hình ảnh chụp cần có đầy đủ 4 góc như hình mẫu</p>
+                                            <div class="imgFileDinhKem" id="imgContainer">
+                                                <img id="uploadedImage5" src="../images/homecashplus/kinhdoanh2.jpg"/>
+                                                <img id="preview5" ng-src="{{ UpdatePartner.license_image2 == undefined ? '' : (UpdatePartner.license_image2) }}"
+                                                     alt="Ảnh GPKD mặt 2" style="display:none">
+                                                <div class="clear" id="reset-image-input3" ng-if="customer.Avata != undefined" ng-click="clearFile()">
+                                                    <i class="fa-duotone fa-trash"></i>
+                                                </div>
+                                            </div>
+                                            <span class="starFileDinhKem">
+                                                <span class="noteFileDinhKem">Giấy phép đăng ký kinh doanh (mặt 2 nếu có)</span>
+                                            </span>
+                                            <button onclick="selectImage(5, event)" style="cursor: pointer" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải Lên GPKD mặt sau (nếu có)</button>
+                                            <input type="file" id="fileInput5" name="business_registration_back" style="display: none;"
+                                                   onchange="angular.element(this).scope().uploadDKKDPartner2(this)">@*required*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" id="list_other_documents">
+                                    <div class="detailFileDinhKem">
+                                        <span class="titleFileDinhKem">Hình ảnh cửa hàng và các giấy tờ khác liên quan</span>
+                                        <ul class="desFileDinhKem mb-2">
+                                            <li>- Hình ảnh chi tiết cửa hàng: Mặt tiền, không gian bên trong, quầy thu ngân,...</li>
+                                            <li>- Menu cửa hàng</li>
+                                        </ul>
+                                        <ul class="desFileDinhKem">
+                                            <p class="mb-2">Vui lòng cung cấp thêm các giấy tờ sau (nếu có):</p>
+                                            <li>- Giấy ủy quyền có liên quan</li>
+                                            <li>- Điều lệ của tổ chức</li>
+                                            <li>- Giấy chứng nhận đầu tư</li>
+                                            <li>- Giấy chuyển đổi CMND-CCCD</li>
+                                            <li>- Giấy vệ sinh an toàn thực phẩm</li>
+                                            <li>- Ảnh chụp thông tin người nộp thuế trên trang (đối với trường hợp cá nhân)</li>
+                                        </ul>
+                                        <span class="starFileDinhKem"></span>
+
+                                        <div class="imgFileDinhKem" id="imgFileDinhKemGPKD">
+                                            <img id="uploadedImage6" src="../images/homecashplus/attp.png"/>
+                                        </div>
+
+                                        <button type="button" class="setAvt" ng-click="openListDocumentEditModal(otherDocumentTypes)"><i class="fa-solid fa-upload" style="margin-right: 10px"></i>Tải Lên Tập tin <span class="text-danger">*</span></button>
+                                        @*<input type="file" id="fileInput6" style="display: none;" onchange="angular.element(this).scope().uploadFilePartner(this)" name="other_document" ng-model="UpdatePartner.other_document" ng-required="showFormUserDN" multiple>
+                                        <p class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.other_document.$invalid">
+                                            <span class="text-danger" ng-show="formPartnerUpdate.other_document.$error.required">Vui lòng thêm thông tin doanh nghiệp/Hình ảnh cửa hàng/Giấy tờ khác</span>
+                                        </p>*@
+                                    </div>
+                                    <div class="" ng-class="{'d-none': !hasOtherDocument}">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Tài liệu</th>
+                                                    <th scope="col" style="width: 120px" class="text-center">Hành động</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr ng-repeat="item in otherDocuments track by $index">
+                                                    <td>
+                                                        <a ng-href="{{item.link}}" target="_blank">{{item.name}}</a>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-warning" ng-click="openListDocumentEditModal(otherDocumentTypes, item, $index)">
+                                                            <i class="fa fa-edit" aria-hidden="true"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-danger" ng-click="delListDocumentEdit(item.id)">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header header-text-regis-partnert border-0">
+                            <p class="hd-text-partner">
+                                Người đại diện - Hình CMND/CCCD/Hộ chiếu (mặt trước và sau)
+                            </p>
+                            <ul class="desFrmInfoUser">
+                                <li>Lưu ý:</li>
+                                <li>- Hình ảnh CMND/CCCD/Hộ chiếu cần đủ 4 góc như hình mẫu</li>
+                                <li>- Cần chụp và tải lên đủ 2 hình mặt trước và sau</li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6" id="identifier_front_image">
+                                    <div class="imgCCCD mt-md-2" id="imgContainer1">
+                                        <img id="uploadedImage2" src="../images/homecashplus/cccd1.png"/>
+                                        <img id="cccd1" ng-src="{{ UpdatePartner.identifier_front_image == undefined ? '' : (UpdatePartner.identifier_front_image) }}"
+                                             alt="Ảnh CCCD mặt trước" style="display:none">
+                                        <div class="clear" id="reset-image-input5" ng-if="customer.identifier_front_image != undefined" ng-click="clearFile()">
+                                            <i class="fa-duotone fa-trash"></i>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger mt-2" style="display: flex">
+                                        *
+                                        <p style="margin:0; color:black">Hình ảnh CMND/Hộ chiếu (mặt trước)</p>
+                                    </span>
+                                    <button onclick="selectImage(2, event)" style="cursor: pointer" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải Lên CCCD mặt trước</button>
+                                    <input type="file" id="fileInput2" ng-model="UpdatePartner.identifier_front_image" name="identifier_front_image" style="display: none;"
+                                           onchange="angular.element(this).scope().uploadCMNDMT(this)" class="form-control" required>@*required*@
+                                    <p class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.identifier_front_image.$invalid">
+                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_front_image.$error.required">Bạn chưa chọn ảnh CMND/CCCD/Hộ chiếu mặt trước</span>
+                                    </p>
+                                </div>
+                                <div class="col-md-6" id="identifier_back_image">
+                                    <div class="imgCCCD mt-4 mt-md-2" id="imgContainer2">
+                                        <img id="uploadedImage3" src="../images/homecashplus/cccd2.png"/>
+                                        <img id="cccd2" ng-src="{{ UpdatePartner.identifier_back_image == undefined ? '' : (UpdatePartner.identifier_back_image) }}"
+                                             alt="Ảnh CCCD mặt sau" style="display:none">
+                                        <div class="clear" id="reset-image-input6" ng-if="customer.identifier_back_image != undefined" ng-click="clearFile()">
+                                            <i class="fa-duotone fa-trash"></i>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger mt-2" style="display: flex">
+                                        *
+                                        <p style="margin:0; color:black">Hình ảnh CMND/Hộ chiếu (mặt sau)</p>
+                                    </span>
+                                    <button onclick="selectImage(3, event)" style="cursor: pointer" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải Lên CCCD mặt sau</button>
+                                    <input type="file" id="fileInput3" ng-model="UpdatePartner.identifier_back_image" name="identifier_back_image" style="display: none;"
+                                           onchange="angular.element(this).scope().uploadCMNDMS(this)" class="form-control" required>@*required*@
+                                    <p class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.identifier_back_image.$invalid">
+                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_back_image.$error.required">Bạn chưa chọn ảnh CMND/CCCD/Hộ chiếu mặt sau</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-0 mt-40 border-0" id="cn_other_document" ng-show="showFormUserCN">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Thông tin cá nhân/Hình ảnh cửa hàng/Giấy tờ khác
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detailFileDinhKem">
+                                        <span class="titleFileDinhKem">Hình ảnh cửa hàng và các giấy tờ khác liên quan</span>
+                                        <ul class="desFileDinhKem mb-2">
+                                            <li>- Hình ảnh chi tiết cửa hàng: Mặt tiền, không gian bên trong, quầy thu ngân,...</li>
+                                            <li>- Menu cửa hàng</li>
+                                        </ul>
+                                        <ul class="desFileDinhKem">
+                                            <p class="mb-2">Vui lòng cung cấp thêm các giấy tờ sau (nếu có):</p>
+                                            <li>- Giấy ủy quyền có liên quan</li>
+                                            <li>- Điều lệ của tổ chức</li>
+                                            <li>- Giấy chứng nhận đầu tư</li>
+                                            <li>- Giấy chuyển đổi CMND-CCCD</li>
+                                            <li>- Giấy vệ sinh an toàn thực phẩm</li>
+                                            <li>- Ảnh chụp thông tin người nộp thuế trên trang (đối với trường hợp cá nhân)</li>
+                                        </ul>
+                                        <span class="starFileDinhKem"></span>
+
+                                        <div class="imgFileDinhKem" id="imgFileDinhKemGPKD">
+                                            <img id="uploadedImage9" src="../images/homecashplus/attp.png"/>
+                                        </div>
+
+                                        <button type="button" class="setAvt" ng-click="openListDocumentEditModal(otherDocumentTypes)"><i class="fa-solid fa-upload" style="margin-right: 10px"></i>Tải Lên Tập tin <span class="text-danger">*</span></button>
+                                        @*<input type="file" id="fileInput9" style="display: none;" onchange="angular.element(this).scope().uploadFilePartner(this)" name="cn_other_document" ng-model="UpdatePartner.cn_other_document" ng-required="showFormUserCN" multiple>
+                                        <p class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.cn_other_document.$invalid">
+                                            <span class="text-danger" ng-show="formPartnerUpdate.cn_other_document.$error.required">Vui lòng thêm thông tin cá nhân/Hình ảnh cửa hàng/Giấy tờ khác</span>
+                                        </p>*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6" ng-class="{'d-none': !hasOtherDocument}">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">Tài liệu</th>
+                                                <th scope="col" style="width: 120px" class="text-center">Hành động</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in otherDocuments track by $index">
+                                                <td>
+                                                    <a ng-href="{{item.link}}" target="_blank">{{item.name}}</a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button type="button" class="btn btn-warning" ng-click="openListDocumentEditModal(otherDocumentTypes, item, $index)">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger" ng-click="delListDocumentEdit(item.id)">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                               Thông tin chung
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @*Loại dịch vụ*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Loại dịch vụ<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-service-type-id">
+                                            <ui-select ng-model="UpdatePartner.service_type_id" ng-change="changeValueServicetype($select.selected)" theme="select2"
+                                                       ng-disabled="disabled" title="{{$select.selected.name }}" name="service_type_id" id="service_type_id" required>
+                                                <ui-select-match allow-clear="true" placeholder="Loại dịch vụ">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.id as item in Servicetype | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.service_type_id.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.service_type_id.$error.required">Loại dịch vụ là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6"></div>
+
+                                <div class="col-md-6">
+                                    @*Nhóm ngành*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Nhóm ngành nghề<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-gc_code">
+                                            <ui-select ng-model="UpdatePartner.gc_code" ng-change="onChangeGcCode($select.selected)"
+                                                       name="gc_code" id="gc_code" required
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.group_name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn nhóm ngành nghề">{{ $select.selected.group_name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.group_code as item in industryGroup | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.group_name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.gc_code.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.gc_code.$error.required">Nhóm ngành nghề là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @*ngành*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Ngành<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-mcc_code">
+                                            <ui-select ng-model="UpdatePartner.mcc_code" ng-change="onChangeMccCode($select.selected)"
+                                                       name="mcc_code" id="mcc_code" required
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn ngành">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.code as item in listMccByGroup | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.mcc_code.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.mcc_code.$error.required">Ngành là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            
+                                <div class="col-md-12">
+                                    @*DMô tả chi tiết ngành nghề*@
+                                    <div class="item-right-partner mt-20">
+                                        <span>Mô tả chi tiết ngành nghề<br><span class="text-danger"></span></span>
+                                        <div class="w-75 col-sm-3 col-md-3" id="input-UpdatePartner-mcc_description">
+                                            <textarea class="form-control" ng-model="mcc_description" ng-disabled="true"
+                                                                                id="exampleFormControlTextarea2" rows="5"
+                                                                                spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="col-md-6">
+                                    @*Tên người đại diện*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tên người đại diện<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-store-owner">
+                                            <input type="text" ng-model="UpdatePartner.store_owner" ng-bind-html="UpdatePartner.store_owner" required
+                                                   model class="form-control" name="store_owner" id="store_owner" placeholder="Nhập tên người đại diện">
+                                            <span class="error" ng-show="(formPartnerUpdate.store_owner.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.store_owner.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.store_owner.$error.required">Tên người đại diện là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Sđt trao đổi*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Số điện thoại<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-phone">
+                                            <input type="tel" ng-model="UpdatePartner.phone" ng-bind-html="UpdatePartner.phone"
+                                                   class="form-control" name="phone" id="phone" placeholder="Nhập số điện thoại"
+                                                   ng-pattern="/[0][0-9.-]{9,13}/" maxlength="13" required>
+                                            <span class="error" ng-show="(formPartnerUpdate.phone.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.phone.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.phone.$error.required">Số điện thoại là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.phone.$error.pattern">Số điện thoại không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Email liên hệ*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>
+                                            Email liên hệ<span class="text-danger">*</span>
+                                        </span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-email">
+                                            <input type="text" ng-model="UpdatePartner.email" ng-bind-html="UpdatePartner.email"
+                                                   model class="form-control" name="email" id="email" placeholder="Nhập email" required>
+                                            <span class="error" ng-show="(formPartnerUpdate.email.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.email.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.email.$error.required">Email liên hệ là bắt buộc.</span>
+                                                @*<span class="text-danger" ng-show="formPartnerUpdate.email.$error.pattern">Email liên hệ không hợp lệ.</span>*@
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Số Hotline*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Số Hotline</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-hotline">
+                                            <input type="tel" ng-model="UpdatePartner.hotline" ng-bind-html="UpdatePartner.hotline" ng-pattern="/[0][0-9.-]{9,13}/"
+                                                   class="form-control" name="hotline" id="hotline" placeholder="Nhập số Hotline">
+                                            <span class="error" ng-show="(formPartnerUpdate.hotline.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.hotline.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.hotline.$error.pattern">Số hotline không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Website*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Website</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-website">
+                                            <input type="text" ng-model="UpdatePartner.website" ng-bind-html="UpdatePartner.website" class="form-control"
+                                                   name="website" id="website" placeholder="Nhập địa chỉ website"
+                                                   ng-pattern="/^(https?:\/\/)?(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$/">
+                                            <span class="error" ng-show="(formPartnerUpdate.website.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.website.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.website.$error.pattern">Website không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Mã cửa hàng/đối tác*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Mã cửa hàng/đối tác</span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <input type="text" ng-model="code_partner" ng-bind-html="code_partner" class="form-control" id="code-partner" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Tên cửa hàng/đối tác*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>
+                                            Tên cửa hàng/đối tác<span class="text-danger">*</span>
+                                        </span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-name">
+                                            <input type="text" ng-model="UpdatePartner.name" ng-bind-html="UpdatePartner.name" class="form-control"
+                                                   name="name" id="name" placeholder="Nhập tên cửa hàng/đối tác" required>
+                                            <span class="error" ng-show="(formPartnerUpdate.name.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.name.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.name.$error.required">Tên cửa hàng/đối tác là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Lịch làm việc*@
+                                    <div class="item-right-partner align-items-center mt-20" id="input-Updatepartner-working-day">
+                                        <span>Lịch làm việc<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <select class="form-control" ng-model="selectedWorkingDay" name="selectedWorkingDay"
+                                                    id="selectedWorkingDay" ng-change="checkOther()" ng-required="!isOtherSelected">
+                                                <option value="">Chọn lịch làm việc</option>
+                                                <option value="Thứ 2 - Thứ 6">Thứ 2 - Thứ 6</option>
+                                                <option value="Thứ 2 - Thứ 7">Thứ 2 - Thứ 7</option>
+                                                <option value="Thứ 2 - Chủ Nhật">Thứ 2 - Chủ Nhật</option>
+                                                <option value="other">Khác</option>
+                                            </select>
+                                            <!-- Ô input ẩn để nhập lịch làm việc tùy chỉnh -->
+                                            <input type="text" class="form-control mt-3" ng-change="checkOther()"
+                                                   ng-model="customWorkingDay" ng-show="isOtherSelected" ng-required="isOtherSelected"
+                                                   placeholder="Nhập lịch làm việc" ng-init="customWorkingDay=''" name="customWorkingDay" id="customWorkingDay"/>
+                                            <span class="error" ng-show="!isOtherSelected && formPartnerUpdate.$submitted && formPartnerUpdate.selectedWorkingDay.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.selectedWorkingDay.$error.required">Lịch làm việc là bắt buộc.</span>
+                                            </span>
+                                            <span class="error" ng-show="isOtherSelected && formPartnerUpdate.$submitted && formPartnerUpdate.customWorkingDay.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.customWorkingDay.$error.required">Lịch làm việc là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 mt-4 mb-3" id="list_working_time">
+                                    <button type="button" class="btn btn-primary btnSave" ng-click="openListTimeEditModal()">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm giờ đóng mở cửa
+                                    </button>
+                                    <span class="text-danger">(*)</span>
+                                </div>
+                                <div class="col-sm-12 col-md-12" ng-class="{'d-none': !hasWorkingTime}">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" style="min-width: 800px;">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">STT</th>
+                                                <th scope="col">Giờ mở cửa</th>
+                                                <th scope="col">Giờ đóng cửa</th>
+                                                <th scope="col" style="width: 150px">Hành động</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in workingTimes track by $index">
+                                                <td>{{getIndex($index)}}</td>
+                                                <td>{{item.start_hour}}</td>
+                                                <td>{{item.end_hour}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning" ng-click="openListTimeEditModal(item, $index)">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-danger" ng-click="delListTimeEdit(item.id)">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            
+                                @*<div class="col-md-6">
+                                    $1$Giờ mở cửa#1#
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Giờ mở cửa<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-start-hour">
+                                            <input type="time" class="form-control" ng-model="UpdatePartner.start_hour"
+                                                   name="start_hour" id="start_hour" placeholder="Giờ mở cửa" required>
+                                            <span class="error" ng-show="(formPartnerUpdate.start_hour.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.start_hour.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.start_hour.$error.required">Giờ mở cửa là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    $1$Giờ đóng cửa#1#
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Giờ đóng cửa<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-end-hour">
+                                            <input type="time" class="form-control" ng-model="UpdatePartner.end_hour"
+                                                   model name="end_hour" id="end_hour" required>
+                                            <span class="error" ng-show="(formPartnerUpdate.end_hour.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.end_hour.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.end_hour.$error.required">Giờ mở cửa là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                                <div class="col-md-12">
+                                    @*Diễn giải*@
+                                    <div class="item-right-partner mt-20">
+                                        <span>Diễn giải chi tiết <br><span class="text-danger">(Thông tin chi tiết về doanh nghiệp, sản phẩm, dịch vụ kinh doanh)</span></span>
+                                        <div class="w-75 col-sm-3 col-md-3" id="input-UpdatePartner-description">
+                                            <textarea class="form-control" ng-model="description"
+                                                                                id="exampleFormControlTextarea1" rows="5"
+                                                                                spellcheck="false"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-0 mt-40 border-0" ng-class="{'d-none': !showFormUserDN}">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Thông tin doanh nghiệp
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Tên doanh nghiệp*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tên Doanh Nghiệp/Hộ Kinh doanh<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-company_name">
+                                            <input type="text" ng-model="UpdatePartner.company_name" class="form-control" name="company_name" id="company_name"
+                                                   placeholder="Nhập tên doanh nghiệp" ng-required="showFormUserDN">
+                                            <span class="error" ng-show="showFormUserDN && formPartnerUpdate.$submitted && formPartnerUpdate.company_name.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.company_name.$error.required">Tên doanh nghiệp là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Tên viết tắt*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tên viết tắt</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-company_short_name">
+                                            <input type="text" ng-model="UpdatePartner.company_short_name"
+                                                   ng-bind-html="UpdatePartner.company_short_name" class="form-control"
+                                                   name="company_short_name" id="company_short_name" placeholder="Nhập tên viết tắt">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Mã số ĐKKD/HKD*@
+                                    <div class="item-right-partner align-items-center mt-20" id="input-UpdatePartner-license-no">
+                                        <span>Mã số ĐKKD/HKD<span ng-show="requiredBusinessNumber" class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.license_no"
+                                                   name="license_no" id="license_no" placeholder="Nhập mã số" ng-minlength="10" ng-maxlength="10" minlength="10" maxlength="10"
+                                                   ng-keypress="preventSpace($event)" ng-pattern="/^[a-zA-Z0-9]*$/" ng-required="requiredBusinessNumber">
+                                            <span class="error" ng-show="(formPartnerUpdate.license_no.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.license_no.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.license_no.$error.required">Mã số ĐKKD/HKD là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.license_no.$error.minlength || formPartnerUpdate.license_no.$error.maxlength">Mã số gồm 10 ký tự.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.license_no.$error.pattern">Mã số không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Tên nước ngoài*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tên nước ngoài</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-company_foreign_name">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.company_foreign_name"
+                                                   name="company_foreign_name" id="company_foreign_name" placeholder="Nhập tên nước ngoài">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Mã số thuế*@
+                                    <div class="item-right-partner align-items-center mt-20" id="input-UpdatePartner-tax_code">
+                                        <span>Mã số thuế<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.tax_code"
+                                                   name="tax_code" id="tax_code" placeholder="Nhập mã số" maxlength="14" ng-minlength="10" ng-maxlength="14"
+                                                   ng-keypress="preventSpace($event)" ng-pattern="/^(?=.*\d)[\d-]{10,14}$/" ng-required="showFormUserDN">
+                                            <span class="error" ng-show="(formPartnerUpdate.tax_code.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.tax_code.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.tax_code.$error.required">Mã số thuế là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.tax_code.$error.minlength || formPartnerUpdate.tax_code.$error.maxlength">Mã số từ 10-14 ký tự.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.tax_code.$error.pattern">Mã số không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Vốn điều lệ trên ĐKKD*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Vốn điều lệ trên ĐKKD</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-authorized-capital">
+                                            <input type="text" ng-model="UpdatePartner.authorized_capital" maxlength="30"
+                                                   format="number" class="form-control" name="authorized_capital" id="authorized_capital"
+                                                   placeholder="Nhập vốn điều lệ trên ĐKKD">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Ngày đăng ký kinh doanh*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Ngày đăng ký kinh doanh (trên GPĐKKD)<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="license-date-container">
+                                            <input type="date" class="form-control" ng-model="UpdatePartner.license_date" model
+                                                   name="license_date" id="license_date" ng-required="showFormUserDN">
+                                            <span class="error" ng-show="(formPartnerUpdate.license_date.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.license_date.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.license_date.$error.required">Ngày đăng ký kinh doanh là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.license_date.$error.date">Ngày đăng ký kinh doanh không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Ngày thay đổi đăng ký kinh doanh*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Ngày thay đổi đăng ký kinh doanh</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="change-date">
+                                            <input type="date" class="form-control" ng-model="UpdatePartner.change_date" model name="change_date" id="change_date">
+                                            <span class="error" ng-show="(formPartnerUpdate.change_date.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.change_date.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.change_date.$error.date">Ngày thay đổi không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Số fax trên ĐKKD*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Số fax trên ĐKKD</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-fax">
+                                            <input type="tel" ng-model="UpdatePartner.fax" ng-bind-html="UpdatePartner.fax" ng-pattern="/^\d+(-\d+)*$/"
+                                                   class="form-control" name="fax" id="fax" placeholder="Nhập số fax" maxlength="20">
+                                            <span class="error" ng-show="(formPartnerUpdate.fax.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.fax.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.fax.$error.pattern">Số fax không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showFormUserDN}">
+                                    @*Địa chỉ theo GPKD*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Địa chỉ theo GPKD<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-license_address">
+                                            <input type="text" ng-model="UpdatePartner.license_address" ng-bind-html="UpdatePartner.license_address" class="form-control"
+                                                   name="license_address" id="license_address" placeholder="Nhập địa chỉ theo GPKD" ng-required="showFormUserDN">
+                                            <span class="error" ng-show="(formPartnerUpdate.license_address.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.license_address.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.license_address.$error.required">Địa chỉ là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0" id="bank_account_list">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                STK nhận tiền quyết toán
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="bank_default" id="bank_default" checked
+                                               value="1" ng-model="UpdatePartner.bank_default" ng-disabled="true">
+                                        <label class="form-check-label" for="bank_default">Tài khoản mặc định</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Số tài khoản<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-acc_numb">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.acc_numb" required ng-pattern="/^\d+$/" ng-change="onChangeAccountName()"
+                                                   name="acc_numb" id="acc_numb" ng-bind-html="UpdatePartner.acc_numb" maxlength="20" ng-model-options="{ debounce: 1500 }">
+                                            <span class="error" ng-show="(formPartnerUpdate.$submitted) && formPartnerUpdate.acc_numb.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.acc_numb.$error.required">Số tài khoản là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.acc_numb.$error.pattern">Số tài khoản không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Ngân hàng<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-bank_code">
+                                            <ui-select ng-model="UpdatePartner.bank_code" ng-change="onChangeBankAcc($select.selected)"
+                                                       name="bank_code" id="bank_code" required
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.description }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn ngân hàng">{{ $select.selected.description }}</ui-select-match>
+                                                <ui-select-choices repeat="item.bank_code as item in banks | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.description | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.bank_code.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.bank_code.$error.required">Ngân hàng là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tên chủ tài khoản<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-acc_holder">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.acc_holder" required
+                                                   name="acc_holder" id="acc_holder" ng-bind-html="UpdatePartner.acc_holder" ng-disabled="true">
+                                            <span class="error" ng-show="(formPartnerUpdate.acc_holder.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.acc_holder.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.acc_holder.$error.required">Tên chủ tài khoản là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Phân loại tài khoản<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-type">
+                                            <ui-select ng-model="UpdatePartner.account_type" ng-change="onChangeListAccNoStatus($select.selected)" required
+                                                       name="account_type" id="account_type" theme="select2" title="{{ $select.selected.name }}" ng-disabled="disabledAccountType">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn phân loại">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.value as item in accountType | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.account_type.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.account_type.$error.required">Phân loại tài khoản là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-show="requiredAuthDocNumb">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Số giấy ủy quyền<span ng-show="requiredAuthDocNumb" class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-auth_doc_numb">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.auth_doc_numb" ng-required="requiredAuthDocNumb"
+                                                   name="auth_doc_numb" id="auth_doc_numb" ng-bind-html="UpdatePartner.auth_doc_numb" maxlength="100">
+                                            <span class="error" ng-show="(formPartnerUpdate.auth_doc_numb.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.auth_doc_numb.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.auth_doc_numb.$error.required">Số giấy ủy quyền là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-show="requiredAuthDocNumb">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Link giấy ủy quyền<span ng-show="requiredAuthDocNumb" class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3 input-group" id="input-Updatepartner-auth_doc_link">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.auth_doc_link" ng-required="requiredAuthDocNumb"
+                                                   ng-pattern="/^(?:(?:https?|ftp)://)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,}))\.?)(?::\d{2,5})?(?:\/[^\s]*)?$/"
+                                                   name="auth_doc_link" id="auth_doc_link" ng-bind-html="UpdatePartner.auth_doc_link">
+                                            <span class="input-group-text p-0" id="addon-wrapping">
+                                                <span>
+                                                    <button onclick="selectImage(7, event)" style="cursor: pointer;border-radius: 0 !important;" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải file</button>
+                                                    <input type="file" id="fileInput7" style="display: none;" onchange="angular.element(this).scope().uploadAuthDocLink(this)">
+                                                </span>
+                                            </span>
+                                            <span class="error" ng-show="(formPartnerUpdate.auth_doc_link.$touched || formPartnerUpdate.$submitted) && requiredAuthDocNumb && formPartnerUpdate.auth_doc_link.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.auth_doc_link.$error.required">Link giấy ủy quyền là bắt buộc. Hãy tải file hoặc dán link</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.auth_doc_link.$error.pattern">Đường link không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-6" ng-show="requiredAuthDocNumb">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>
+                                            <button onclick="selectImage(7, event)" style="cursor: pointer" class="setAvt"><i class="fa-solid fa-upload" style="margin-right: 10px;"></i>Tải file ủy quyền</button>
+                                            <input type="file" id="fileInput7" style="display: none;" onchange="angular.element(this).scope().uploadAuthDocLink(this)">
+                                        </span>
+                                    </div>
+                                </div>*@
+
+                                <div class="col-md-12"></div>
+
+                                <div class="col-md-6 mt-3">
+                                    <button type="button" class="btn btn-primary btnSave" ng-disabled="!hadInputBankAccount || bankAccountInput.length === 0 || !bankAccountInput" ng-click="openBankAccountEditModal(accountTypeClone, banks, checkAuthDocNumb, 'false')">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm STK khác
+                                    </button>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" style="min-width: 1180px;" ng-class="{'d-none': !hasbankAccount}">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">STT</th>
+                                                <th scope="col">Mặc định</th>
+                                                <th scope="col">Số tài khoản</th>
+                                                <th scope="col">Tên chủ tài khoản</th>
+                                                <th scope="col" width="250px">Ngân hàng</th>
+                                                <th scope="col">Phân loại tài khoản</th>
+                                                <th scope="col">Số giấy ủy quyền</th>
+                                                <th scope="col">Link giấy ủy quyền</th>
+                                                <th scope="col">Hành động</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in bankAccountAdds track by $index">
+                                                <td>{{getIndex($index)}}</td>
+                                                <td>
+                                                    <span class="text-success" ng-show="item.is_default">
+                                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                                    </span>
+                                                </td>
+                                                <td>{{item.acc_numb}}</td>
+                                                <td>{{item.acc_holder}}</td>
+                                                <td>{{getSubMerchantBankName(item.bank_code)}}</td>
+                                                <td>{{getAccountType(item.type)}}</td>
+                                                <td><span ng-show="item.type == 1">{{item.auth_doc_numb}}</span></td>
+                                                <td>
+                                                    <a ng-href="{{item.auth_doc_link}}" target="_blank" ng-show="item.type == 1">Link</a>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning" ng-click="openBankAccountEditModal(accountTypeClone, banks, checkAuthDocNumb, 'false', item, $index)">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-danger" ng-click="delBankAccountEdit(item)">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Cấu hình nhận thanh toán Realtime
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="payment_realtime1" id="payment_realtime1" checked
+                                               value="1" ng-model="UpdatePartner.payment_realtime1" ng-change="onChangePaymentRealtime()">
+                                        <label class="form-check-label" for="payment_realtime1"><b>Áp dụng với User đã cài app CashPlus</b> <br><span class="text-danger">(Người bán được miễn phí thanh toán)</span></label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="payment_realtime2" id="payment_realtime2" checked
+                                               value="0" ng-model="UpdatePartner.payment_realtime2" ng-change="onChangePaymentRealtime2()">
+                                        <label class="form-check-label" for="payment_realtime2"><b>Áp dụng với User chưa cài app CashPlus</b> <br><span class="text-danger">(Người bán chịu phí thanh toán. Được miễn phí trong 3 tháng đầu hoặc 200 giao dịch đầu tiên)</span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Thông tin tài khoản đăng nhập
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tài khoản<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-username">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.username" required ng-pattern="/^\S+$/"
+                                                   name="username" id="username" ng-bind-html="UpdatePartner.username" maxlength="20" autocomplete="new-username">
+                                            <span class="error" ng-show="(formPartnerUpdate.username.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.username.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.username.$error.required">Tài khoản là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.username.$error.pattern">Tài khoản không hợp lệ.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Mật khẩu<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-password">
+                                            <div class="input-group">
+                                                <input type="{{showPassword ? 'text' : 'password'}}" class="form-control" style="border-right: none;" ng-model="UpdatePartner.password"
+                                                       name="password" id="password" ng-bind-html="UpdatePartner.password" required autocomplete="new-password" ng-pattern="/^(?=.*\d)(?=.*[A-Z])(?=.*\W).{6,}$/">
+                                                <span class="input-group-text bg-white" ng-show="!showPassword" ng-click="toggleShowPassword()">
+                                                    <span class="fa fa-eye-slash"></span>
+                                                </span>
+                                                <span class="input-group-text bg-white" style="border-left: none;" ng-show="showPassword" ng-click="toggleShowPassword()">
+                                                    <span class="fa fa-eye"></span>
+                                                </span>
+                                            </div>
+                                            <span class="error" ng-show="(formPartnerUpdate.password.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.password.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.password.$error.required">Mật khẩu là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.password.$error.pattern">Mật khẩu bao gồm chữ, số, chữ Hoa, ký tự đặc biệt và ít nhất 6 ký tự.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                 Thông tin kinh doanh
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6" id="input-discount-rate">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>% chiết khấu đề xuất<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <input type="number" class="form-control" ng-model="discount_rate" ng-pattern="/^(1[0-9]|2[0-9]|3[0-9]|4[0-9]|50)$/" maxlength="2"
+                                                   name="discount_rate" id="discount_rate" ng-bind-html="discount_rate" required ng-keydown="restrictInput($event)">
+                                            <span class="error" ng-show="(formPartnerUpdate.discount_rate.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.discount_rate.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.discount_rate.$error.required">% chiết khấu đề xuất là bắt buộc.</span>
+                                                <span class="text-danger" ng-show="formPartnerUpdate.discount_rate.$error.pattern">% chiết khấu từ 10 đến 50.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Thông tin địa chỉ kinh doanh
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @*Tỉnh/thành phố*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tỉnh/Thành phố<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <ui-select ng-model="UpdatePartner.province_id" ng-change="changeValueProvince($select.selected)"
+                                                       name="province_id" id="province_id" required
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn tỉnh/thành">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.id as item in Province | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.province_id.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.province_id.$error.required">Tỉnh/Thành phố là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @*Quận/Huyện*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Quận/Huyện<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <ui-select ng-model="UpdatePartner.district_id" ng-change="changeValueDistrict($select.selected)"
+                                                       name="district_id" id="district_id" required
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn quận/huyện">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.id as item in District | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.district_id.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.district_id.$error.required">Quận/Huyện là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    @*Phườngxã*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Phường/Xã<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <ui-select ng-model="UpdatePartner.ward_id" ng-change="changeValueWard($select.selected)"
+                                                       name="ward_id" id="ward_id" required
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn phường/xã">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.id as item in Ward | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.ward_id.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.ward_id.$error.required">Phường/Xã là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    @*Địa chỉ kinh doanh cụ thể*@
+                                    <div class="item-right-partner mt-20">
+                                        <span>Địa chỉ kinh doanh cụ thể (Chỉ nhập số nhà, tên đường)<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3">
+                                            <textarea class="form-control" ng-model="UpdatePartner.address" ng-bind-html="UpdatePartner.address" name="address" id="address" rows="3" required></textarea>
+                                            <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.address.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.address.$error.required">Địa chỉ là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row w-100 m-0">
+                                <div class="fl-cl" style="margin-top: 20px; width: 100%; display: flex">
+                                    <div style="width: 25%" class="text-kdvd">Vĩ độ/Kinh độ </div>
+                                    <div style="color:red; font-style:italic">Bạn cần cho phép trình duyệt lấy vị trí để hiển thị bản đồ</div>
+                                    <div style=" width: 75% " class="bando">
+                                        <div id="map" style="display: none;"></div>
+                                        <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+                                        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.23.0/axios.min.js"></script>
+                                        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+                                              integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+                                              crossorigin="" />
+                                        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+                                                integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+                                                crossorigin=""></script>
+                                        <script>
+                                            var map1;
+                                            var marker;
+                                            function showPosition(position) {
+                                                var latitude = position.coords.latitude;
+                                                var longitude = position.coords.longitude;
+        
+                                                // var longitude = document.getElementById("Vido").value;
+                                                // var latitude = document.getElementById("Kinhdo").value;
+        
+                                                map1 = L.map('map').setView([latitude, longitude], 13);
+        
+                                                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                                                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                }).addTo(map1);
+        
+                                                marker = L.marker([latitude, longitude]).addTo(map1);
+        
+                                                marker.on('mouseover', function (e) {
+                                                    var tooltip = L.tooltip({
+                                                        permanent: true,
+                                                        direction: 'top',
+                                                        className: 'custom-tooltip'
+                                                    }).setContent('Loading...');
+        
+                                                    this.bindTooltip(tooltip).openTooltip();
+        
+                                                    axios.get('https://nominatim.openstreetmap.org/reverse', {
+                                                        params: {
+                                                            format: 'json',
+                                                            lat: e.latlng.lat,
+                                                            lon: e.latlng.lng
+                                                        }
+                                                    }).then(function (response) {
+                                                        var address = response.data.display_name;
+                                                        tooltip.setContent('Vị trí: ' + address + '<br>Kinh độ: ' + e.latlng.lng + '<br>Vĩ độ: ' + e.latlng.lat);
+                                                    }).catch(function (error) {
+                                                        console.error(error);
+                                                    });
+                                                });
+        
+                                                marker.on('mouseout', function (e) {
+                                                    this.unbindTooltip();
+                                                });
+        
+                                                map1.on('click', function (e) {
+                                                    console.log("vao ham")                                          
+                                                    var clickedLongitude = e.latlng.lng;
+                                                    var clickedLatitude = e.latlng.lat;
+                                                    console.log('Latitude: ' + clickedLatitude + ', Longitude: ' + clickedLongitude);
+        
+                                                    
+                                                    document.getElementById("Kinhdo").value = clickedLongitude;
+                                                    document.getElementById("Vido").value = clickedLatitude;
+        
+                                                    marker.setLatLng(e.latlng);
+                                                });
+                                                window.addEventListener('resize', function () {
+                                                    map1.invalidateSize();
+                                                });
+                                            }
+        
+                                            function getLocation() {
+                                                var bando = document.getElementById("map");
+                                                var view = document.getElementById("btn-view");
+                                                navigator.geolocation.getCurrentPosition(showPosition);
+                                                bando.style.display = "block";
+                                                view.style.display = "none";
+                                            }
+                                            function validateInput(event) {
+                                                const input = event.target.value;
+        
+                                                // Remove characters that are not digits or dot from the input
+                                                const filteredInput = input.replace(/[^0-9.]/g, '');
+        
+                                                // Update the input field with the filtered value
+                                                event.target.value = filteredInput;
+                                            }
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                document.getElementById('Kinhdo').addEventListener('input', validateInput);
+                                                document.getElementById('Vido').addEventListener('input', validateInput);
+                                            });
+                                        </script>
+                                        <div class="d-flex w-100 fl-cl">
+                                            <div class="kinhdo" style="margin-top: 20px;">
+                                                <span>Vĩ độ</span>
+                                                <div class="w-50 col-sm-3 col-md-3">
+                                                    <input type="text" class="form-control" ng-model="Vido" id="Vido" ng-bind-html="Vido">
+                                                </div>
+                                            </div>
+                                            <div class="kinhdo" style="margin-top: 20px;">
+                                                <span>Kinh độ</span>
+                                                <div class="w-50 col-sm-3 col-md-3">
+                                                    <input type="text" class="form-control" ng-model="Kinhdo" id="Kinhdo" ng-bind-html="Kinhdo">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div id="error-message" style="color: red; display: none; margin-top: 10px;"></div>*@
+                                    </div>
+                                    <div class="btn-viewmap mt-2">
+                                        <button type="button" id="btn-view" class="btn-kinhdo" style="width: 20vh" onclick="getLocation()">Xem bản đồ</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Nhân viên kinh doanh giới thiệu/hỗ trợ
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @*Chức danh*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-support_person_id">
+                                            <ui-select ng-model="UpdatePartner.support_person_id" name="support_person_id" id="support_person_id"
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.full_name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn nhân viên hỗ trợ">{{ $select.selected.full_name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.id as item in employee_data | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.full_name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                                Thông tin người đại diện
+                            </p>
+                            <span ng-show="showFormUserDN" id="desFrmUserDN" class="desFrmInfoUser1">Thông tin của người đại diện theo GPKD (doanh nghiệp/hộ kinh doanh)</span>
+                            <span ng-show="showFormUserCN" id="desFrmUserCN" class="desFrmInfoUser1">Thương nhân là cá nhân theo CCCD/CMND/Hộ chiếu</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 p-0">
+                                    <div class="row m-0">
+                                        <div class="col-md-12">
+                                            @*Tên người đại diện*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Tên người đại diện<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-license_owner">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.license_owner"
+                                                           name="license_owner" id="license_owner" placeholder="Tên người đại diện" maxlength="100" required>
+                                                    <span class="error" ng-show="(formPartnerUpdate.license_owner.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.license_owner.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.license_owner.$error.required">Tên người đại diện là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            @*Ngày sinh*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Ngày sinh<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-license_birth_date">
+                                                    <input type="date" class="form-control" ng-model="UpdatePartner.license_birth_date"
+                                                           name="license_birth_date" id="license_birth_date" style="width: 100%" required>
+                                                    <span class="error" ng-show="(formPartnerUpdate.license_birth_date.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.license_birth_date.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.license_birth_date.$error.required">Ngày sinh là bắt buộc.</span>
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.license_birth_date.$error.date">Ngày sinh không hợp lệ.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 p-0">
+                                    <div class="row m-0">
+                                        <div class="col-md-12">
+                                            @*Chức danh*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Chức danh người đại diện<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-representative_title">
+                                                    <ui-select ng-model="UpdatePartner.representative_title" ng-change="onChangeRepresentativeTitle($select.selected)" name="representative_title" id="representative_title"
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}" required>
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn chức danh">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.value as item in representativeTitles | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.representative_title.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.representative_title.$error.required">Chức danh là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            @*Nghề nghiệp người đại diện*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Nghề nghiệp người đại diện<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-representative_job">
+                                                    <ui-select ng-model="UpdatePartner.representative_job" ng-change="onChangeRepresentativeJob($select.selected)" name="representative_job" id="representative_job"
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}" required>
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn nghề nghiệp">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.value as item in representativeJobs | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.representative_job.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.representative_job.$error.required">Nghề nghiệp là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <div class="col-md-6 p-0">
+                                    <div class="row m-0">
+                                        <div class="col-md-12 mt-3">
+                                            <b class="m-0">Thông tin cá nhân</b>
+                                        </div>
+                                        
+                                        <div class="col-md-12">
+                                            <div class="item-right-partner align-items-center mt-2">
+                                                <span>Giới tính<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-gender">
+                                                    <ui-select ng-model="UpdatePartner.gender" name="gender" id="gender" ng-change="onChangeGender($select.selected)"
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}" required>
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn giới tính">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.value as item in genders | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.gender.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.gender.$error.required">Giới tính là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Dân tộc*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Dân tộc</span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-nation">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.nation" name="nation"
+                                                           id="nation" placeholder="Nhập dân tộc">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Tôn giáo*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Tôn giáo</span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-religion">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.religion"
+                                                           name="religion" id="religion" placeholder="Nhập tôn giáo" maxlength="20">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Loại giấy tờ*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Loại giấy tờ<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-document_type">
+                                                    <ui-select ng-model="UpdatePartner.document_type" ng-change="onChangeDocumentType($select.selected)"
+                                                               name="document_type" id="document_type" required
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn loại giấy tờ">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.value as item in documentType | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.document_type.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.document_type.$error.required">Loại giấy tờ là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Số giấy tờ*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Số giấy tờ<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-indetifier_no">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.indetifier_no"
+                                                           name="indetifier_no" id="indetifier_no" placeholder="Số giấy tờ" required>
+                                                    <span class="error" ng-show="(formPartnerUpdate.indetifier_no.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.indetifier_no.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.indetifier_no.$error.required">Số giấy tờ là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Ngày cấp*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Ngày cấp<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-identifier_date">
+                                                    <input type="date" class="form-control" ng-model="UpdatePartner.identifier_date"
+                                                           name="identifier_date" id="identifier_date" style="width: 100%" required>
+                                                    <span class="error" ng-show="(formPartnerUpdate.identifier_date.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.identifier_date.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_date.$error.required">Ngày cấp là bắt buộc.</span>
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_date.$error.date">Ngày cấp không hợp lệ..</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Ngày hết hạn*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Ngày hết hạn<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-identifier_date_expire">
+                                                    <input type="date" class="form-control" ng-model="UpdatePartner.identifier_date_expire"
+                                                           name="identifier_date_expire" id="identifier_date_expire" style="width: 100%" required>
+                                                    <span class="error" ng-show="(formPartnerUpdate.identifier_date_expire.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.identifier_date_expire.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_date_expire.$error.required">Ngày hết hạn là bắt buộc.</span>
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_date_expire.$error.date">Ngày hết hạn không hợp lệ.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Nơi cấp*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Nơi cấp<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-identifier_at">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.identifier_at" maxlength="255"
+                                                           name="identifier_at" id="identifier_at" placeholder="Nơi cấp" required>
+                                                    <span class="error" ng-show="(formPartnerUpdate.identifier_at.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.identifier_at.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_at.$error.required">Nơi cấp là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Quốc tịch<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-nationality">
+                                                    <ui-select ng-model="UpdatePartner.nationality" ng-change="changeValueCountry($select.selected)" name="nationality" id="nationality"
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}" required>
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn quốc tịch">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.id as item in Country | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.nationality.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.nationality.$error.required">Quốc tịch là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12" ng-show="requiredCitizenNumb">
+                                            @*Mã số công dân (CCCD/CMND)*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Mã số công dân (CCCD/CMND)<span ng-show="requiredCitizenNumb" class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-citizen_numb">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.citizen_numb" ng-required="requiredCitizenNumb"
+                                                           name="citizen_numb" id="citizen_numb" placeholder="Mã số công dân (CCCD/CMND)" maxlength="20">
+                                                    <span class="error" ng-show="requiredCitizenNumb && (formPartnerUpdate.citizen_numb.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.citizen_numb.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.citizen_numb.$error.required">Mã số công dân là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 p-0">
+                                    <div class="row m-0">
+                                        <div class="col-md-12 mt-3">
+                                            <b class="m-0">Thông tin địa chỉ</b>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="item-right-partner align-items-center mt-2">
+                                                <span>Quốc gia<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-country">
+                                                    <ui-select ng-model="UpdatePartner.license_nation_id" ng-change="changeValueCountry($select.selected)"
+                                                               name="license_nation_id" id="license_nation_id" required
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn quốc gia">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.id as item in Country | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.license_nation_id.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.license_nation_id.$error.required">Quốc gia là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Quê quán*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Quê quán</span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-hometown">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.hometown"
+                                                           name="hometown" id="hometown" placeholder="Quê quán" maxlength="250">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Địa chỉ thường trú*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Địa chỉ thường trú (theo CMND/CCCD/Hộ chiếu)<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-identifier_address">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.identifier_address" required
+                                                           name="identifier_address" id="identifier_address" placeholder="Địa chỉ thường trú" maxlength="250">
+                                                    <span class="error" ng-show="(formPartnerUpdate.identifier_address.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.identifier_address.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_address.$error.required">Địa chỉ thường trú là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+                                        <div class="col-md-12">
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Tỉnh/thành<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-identifier_province_id">
+                                                    <ui-select ng-model="UpdatePartner.identifier_province_id" ng-change="changeValueProvince($select.selected)"
+                                                               name="identifier_province_id" id="identifier_province_id" required
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn tỉnh/thành">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.id as item in Province | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.identifier_province_id.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.identifier_province_id.$error.required">Tỉnh/thành là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Quận/Huyện*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Quận/Huyện<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3">
+                                                    <ui-select ng-model="UpdatePartner.user_district_id" ng-change="changeValueDistrictUser($select.selected)"
+                                                               name="user_district_id" id="user_district_id" required
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn quận/huyện">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.id as item in District | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.user_district_id.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.user_district_id.$error.required">Quận/Huyện là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Phường/Xã*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Phường/Xã<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3">
+                                                    <ui-select ng-model="UpdatePartner.user_ward_id" ng-change="changeValueWardUser($select.selected)"
+                                                               name="user_ward_id" id="user_ward_id" required
+                                                               theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                        <ui-select-match allow-clear="true" placeholder="Chọn phường/xã">{{ $select.selected.name }}</ui-select-match>
+                                                        <ui-select-choices repeat="item.id as item in Ward | filter: $select.search" position="down">
+                                                            <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.user_ward_id.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.user_ward_id.$error.required">Phường/Xã là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Địa chỉ hiện tại*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Địa chỉ hiện tại<span class="text-danger">*</span></span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-current_address">
+                                                    <input type="checkbox" ng-model="useHometownAddress" ng-change="fillCurrentAddress()" />
+                                                    <label for="useHometownAddress">Dùng địa chỉ thường trú</label>
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.current_address" required
+                                                           ng-change="updateNowAddress()" name="current_address" id="current_address" placeholder="Địa chỉ hiện tại" maxlength="250">
+                                                    <span class="error" ng-show="(formPartnerUpdate.current_address.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.current_address.$invalid">
+                                                        <span class="text-danger" ng-show="formPartnerUpdate.current_address.$error.required">Địa chỉ hiện tại là bắt buộc.</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            @*Đặc điểm nhận dạng*@
+                                            <div class="item-right-partner align-items-center mt-20">
+                                                <span>Đặc điểm nhận dạng</span>
+                                                <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-identifiers">
+                                                    <input type="text" class="form-control" ng-model="UpdatePartner.identifiers"
+                                                           name="identifiers" id="identifiers" placeholder="Đặc điểm nhận dạng" maxlength="250">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12 mt-4" id="list_contact">
+                                    <button type="button" class="btn btn-primary btnSave" ng-disabled="fullContact" ng-click="openListContactEditModal(contactTypes)">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm danh sách liên hệ
+                                    </button>
+                                    <span class="text-danger">(*)</span>
+                                </div>
+                                <div class="col-sm-12 col-md-12" ng-class="{'d-none': !hasContact}">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" style="min-width: 1150px;">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">STT</th>
+                                                <th scope="col">Tên người đại diện</th>
+                                                <th scope="col">Loại đầu mối liên hệ</th>
+                                                <th scope="col">Số điện thoại</th>
+                                                <th scope="col">Địa chỉ email</th>
+                                                <th scope="col">Hành động</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in contacts track by $index">
+                                                <td>{{getIndex($index)}}</td>
+                                                <td>{{item.name}}</td>
+                                                <td>{{getContactByType(item.type)}}</td>
+                                                <td>{{item.phone}}</td>
+                                                <td>{{item.email}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning" ng-click="openListContactEditModal(contactTypes, item, $index)">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-danger" ng-click="delListContactEdit($index)">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-0 mt-40 border-0">
+                        <div class="card-header border-0">
+                            <p class="hd-text-partner">
+                               Thông tin quyết toán theo cơ sở
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @*mô hình nhượng quyền*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Mô hình chuỗi/nhượng quyền</span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-sub_merchant_type">
+                                            <ui-select ng-model="UpdatePartner.sub_merchant_type" ng-change="onChangeSubMerchantType($select.selected)" 
+                                                        name="sub_merchant_type" id="sub_merchant_type" allow-clear="true"
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn mô hình chuỗi/nhượng quyền">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.value as item in subMerchantTypes | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="col-md-6" ng-class="{'d-none': !showFranchiseBrand}">
+                                    @*Merchant code của bên nhượng quyền*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Merchant code của bên nhượng quyền<span class="text-danger">*</span></span>
+                                        @*<div class="w-50 col-sm-3 col-md-3" id="input-UpdatePartner-franchise-brand">
+                                            <input type="text" ng-model="UpdatePartner.franchise_brand" class="form-control" name="franchise_brand" id="franchise_brand"
+                                                   placeholder="Nhập code" ng-required="showFranchiseBrand">
+                                            <span class="error" ng-show="showFranchiseBrand && formPartnerUpdate.$submitted && formPartnerUpdate.franchise_brand.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.franchise_brand.$error.required">Merchant code là bắt buộc.</span>
+                                            </span>
+                                        </div>*@
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-franchise_brand">
+                                            <ui-select ng-model="UpdatePartner.franchise_brand" ng-change="onChangeFranchiseBrand($select.selected)"
+                                                       name="franchise_brand" id="franchise_brand" allow-clear="true" ng-required="showFranchiseBrand"
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Tìm và chọn bên nhượng quyền">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.code as item in merchants | filter: $select.search" position="down" refresh="fetchFranchiseBrand($select.search)" refresh-delay="500">
+                                                    <div ng-bind-html="item.label | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="showFranchiseBrand && formPartnerUpdate.$submitted && formPartnerUpdate.franchise_brand.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.franchise_brand.$error.required">Merchant code là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showInfoChildCompany}">
+                                    @*Tên thương hiệu của của công ty con*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Tên thương hiệu của công ty con<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-brand_name">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.brand_name" ng-required="showInfoChildCompany"
+                                                   name="brand_name" id="brand_name" placeholder="Nhập tên thương hiệu" maxlength="50">
+                                            <span class="error" ng-show="showInfoChildCompany && formPartnerUpdate.$submitted && formPartnerUpdate.brand_name.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.brand_name.$error.required">Tên thương hiệu là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6" ng-class="{'d-none': !showInfoChildCompany}">
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Công ty tổng<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-controlling_company">
+                                            <ui-select ng-model="UpdatePartner.controlling_company" ng-required="showInfoChildCompany"
+                                                       name="controlling_company" id="controlling_company" allow-clear="true"
+                                                       theme="select2" ng-disabled="disabled" title="{{ $select.selected.name }}">
+                                                <ui-select-match allow-clear="true" placeholder="Chọn công ty tổng">{{ $select.selected.name }}</ui-select-match>
+                                                <ui-select-choices repeat="item.code as item in companyBranchs | filter: $select.search" position="down">
+                                                    <div ng-bind-html="item.name | highlight: $select.search"></div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <span class="error" ng-show="showInfoChildCompany && formPartnerUpdate.$submitted && formPartnerUpdate.controlling_company.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.controlling_company.$error.required">Công ty tổng là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" ng-class="{'d-none': !showCompanyOther}">
+                                    @*Công ty tổng khác*@
+                                    <div class="item-right-partner align-items-center mt-20">
+                                        <span>Công ty khác<span class="text-danger">*</span></span>
+                                        <div class="w-50 col-sm-3 col-md-3" id="input-Updatepartner-controlling_company_name">
+                                            <input type="text" class="form-control" ng-model="UpdatePartner.controlling_company_name" ng-required="showCompanyOther"
+                                                   name="controlling_company_name" id="controlling_company_name" placeholder="Nhập tên thương hiệu" maxlength="50">
+                                            <span class="error" ng-show="showCompanyOther && formPartnerUpdate.$submitted && formPartnerUpdate.controlling_company_name.$invalid">
+                                                <span class="text-danger" ng-show="formPartnerUpdate.controlling_company_name.$error.required">Tên công ty là bắt buộc.</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-12" ng-show="showChuoiCoso"></div>
+
+                                <div class="col-sm-3 col-md-3 mt-3" id="input-settlementByBranch1" ng-class="{'d-none': !showChuoiCoso}">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="settlement_by_branch" id="radioSettlementByBranch1"
+                                               value="1" ng-model="UpdatePartner.settlement_by_branch" ng-required="showChuoiCoso"
+                                               ng-change="onChangeSettlementByBranch(1)">
+                                        <label class="form-check-label" for="radioSettlementByBranch1">Quyết toán về nhiều cơ sở</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-md-3 mt-3" id="settlement_by_branch" ng-class="{'d-none': !showChuoiCoso}">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="settlement_by_branch" id="radioSettlementByBranch0"
+                                               value="2" ng-model="UpdatePartner.settlement_by_branch"  ng-required="showChuoiCoso"
+                                               ng-change="onChangeSettlementByBranch(2)">
+                                        <label class="form-check-label" for="radioSettlementByBranch0">Không quyết toán theo cơ sở</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12 col-md-12" ng-class="{'d-none': !showChuoiCoso}">
+                                    <span class="error" ng-show="formPartnerUpdate.$submitted && formPartnerUpdate.settlement_by_branch.$invalid">
+                                        <span class="text-danger" ng-show="formPartnerUpdate.settlement_by_branch.$error.required">Vui lòng chọn loại quyết toán.</span>
+                                    </span>
+                                </div>
+
+                                <div class="col-sm-3 col-md-3 mt-3" id="input-UpdatePartner-add-chain" ng-show="showAddChain" ng-class="{'d-none': !showAddChain || !showChuoiCoso}">
+                                    <button type="button" class="btn btn-primary btnSave" ng-click="openSubMerchantEditModal(bankAccountInput, accountType, banks, checkAuthDocNumb, hasMultiBank, showFormUserCN, UpdatePartner.license_owner)">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm cơ sở
+                                    </button>
+                                </div>
+
+                                @*<div class="col-sm-12 col-md-12">
+                                    <span class="error">
+                                        <span class="text-danger" ng-show="showAddChain && !hasSubMerchant">Vui lòng thêm cơ sở khi quyết toán về nhiều cơ sở.</span>
+                                    </span>
+                                </div>*@
+
+                                <div class="col-sm-12 col-md-12" ng-class="{'d-none': !showAddChain || !showChuoiCoso}">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover" style="min-width: 1180px;" ng-class="{'d-none': !hasSubMerchant}">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col">STT</th>
+                                                <th scope="col">Tên cơ sở</th>
+                                                <th scope="col">Địa chỉ cơ sở</th>
+                                                <th scope="col">Tên người đại điện cơ sở</th>
+                                                <th scope="col">Số tài khoản</th>
+                                                <th scope="col">Tên chủ tài khoản</th>
+                                                <th scope="col" width="200px">Ngân hàng</th>
+                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col">Hành động</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr ng-repeat="item in subMerchants track by $index">
+                                                <td>{{getIndex($index)}}</td>
+                                                <td>{{item.branch_name}}</td>
+                                                <td>{{item.branch_address}}</td>
+                                                <td>{{item.branch_rep_name}}</td>
+                                                <td>{{item.acc_numb}}</td>
+                                                <td>{{item.acc_holder}}</td>
+                                                <td>{{getSubMerchantBankName(item.bank_code)}}</td>
+                                                <td>{{getSubMerchantStatus(item.status)}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-warning" ng-click="openSubMerchantEditModal(bankAccountInput, accountType, banks, checkAuthDocNumb, hasMultiBank, showFormUserCN, UpdatePartner.license_owner, item, $index)">
+                                                        <i class="fa fa-edit" aria-hidden="true"></i>
+                                                    </button>
+
+                                                    <button type="button" class="btn btn-danger" ng-click="delSubMerchant($index)">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row row-small main-info bgpartnerUpdate mt-40">
+                    <div class="mt-5 noteWarning">
+                        <p>Đối tác lưu ý kiểm tra kỹ các thông tin trước khi chọn "Cập Nhật Thông Tin Đối Tác".</p>
+                        <p>Sau khi bấm cập nhật, Đối tác sẽ không thể sửa được các thông tin trên.</p>
+                        <i class="text-danger">(*) Là các trường thông tin bắt buộc</i>
+                    </div>
+                    
+                    <div class="btnBtn">
+                        <button type="submit" class="btnSave" ng-disabled="disableBtn.btSubmit">Cập Nhật Thông Tin Đối Tác</button>
+                        <!--<button type="button" class="btnCancel">Hủy bỏ</button>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+        </form>
+    </div>
+</main>
+<div id="overlay"  onclick="hidePermissionRequest()"></div>
+
+<div id="permission-request">
+    <p>Trang web cần truy cập vị trí của bạn. Vui lòng bật chia sẻ vị trí để tiếp tục.</p>
+    <button class="button-permission-request" id="button-permission-request" onclick="requestPermission()">Xác nhận</button>
+</div>
+@*<a href="~/lib/leaflet/leaflet.js.map">~/lib/leaflet/leaflet.js.map</a>*@
+<div class="col col-lg-12 col-md-12 content-info col-12 d-flex-contact">
+    <div class="w-50 col-contact">
+
+        <div class="row s11_r3" style="display: none">
+            <div class="col col-md-12 col-12 s11_r3_c1">
+                <div class="col-inner">
+                    <div class="image-countdown"><img src=~/images/cashplus/image905.png /></div>
+                    <div id="countdown">
+                        <ul>
+                            <li><span id="days"></span>Ngày</li>
+                            <li><span id="hours"></span>Giờ</li>
+                            <li><span id="minutes"></span>Phút</li>
+                            <li><span id="seconds"></span>Giây</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

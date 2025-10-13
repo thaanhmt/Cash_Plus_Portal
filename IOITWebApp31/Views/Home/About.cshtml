@@ -1,0 +1,78 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Category>
+@using IOITWebApp31.Models;
+
+@{
+    ViewBag.Title = "Giới thiệu";
+}
+@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+
+<div class="child-page">
+    <div class="banner-page">
+        <img src="~/images/banner-chitiet-hoatdong.jpg" class="img-responsive" alt="">
+        <div class="breadcrumb">
+            <p>Về chúng tôi</p>
+            <ul>
+                <li><a href="/" >@Startup._lang["Home"]</a></li>
+                <li><span>@Startup._lang["About"]</span></li>
+            </ul>
+        </div>
+    </div>
+    <div class="maincontent-page">
+        <div class="full-page">
+
+            @if (Model != null)
+            {
+                int k = 0;
+                @foreach (var item in Model)
+                {
+                    if (k % 2 == 0)
+                    {
+                        <div class="box-intro">
+                            <div class="col-img mb col-xs-12 col-md-6 fadeInUp">@*video_intro*@
+                                <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Name">
+                            </div>
+                            <div class="col-text col-xs-12 col-md-6 wow fadeInUp">
+                                <div class="box-absolute">
+                                    <div class="title-col-text"><a href='@("/"+Const.PAGE_NOMAL+"/"+item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + ".html")' title="@item.Name">@item.Name</a></div>
+                                    <div class="text-col-text">
+                                        <p>@item.Description.</p>
+                                    </div>
+                                    <div class="more-col-text"><a href='@("/"+Const.PAGE_NOMAL+"/"+item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + ".html")' title="@Startup._lang["XEMCHITIET"]">@Startup._lang["XEMCHITIET"]</a></div>
+                                </div>
+                            </div>
+                            <div class="col-img dk col-xs-12 col-md-6 fadeInUp">@*video_intro*@
+                                <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Name">
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="box-intro">
+                            <div class="col-img col-xs-12 col-md-6 fadeInUp">
+                                <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Name">
+                            </div>
+                            <div class="col-text col-xs-12 col-md-6 wow fadeInUp">
+                                <div class="box-absolute">
+                                    <div class="title-col-text"><a href='@("/"+Const.PAGE_NOMAL+"/"+item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + ".html")' title="@item.Name">@item.Name</a></div>
+                                    <div class="text-col-text">
+                                        <p>@item.Description.</p>
+                                    </div>
+                                    <div class="more-col-text"><a href='@("/"+Const.PAGE_NOMAL+"/"+item.Url + "-" + Const.WEBSITEID + "-" + item.CategoryId + ".html")' title="@item.Name">@Startup._lang["XEMCHITIET"]</a></div>
+                                </div>
+                            </div>
+                            @*<div class="col-img mb col-xs-12 col-md-6 fadeInUp">
+                                <img src="/uploads/@item.Image" class="img-responsive" alt="@item.Name">
+                            </div>*@
+                        </div>
+                    }
+                    k++;
+                }
+
+            }
+
+        </div>
+    </div>
+</div>

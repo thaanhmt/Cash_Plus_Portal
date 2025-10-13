@@ -1,0 +1,202 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main id="main" ng-controller="UserUnitController" ng-init="init(@Newtonsoft.Json.JsonConvert.SerializeObject(Model), @Model.CustomerId)">
+    <div id="content" class="content-area">
+        <section class="section section-info-user">
+            <div class="bg-section"></div>
+            <div class="container">
+                <div class="top-action">
+                    @*<div class="btn-editor">
+                        <a href="javascript:void(0);" class="btn editor-click"><i class="fa-solid fa-pen"></i> Chỉnh sửa</a>
+                    </div>*@
+                    @*<div class="btn-action-editor">
+                        <a href="javascript:void(0);" class="btn editor-close"><i class="fa-duotone fa-circle-xmark"></i> Huỷ</a>
+                        <a href="javascript:void(0);" class="btn editor-save"><i class="fa-solid fa-floppy-disk"></i> Lưu lại</a>
+                    </div>*@
+                </div>
+                <div class="row row-small main-info">
+                    <div class="col col-lg-2 col-md-4 col-12 side-bar-info">
+                        <ul class="nav-tab-vertical">
+                          @await Component.InvokeAsync("LeftColumn")
+                        </ul>
+                    </div>
+                    <div class="col col-lg-10 col-md-8 content-info col-12">
+                        <div class="form-group-info form-2-info">
+                            <div class="main-fields">
+                                <div class="input-group">
+                                    <label for="name">Họ và tên*</label>
+                                    <input type="text" id="name" class="form-control" placeholder="Họ và tên"
+                                           ng-model="customer.FullName">
+                                </div>
+                                <div class="input-group">
+                                    <label for="birthday">Ngày sinh</label>
+                                    <md-datepicker ng-model="customer.Birthday" md-placeholder="Ngày sinh"></md-datepicker>
+                                </div>
+                                <div class="input-group">
+                                    <label for="sex">Giới tính</label>
+                                    <ui-select ng-model="dataSex" ng-change="changeValue($select.selected, 2)" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn giới tính">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listSexs | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="country">Quốc tịch</label>
+                                    <ui-select ng-model="dataCountry" ng-change="changeValue($select.selected, 3)" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn quốc tịch">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listCountry | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="typevia">Loại giấy tờ tuỳ thân</label>
+                                    <ui-select ng-model="dataTypeId" ng-change="changeValue($select.selected, 4)" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn loại giấy tờ">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listTypeId | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="numbervia">Số giấy tờ</label>
+                                    <input type="text" id="numbervia" class="form-control" placeholder="Số giấy tờ"
+                                           ng-model="customer.IdNumber">
+                                </div>
+                                <div class="input-group">
+                                    <label for="dateactive">Ngày cấp</label>
+                                    <md-datepicker ng-model="customer.DateNumber" md-placeholder="Ngày cấp"></md-datepicker>
+                                </div>
+                                <div class="input-group">
+                                    <label for="address-active">Nơi cấp</label>
+                                    <input type="text" id="address-active" class="form-control" placeholder="Nơi cấp"
+                                           ng-model="customer.AddressNumber">
+                                </div>
+                                <div class="input-group">
+                                    <label for="number-phone">Chức danh KH và CN</label>
+                                    <ui-select ng-model="dataPosition" ng-change="changeValue($select.selected, 5)" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn chức danh">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listPosition | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="email">Học hàm</label>
+                                    <ui-select ng-model="dataAcademicRank" ng-change="changeValue($select.selected, 6)" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn học hàm">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listAcademicRank | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="email">Học vị</label>
+                                    <ui-select ng-model="dataDegree" ng-change="changeValue($select.selected, 7)" theme="select2" ng-disabled="disabled" style="min-width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match allow-clear="true" placeholder="Chọn học vị">{{ $select.selected.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listDegree | propsFilter: {Name: $select.search} |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="input-group field-full">
+                                    <label for="linh-vuc-nghien-cuu">Lĩnh vực nghiên cứu:</label>
+                                    <ui-select multiple ng-model="customer.listRA" ng-change="" theme="select2" ng-disabled="disabled" close-on-select="false" style="width: 290px;" title="{{ $select.selected.Name }}">
+                                        <ui-select-match placeholder="Chọn lĩnh vực nghiên cứu">{{ $item.Name }}</ui-select-match>
+                                        <ui-select-choices repeat="item in listResearchArea | propsFilter: {Name: $select.search } |limitTo:100" position='down'>
+                                            <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                               <div class="input-group field-full textarea-field">
+                                    <label for="gioi-thieu">Giới thiệu bản thân: 
+                                        <input type="checkbox" ng-model="customer.IsViewInfo" style="height: 12px;" /> Hiển thị
+                                    </label>
+                                    <textarea name="gioi-thieu" id="gioi-thieu" rows="3" ng-model="customer.Note"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-info form-3-info">
+                            <div class="main-fields">
+                                <div class="input-group field-full">
+                                    <input type="submit" class="btn btn-xanh" value="Lưu thông tin" ng-click="SaveData(1)" ng-disabled="disableBtn.btSubmit == true" />
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="form-group-info form-3-info">
+                            <div class="head-form">Cơ quan</div>
+                            <div class="main-field">
+                                <div class="input-group">
+                                    <label for="ma-dinh-danh">Mã định danh tổ chức: *(theo QĐ số 20/2020/QĐ-TTg)</label>
+                                    <input type="text" id="ma-dinh-danh" class="form-control" placeholder="Mã định danh">
+                                </div>
+                                <div class="input-group">
+                                    <label for="co-quan">Cơ quan công tác: *</label>
+                                    <select name="co-quan" id="co-quan">
+                                        <option value="" selected>Nhập thông tin để tìm kiếm học tự điền thông tin</option>
+                                        <option value="2">Cơ quan 1</option>
+                                        <option value="3">cơ quan 2</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="address">Địa chỉ: *</label>
+                                    <input type="text" id="address" class="form-control" placeholder="Địa chỉ chi tiết">
+                                </div>
+                                <div class="input-group">
+                                    <label for="city">Tỉnh/Tp: *</label>
+                                    <select name="city" id="city">
+                                        <option value="hn" selected>Tp Hà Nội</option>
+                                        <option value="hcm">Tp Hồ Chí Minh</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="quan-huyen">Quận/ huyện: *</label>
+                                    <select name="quan-huyen" id="quan-huyen">
+                                        <option value="" selected>Chọn quận/huyện thuộc tỉnh thành phố</option>
+                                        <option value="1">Mỹ Đình 2</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="phuong-xa">Phường/Xã: *</label>
+                                    <select name="phuong-xa" id="phuong-xa">
+                                        <option value="" selected>Chọn phường/xã thuộc quận huyện</option>
+                                        <option value="1">Lê Đức Thọ</option>
+                                    </select>
+                                </div>
+                                <div class="input-group">
+                                    <label for="email-company">Email: *</label>
+                                    <input type="text" id="email-company" class="form-control" placeholder="Địa chỉ Email">
+                                </div>
+                                <div class="input-group">
+                                    <label for="phone-company">Số điện thoại: *</label>
+                                    <input type="text" id="phone-company" class="form-control" placeholder="Số điện thoại">
+                                </div>
+                                <div class="input-group">
+                                    <label for="fax">FAX:</label>
+                                    <input type="text" id="fax" class="form-control" placeholder="Fax">
+                                </div>
+                                <div class="input-group">
+                                    <label for="website">Website:</label>
+                                    <input type="text" id="website" class="form-control" placeholder="website">
+                                </div>
+                                <div class="input-group field-full">
+                                    <label for="co-quan-chu-quan">Cơ quan chủ quản:</label>
+                                    <select name="co-quan-chu-quan" id="co-quan-chu-quan">
+                                        <option value="" selected>Cơ quan chủ quản</option>
+                                        <option value="2">Cơ quan A</option>
+                                        <option value="3">Cơ quan B</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

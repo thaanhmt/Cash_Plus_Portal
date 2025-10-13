@@ -1,0 +1,20 @@
+﻿@model IEnumerable<IOITWebApp31.Models.Data.NewsDTO>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    var i = 0;
+    @foreach (var item in Model)
+    {
+        <div class="box item-news-4-1-2">
+            <div class="box-text">
+                <div class="cate-box textLine-1"><a href="@("/" + item.Url)">TỔ CHỨC THI HÀNH PHÁP LUẬT</a></div>
+                <h2 class="heading-box">
+                    <a href="@("/" + item.Url)" class="textLine-3">
+                        @item.Title
+                    </a>
+                </h2>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,58 @@
+﻿@model IOITWebApp31.Models.Data.CustomerLogin
+@using IOITWebApp31.Models;
+@{
+    ViewData["Title"] = ViewBag.SeoTitle;
+    Layout = "~/Views/Shared/_LayoutDK.cshtml";
+}
+
+
+<script>
+    document.getElementById("dang-ky").innerHTML = '<a href="/dang-ky-doi-tac" class="btn-cntt style-btn-kn btn_hover"><span>Đăng Ký Đối Tác</span></a>';
+    //document.getElementById("doi-tac").innerHTML = '<a href="/chien-binh-khoi-nghiep" class="btn-cntt style-btn-kn btn_hover"><span>Hỗ trợ khởi nghiệp</span></a>';
+
+    var isWhiteDivVisible = false;
+    var whiteDiv = document.getElementById("whiteDiv");
+    function closeWhiteDiv() {
+        isWhiteDivVisible = false;
+        whiteDiv.classList.remove("animated", "slideInDown");
+        whiteDiv.style.display = "none";
+        // document.removeEventListener("click", handleDocumentClick);
+    }
+
+            // function handleDocumentClick(event) {
+            //     if (!whiteDiv.contains(event.target)) {
+            //         closeWhiteDiv();
+            //     }
+            // }
+</script>
+
+<style>
+    .content-layout {
+        margin-top: 20px !important; 
+        width: 100% !important;
+    }
+
+ 
+
+    figure {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .logo-footer img {
+        width: auto !important;
+        border-radius: 10px;
+        height: 131px !important;
+    }
+</style>
+<main id="main" ng-controller="UserUnitController" ng-init="getTinTucBaoMat()">
+    <div id="content" class="content-area"*@>
+        <div class="container">
+                <div class="col col-md-12 col-12 s11_r3_c1">
+                    <div class="col-inner">
+                      <div ng-bind-html="dataBaomat" class="content-layout baomatupdate"></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</main>

@@ -1,0 +1,209 @@
+<div class="animated fadeIn cms-main media-page">
+  <div class="card cms-content">
+    <div class="titleCat">
+      <h1 class="cms-heading-inline">Media</h1>
+      <button class="cms-addnew" type="button" (click)="OpenAddUploadModal(undefined, 0)"><i class="fa fa-upload"></i>&nbsp;Tải lên</button>
+    </div>
+    <div class="description-page">
+      <blockquote class="{{isNoitify ? 'hidden' : ''}}">
+        <p>Khu vực hiển thị danh sách các tệp media được lưu trên hệ thống. Hiển thị tất cả cá file tĩnh như hình ảnh, video, tập tin, audio....</p>
+        <a class="close" href="javascript:void(0)" (click)="closeNoityfy()"><span>×</span></a>
+      </blockquote>
+    </div>
+    <div class="card-body">
+      <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+        <div class="row cms-filter action-table">
+          <div class="col-sm-12 col-md-12" style="text-align: right; padding-right: 0; display: flex; justify-content:end;">
+            <ng-select class="mw150-select"
+                       [items]="listTypeMedia"
+                       bindLabel="Name"
+                       bindValue="Id"
+                       [clearable]="true"
+                       [(ngModel)]="typeMedia"
+                       (change)="QueryTypeMedia()"
+                       placeholder="Thể loại">
+            </ng-select>
+            <label style="margin-right:10px;display: flex;align-items: center;margin-bottom:0;margin-top:10px;">
+              <input type="text" class="form-control form-control-sm" placeholder="Tìm kiếm theo tên...."
+                     [(ngModel)]="searchMedia" (keyup.enter)="QuerySearchMedia()" aria-controls="DataTables_Table_0" style="border-radius: 10px;">
+            </label>
+          </div>
+        </div>
+        <div class="content-table-data">
+          <div class="attachments-wrapper">
+            <div class="attachments-ui">
+              <div class="attachment save-ready" *ngFor="let item of listItemMedia; let i = index">
+                <div class="thumb" (click)="OpenMediaModal(item)">
+                  <img src="{{staticDomainMedia}}{{ item.url }}/{{ item.name }}" alt="{{item.name}}" *ngIf="item.type == 1" />
+                  <img src="{{staticDomain}}images/document.png" alt="media upload" *ngIf="item.type == 4" />
+                  <img src="{{staticDomain}}images/audio.png" alt="media upload" *ngIf="item.type == 2" />
+                  <img src="{{staticDomain}}images/video.png" alt="media upload" *ngIf="item.type == 3" />
+                </div>
+              </div>
+            </div>
+            <div class="load-more-wrapper">
+              <span class="spinner"></span>
+              <p class="load-more-count">Đang hiển thị {{countMedia}} của {{countAllMedia}} file media</p>
+              <div class="{{isDelay ? 'active' : 'hiden'}}">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin:auto;background:#fff0;display:block;" width="60px" height="60px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                  <g>
+                    <circle cx="73.801" cy="68.263" fill="#e15b64" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="0s"></animateTransform>
+                    </circle>
+                    <circle cx="68.263" cy="73.801" fill="#f47e60" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.062s"></animateTransform>
+                    </circle>
+                    <circle cx="61.481" cy="77.716" fill="#f8b26a" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.125s"></animateTransform>
+                    </circle>
+                    <circle cx="53.916" cy="79.743" fill="#abbd81" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.187s"></animateTransform>
+                    </circle>
+                    <circle cx="46.084" cy="79.743" fill="#849b87" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.25s"></animateTransform>
+                    </circle>
+                    <circle cx="38.519" cy="77.716" fill="#6492ac" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.312s"></animateTransform>
+                    </circle>
+                    <circle cx="31.737" cy="73.801" fill="#637cb5" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.375s"></animateTransform>
+                    </circle>
+                    <circle cx="26.199" cy="68.263" fill="#6a63b6" r="3">
+                      <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;360 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s" begin="-0.437s"></animateTransform>
+                    </circle>
+                    <animateTransform attributeName="transform" type="rotate" calcMode="spline" values="0 50 50;0 50 50" times="0;1" keySplines="0.5 0 0.5 1" repeatCount="indefinite" dur="1.4925373134328357s"></animateTransform>
+                  </g>
+                </svg>
+              </div>
+              <button type="button" class="button load-more button-primary {{isDelay ? 'hiden' : 'active'}}" (click)="loadMore()">Tải thêm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal upload file-->
+  <div [config]="{backdrop: 'static',  keyboard: false}" bsModal #NewUploadModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="wapper-modal-upload">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tải lên</h4>
+          <button type="button" class="close" (click)="CloseAddUploadModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card" style="border: none; padding: 1.5rem; margin-bottom: unset;">
+            <div class="card-body body-form-add-new">
+              <div class="col-sm-12 col-md-12">
+                <div class="form-group">
+                  <div class="drag-drop-area">
+                    <div class="drag-drop-inside">
+                      <p class="drag-drop-info">Tải lên từ máy tính</p>
+                      <div class="progress" style=" height: 14px; margin-top: 10px; font-style: italic; font-weight: 500;" *ngIf="progress!=undefined">
+                        <div class="progress-bar progress-bar-striped bg-success"
+                             role="progressbar"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             [style.width.%]="progress"
+                             [attr.aria-valuenow]="progress">
+                          {{progress}}%
+                        </div>
+                      </div>
+                      <p class="text-center" style=" font-size: 14px; margin: 10px 0; color: #005b0c;">(Có thể tải cùng lúc nhiều file)</p>
+                      <p class="drag-drop-buttons">
+                        <label for="upload-photo" class="label-upload">Tải lên <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="cloud-upload-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="svg-inline--fa fa-cloud-upload-alt fa-w-20"><path fill="currentColor" d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zM393.4 288H328v112c0 8.8-7.2 16-16 16h-48c-8.8 0-16-7.2-16-16V288h-65.4c-14.3 0-21.4-17.2-11.3-27.3l105.4-105.4c6.2-6.2 16.4-6.2 22.6 0l105.4 105.4c10.1 10.1 2.9 27.3-11.3 27.3z" class=""></path></svg></label>
+                        <input #file type="file" (change)="upload(file.files, 1)" id="upload-photo" multiple />
+                      </p>
+                    </div>
+                    <div class="post-upload-ui" id="post-upload-info">
+                      <p class="max-upload-size">
+                        Kích thước tập tin tải lên tối đa: 512 MB
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="CloseAddUploadModal()">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal Views Detais File-->
+  <div [config]="{backdrop: 'static',  keyboard: false}" bsModal #UploadModal="bs-modal" class="modal fade modal-views-media" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="wapper-modal">
+      <div class="edit-media-header">
+        <div class="media-frame-title"><h1>Chi tiết đính kèm</h1></div>
+        <button type="button" class="media-modal-close" (click)="CloseMediaModal()"><i class="fa fa-times" aria-hidden="true"></i></button>
+      </div>
+      <div class="media-frame-content">
+        <div class="attachment-details">
+          <div class="attachment-media-view landscape">
+            <div class="thumbnail thumbnail-image">
+              <img class="details-image" src="{{staticDomainMedia}}{{ DetailMediaUrl }}/{{ DetailMediaName }}" draggable="false" alt="{{ DetailMediaName }}" *ngIf="DetailMediaType == 1">
+              <div class="wapper-audio" *ngIf="DetailMediaType == 2">
+                <img src="{{staticDomain}}images/audio.png" alt="media upload" />
+                <audio controls="controls" [src]="staticDomainMedia + DetailMediaUrl + '/'+ DetailMediaName"></audio>
+              </div>
+              <video controls="controls" preload="metadata" *ngIf="DetailMediaType == 3" #video [src]="staticDomainMedia + DetailMediaUrl + '/'+ DetailMediaName"></video>
+              <div class="view-document" *ngIf="DetailMediaType == 4 || DetailMediaType == 5">
+                <img src="{{staticDomain}}images/document.png" alt="document" />
+                <div class="name-file">{{ DetailMediaName }}</div>
+              </div>
+            </div>
+          </div>
+          <div class="attachment-info">
+            <div class="details">
+              <div class="uploaded"><strong>Đã tải lên vào lúc:</strong> {{ DetailMediaDate | date:'dd/MM/yyy HH:mm:ss' }}</div>
+              <div class="uploaded-by">
+                <strong>Đã tải lên bởi:</strong>
+                <a href="javascript:void(0);">{{DetailMediaUserName}}</a>
+              </div>
+              <div class="filename"><strong>Tên tập tin:</strong> {{DetailMediaName}}</div>
+              <div class="file-type"><strong>Loại tập tin:</strong> {{DetailMediaExtension}}</div>
+              <div class="file-size"><strong>Dung lượng tệp:</strong> {{DetailMediaSize}} KB</div>
+              <div class="dimensions" *ngIf="DetailMediaWidth && DetailMediaHeight">
+                <strong>Kích thước:</strong>
+                {{DetailMediaWidth}} dài và rộng {{DetailMediaHeight}} pixel
+              </div>
+              <div class="dimensions" *ngIf="DetailMediaWidth == undefined || DetailMediaHeight == undefined">
+                <strong>Kích thước:</strong>
+                N/A
+              </div>
+            </div>
+            <div class="settings">
+              <span class="setting has-description" data-setting="alt">
+                <!--<label for="attachment-details-two-column-alt-text" class="name">Tên File</label>
+                <input type="text" id="attachment-details-two-column-alt-text" value="{{DetailMediaName}}" aria-describedby="alt-text-description">-->
+                <label for="attachment-details-two-column-alt-text" class="name">Văn bản thay thế (Alt)</label>
+                <input type="text" id="attachment-details-two-column-alt-text" value="{{DetailMediaAlt}}" [(ngModel)]="DetailMediaAlt" aria-describedby="alt-text-description">
+              </span>
+              <span class="setting" data-setting="caption">
+                <label for="attachment-details-two-column-caption" class="name">Chú thích</label>
+                <textarea id="attachment-details-two-column-caption" [(ngModel)]="DetailMediaNote">{{DetailMediaNote}}</textarea>
+              </span>
+              <span class="setting" data-setting="url">
+                <label for="attachment-details-two-column-copy-link" class="name">File URL:</label>
+                <input type="text" class="attachment-details-copy-link no-edit" id="attachment-details-two-column-copy-link" value="{{staticDomainMedia}}{{ DetailMediaUrl }}/{{ DetailMediaName }}" readonly="" #userinput>
+                <span class="copy-to-clipboard-container">
+                  <button type="button" class="button button-small copy-attachment-url" data-clipboard-target="#attachment-details-two-column-copy-link" (click)="copyInputMessage(userinput)">Sao chép URL vào bộ nhớ tạm</button>
+                </span>
+              </span>
+            </div>
+            <div class="actions">
+              <a class="view-attachment" href="javascript:void(0);"(click)="UpdateMedia()">Cập nhật</a>
+              <span class="links-separator">|</span>
+              <a href="{{staticDomainMedia}}{{ DetailMediaUrl }}/{{ DetailMediaName }}" target="_blank">Xem chi tiết</a>
+              <span class="links-separator">|</span>
+              <button type="button" class="button-link delete-attachment" (click)="ShowConfirmDelete()">Xóa vĩnh viễn</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.News>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <div class="leftcolumn2 dk">
+            <div class="block">
+                <div class="title-block"><i class="fa fa-newspaper-o" aria-hidden="true"></i><span>Tin xem nhiều</span></div>
+                <div class="c-block news-bl">
+                    @foreach (var item in Model)
+                    {
+                        <div class="newsbl">
+                            <div class="img-newsbl"><a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + item.NewsId + ".html")" title=""><img src="/uploads/@item.Image" alt="" class="img-responsive"></a></div>
+                            <div class="right-newsbl">
+                                <a href="/@(Const.DETAIL_NEWS + "/" + item.Url + "-" + item.NewsId + ".html")" title="@item.Title">@(item.Title.Length > 50 ? item.Title.Substring(0, item.Title.Substring(0, 50).LastIndexOf(' ')) + "..." : item.Title)</a>
+                                <div class="time-newsbl"><span><i class="fa fa-clock-o" aria-hidden="true"></i>@item.DateStartActive.Value.ToString("dd/MM/yyyy")</span><span><i class="fa fa-eye" aria-hidden="true"></i>@item.ViewNumber</span></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+}
+

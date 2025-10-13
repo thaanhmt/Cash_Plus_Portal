@@ -1,0 +1,55 @@
+﻿<header id="header">
+    <div class="header-wrapper">
+        <div id="masthead" class="header-main only-mobile">
+            <!-- Main menu -->
+            <div class="header-inner flex-row container logo-left medium-logo-center">
+                <div id="logo" class="flex-col logo">
+                    <!-- Header logo -->
+                    <a href="/" class="link-home">
+                        <img src="/uploads/@ViewBag.Logo" alt="Logo" class="header_logo header-logo">
+                        <div class="name-site">
+                            <p class="name-site-text">Hệ thống Quản lý và Chia sẻ</p>
+                            <p class="name-site-text">Dữ liệu Nghiên cứu Khoa học và Công nghệ Việt Nam</p>
+                        </div>
+                    </a>
+                </div>
+                <button class="navbar-toggler only-mobile" type="button">
+                    <i class="fa-regular fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        <div id="wide-nav" class="header-bottom wide-nav">
+            <!-- Bottom Menu -->
+            <div class="flex-row container">
+                <div class="flex-left col-left-nav">
+                    <ul class="header-nav header-bottom-nav">
+                        <li class="menu-item">
+                            <a href="/" class="nav-top-link">
+                                <i class="fas fa-home"></i>
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/" class="nav-top-link">
+                                Trang chủ
+                            </a>
+                        </li>
+                        @if (ViewBag.LanguageId == "1008")
+                        {
+                            @await Component.InvokeAsync("HeaderMenu", new { MenuId = 39, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                        }
+                        else
+                        {
+                            @await Component.InvokeAsync("HeaderMenu", new { MenuId = 38, MenuParentId = 0, menuItems = new List<IOITWebApp31.Models.Data.MenuItems>() })
+                        }
+                    </ul>
+                </div>
+                <div class="col-right-nav">
+                    @*<select id="chonse-language" name="language">
+                        <option value="vi" selected>Tiếng việt</option>
+                        <option value="en">English</option>
+                    </select>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

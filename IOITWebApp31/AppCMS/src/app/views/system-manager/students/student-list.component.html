@@ -1,0 +1,388 @@
+<div class="animated fadeIn cms-main">
+    <div class="card cms-content">
+        <div class="animated fadeIn cms-main">
+            <div class="card cms-content">
+                <div class="titleCat">
+                    <h1 class="cms-heading-inline">Danh sách người tham gia</h1>
+                    <!-- <button class="cms-addnew" type="button" (click)="OpenAddModal()"><i
+                            class="fa fa-plus"></i>&nbsp;Thêm mới</button> -->
+                </div>
+                <div class="description-page">
+                </div>
+                <div class="card-body">
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
+                        <div class="row cms-filter action-table">
+                            <div class="col-sm-12 col-md-12">
+                                <ng-select [items]="listSchool" class="select" bindLabel="value" bindValue="id"
+                                    [(ngModel)]="q.SchoolId" [ngModelOptions]="{standalone: true}"
+                                    style="text-align:left;" placeholder="Chọn trường">
+                                </ng-select>
+                                <input type="text" class="form-control form-control-sm" placeholder="Họ và tên"
+                                    [(ngModel)]="q.txtSearch" [ngModelOptions]="{standalone: true}">
+
+                                <input type="text" class="form-control form-control-sm" placeholder="Mã sinh viên"
+                                    [(ngModel)]="q.StudentCode" [ngModelOptions]="{standalone: true}">
+                                <button class="cms-addnew button-action" type="button" style="width: 30px;"
+                                    (click)="QueryChanged()">&nbsp;Tìm kiếm</button>
+                                <button class="cms-addnew button-action" type="button" (click)="ExportExcel()">&nbsp;Xuất báo cáo</button>
+                            </div>
+                        </div>
+
+                        <div class="row content-table-data">
+                            <div class="col-sm-12">
+                                <table class="table list-cat table-striped table-bordered datatable dataTable no-footer"
+                                    id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info"
+                                    style="border-collapse: collapse !important">
+                                    <thead>
+                                        <tr role="row">
+                                            <th style="width: 30%;">
+                                                <span (click)="SortTable('FullName')"
+                                                    [ngClass]="GetClassSortTable('FullName')" class="sortBy">Họ và
+                                                    tên</span>
+                                            </th>
+                                            <th style="width: 15%;">
+                                                <span (click)="SortTable('StudentCode')"
+                                                    [ngClass]="GetClassSortTable('StudentCode')" class="sortBy">Mã sinh viên</span>
+                                            </th>
+                                            <th style="width: 15%;">
+                                                <span [ngClass]="GetClassSortTable('TypeId')"
+                                                    (click)="SortTable('TypeId')" class="sortBy">Lượt share</span>
+                                            </th>
+                                            <th style="width: 15%;">
+                                                <span [ngClass]="GetClassSortTable('AcademicRankId')"
+                                                    (click)="SortTable('AcademicRankId')" class="sortBy">Lượt like</span>
+                                            </th>
+                                            <th style="width: 15%;">
+                                                <span [ngClass]="GetClassSortTable('UnitId')"
+                                                    (click)="SortTable('UnitId')" class="sortBy">Số bình luận</span>
+                                            </th>
+                                            <th style="width: 20%;">
+                                                <span [ngClass]="GetClassSortTable('Phone')"
+                                                    (click)="SortTable('Phone')" class="sortBy">Số điện thoại</span>
+                                            </th>
+                                            <th style="width: 30%;">
+                                                <span [ngClass]="GetClassSortTable('Email')"
+                                                    (click)="SortTable('Email')" class="sortBy">Email</span>
+                                            </th>
+                                            <th style="width: 30%;">
+                                                <span [ngClass]="GetClassSortTable('SchoolCode')"
+                                                    (click)="SortTable('SchoolCode')" class="sortBy">Trường</span>
+                                            </th>
+                                            <th style="width: 30%;">
+                                                <span [ngClass]="GetClassSortTable('StudentClass')"
+                                                    (click)="SortTable('StudentClass')" class="sortBy">Lớp</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of listUser; let i = index" role="row" ng-class-odd='odd'
+                                            ng-class-even='even'>
+                                            <td class="sorting_1 name-child column-name">
+                                                {{ item.FullName }}
+                                                <ul class="cms-function">
+                                                    <li class="id-item">ID: {{item.UserId}} | </li>
+                                                    <li (click)="OpenEditModal(item, 1)">Chỉnh sửa | </li>
+                                                    <li (click)="OpenEditModal(item, 2)">Xem | </li>
+                                                    <li (click)="ShowConfirmDelete(item.CustomerId)"
+                                                        class="detete-item">Xóa</li>
+                                                </ul>
+                                            </td>
+                                            <td>
+                                                {{ item.StudentCode }}
+                                            </td>
+                                            <td>
+                                                {{ item.TypeId }}
+                                            </td>
+                                            <td>
+                                                {{ item.AcademicRankId }}
+                                            </td>
+                                            <td>
+                                                {{ item.UnitId }}
+                                            </td>
+                                            <td>
+                                                {{ item.Phone }}
+                                            </td>
+                                            <td>
+                                                {{ item.Email }}
+                                            </td>
+                                            <td>
+                                                {{ item.SchoolCode == 1 ? listSchool[0].value : listSchool[1].value }}
+                                            </td>
+                                            <td>
+                                                {{ item.StudentClass }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row" style="padding-left:15px;">
+                            <div class="col-sm-12 col-md-6">
+                                <div *ngIf="paging.item_count > 0" class="dataTables_info" id="DataTables_Table_0_info"
+                                    role="status" aria-live="polite">
+                                    Hiển thị <span>{{ (paging.page - 1) * paging.page_size + 1 }}</span> <i
+                                        class="fa fa-long-arrow-right"></i> <span>{{ paging.item_count < paging.page *
+                                            paging.page_size ? paging.item_count : paging.page * paging.page_size
+                                            }}</span>&nbsp;<i class="fa fa-ellipsis-v"></i>&nbsp;<span>{{
+                                                paging.item_count }}</span> bản ghi
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-7">
+                                <pagination [totalItems]="paging.item_count" [(ngModel)]="paging.page" [maxSize]="5"
+                                    [itemsPerPage]="paging.page_size" class="pagination-sm pull-right"
+                                    previousText='<i class="fa-solid fa-chevron-left"></i>'
+                                    nextText='<i class="fa-solid fa-chevron-right"></i>' [boundaryLinks]="true"
+                                    (pageChanged)="PageChanged($event)"></pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- popup thông tin người tham gia -->
+<div [config]="{backdrop: 'static',  keyboard: false}" bsModal #UserModal="bs-modal" class="modal fade" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-big" role="document">
+        <form class="login-form">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" *ngIf="!Item.CustomerId">Thêm mới người tham gia</h4>
+                    <h4 class="modal-title" *ngIf="Item.CustomerId && typeAction==1">Sửa thông tin người tham gia</h4>
+                    <h4 class="modal-title" *ngIf="Item.CustomerId && typeAction==2">Xem thông tin người tham gia</h4>
+                    <button type="button" class="close" (click)="UserModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body body-form-add-new">
+                            <div class="col-sm-12 col-md-12 row" style="margin:10px 0px;">
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Họ tên">Họ và tên<span
+                                            *ngIf="Item.FullName==undefined || Item.FullName==''"
+                                            style="color: red;">&ngsp;(*)</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="FullName" name="FullName" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.FullName" autocomplete="off"
+                                            [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Mã sinh viên">Mã SV<span
+                                            *ngIf="Item.StudentCode==undefined || Item.StudentCode==''"
+                                            style="color: red;">&ngsp;(*)</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="StudentCode" name="StudentCode" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.StudentCode" autocomplete="off"
+                                            [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-12 col-md-12 row" style="margin:10px 0px;">
+                                
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-sm-6 col-form-label" for="">Giới tính</label>
+                                    <div class="col-md-8 col-sm-6">
+                                        <ng-select [items]="listSexs" bindLabel="value" bindValue="id"
+                                            placeholder="Chọn giới tính" [disabled]="typeAction==2"
+                                            [(ngModel)]="Item.Sex" [ngModelOptions]="{standalone: true}">
+                                        </ng-select>
+                                    </div>
+                                </div>
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Số lượt chia sẻ">Số lượt chia sẻ</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="UnitId" name="UnitId" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.UnitId" autocomplete="off"
+                                            [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Số bình luận">Số bình luận</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="TypeId" name="TypeId" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.TypeId" autocomplete="off"
+                                            [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Số bình luận">Số lượt like</label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="AcademicRankId" name="AcademicRankId" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.AcademicRankId" autocomplete="off"
+                                            [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+                                
+                            <div class="col col-sm-12 col-md-12" style="background: #f1f1f1;">
+                                <label class="col-md-3 col-form-label" style="max-width: 125px !important;" for="file-input">Ảnh đại diện</label>
+                                <!--<div class="col-md-9" style="padding-top:8px">
+                                  <a href="javascript:void(0);" id="set-post-thumbnail" class="thickbox" (click)="OpenMediaModal()" style="color: #2271b1; text-decoration: underline; font-size: 14px; font-weight: 400;">Đặt ảnh đại diện</a>
+                                  <input type="text" name="image" value="" [(ngModel)]="Item.Avata" *ngIf="typeAction!=2" hidden />
+                                  <div style="font-weight:bold;color:green;display:flex;align-items:center;">
+                                    <img class="image-upload" *ngIf="Item.Avata != undefined" src="{{staticDomainMedia}}/{{ Item.Avata }}" style="width:90px; height:90px;object-fit:cover;" />
+                                    <div style="color: red; font-size: 15px; cursor: pointer;margin-left:12px;" (click)="RemoveImage()" *ngIf="Item.Avata != undefined">
+                                      <i class="fa-duotone fa-trash"></i>
+                                    </div>
+                                  </div>
+                                </div>-->
+                                <div class="dp-flex">
+                                    <div class="col-md-6" style="padding-top:8px">
+                                        <label class="label-upload" for="upload-photo" style="margin-top:5px;">Tải lên <i class="fa-solid fa-cloud-arrow-up"></i></label>
+                                        <input #file type="file" (change)="upload(file.files)" id="upload-photo" />
+                                        <span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+                                        {{progress}}%
+                                        </span>
+                                    
+                                    </div>
+                                    <div class="block-pev-image">
+                                        <div class="image-wapper">
+                                            <img class="image-upload" *ngIf="Item.Avata != undefined" src="/images/avatar/{{ Item.Avata }}" style="width:150px;height:auto" />
+                                        </div>
+                                        <div class="remove-icon-image" (click)="RemoveImage()" *ngIf="Item.Avata != undefined">
+                                            <i class="fa-duotone fa-trash" *ngIf="Item.Avata != undefined"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-12 col-md-12 row" style="margin:10px 0px;">
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Birthday">Ngày sinh: </label>
+                                    <div class="col-md-8">
+                                        <input placeholder="Ngày sinh" class="form-control" onkeydown="return false"
+                                            [disabled]="typeAction==2" [(ngModel)]="Item.Birthday"
+                                            [ngModelOptions]="{standalone: true}" [owlDateTimeTrigger]="dtB"
+                                            [owlDateTime]="dtB">
+                                        <owl-date-time [pickerType]="'calendar'" #dtB></owl-date-time>
+                                    </div>
+                                </div>
+                                
+
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Số điện thoại">Số điện thoại<span
+                                            *ngIf="Item.Phone==undefined || Item.Phone==''"
+                                            style="color: red;">&ngsp;(*)</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="Phone" name="Phone" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.Phone" autocomplete="off"
+                                            [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="Email">Email<span
+                                            *ngIf="Item.Email==undefined || Item.Email==''"
+                                            style="color: red;">&ngsp;(*)</span></label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="Email" name="Email" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.Email" autocomplete="off"
+                                            [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="SchoolCode">Trường: </label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="SchoolName" name="SchoolName" class="form-control"
+                                            placeholder="" [(ngModel)]="SchoolName" autocomplete="off"
+                                            [ngModelOptions]="{standalone: true}" [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 row" style="margin:10px 0px;">
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="IdNumber">Khoá: </label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="StudentYear" name="StudentYear" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.StudentYear" autocomplete="off"
+                                            [ngModelOptions]="{standalone: true}" [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-md-6 col-sm-6">
+                                    <label class="col-md-4 col-form-label" for="IdNumber">Lớp: </label>
+                                    <div class="col-md-8">
+                                        <input type="text" id="StudentClass" name="StudentClass" class="form-control"
+                                            placeholder="" [(ngModel)]="Item.StudentClass" autocomplete="off"
+                                            [ngModelOptions]="{standalone: true}" [disabled]="typeAction==2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 row" style="margin:10px 0px;">
+                                <label class="col-md-2 col-sm-4 col-form-label" for="IdNumber">Thành tích nổi bật:
+                                </label>
+                                <div class="col-md-10 col-sm-8">
+                                    <textarea type="text" id="AchievementNote" name="AchievementNote"
+                                        class="form-control" placeholder="" [(ngModel)]="Item.AchievementNote"
+                                        [ngModelOptions]="{standalone: true}" autocomplete="off"
+                                        [disabled]="typeAction==2" rows="5"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 row" style="margin:10px 0px;">
+                                <label class="col-md-2 col-sm-4 col-form-label" for="IdNumber">Sở thích: </label>
+                                <div class="col-md-10 col-sm-8">
+                                    <textarea type="text" id="HobbyNote" name="HobbyNote" class="form-control"
+                                        placeholder="" [(ngModel)]="Item.HobbyNote " autocomplete="off"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="typeAction==2"
+                                        rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 col-md-12 row" style="margin:10px 0px;">
+                                <label class="col-md-2 col-sm-4 col-form-label" for="IdNumber">Giới thiệu tóm tắt bản
+                                    thân:
+                                </label>
+                                <div class="col-md-10 col-sm-8">
+                                    <textarea type="text" id="PersonSummary" name="PersonSummary" class="form-control"
+                                        placeholder="" [(ngModel)]="Item.PersonSummary " autocomplete="off"
+                                        [ngModelOptions]="{standalone: true}" [disabled]="typeAction==2"
+                                        rows="10"></textarea>
+                                </div>
+                            </div>
+
+                           <div class="dp-flex">
+                            <div class="dp-flex col-md-2 col-sm-4">
+                                <label style="margin-right: 5px;">Vòng 1 bước 2</label>
+                                <input type="checkbox" name="StepTwo"  [(ngModel)]="Item.StepTwo" [value]="Item.StepTwo"  autocomplete="off"/>
+                            </div>
+                            <div class="dp-flex col-md-2 col-sm-4">
+                                <label style="margin-right: 5px;">Vòng 1 bước 4</label>
+                                <input type="checkbox" name="StepFour"  [(ngModel)]="Item.StepFour" [value]="Item.StepFour"  autocomplete="off"/>
+                            </div>
+                            <div class="dp-flex col-md-2 col-sm-4">
+                                <label style="margin-right: 5px;">Vòng 1 bước 5</label>
+                                <input type="checkbox" name="StepFive"  [(ngModel)]="Item.StepFive" [value]="Item.StepFive"  autocomplete="off"/>
+                            </div>
+                            <div class="dp-flex col-md-2 col-sm-4">
+                                <label style="margin-right: 5px;">Top3 Vòng 4</label>
+                                <input type="checkbox" name="TopThree"  [(ngModel)]="Item.TopThree" [value]="Item.TopThree"  autocomplete="off"/>
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <input type="checkbox" id="StatusView" name="StatusView"
+                        class="checkbox5" [(ngModel)]="Item.IsViewInfo" [value]="Item.IsViewInfo" autocomplete="off"
+                        [disabled]="typeAction==2">
+                    <label class="col-md-2 col-sm-4">Hiển thị người đăng ký</label> -->
+                    <button type="button" class="btn btn-primary" appNoDblClickMat (click)="AddUserFunc()"
+                        *ngIf="typeAction!=2">Lưu thông tin</button>
+                    <button type="button" class="btn btn-danger" (click)="UserModal.hide()">Đóng</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

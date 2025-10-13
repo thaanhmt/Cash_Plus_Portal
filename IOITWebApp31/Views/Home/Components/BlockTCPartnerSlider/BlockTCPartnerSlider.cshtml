@@ -1,0 +1,13 @@
+﻿@model IEnumerable<IOITWebApp31.Models.EF.Slide>
+@using IOITWebApp31.Models;
+
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <div class="item-carousel-11-2-1">
+            <a href="@item.Url" class="d-block"><img id="id-logo-@(item.SlideId)" data-id="@(item.SlideId)" src="@(ViewBag.LinkSite)/uploads/@item.Image" alt="partner logo"></a>
+            <div class="name-partner textLine-1">@(item.Name)</div>
+        </div>
+    }
+}

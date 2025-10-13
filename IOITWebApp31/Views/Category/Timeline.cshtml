@@ -1,0 +1,82 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPure.cshtml";
+}
+
+<link rel="stylesheet" href="/css1/style.css" media="screen" />
+
+@*<script src="~/js1/jquery.min.js"></script>*@
+
+<script src="/js1/jquery.timelinr-0.9.7.js"></script>
+<script>
+    $(function () {
+        $().timelinr({
+            arrowKeys: 'true'
+        })
+    });
+</script>
+<div class="banner-page">
+    <img src="@(ViewBag.LinkSite)/uploads/@ViewBag.imgBaner" />
+</div>
+<div class="page_timeline">
+    <div class="container">
+        <div id="timeline">
+            <ul id="dates" class="timeline-2020">
+                @foreach (var item in ViewBag.ListYear)
+                {
+
+                    <li id="@item.YearTimeline"><a href="#@item.YearTimeline">@item.YearTimeline</a></li>
+
+                }
+            </ul>
+            <ul id="issues" class="listportofy">
+                @foreach (var item in ViewBag.ListYear)
+                {
+
+                    <li id="@item.YearTimeline">
+                        <p>@await Component.InvokeAsync("BlockTimeline", new { Year = item.YearTimeline, Number = 1 })</p>
+
+
+                    </li>
+                }
+            </ul>
+            @*<ul id="dates">
+                    <li><a href="#1900">1900</a></li>
+                    <li><a href="#1930">1930</a></li>
+                </ul>
+                <ul id="issues">
+                    <li id="1900">
+                        <img src="images/1.png" width="256" height="256" />
+                        <h1>1900</h1>
+                        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+                    </li>
+                    <li id="1930">
+                        <img src="images/2.png" width="256" height="256" />
+                        <h1>1930</h1>
+                        <p>Donec semper quam scelerisque tortor dictum gravida. In hac habitasse platea dictumst. Nam pulvinar, odio sed rhoncus suscipit, sem diam ultrices mauris, eu consequat purus metus eu velit. Proin metus odio, aliquam eget molestie nec, gravida ut sapien. Phasellus quis est sed turpis sollicitudin venenatis sed eu odio. Praesent eget neque eu eros interdum malesuada non vel leo. Sed fringilla porta ligula.</p>
+                    </li>
+
+                </ul>*@
+            <div id="grad_left"></div>
+            <div id="grad_right"></div>
+            <a id="next">+</a>
+            <a id="prev">-</a>
+        </div>
+    </div>
+</div>
+
+@*select mac dinh theo nam hien tai*@
+<script>
+    $(document).ready(function () {
+
+        var idd =  $('.timeline-2020 li:last-child a')
+          
+        setTimeout(function () {
+            $(idd).trigger('click');
+        }, 50);
+
+        $(idd).click(function () {
+
+        });
+
+    });
+</script>
