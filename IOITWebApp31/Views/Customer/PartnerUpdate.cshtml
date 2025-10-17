@@ -1125,10 +1125,10 @@
                                         <span>% chiết khấu đề xuất<span class="text-danger">*</span></span>
                                         <div class="w-50 col-sm-3 col-md-3">
                                             <input type="number" class="form-control" ng-model="discount_rate" ng-pattern="/^(1[0-9]|2[0-9]|3[0-9]|4[0-9]|50)$/" maxlength="2"
-                                                   name="discount_rate" id="discount_rate" ng-bind-html="discount_rate" required ng-keydown="restrictInput($event)">
+                                                       name="discount_rate" id="discount_rate" ng-bind-html="discount_rate" required ng-keydown="restrictInput($event)">
                                             <span class="error" ng-show="(formPartnerUpdate.discount_rate.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.discount_rate.$invalid">
                                                 <span class="text-danger" ng-show="formPartnerUpdate.discount_rate.$error.required">% chiết khấu đề xuất là bắt buộc.</span>
-                                                <span class="text-danger" ng-show="formPartnerUpdate.discount_rate.$error.pattern">% chiết khấu từ 10 đến 50.</span>
+                                                    <span class="text-danger" ng-show="formPartnerUpdate.discount_rate.$error.pattern">% chiết khấu từ {{discount_min}} đến {{discount_max}}.</span>
                                             </span>
                                         </div>
                                     </div>

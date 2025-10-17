@@ -11,3 +11,4 @@ IOITWebApp31/wwwroot/uploads/
 /IOITWebApp31/IOITWebApp31.csproj.user
 /IOITWebApp31/Properties/PublishProfiles/FolderProfile.pubxml.user
 /IOITWebApp31/wwwroot/images/avatar
+/IOITWebApp31/logs/*.log

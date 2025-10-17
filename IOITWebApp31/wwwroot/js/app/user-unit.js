@@ -10,7 +10,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     $scope.orderby = "";
     $scope.item_count = 0;
     $scope.IdFile = 0;
-    $scope.disableBtn = {btSubmit: false};
+    $scope.disableBtn = { btSubmit: false };
     $scope.linkFB = '';
     $scope.linkIns = '';
     $scope.linkTiktok = '';
@@ -229,115 +229,115 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     ];
 
     $scope.storeType = [
-        {value: 1, old_value: 7, name: "ENTERPRISE"},
-        {value: 2, old_value: 8, name: "PERSIONAL"},
-        {value: 3, old_value: 17, name: "HOUSE_HOLD_BUSINESS"}
+        { value: 1, old_value: 7, name: "ENTERPRISE" },
+        { value: 2, old_value: 8, name: "PERSIONAL" },
+        { value: 3, old_value: 17, name: "HOUSE_HOLD_BUSINESS" }
     ];
     /*trạng thái tài khoản ngân hàng*/
     $scope.accountStatus = [
-        {value: 1, name: "Hoạt động"},
-        {value: 2, name: "Ngừng hoạt động"}
+        { value: 1, name: "Hoạt động" },
+        { value: 2, name: "Ngừng hoạt động" }
     ];
     /*loại tài khoản ngân hàng*/
     $scope.accountType1 = [
-        {value: 0, name: "Tài khoản chính chủ"},
-        {value: 2, name: "Tên tài khoản viết tắt"}
+        { value: 0, name: "Tài khoản chính chủ" },
+        { value: 2, name: "Tên tài khoản viết tắt" }
     ];
     $scope.accountType2 = [
-        {value: 1, name: "Ủy quyền"},
-        {value: 2, name: "Tên tài khoản viết tắt"}
+        { value: 1, name: "Ủy quyền" },
+        { value: 2, name: "Tên tài khoản viết tắt" }
     ];
     /*loại tài khoản ngân hàng*/
     $scope.accountTypeClone = [
-        {value: 0, name: "Tài khoản chính chủ"},
-        {value: 1, name: "Ủy quyền"},
-        {value: 2, name: "Tên tài khoản viết tắt"}
+        { value: 0, name: "Tài khoản chính chủ" },
+        { value: 1, name: "Ủy quyền" },
+        { value: 2, name: "Tên tài khoản viết tắt" }
     ];
     /*giới tính*/
     $scope.genders = [
-        {value: "MALE", name: "Nam"},
-        {value: "FEMALE", name: "Nữ"},
-        {value: "OTHER", name: "Khác"}
+        { value: "MALE", name: "Nam" },
+        { value: "FEMALE", name: "Nữ" },
+        { value: "OTHER", name: "Khác" }
     ];
     /*loại giấy tờ*/
     $scope.documentType = [
-        {value: 1, name: "Căn cước công dân"},
-        {value: 2, name: "Chứng minh nhân dân"},
-        {value: 3, name: "Hộ chiếu"},
-        {value: 4, name: "Thị thực"}
+        { value: 1, name: "Căn cước công dân" },
+        { value: 2, name: "Chứng minh nhân dân" },
+        { value: 3, name: "Hộ chiếu" },
+        { value: 4, name: "Thị thực" }
     ];
     /*mô hình chuỗi*/
     $scope.subMerchantTypes = [
-        {value: 1, name: "Chuỗi"},
-        {value: 2, name: "Mô hình nhượng quyền"},
+        { value: 1, name: "Chuỗi" },
+        { value: 2, name: "Mô hình nhượng quyền" },
         //{ value: 0, name: "Không phải mô hình nhượng quyền hay công ty con" },
-        {value: 3, name: "Công ty con quản lý thương hiệu của công ty tổng"},
+        { value: 3, name: "Công ty con quản lý thương hiệu của công ty tổng" },
     ];
     /*chức vu*/
     $scope.representativeTitles = [
-        {value: 1, name: "Giám đốc"},
-        {value: 9, name: "Chủ tịch HĐQT"},
-        {value: 11, name: "Tổng giám đốc"},
-        {value: 2, name: "Giám đốc kinh doanh"},
-        {value: 3, name: "Giám đốc tài chính"},
-        {value: 4, name: "Giám đốc vận hành"},
-        {value: 5, name: "Phó giám đốc"},
-        {value: 6, name: "Kế toán trưởng"},
-        {value: 7, name: "Chủ hộ kinh doanh"},
-        {value: 8, name: "Trưởng phòng kinh doanh"},
-        {value: 10, name: "Khác"}
+        { value: 1, name: "Giám đốc" },
+        { value: 9, name: "Chủ tịch HĐQT" },
+        { value: 11, name: "Tổng giám đốc" },
+        { value: 2, name: "Giám đốc kinh doanh" },
+        { value: 3, name: "Giám đốc tài chính" },
+        { value: 4, name: "Giám đốc vận hành" },
+        { value: 5, name: "Phó giám đốc" },
+        { value: 6, name: "Kế toán trưởng" },
+        { value: 7, name: "Chủ hộ kinh doanh" },
+        { value: 8, name: "Trưởng phòng kinh doanh" },
+        { value: 10, name: "Khác" }
     ];
     /*nghề nghiệp*/
     $scope.representativeJobs = [
-        {value: 1, name: "Giáo viên/Bác sĩ/Kỹ sư"},
-        {value: 2, name: "Nhân viên văn phòng"},
-        {value: 3, name: "Nhân viên dịch vụ/bán hàng"},
-        {value: 4, name: "Kinh doanh tự do"},
-        {value: 5, name: "Học sinh/sinh viên"},
-        {value: 6, name: "Lực lượng vũ trang"},
-        {value: 7, name: "Nông dân/Công nhân/Ngư dân"},
-        {value: 8, name: "Công chức/viên chức"},
-        {value: 9, name: "Khác"}
+        { value: 1, name: "Giáo viên/Bác sĩ/Kỹ sư" },
+        { value: 2, name: "Nhân viên văn phòng" },
+        { value: 3, name: "Nhân viên dịch vụ/bán hàng" },
+        { value: 4, name: "Kinh doanh tự do" },
+        { value: 5, name: "Học sinh/sinh viên" },
+        { value: 6, name: "Lực lượng vũ trang" },
+        { value: 7, name: "Nông dân/Công nhân/Ngư dân" },
+        { value: 8, name: "Công chức/viên chức" },
+        { value: 9, name: "Khác" }
     ];
     /*Loại đầu mối liên hệ*/
     $scope.contactTypes = [
-        {id: 1, name: "Hợp đồng & các phụ lục đính kèm", disabled: false},
-        {id: 2, name: "Giải quyết khiếu nại và chăm sóc khách hàng", disabled: false}
+        { id: 1, name: "Hợp đồng & các phụ lục đính kèm", disabled: false },
+        { id: 2, name: "Giải quyết khiếu nại và chăm sóc khách hàng", disabled: false }
     ];
     /*Kiểu ký hợp đồng*/
     $scope.contractTypes = [
-        {value: 1, name: "Ký giấy"},
-        {value: 2, name: "Ký số"}
+        { value: 1, name: "Ký giấy" },
+        { value: 2, name: "Ký số" }
     ];
     $scope.isPhoneNumberValid = false;
 
 
     $scope.startHours = [
-        {value: "Mở cửa 7 giờ sáng", name: "Mở cửa 7 giờ sáng"},
-        {value: "Mở cửa 8 giờ sáng", name: "Mở cửa 8 giờ sáng"},
-        {value: "Mở cửa 9 giờ sáng", name: "Mở cửa 9 giờ sáng"},
-        {value: "Mở cửa 10 giờ sáng", name: "Mở cửa 10 giờ sáng"}
+        { value: "Mở cửa 7 giờ sáng", name: "Mở cửa 7 giờ sáng" },
+        { value: "Mở cửa 8 giờ sáng", name: "Mở cửa 8 giờ sáng" },
+        { value: "Mở cửa 9 giờ sáng", name: "Mở cửa 9 giờ sáng" },
+        { value: "Mở cửa 10 giờ sáng", name: "Mở cửa 10 giờ sáng" }
     ];
 
     $scope.endHours = [
-        {value: "Đóng cửa 4 giờ chiều", name: "Đóng cửa 4 giờ chiều"},
-        {value: "Đóng cửa 5 giờ chiều", name: "Đóng cửa 5 giờ chiều"},
-        {value: "Đóng cửa 6 giờ chiều", name: "Đóng cửa 6 giờ chiều"},
-        {value: "Đóng cửa 7 giờ tối", name: "Đóng cửa 7 giờ tối"},
-        {value: "Đóng cửa 8 giờ tối", name: "Đóng cửa 8 giờ tối"},
-        {value: "Đóng cửa 9 giờ tối", name: "Đóng cửa 9 giờ tối"},
-        {value: "Đóng cửa 10 giờ tối", name: "Đóng cửa 10 giờ tối"},
-        {value: "Đóng cửa 11 giờ tối", name: "Đóng cửa 11 giờ tối"}
+        { value: "Đóng cửa 4 giờ chiều", name: "Đóng cửa 4 giờ chiều" },
+        { value: "Đóng cửa 5 giờ chiều", name: "Đóng cửa 5 giờ chiều" },
+        { value: "Đóng cửa 6 giờ chiều", name: "Đóng cửa 6 giờ chiều" },
+        { value: "Đóng cửa 7 giờ tối", name: "Đóng cửa 7 giờ tối" },
+        { value: "Đóng cửa 8 giờ tối", name: "Đóng cửa 8 giờ tối" },
+        { value: "Đóng cửa 9 giờ tối", name: "Đóng cửa 9 giờ tối" },
+        { value: "Đóng cửa 10 giờ tối", name: "Đóng cửa 10 giờ tối" },
+        { value: "Đóng cửa 11 giờ tối", name: "Đóng cửa 11 giờ tối" }
     ];
 
     $scope.otherDocumentTypes = [
-        {id: "Hình ảnh cửa hàng", name: "Hình ảnh cửa hàng"},
-        {id: "Menu cửa hàng", name: "Menu cửa hàng"},
-        {id: "Giấy ủy quyền có liên quan", name: "Giấy ủy quyền có liên quan"},
-        {id: "Điều lệ của tổ chức", name: "Điều lệ của tổ chức"},
-        {id: "Giấy chứng nhận đầu tư", name: "Giấy chứng nhận đầu tư"},
-        {id: "Giấy chuyển đổi CMND-CCCD", name: "Giấy chuyển đổi CMND-CCCD"},
-        {id: "Giấy vệ sinh an toàn thực phẩm", name: "Giấy vệ sinh an toàn thực phẩm"},
+        { id: "Hình ảnh cửa hàng", name: "Hình ảnh cửa hàng" },
+        { id: "Menu cửa hàng", name: "Menu cửa hàng" },
+        { id: "Giấy ủy quyền có liên quan", name: "Giấy ủy quyền có liên quan" },
+        { id: "Điều lệ của tổ chức", name: "Điều lệ của tổ chức" },
+        { id: "Giấy chứng nhận đầu tư", name: "Giấy chứng nhận đầu tư" },
+        { id: "Giấy chuyển đổi CMND-CCCD", name: "Giấy chuyển đổi CMND-CCCD" },
+        { id: "Giấy vệ sinh an toàn thực phẩm", name: "Giấy vệ sinh an toàn thực phẩm" },
         {
             id: "Ảnh chụp thông tin người nộp thuế trên trang (đối với trường hợp cá nhân)",
             name: "Ảnh chụp thông tin người nộp thuế trên trang (đối với trường hợp cá nhân)"
@@ -417,12 +417,20 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     else if (hostname === '103.72.98.97') { //dev
         apiUrl = 'http://103.72.98.97/';
         baseUrl = 'https://cmsstg.cashplus.vn/'
+    }
+    else if (hostname === 'localhost') { //dev
+        apiUrl = 'http://localhost:44361/';
+        baseUrl = 'https://cmsstg.cashplus.vn/'
+    }
+    else if (hostname === 'cmsdev.cashplus.vn') { //dev
+        apiUrl = 'http://cmsdev.cashplus.vn:8633/';
+        baseUrl = 'https://cmsstg.cashplus.vn/'
     } else { //localhost
         // apiUrl = 'http://103.72.98.97/';
         // baseUrl = 'https://cmsstg.cashplus.vn/'
         apiUrl = 'http://103.72.98.97/';
         baseUrl = 'http://cmsdev.cashplus.vn/'
-       
+
     }
 
     $scope.url = "/";
@@ -486,7 +494,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/dropdown/public-bank',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         get.then(function (response) {
             $scope.banks = response?.data?.data ? response.data.data : [];
@@ -497,7 +505,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/dropdown/industries',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         get.then(function (response) {
             $scope.industries = response?.data?.data ? response.data.data : [];
@@ -518,7 +526,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     $scope.getIndustryGroup = function (industries) {
         if (industries) {
             const groupedData = industries.reduce((acc, curr) => {
-                const {group_id, group_code, group_name, definition_desc} = curr;
+                const { group_id, group_code, group_name, definition_desc } = curr;
 
                 if (!acc[group_id]) {
                     acc[group_id] = {
@@ -542,7 +550,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var post = $http({
             method: 'POST',
             url: apiUrl + 'api/portal/searchMerchantName',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         post.then(function (response) {
             $scope.merchants = response?.data?.data ? response.data.data : [];
@@ -553,11 +561,11 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/portal/listCompanyBranch',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         get.then(function (response) {
             let data = response?.data?.data ? response.data.data : [];
-            data.push({id: 0, code: "0", name: "Khác"});
+            data.push({ id: 0, code: "0", name: "Khác" });
             $scope.companyBranchs = data;
         });
     };
@@ -566,7 +574,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'web/customer/GetGroupByPage',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -593,7 +601,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: '/web/slide/GetSlide',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         get.then(function (response) {
             $scope.Slideanh = response.data.data[0].Image;
@@ -605,7 +613,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'web/other / listProvince ? page = 1 & query=1= 1 & order_by=',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -616,7 +624,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     $scope.loadProvince = function () {
         //var query = "TypeCategoryId=15";
         $http.get("/web/other/listProvince?page=1&query=1=1&order_by=", {
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         }).then(function (data, status, headers) {
             cfpLoadingBar.complete();
             if (data.data.meta.error_code === 200) {
@@ -647,7 +655,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var config = {
             method: 'GET',
             url: url,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         };
 
         $http(config)
@@ -682,7 +690,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'web/customer/list-register',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -806,7 +814,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'Get',
             //url: 'web/customer/new-register',
             url: apiUrl + url,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         get.then(function (data, status, headers) {
             $scope.message = data.data.data;
@@ -839,7 +847,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var config = {
             method: 'GET',
             url: apiUrl + url,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         };
 
         $http(config)
@@ -893,7 +901,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + '/web/comment/AddNewComment',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         post.success(function successCallback(data, status, headers, config) {
@@ -957,7 +965,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + '/web/customer/GetByPagePost',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         post.success(function successCallback(data, status, headers, config) {
@@ -1003,7 +1011,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     $scope.loadDataById = function () {
 
         $http.get("/web/customer/GetById/" + $scope.userId, {
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         }).then(function (data, status, headers) {
             cfpLoadingBar.complete();
             if (data.data.meta.error_code === 200) {
@@ -1040,7 +1048,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     $scope.loadDataByIdMe = function () {
 
         $http.get("/web/customer/getByIdMe/" + $scope.userId, {
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         }).then(function (data, status, headers) {
             cfpLoadingBar.complete();
             if (data.data.meta.error_code === 200) {
@@ -1075,7 +1083,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
 
     $scope.loadTypeAttributeItem = function (id) {
         $http.get("/web/other/listTypeItem?page=1&query=TypeAttributeId=" + id + "&order_by=TypeAttributeItemId Asc", {
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         }).then(function (data, status, headers) {
             cfpLoadingBar.complete();
             if (data.data.meta.error_code === 200) {
@@ -1117,7 +1125,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     $scope.loadResearchArea = function () {
         let type = 15;
         $http.get("/web/category/GetByPage?page=1&query=TypeCategoryId=" + type + "&order_by=", {
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         }).then(function (data, status, headers) {
             cfpLoadingBar.complete();
             if (data.data.meta.error_code === 200) {
@@ -1137,7 +1145,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
 
     $scope.loadCountry = function () {
         $http.get("/web/other/listCountry?page=1&query=1=1&order_by=", {
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         }).then(function (data, status, headers) {
             cfpLoadingBar.complete();
             if (data.data.meta.error_code === 200) {
@@ -1156,7 +1164,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
 
     $scope.loadUnit = function () {
         $http.get("/web/unit/listUnit", {
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         }).then(function (data, status, headers) {
             cfpLoadingBar.complete();
             if (data.data.meta.error_code === 200) {
@@ -1324,7 +1332,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 method: 'POST',
                 url: apiUrl + '/web/customer',
                 data: obj,
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
 
             post.success(function successCallback(data, status, headers, config) {
@@ -1359,7 +1367,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 method: 'PUT',
                 url: apiUrl + '/web/customer/' + obj.CustomerId,
                 data: obj,
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
 
             post.success(function successCallback(data, status, headers, config) {
@@ -1491,7 +1499,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'PUT',
             url: apiUrl + '/web/customer/updateInfo/' + obj.CustomerId,
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         post.success(function successCallback(data, status, headers, config) {
@@ -1559,7 +1567,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             var remove = $http({
                 method: 'DELETE',
                 url: apiUrl + '/web/customer/' + item.CustomerId,
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
 
             remove.success(function (data, status, headers, config) {
@@ -1787,7 +1795,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 method: 'PUT',
                 url: apiUrl + 'web/customer/updateAvata/2',
                 data: obj,
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
 
             post.success(function successCallback(data, status, headers, config) {
@@ -2046,13 +2054,13 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         }
 
         if ($scope.disableFB) {
-            $scope.SocialNetWorks.push({id: 1, link: $scope.linkFB});
+            $scope.SocialNetWorks.push({ id: 1, link: $scope.linkFB });
         }
         if ($scope.disableIns) {
-            $scope.SocialNetWorks.push({id: 2, link: $scope.linkIns});
+            $scope.SocialNetWorks.push({ id: 2, link: $scope.linkIns });
         }
         if ($scope.disableTiktok) {
-            $scope.SocialNetWorks.push({id: 3, link: $scope.linkTiktok});
+            $scope.SocialNetWorks.push({ id: 3, link: $scope.linkTiktok });
         }
         cfpLoadingBar.start();
         var obj = angular.copy($scope.customer);
@@ -2073,7 +2081,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 method: 'POST',
                 url: apiUrl + 'web/customer/new-register',
                 data: obj,
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
             post.success(function successCallback(data, status, headers, config) {
                 $scope.disableBtn.btSubmit = false;
@@ -2233,7 +2241,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + 'api/app/auth/sendOTPRegister',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
 
@@ -2241,7 +2249,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             $scope.disableBtn.btSubmit = false;
             cfpLoadingBar.complete();
             if (data.code == 200) {
-                if(data.data.code === '500'){
+                if (data.data.code === '500') {
                     $mdDialog.show(
                         $mdDialog.alert()
                             .clickOutsideToClose(true)
@@ -2255,14 +2263,14 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 if (!data.data.is_account) {
                     $scope.disableButton = true;
                     var inputField = document.querySelector('[ng-click="showModalSelectionOTP()"]');
-                        if (window.innerWidth <= 768) {
-                            inputField.style.margin = '-3px -20px -1px 0px';
-                        } else {
-                            inputField.style.marginRight = '-22px';
-                            inputField.style.marginLeft = '14px';
-                            inputField.style.marginBottom = '-1px';
-                            inputField.style.marginTop = '16px';
-                        }
+                    if (window.innerWidth <= 768) {
+                        inputField.style.margin = '-3px -20px -1px 0px';
+                    } else {
+                        inputField.style.marginRight = '-22px';
+                        inputField.style.marginLeft = '14px';
+                        inputField.style.marginBottom = '-1px';
+                        inputField.style.marginTop = '16px';
+                    }
 
 
                     $scope.isOTP = false;
@@ -2286,7 +2294,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                             .textContent('Số điện thoại đã đăng ký trên hệ thống. Vui lòng kiểm tra lại!')
                             .ok('Đóng')
                             .fullscreen(false)
-                    );               
+                    );
                 }
 
             } else {
@@ -2309,7 +2317,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                             .fullscreen(false)
                     );
                 }
-                
+
                 $scope.isPhoneNumberValid = true;
             }
         }).error(function (data, status, headers, config) {
@@ -2324,7 +2332,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                     .fullscreen(false)
             );
             $scope.isPhoneNumberValid = true;
-            
+
         });
     }
 
@@ -2412,7 +2420,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + 'web/contact/SendContact',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         post.success(function successCallback(data) {
             $scope.disableBtn.btSubmit = false;
@@ -2512,8 +2520,8 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var obj = {
             bankBin: $scope.RegisterCode.bank_code,
             username: $scope.RegisterCode.bank_account,
-            full_name:$scope.RegisterCode.full_name,
-            phone_number:$scope.RegisterCode.phone_number,
+            full_name: $scope.RegisterCode.full_name,
+            phone_number: $scope.RegisterCode.phone_number,
             share_code: $scope.RegisterCode.share_code,
             is_accept_policy: true,
             device_id: ''
@@ -2599,7 +2607,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             data: {
                 "share_code": obj
             },
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         post.then(function (response) {
@@ -2626,11 +2634,11 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
     $scope.getLstBank = function () {
         var get = $http({
             method: 'GET',
-            url: apiUrl + 'api/app/bank-acc/list-bank'       
+            url: apiUrl + 'api/app/bank-acc/list-bank'
         });
         get.then(function (response) {
-            console.log(response,'responese')
-            if(response.data.code === '200' ) {
+            console.log(response, 'responese')
+            if (response.data.code === '200') {
                 $scope.LstBank = response.data.data;
             } else {
                 $scope.LstBank = [];
@@ -2642,17 +2650,17 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                         .ok('Đóng')
                         .fullscreen(false)
                 );
-                
+
             }
             //$scope.RegisterCode.full_name = $scope.QRInfo.full_name;
         });
     };
-    $scope.onBankAccountChange = function() {
+    $scope.onBankAccountChange = function () {
         if ($scope.RegisterCode.bank_code && $scope.RegisterCode.bank_account) {
             $scope.getBankAccountName();
         }
     };
-    $scope.getBankAccountName = function() {
+    $scope.getBankAccountName = function () {
         $http({
             method: 'POST',
             url: apiUrl + 'api/app/bank-acc/get-bank-owner',
@@ -2662,7 +2670,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             }
         }).then(function successCallback(response) {
             console.log(response)
-            if (response.data.code ==='200') {
+            if (response.data.code === '200') {
                 $scope.RegisterCode.full_name = response.data.data;
             } else {
                 $scope.RegisterCode.full_name = 'Không tìm thấy';
@@ -2684,7 +2692,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             data: {
                 "share_code": obj
             },
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         post.then(function (response) {
@@ -2707,7 +2715,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/staticpage/getByCode/cspl',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -2742,7 +2750,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/portal/province',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         get.then(function (response) {
             $scope.Province = response.data.data;
@@ -2764,7 +2772,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/portal/provinceBy/' + selectedProvince,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -2787,7 +2795,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/portal/provinceBy/' + selectedDictrict,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -2826,7 +2834,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             var post = $http({
                 method: 'POST',
                 url: apiUrl + 'api/app/customer/home/listPartnerV2',
-                headers: {'Authorization': 'bearer ' + res.data?.data?.token},
+                headers: { 'Authorization': 'bearer ' + res.data?.data?.token },
                 data: data
             });
             post.then(function (response) {
@@ -2858,7 +2866,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                     var get = $http({
                         method: 'GET',
                         url: apiUrl + `api/partner/${merchantId}`,
-                        headers: {'Authorization': 'bearer ' + token}
+                        headers: { 'Authorization': 'bearer ' + token }
                     });
                     get.then(function (res) {
                         console.log(res)
@@ -2901,7 +2909,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/portal/nation',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -2922,7 +2930,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/portal/otherListByCode/store_type',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -3367,7 +3375,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/portal/servicetype',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -3384,7 +3392,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             var get = $http({
                 method: 'GET',
                 url: apiUrl + 'api/portal/servicetype',
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
 
             get.then(function (response) {
@@ -3440,6 +3448,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         $scope.getCountries();
         $scope.Xacnhandkdt();
         $scope.getKinhdovido();
+        $scope.getDiscountConfig();
 
         if (path === "/nhap-thong-tin-dang-ky") {
             $scope.getEmployeeData();
@@ -3454,6 +3463,24 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         $scope.getListIndustries();
         //$scope.getFranchiseBrand();
         $scope.getListCompanyBranch();
+    };
+
+    // ===================== LẤY GIÁ TRỊ CHIẾT KHẤU MẶC ĐỊNH =====================
+    $scope.getDiscountConfig = function () {
+        $http.get(apiUrl + "api/Partner/GetDiscountConfig").then(function (res) {
+            $scope.discount_min = res.data.Data.MinRefundToUsers;
+            $scope.discount_max = res.data.Data.MaxRefundToUsers;
+            $scope.discount_rate = res.data.Data.DefaultRefund;
+
+            // Tạo regex pattern validate động
+            $scope.discountPattern = new RegExp("^(" + $scope.discount_min + "|[1-9][0-9]|" + $scope.discount_max + ")$");
+        }, function (err) {
+            console.error("Không lấy được cấu hình chiết khấu:", err);
+            // Nếu lỗi thì fallback mặc định
+            $scope.discount_min = 10;
+            $scope.discount_max = 50;
+            $scope.discountPattern = new RegExp("^(1[0-9]|2[0-9]|3[0-9]|4[0-9]|50)$");
+        });
     };
 
     $scope.initContact = function () {
@@ -3474,7 +3501,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: '/web/news/GetNews',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         $scope.baiviet = [];
         get.then(function (response) {
@@ -3488,7 +3515,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var post = $http({
             method: 'GET',
             url: 'web/news/GetNewById' + newsId,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         post.then(function (response) {
             $scope.TinTuc = response.data.data;
@@ -3513,7 +3540,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var post = $http({
             method: 'PUT',
             url: apiUrl + 'web/customer/updateRegister/' + $scope.register.CustomerId,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         post.success(function successCallback(data, status, headers, config) {
@@ -3578,7 +3605,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 method: 'POST',
                 url: apiUrl + 'api/portal/genMerchantCode',
                 data: obj,
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
             post.success(function successCallback(data, status, headers, config) {
                 if (data.code == 200) {
@@ -3676,7 +3703,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + 'api/portal/registerStore',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         $scope.disableBtn.btSubmit = true;
@@ -3689,7 +3716,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                     $mdDialog.alert()
                         .clickOutsideToClose(true)
                         .title('Đăng Ký Đối Tác Thành Công')
-                        .textContent('Mời bạn kiểm tra email '+$scope.RegisterPartner.email+' để hoàn thiện đăng ký và xác thực đối tác.')
+                        .textContent('Mời bạn kiểm tra email ' + $scope.RegisterPartner.email + ' để hoàn thiện đăng ký và xác thực đối tác.')
                         .ok('Đóng')
                         .fullscreen(false)
                 ).then(function () {
@@ -3752,7 +3779,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + 'api/portal/getStoreInfoByCode',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         post.success(function successCallback(data, status, headers, config) {
             $scope.disableBtn.btSubmit = false;
@@ -3881,7 +3908,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             var elementRect = element.getBoundingClientRect();
             var absoluteElementTop = elementRect.top + window.pageYOffset;
             var middle = absoluteElementTop - (window.innerHeight / 2) + (elementRect.height / 2);
-            window.scrollTo({top: middle, behavior: 'smooth'});
+            window.scrollTo({ top: middle, behavior: 'smooth' });
         }
     };
 
@@ -4406,7 +4433,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + 'api/portal/updateInfoStore',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         $scope.checkloading = true
         $scope.disableBtn.btSubmit = true;
@@ -4757,7 +4784,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             method: 'POST',
             url: apiUrl + 'api/store/bankaccount/get-bank-owner',
             data: obj,
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
         $scope.checkloading = true
         post.success(function successCallback(data, status, headers, config) {
@@ -5369,7 +5396,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 method: 'POST',
                 url: apiUrl + 'api/portal/updateInfoStore',
                 data: obj,
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
             $scope.checkloading = true
             $scope.disableBtn.btSubmit = true;
@@ -5649,8 +5676,8 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             .catch((error) => {
                 console.error('Error:', error);
             }).finally(function () {
-            $scope.checkloading = false; // Đặt lại biến checkloading thành false khi hoàn thành các xử lý
-        });
+                $scope.checkloading = false; // Đặt lại biến checkloading thành false khi hoàn thành các xử lý
+            });
     };
 
     $scope.uploadDKKDPartner = function (e) {
@@ -5966,7 +5993,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                                     }
                                 }
 
-                               
+
 
                                 DKKDname = response.data.object.TEN_CONG_TY_TIENG_VIET;
                                 if (response.data.object.cmnd_cccd === "") {
@@ -6507,8 +6534,8 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                                 //    }
                                 //});
 
-                                
-                               
+
+
                                 DKKDname = response.data.object.TEN_CONG_TY_TIENG_VIET
                                 if (response.data.object.cmnd_cccd === "") {
                                     $scope.checkDataOcrGPDKKD = true
@@ -8139,7 +8166,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         var get = $http({
             method: 'GET',
             url: apiUrl + 'api/dropdown/userAdminTest',
-            headers: {'Authorization': 'bearer ' + $scope.access_token}
+            headers: { 'Authorization': 'bearer ' + $scope.access_token }
         });
 
         get.then(function (response) {
@@ -8217,8 +8244,8 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             var post = $http({
                 method: 'POST',
                 url: apiUrl + `api/portal/searchMerchantName`,
-                data: {name: searchText},
-                headers: {'Authorization': 'bearer ' + $scope.access_token}
+                data: { name: searchText },
+                headers: { 'Authorization': 'bearer ' + $scope.access_token }
             });
             post.then(function (response) {
                 let data = response?.data?.data ? response.data.data : [];
@@ -8620,7 +8647,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             var POST = $http({
                 method: 'POST',
                 url: apiUrl + 'api/app/customer/home/listProduct',
-                headers: {'Authorization': 'bearer ' + res.data?.data?.token},
+                headers: { 'Authorization': 'bearer ' + res.data?.data?.token },
                 data: JSON.stringify(merchantData)
             });
 
@@ -8658,14 +8685,14 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
 
     $scope.getMinMaxPriceProductMerchant = function () {
         if (!$scope.listProductMerchant || $scope.listProductMerchant.length === 0) {
-            return {min: 0, max: 0}; // Trả về 0 nếu không có sản phẩm
+            return { min: 0, max: 0 }; // Trả về 0 nếu không có sản phẩm
         }
 
         let prices = $scope.listProductMerchant.map(product => product.price);
         let minPrice = Math.min(...prices);
         let maxPrice = Math.max(...prices);
 
-        return {min: minPrice, max: maxPrice};
-        };
+        return { min: minPrice, max: maxPrice };
+    };
 }]);
 
