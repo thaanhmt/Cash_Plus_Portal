@@ -3470,11 +3470,11 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         $http.get(apiUrl + "api/Partner/GetDiscountConfig").then(function (res) {
             $scope.discount_min = res.data.Data.MinRefundToUsers;
             $scope.discount_max = res.data.Data.MaxRefundToUsers;
-            $scope.discount_rate = res.data.Data.DefaultRefund;
+            $scope.cashback_user = res.data.Data.DefaultRefund;
 
             // Tạo regex pattern validate động
             //$scope.discountPattern = new RegExp("^(" + $scope.discount_min + "|[1-9][0-9]|" + $scope.discount_max + ")$");
-            $scope.cashback_user = new RegExp("^(" + $scope.discount_min + "|[1-9][0-9]|" + $scope.discount_max + ")$");
+            //$scope.cashback_user = new RegExp("^(" + $scope.discount_min + "|[1-9][0-9]|" + $scope.discount_max + ")$");
         }, function (err) {
             console.error("Không lấy được cấu hình chiết khấu:", err);
             // Nếu lỗi thì fallback mặc định
@@ -3808,29 +3808,31 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 //$scope.generateMerchantCode(data_data.name, data_data.province_id);
                 localStorage.setItem('PartnerInfo', JSON.stringify(data_data));
                 if (data_data?.province_id) $scope.getDistrict(data_data.province_id);
-                if (data_data?.district_id) $scope.getWard(data_data.district_id);
-                $mdDialog.show(
-                    $mdDialog.alert()
-                        .clickOutsideToClose(true)
-                        .title('Đăng Ký Đối Tác')
-                        .textContent('Chúc mừng bạn đã gửi thông tin thành công. Mời bạn tiếp tục thêm các thông tin dưới đây để hoàn thành việc đăng ký!')
-                        .ok('Đóng')
-                        .fullscreen(false)
-                ).finally(function () {
-                    let path = location.pathname;
-                    if (path === "/nhap-thong-tin-dang-ky" && $scope.Kinhdo == 0 && $scope.Kinhdo == 0) {
-                        $mdDialog.show(
-                            $mdDialog.alert()
-                                .clickOutsideToClose(false)
-                                .title('Thông báo')
-                                .textContent('Hãy chia sẻ vị trí thiết bị để được hiển thị chính xác vị trí trên APP')
-                                .ok('Đóng')
-                                .fullscreen(false)
-                        );
-                    } else if (path === "/xac-nhan-dang-ky-doi-tac") {
-                        $window.location.href = '/nhap-thong-tin-dang-ky?login_code=' + $scope.login_code;
-                    }
-                });
+                if (data_data?.district_id)
+                    $scope.getWard(data_data.district_id);
+
+                //$mdDialog.show(
+                //    $mdDialog.alert()
+                //        .clickOutsideToClose(true)
+                //        .title('Đăng Ký Đối Tác')
+                //        .textContent('Chúc mừng bạn đã gửi thông tin thành công. Mời bạn tiếp tục thêm các thông tin dưới đây để hoàn thành việc đăng ký!')
+                //        .ok('Đóng')
+                //        .fullscreen(false)
+                //).finally(function () {
+                //    let path = location.pathname;
+                //    if (path === "/nhap-thong-tin-dang-ky" && $scope.Kinhdo == 0 && $scope.Kinhdo == 0) {
+                //        $mdDialog.show(
+                //            $mdDialog.alert()
+                //                .clickOutsideToClose(false)
+                //                .title('Thông báo')
+                //                .textContent('Hãy chia sẻ vị trí thiết bị để được hiển thị chính xác vị trí trên APP')
+                //                .ok('Đóng')
+                //                .fullscreen(false)
+                //        );
+                //    } else if (path === "/xac-nhan-dang-ky-doi-tac") {
+                //        $window.location.href = '/nhap-thong-tin-dang-ky?login_code=' + $scope.login_code;
+                //    }
+                //});
             } else {
                 $mdDialog.show(
                     $mdDialog.alert()
