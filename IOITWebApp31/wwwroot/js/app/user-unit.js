@@ -3473,7 +3473,8 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
             $scope.discount_rate = res.data.Data.DefaultRefund;
 
             // Tạo regex pattern validate động
-            $scope.discountPattern = new RegExp("^(" + $scope.discount_min + "|[1-9][0-9]|" + $scope.discount_max + ")$");
+            //$scope.discountPattern = new RegExp("^(" + $scope.discount_min + "|[1-9][0-9]|" + $scope.discount_max + ")$");
+            $scope.cashback_user = new RegExp("^(" + $scope.discount_min + "|[1-9][0-9]|" + $scope.discount_max + ")$");
         }, function (err) {
             console.error("Không lấy được cấu hình chiết khấu:", err);
             // Nếu lỗi thì fallback mặc định
