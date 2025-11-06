@@ -1098,12 +1098,21 @@
                                         <div class="item-right-partner align-items-center mt-20">
                                             <span>% hoàn tiền (Cashback) cho khách hàng<span class="text-danger">*</span></span>
                                             <div class="w-50 col-sm-3 col-md-3">
-                                                <input type="number" class="form-control" ng-model="cashback_user" ng-pattern="/^({{discount_min}}[0-9]|2[0-9]|3[0-9]|4[0-9]|{{discount_max}})$/" maxlength="2"
-                                                       name="cashback_user" id="cashback_user" ng-bind-html="cashback_user" required ng-keydown="restrictInput($event)">
+                                                <input type="number"
+                                                       class="form-control"
+                                                       ng-model="cashback_user"
+                                                       name="cashback_user"
+                                                       id="cashback_user"
+                                                       min="{{discount_min}}"
+                                                       max="{{discount_max}}"
+                                                       required>
                                                 <span class="error" ng-show="(formPartnerUpdate.cashback_user.$touched || formPartnerUpdate.$submitted) && formPartnerUpdate.cashback_user.$invalid">
                                                     <span class="text-danger" ng-show="formPartnerUpdate.cashback_user.$error.required">% hoàn tiền là bắt buộc.</span>
-                                                    <span class="text-danger" ng-show="formPartnerUpdate.cashback_user.$error.pattern">% hoàn tiền từ {{discount_min}} đến {{discount_max}}.</span>
+                                                    <span class="text-danger" ng-show="formPartnerUpdate.cashback_user.$error.max || formPartnerUpdate.cashback_user.$error.min">
+                                                        % hoàn tiền từ {{discount_min}} đến {{discount_max}}.
+                                                    </span>
                                                 </span>
+
                                             </div>
                                         </div>
                                     </div>
