@@ -419,7 +419,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         baseUrl = 'https://cmsstg.cashplus.vn/'
     }
     else if (hostname === 'localhost') { //dev
-        apiUrl = 'http://localhost:44361/';
+        apiUrl = 'http://cmsdev.cashplus.vn:8386/';
         baseUrl = 'https://cmsstg.cashplus.vn/'
     }
     else if (hostname === 'cmsdev.cashplus.vn') { //dev
