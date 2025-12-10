@@ -419,7 +419,7 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
         baseUrl = 'https://cmsstg.cashplus.vn/'
     }
     else if (hostname === 'localhost') { //dev
-        apiUrl = 'http://cmsdev.cashplus.vn:8386/';
+        apiUrl = 'http://cmsdev.cashplus.vn:8633/';
         baseUrl = 'https://cmsstg.cashplus.vn/'
     }
     else if (hostname === 'cmsdev.cashplus.vn') { //dev
@@ -3806,28 +3806,28 @@ myApp.controller('UserUnitController', ['$scope', '$http', '$mdDialog', 'config'
                 if (data_data?.district_id)
                     $scope.getWard(data_data.district_id);
 
-                //$mdDialog.show(
-                //    $mdDialog.alert()
-                //        .clickOutsideToClose(true)
-                //        .title('Đăng Ký Đối Tác')
-                //        .textContent('Chúc mừng bạn đã gửi thông tin thành công. Mời bạn tiếp tục thêm các thông tin dưới đây để hoàn thành việc đăng ký!')
-                //        .ok('Đóng')
-                //        .fullscreen(false)
-                //).finally(function () {
-                //    let path = location.pathname;
-                //    if (path === "/nhap-thong-tin-dang-ky" && $scope.Kinhdo == 0 && $scope.Kinhdo == 0) {
-                //        $mdDialog.show(
-                //            $mdDialog.alert()
-                //                .clickOutsideToClose(false)
-                //                .title('Thông báo')
-                //                .textContent('Hãy chia sẻ vị trí thiết bị để được hiển thị chính xác vị trí trên APP')
-                //                .ok('Đóng')
-                //                .fullscreen(false)
-                //        );
-                //    } else if (path === "/xac-nhan-dang-ky-doi-tac") {
-                //        $window.location.href = '/nhap-thong-tin-dang-ky?login_code=' + $scope.login_code;
-                //    }
-                //});
+                $mdDialog.show(
+                    $mdDialog.alert()
+                        .clickOutsideToClose(true)
+                        .title('Đăng Ký Đối Tác')
+                        .textContent('Chúc mừng bạn đã gửi thông tin thành công. Mời bạn tiếp tục thêm các thông tin dưới đây để hoàn thành việc đăng ký!')
+                        .ok('Đóng')
+                        .fullscreen(false)
+                ).finally(function () {
+                    let path = location.pathname;
+                    if (path === "/nhap-thong-tin-dang-ky" && $scope.Kinhdo == 0 && $scope.Kinhdo == 0) {
+                        $mdDialog.show(
+                            $mdDialog.alert()
+                                .clickOutsideToClose(false)
+                                .title('Thông báo')
+                                .textContent('Hãy chia sẻ vị trí thiết bị để được hiển thị chính xác vị trí trên APP')
+                                .ok('Đóng')
+                                .fullscreen(false)
+                        );
+                    } else if (path === "/xac-nhan-dang-ky-doi-tac") {
+                        $window.location.href = '/nhap-thong-tin-dang-ky?login_code=' + $scope.login_code;
+                    }
+                });
             } else {
                 $mdDialog.show(
                     $mdDialog.alert()
